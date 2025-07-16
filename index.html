@@ -41,24 +41,27 @@
     }
 
     .clock-container {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-      gap: 10px;
-      max-width: 1200px;
-      width: 100%;
-      padding: 10px;
-    }
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px; /* ← زيادة المسافة بين الساعات */
+    max-width: 1200px;
+    width: 100%;
+    padding: 10px;
+}
 
     .clock-box {
-      padding: 12px;
-      border-radius: 12px;
-      background: rgba(20, 20, 20, 0.9);
-      box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
-      text-align: center;
-      min-width: 150px;
-      transition: transform 0.3s, box-shadow 0.3s;
-      cursor: pointer;
-    }
+    width: 200px; /* ← عرض موحّد لكل ساعة */
+    min-height: 120px;
+    padding: 15px;
+    margin: 5px;
+    border-radius: 12px;
+    background: rgba(20, 20, 20, 0.9);
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+    text-align: center;
+    transition: transform 0.3s, box-shadow 0.3s;
+    cursor: pointer;
+}
 
     .clock-box:hover {
       transform: scale(1.05);
