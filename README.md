@@ -58,8 +58,8 @@
 https://www.gnu.org/licenses/gpl-3.0.html
 
 🔗 روابط مهمة
-مستودع المشروع: https://github.com/ABDESSAMAD-BOURKIBATE/DigitalWorldClock
-
+مستودع المشروع: [https://github.com/ABDESSAMAD-BOURKIBATE/DigitalWorldClock
+](https://abdessamad-bourkibate.github.io/DigitalWorldClock/)
 الترخيص: GPLv3
 
 🤝 مساهمات
