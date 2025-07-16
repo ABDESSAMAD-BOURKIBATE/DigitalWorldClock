@@ -1,159 +1,189 @@
 <!DOCTYPE html>
 <html lang="ar">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ساعة رقمية عالمية - مشروع إبداعي</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
-    <style>
-        /* تصميم الصفحة */
-        body {
-            margin: 0;
-            padding: 10px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            font-family: 'Cairo', sans-serif;
-            background-color: #000;
-            color: #fff;
-            text-align: center;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ساعة رقمية عالمية - مشروع إبداعي</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      padding: 10px;
+      font-family: 'Cairo', sans-serif;
+      background-color: #000;
+      color: #fff;
+      text-align: center;
+    }
 
-        /* عنوان المشروع باللون الذهبي المضيء */
-        .project-title {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: #FFD700;
-            text-shadow: 0 0 8px #FFD700, 0 0 12px #FFA500, 0 0 16px #FF8C00;
-            margin-bottom: 20px;
-        }
+    .project-title {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #FFD700;
+      text-shadow: 0 0 8px #FFD700, 0 0 12px #FFA500, 0 0 16px #FF8C00;
+      margin-bottom: 10px;
+    }
 
-        /* حاوية الساعات */
-        .clock-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-            gap: 10px;
-            max-width: 1200px;
-            width: 100%;
-            padding: 10px;
-        }
+    .about-button {
+      display: inline-block;
+      margin-bottom: 20px;
+      padding: 10px 20px;
+      background-color: #FFD700;
+      color: #000;
+      font-weight: bold;
+      border-radius: 10px;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+    .about-button:hover {
+      background-color: #FFA500;
+      box-shadow: 0 0 10px #FFD700;
+    }
 
-        /* تصميم كل ساعة */
-        .clock-box {
-            padding: 12px;
-            border-radius: 12px;
-            background: rgba(20, 20, 20, 0.9);
-            box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
-            text-align: center;
-            min-width: 150px;
-            transition: transform 0.3s, box-shadow 0.3s;
-            cursor: pointer;
-        }
+    .clock-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 10px;
+      max-width: 1200px;
+      width: 100%;
+      padding: 10px;
+    }
 
-        .clock-box:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
-        }
+    .clock-box {
+      padding: 12px;
+      border-radius: 12px;
+      background: rgba(20, 20, 20, 0.9);
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+      text-align: center;
+      min-width: 150px;
+      transition: transform 0.3s, box-shadow 0.3s;
+      cursor: pointer;
+    }
 
-        /* شكل الوقت */
-        .clock {
-            font-size: 1.5rem;
-            font-weight: bold;
-            text-shadow: 0 0 10px;
-            animation: glow 2s infinite alternate;
-        }
+    .clock-box:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+    }
 
-        /* تأثير الإضاءة */
-        @keyframes glow {
-            0% { text-shadow: 0 0 5px; }
-            100% { text-shadow: 0 0 15px; }
-        }
+    .clock {
+      font-size: 1.5rem;
+      font-weight: bold;
+      text-shadow: 0 0 10px;
+      animation: glow 2s infinite alternate;
+    }
 
-        /* أسماء الدول */
-        .country {
-            font-size: 1.1rem;
-            font-weight: bold;
-            margin-bottom: 5px;
-            color: #fff;
-        }
+    @keyframes glow {
+      0% { text-shadow: 0 0 5px; }
+      100% { text-shadow: 0 0 15px; }
+    }
 
-        /* التاريخ */
-        .date {
-            font-size: 0.9rem;
-            opacity: 0.8;
-        }
+    .country {
+      font-size: 1.1rem;
+      font-weight: bold;
+      margin-bottom: 5px;
+      color: #fff;
+    }
 
-        /* نافذة النبذة عن الدولة */
-        .country-info {
-            display: none;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background-color: rgba(0, 0, 0, 0.8);
-            padding: 20px;
-            border-radius: 10px;
-            color: #fff;
-            box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
-            width: 60%;
-            max-width: 600px;
-        }
+    .date {
+      font-size: 0.9rem;
+      opacity: 0.8;
+    }
 
-        .country-info h3 {
-            margin-top: 0;
-            color: #FFD700;
-        }
+    .country-info, .about-popup {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0, 0, 0, 0.9);
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
 
-        .country-info p {
-            font-size: 1.1rem;
-        }
+    .about-content {
+      background: #111;
+      padding: 30px;
+      border-radius: 15px;
+      color: #fff;
+      width: 90%;
+      max-width: 600px;
+      text-align: center;
+      box-shadow: 0 0 15px #FFD700;
+    }
 
-        /* إغلاق النافذة */
-        .close-btn {
-            background-color: #FF5733;
-            border: none;
-            padding: 10px 20px;
-            color: white;
-            font-size: 1rem;
-            cursor: pointer;
-            border-radius: 5px;
-            margin-top: 10px;
-        }
+    .about-content h2 {
+      color: #FFD700;
+      margin-bottom: 15px;
+    }
 
-        /* تحسين العرض على الهواتف */
-        @media (max-width: 600px) {
-            .clock-container {
-                grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-            }
-            .clock {
-                font-size: 1.2rem;
-            }
-            .country {
-                font-size: 0.9rem;
-            }
-            .date {
-                font-size: 0.8rem;
-            }
-        }
-    </style>
+    .about-content button {
+      margin: 10px;
+      padding: 8px 15px;
+      background: #FFD700;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .about-content button:hover {
+      background: #FFA500;
+    }
+
+    .copyright {
+      margin-top: 30px;
+      font-size: 0.8rem;
+      opacity: 0.6;
+    }
+
+    @media (max-width: 600px) {
+      .clock-container {
+        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      }
+      .clock {
+        font-size: 1.2rem;
+      }
+      .country {
+        font-size: 0.9rem;
+      }
+      .date {
+        font-size: 0.8rem;
+      }
+    }
+  </style>
 </head>
 <body>
-    <div class="project-title">🌍  ساعة رقمية عالمية</div>
 
-    <div class="clock-container" id="clocks">
-        <!-- يتم إنشاء الساعات تلقائيًا عبر JavaScript -->
+  <div class="project-title">🌍 ساعة رقمية عالمية</div>
+  <button class="about-button" id="open-about">📘 نبذة عن المشروع</button>
+
+  <div class="clock-container" id="clocks">
+    <!-- سيتم إدراج الساعات ديناميكيًا -->
+  </div>
+
+  <div class="country-info" id="country-info">
+    <div class="about-content">
+      <h2 id="country-name">الدولة</h2>
+      <p id="country-description">نبذة عن الدولة</p>
+      <button onclick="document.getElementById('country-info').style.display='none'">إغلاق</button>
     </div>
+  </div>
 
-    <!-- نافذة النبذة عن الدولة -->
-    <div class="country-info" id="country-info">
-        <h3 id="country-name">دولة</h3>
-        <p id="country-description">نبذة عن الدولة.</p>
-        <button class="close-btn" id="close-btn">إغلاق</button>
+  <!-- نافذة منبثقة للنبذة عن المشروع -->
+  <div class="about-popup" id="about-popup">
+    <div class="about-content">
+      <h2>📘 نبذة عن المشروع</h2>
+      <p id="about-ar">
+        هذا المشروع الإبداعي يعرض الساعة العالمية لمجموعة من الدول باستخدام HTML وCSS وJavaScript. يهدف إلى نشر الوعي الثقافي والزمني بأسلوب مرئي جميل.
+      </p>
+      <p id="about-en" style="display:none;">
+        This creative project displays world clocks for many countries using HTML, CSS, and JavaScript. Its goal is to promote cultural and time awareness in a beautiful visual format.
+      </p>
+      <button onclick="toggleLang()">🌐 تغيير اللغة</button>
+      <button onclick="document.getElementById('about-popup').style.display='none'">❌ إغلاق</button>
     </div>
+  </div>
 
-    <div class="copyright">حقوق النشر © عبد الصمد بوركيبات - 2025</div>
+  <div class="copyright">حقوق النشر © عبد الصمد بوركيبات - 2025</div>
 
     <script>
         // قائمة الدول مع المناطق الزمنية وألوان مخصصة لكل دولة
@@ -201,49 +231,57 @@
 
 
 
-        function updateTime() {
-            const container = document.getElementById("clocks");
-            container.innerHTML = "";
+       function updateTime() {
+      const container = document.getElementById("clocks");
+      container.innerHTML = "";
 
-            countries.forEach(country => {
-                const now = new Date().toLocaleTimeString("en-US", { 
-                    timeZone: country.zone, 
-                    hour12: true 
-                });
+      countries.forEach(country => {
+        const now = new Date().toLocaleTimeString("en-US", { timeZone: country.zone, hour12: true });
+        const dateGregorian = new Date().toLocaleDateString("en-GB", { timeZone: country.zone });
+        const dateHijri = new Date().toLocaleDateString("ar-SA", { timeZone: country.zone, calendar: "islamic" });
 
-                const dateGregorian = new Date().toLocaleDateString("en-GB", { timeZone: country.zone });
-                const dateHijri = new Date().toLocaleDateString("ar-SA", { timeZone: country.zone, calendar: "islamic" });
+        const clockBox = document.createElement("div");
+        clockBox.classList.add("clock-box");
+        clockBox.style.boxShadow = `0 0 15px ${country.color}`;
 
-                const clockBox = document.createElement("div");
-                clockBox.classList.add("clock-box");
-                clockBox.style.boxShadow = `0 0 15px ${country.color}`;
-                
-                clockBox.innerHTML = `
-                    <div class="country">${country.name} - عاصمتها ${country.capital}</div>
-                    <div class="clock" style="color: ${country.color}; text-shadow: 0 0 15px ${country.color};">
-                        ${now}
-                    </div>
-                    <div class="date">📅 ${dateGregorian}</div>
-                    <div class="date">🕌 ${dateHijri} </div>
-                `;
-                
-                clockBox.addEventListener('click', () => {
-                    document.getElementById("country-name").textContent = country.name;
-                    document.getElementById("country-description").textContent = country.description;
-                    document.getElementById("country-info").style.display = "block";
-                });
+        clockBox.innerHTML = `
+          <div class="country">${country.name} - عاصمتها ${country.capital}</div>
+          <div class="clock" style="color: ${country.color}; text-shadow: 0 0 15px ${country.color};">
+            ${now}
+          </div>
+          <div class="date">📅 ${dateGregorian}</div>
+          <div class="date">🕌 ${dateHijri}</div>
+        `;
 
-                container.appendChild(clockBox);
-            });
-        }
-
-        // إغلاق نافذة النبذة
-        document.getElementById("close-btn").addEventListener('click', () => {
-            document.getElementById("country-info").style.display = "none";
+        clockBox.addEventListener('click', () => {
+          document.getElementById("country-name").textContent = country.name;
+          document.getElementById("country-description").textContent = country.description;
+          document.getElementById("country-info").style.display = "flex";
         });
 
-        setInterval(updateTime, 1000);
-        updateTime();
-    </script>
+        container.appendChild(clockBox);
+      });
+    }
+
+    setInterval(updateTime, 1000);
+    updateTime();
+
+    // عرض نافذة النبذة
+    document.getElementById("open-about").addEventListener("click", () => {
+      document.getElementById("about-popup").style.display = "flex";
+    });
+
+    function toggleLang() {
+      const ar = document.getElementById("about-ar");
+      const en = document.getElementById("about-en");
+      if (ar.style.display === "none") {
+        ar.style.display = "block";
+        en.style.display = "none";
+      } else {
+        ar.style.display = "none";
+        en.style.display = "block";
+      }
+    }
+  </script>
 </body>
 </html>
