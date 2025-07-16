@@ -237,53 +237,63 @@
 
 
 
-      function getTimeStatus(zone) {
+       function getTimeStatus(zone) {
       const hourStr = new Date().toLocaleTimeString("en-GB", {
         timeZone: zone,
         hour: '2-digit',
         hour12: false
       });
       const hour = parseInt(hourStr);
-      return (hour >= 6 && hour < 18) ? '☀️ نهار' : '🌙 ليل';
+      return (hour >= 6 && hour < 18) ? 'day' : 'night';
     }
 
     function updateTime() {
-      const container = document.getElementById("clocks");
-      container.innerHTML = "";
+  const container = document.getElementById("clocks");
+  container.innerHTML = "";
 
-      const localZone = luxon.DateTime.local().zoneName;
+  const localZone = luxon.DateTime.local().zoneName;
 
-      countries.forEach(country => {
-        const now = luxon.DateTime.now().setZone(country.zone);
-        const offsetHours = now.offset / 60;
-        const offsetLabel = `GMT${offsetHours >= 0 ? '+' : ''}${offsetHours}`;
+  countries.forEach(country => {
+    const now = luxon.DateTime.now().setZone(country.zone);
+    const offsetHours = now.offset / 60;
+    const offsetLabel = `GMT${offsetHours >= 0 ? '+' : ''}${offsetHours}`;
 
-        const hijriDate = new HijriDate();
-        const hijriStr = `${hijriDate.getDate()}/${hijriDate.getMonth() + 1}/${hijriDate.getFullYear()}`;
+    // حساب النهار والليل
+    const hour = now.hour;
+    const timeStatus = (hour >= 6 && hour < 18) ? 'نهار ☀️' : 'ليل 🌙';
 
-        const clockBox = document.createElement("div");
-        clockBox.classList.add("clock-box");
-        clockBox.style.boxShadow = `0 0 15px ${country.color}`;
+    // التاريخ الهجري من كائن Date
+    const hijriDate = new Date().toLocaleDateString("ar-SA", {
+      timeZone: country.zone,
+      calendar: "islamic",
+      day: "numeric",
+      month: "long",
+      year: "numeric"
+    });
 
-        clockBox.innerHTML = `
-          <div class="country">${country.name} (${offsetLabel}) - عاصمتها ${country.capital}</div>
-          <div class="clock" style="color: ${country.color}; text-shadow: 0 0 15px ${country.color};">
-            ${now.toFormat("hh:mm:ss a")}
-          </div>
-          <div class="date">📅 ${now.toFormat("dd/MM/yyyy")} ميلادي</div>
-          <div class="date">🕌 ${hijriStr} هجري</div>
-          <div class="date">${getTimeStatus(country.zone)}</div>
-        `;
+    const clockBox = document.createElement("div");
+    clockBox.classList.add("clock-box");
+    clockBox.style.boxShadow = `0 0 15px ${country.color}`;
 
-        clockBox.addEventListener('click', () => {
-          document.getElementById("country-name").textContent = country.name;
-          document.getElementById("country-description").textContent = country.description;
-          document.getElementById("country-info").style.display = "flex";
-        });
+    clockBox.innerHTML = `
+      <div class="country">${country.name} (${offsetLabel}) - عاصمتها ${country.capital}</div>
+      <div class="clock" style="color: ${country.color}; text-shadow: 0 0 15px ${country.color};">
+        ${now.toFormat("hh:mm:ss a")}
+      </div>
+      <div class="date">📅 الميلادي: ${now.toFormat("dd/MM/yyyy")}</div>
+      <div class="date">🕌 الهجري: ${hijriDate}</div>
+      <div class="date">🌗 ${timeStatus}</div>
+    `;
 
-        container.appendChild(clockBox);
-      });
-    }
+    clockBox.addEventListener('click', () => {
+      document.getElementById("country-name").textContent = country.name;
+      document.getElementById("country-description").textContent = country.description;
+      document.getElementById("country-info").style.display = "flex";
+    });
+
+    container.appendChild(clockBox);
+  });
+}
 
     setInterval(updateTime, 1000);
     updateTime();
