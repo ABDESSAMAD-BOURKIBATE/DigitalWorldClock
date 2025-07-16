@@ -237,64 +237,67 @@
 
 
 
-       function getTimeStatus(zone) {
-      const hour = new Date().toLocaleString("en-GB", {
+      function getTimeStatus(zone) {
+      const hourStr = new Date().toLocaleTimeString("en-GB", {
         timeZone: zone,
         hour: '2-digit',
         hour12: false
       });
-      const h = parseInt(hour);
-      return (h >= 6 && h < 18) ? 'day' : 'night';
+      const hour = parseInt(hourStr);
+      return (hour >= 6 && hour < 18) ? '☀️ نهار' : '🌙 ليل';
     }
 
-    function updateClocks() {
+    function updateTime() {
       const container = document.getElementById("clocks");
       container.innerHTML = "";
 
+      const localZone = luxon.DateTime.local().zoneName;
+
       countries.forEach(country => {
-        const now = new Date();
-        const timeStr = now.toLocaleTimeString("ar-EG", {
-          timeZone: country.zone,
-          hour: '2-digit',
-          minute: '2-digit',
-          second: '2-digit'
-        });
+        const now = luxon.DateTime.now().setZone(country.zone);
+        const offsetHours = now.offset / 60;
+        const offsetLabel = `GMT${offsetHours >= 0 ? '+' : ''}${offsetHours}`;
 
-        const dateGregorian = now.toLocaleDateString("ar-EG", {
-          timeZone: country.zone,
-          day: 'numeric',
-          month: 'long',
-          year: 'numeric'
-        });
+        const hijriDate = new HijriDate();
+        const hijriStr = `${hijriDate.getDate()}/${hijriDate.getMonth() + 1}/${hijriDate.getFullYear()}`;
 
-        const dateHijri = now.toLocaleDateString("ar-SA", {
-          timeZone: country.zone,
-          day: 'numeric',
-          month: 'long',
-          year: 'numeric',
-          calendar: 'islamic'
-        });
+        const clockBox = document.createElement("div");
+        clockBox.classList.add("clock-box");
+        clockBox.style.boxShadow = `0 0 15px ${country.color}`;
 
-        const timeStatus = getTimeStatus(country.zone);
-
-        const box = document.createElement("div");
-        box.className = `clock-box ${timeStatus}`;
-
-        box.innerHTML = `
-          <div class="country">🌐 ${country.name}</div>
-          <div class="clock">🕒 ${timeStr}</div>
-          <div class="date">📅 الميلادي: ${dateGregorian}</div>
-          <div class="date">🕌 الهجري: ${dateHijri}</div>
-          <div class="date">🌗 ${timeStatus === 'day' ? 'نهار' : 'ليل'}</div>
+        clockBox.innerHTML = `
+          <div class="country">${country.name} (${offsetLabel}) - عاصمتها ${country.capital}</div>
+          <div class="clock" style="color: ${country.color}; text-shadow: 0 0 15px ${country.color};">
+            ${now.toFormat("hh:mm:ss a")}
+          </div>
+          <div class="date">📅 ${now.toFormat("dd/MM/yyyy")} ميلادي</div>
+          <div class="date">🕌 ${hijriStr} هجري</div>
+          <div class="date">${getTimeStatus(country.zone)}</div>
         `;
 
-        container.appendChild(box);
+        clockBox.addEventListener('click', () => {
+          document.getElementById("country-name").textContent = country.name;
+          document.getElementById("country-description").textContent = country.description;
+          document.getElementById("country-info").style.display = "flex";
+        });
+
+        container.appendChild(clockBox);
       });
     }
 
-    setInterval(updateClocks, 1000);
-    updateClocks();
-  </script>
+    setInterval(updateTime, 1000);
+    updateTime();
 
+    document.getElementById("open-about").addEventListener("click", () => {
+      document.getElementById("about-popup").style.display = "flex";
+    });
+
+    function toggleLang() {
+      const ar = document.getElementById("about-ar");
+      const en = document.getElementById("about-en");
+      ar.style.display = ar.style.display === "none" ? "block" : "none";
+      en.style.display = en.style.display === "none" ? "block" : "none";
+    }
+  </script>
 </body>
 </html>
