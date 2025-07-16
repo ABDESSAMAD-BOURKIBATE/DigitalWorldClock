@@ -1,47 +1,193 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <title>نبذة عن المشروع - الساعة الرقمية العالمية</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Cairo', sans-serif;
-            margin: 40px;
-            background-color: #111;
-            color: #eee;
-            line-height: 1.8;
-        }
-        h1 {
-            color: #FFD700;
-            text-shadow: 0 0 5px #FFA500;
-        }
-        a {
-            color: #00BFFF;
-            text-decoration: none;
-        }
-        a:hover {
-            text-decoration: underline;
-        }
-        .back {
-            margin-top: 20px;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>نبذة عن مشروع الساعة الرقمية العالمية</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      margin: 0;
+      padding: 20px;
+      font-family: 'Cairo', sans-serif;
+      background-color: #111;
+      color: #fff;
+      text-align: right;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: auto;
+      background-color: #1a1a1a;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 0 15px #FFD700;
+    }
+
+    h1 {
+      color: #FFD700;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    h2 {
+      color: #FFA500;
+      margin-top: 30px;
+    }
+
+    p, ul {
+      font-size: 1.1rem;
+      line-height: 1.9;
+    }
+
+    ul {
+      padding-right: 20px;
+    }
+
+    .footer {
+      margin-top: 40px;
+      text-align: center;
+      font-size: 0.9rem;
+      color: #888;
+    }
+
+    .lang-switch {
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    button {
+      background-color: #FFD700;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    button:hover {
+      background-color: #FFA500;
+    }
+
+    a {
+      color: #00BFFF;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+  </style>
 </head>
 <body>
+
+  <!-- النسخة العربية -->
+  <div class="container" id="about-ar">
     <h1>📘 نبذة عن مشروع الساعة الرقمية العالمية</h1>
+
     <p>
-        هذا المشروع تم تطويره من طرف <strong>عبد الصمد بوركيبات</strong>، وهو عبارة عن تطبيق ويب يعرض التوقيت الحقيقي والتقويمين الميلادي والهجري لأكثر من 40 دولة حول العالم، باستخدام HTML وCSS وJavaScript.
+      هذا المشروع هو مبادرة تقنية إبداعية من تطوير <strong>عبد الصمد بوركيبات</strong>، باحث في <strong>فقه الأمن السيبراني الأسري</strong>، وطالب في:
     </p>
+    <ul>
+      <li>🎓 بكالوريوس علوم الحاسوب – <strong>جامعة الشعب الأمريكية</strong></li>
+      <li>🕋 بكالوريوس علوم القرآن الكريم – <strong>جامعة المدينة العالمية بماليزيا</strong></li>
+    </ul>
+
+    <h2>🎯 فكرة المشروع:</h2>
     <p>
-        يهدف المشروع إلى تعزيز الوعي الثقافي والزمني العالمي، من خلال تمثيل الدول بعواصمها وقادتها وألوان علمها.
-    </p>
-    <p>
-        المشروع مفتوح المصدر ومتاح للجميع عبر <a href="https://github.com/ABDESSAMAD-BOURKIBATE/DigitalWorldClock" target="_blank">GitHub</a>.
+      تم تطوير هذا المشروع لعرض التوقيت العالمي الحقيقي لأكثر من 40 دولة، مع دعم كامل للتقويمين <strong>الميلادي والهجري</strong>، وتحديد حالة <strong>الليل والنهار</strong> لكل دولة بدقة، في واجهة مرئية متقدمة وسهلة الاستخدام.
     </p>
 
-    <div class="back">
-        <a href="index.html">🔙 العودة إلى الصفحة الرئيسية</a>
+    <h2>✨ أهداف المشروع:</h2>
+    <ul>
+      <li>التوعية بالزمن العالمي وترسيخ احترام الوقت.</li>
+      <li>تعزيز الهوية السيبرانية الثقافية والأخلاقية.</li>
+      <li>دمج القيم الإسلامية في تصميمات رقمية عصرية.</li>
+      <li>نشر وعي الأسرة بأهمية الزمن في السياق السيبراني.</li>
+    </ul>
+
+    <h2>⚙️ مميزات تقنية:</h2>
+    <ul>
+      <li>يعرض الوقت الحقيقي لكل دولة بتنسيق سهل القراءة.</li>
+      <li>يدمج التقويم الميلادي والهجري في كل بطاقة زمنية.</li>
+      <li>تمييز تلقائي بين الليل والنهار حسب التوقيت المحلي للدولة.</li>
+      <li>تصميم متجاوب، مرن، ومناسب لجميع الأجهزة.</li>
+    </ul>
+
+    <p>
+      يمكن الوصول إلى الكود المصدري للمشروع على منصة GitHub:
+      <a href="https://github.com/ABDESSAMAD-BOURKIBATE/DigitalWorldClock" target="_blank">
+        DigitalWorldClock على GitHub
+      </a>
+    </p>
+
+    <div class="footer">
+      جميع الحقوق محفوظة © عبد الصمد بوركيبات - 2025
     </div>
+
+    <div class="lang-switch">
+      <button onclick="toggleLang()">🌐 English Version</button>
+    </div>
+  </div>
+
+  <!-- النسخة الإنجليزية -->
+  <div class="container" id="about-en" style="display: none;">
+    <h1>📘 About the Global Digital Clock Project</h1>
+
+    <p>
+      This project is a creative and technical initiative developed by <strong>Abdessamad Bourkibate</strong>, a researcher in <strong>Family Cybersecurity Jurisprudence</strong>, and a student of:
+    </p>
+    <ul>
+      <li>🎓 Bachelor in Computer Science – <strong>University of the People (USA)</strong></li>
+      <li>🕋 Bachelor in Quranic Sciences – <strong>Al-Madinah International University (Malaysia)</strong></li>
+    </ul>
+
+    <h2>🎯 Project Concept:</h2>
+    <p>
+      A visual web application that displays the real-time clocks of over 40 countries, with integrated <strong>Gregorian and Hijri calendars</strong> and a dynamic indicator of <strong>day or night</strong> based on each country’s local time.
+    </p>
+
+    <h2>✨ Project Goals:</h2>
+    <ul>
+      <li>Promote awareness of global time and its ethical significance.</li>
+      <li>Bridge Islamic values with digital design practices.</li>
+      <li>Promote family-based time mindfulness in cyberspace.</li>
+      <li>Reinforce ethical cyber identity in a modern interface.</li>
+    </ul>
+
+    <h2>⚙️ Technical Features:</h2>
+    <ul>
+      <li>Real-time display for each selected country.</li>
+      <li>Dual calendar support (Gregorian and Hijri).</li>
+      <li>Visual differentiation between day and night per timezone.</li>
+      <li>Responsive and user-friendly interface.</li>
+    </ul>
+
+    <p>
+      Source code available on GitHub:
+      <a href="https://github.com/ABDESSAMAD-BOURKIBATE/DigitalWorldClock" target="_blank">
+        DigitalWorldClock on GitHub
+      </a>
+    </p>
+
+    <div class="footer">
+      All rights reserved © Abdessamad Bourkibate - 2025
+    </div>
+
+    <div class="lang-switch">
+      <button onclick="toggleLang()">🌐 النسخة العربية</button>
+    </div>
+  </div>
+
+  <script>
+    function toggleLang() {
+      const ar = document.getElementById("about-ar");
+      const en = document.getElementById("about-en");
+      ar.style.display = ar.style.display === "none" ? "block" : "none";
+      en.style.display = en.style.display === "none" ? "block" : "none";
+    }
+  </script>
+
 </body>
 </html>
+
