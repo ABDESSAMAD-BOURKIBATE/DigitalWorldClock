@@ -250,17 +250,13 @@
   const container = document.getElementById("clocks");
   container.innerHTML = "";
 
-  const localOffset = new Date().getTimezoneOffset() * -1; // بالدقائق
+  const localZone = luxon.DateTime.local().zoneName;
 
   countries.forEach(country => {
-    const now = new Date().toLocaleTimeString("en-US", { timeZone: country.zone, hour12: true });
-    const dateGregorian = new Date().toLocaleDateString("en-GB", { timeZone: country.zone });
-    const dateHijri = new Date().toLocaleDateString("ar-SA", { timeZone: country.zone, calendar: "islamic" });
+    const now = luxon.DateTime.now().setZone(country.zone);
+    const localNow = luxon.DateTime.now().setZone(localZone);
 
-    // 🕒 حساب فرق التوقيت
-    const countryTime = new Date().toLocaleString("en-US", { timeZone: country.zone });
-    const diffMinutes = (new Date(countryTime).getTimezoneOffset() * -1) - localOffset;
-    const offsetHours = diffMinutes / 60;
+    const offsetHours = now.offset / 60; // ← بالفاصلة العشرية
     const offsetLabel = `GMT${offsetHours >= 0 ? '+' : ''}${offsetHours}`;
 
     const clockBox = document.createElement("div");
@@ -270,10 +266,10 @@
     clockBox.innerHTML = `
       <div class="country">${country.name} (${offsetLabel}) - عاصمتها ${country.capital}</div>
       <div class="clock" style="color: ${country.color}; text-shadow: 0 0 15px ${country.color};">
-        ${now}
+        ${now.toFormat("hh:mm:ss a")}
       </div>
-      <div class="date">📅 ${dateGregorian}</div>
-      <div class="date">🕌 ${dateHijri}</div>
+      <div class="date">📅 ${now.toFormat("dd/MM/yyyy")}</div>
+      <div class="date">🕌 بالتقويم الهجري</div>
     `;
 
     clockBox.addEventListener('click', () => {
@@ -285,6 +281,7 @@
     container.appendChild(clockBox);
   });
 }
+
 
 
     setInterval(updateTime, 1000);
