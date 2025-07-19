@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ساعة رقمية عالمية </title>
+  <title>ساعة رقمية عالمية</title>
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
   <style>
     * {
@@ -33,26 +33,23 @@
       border-bottom: 2px solid rgba(255,215,0,0.3);
     }
 
-.project-title {
-  font-size: 2.5rem;
-  font-weight: bold;
-  background: linear-gradient(45deg, #FFD700, #FFA500, #FF8C00);
-  -webkit-background-clip: text;
-  background-clip: text; 
-  -webkit-text-fill-color: transparent;
-  color: transparent; 
-  text-shadow: 0 0 10px rgba(255, 217, 5, 0.7); 
-  animation: titleGlow 3s ease-in-out infinite alternate;
-}
+    .project-title {
+      font-size: 2.5rem;
+      font-weight: bold;
+      background: linear-gradient(45deg, #FFD700, #FFA500, #FF8C00);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-shadow: 0 0 20px rgba(255,215,0,0.5);
+      margin-bottom: 10px;
+      animation: titleGlow 3s ease-in-out infinite alternate;
+    }
 
-@keyframes titleGlow {
-  0% {
-    text-shadow: 0 0 10px rgba(255, 215, 0, 0.7), 0 0 20px rgba(255, 165, 0, 0.5);
-  }
-  100% {
-    text-shadow: 0 0 20px rgba(255, 215, 0, 0.9), 0 0 30px rgba(255, 140, 0, 0.7);
-  }
-}
+    @keyframes titleGlow {
+      0% { filter: brightness(1); }
+      100% { filter: brightness(1.3); }
+    }
+
     .subtitle {
       font-size: 1.1rem;
       color: #ccc;
@@ -261,12 +258,17 @@
       background: linear-gradient(135deg, #1a1a2e, #16213e);
       padding: 40px;
       border-radius: 20px;
-      max-width: 600px;
+      max-width: 800px;
       width: 90%;
       max-height: 80vh;
       overflow-y: auto;
       box-shadow: 0 20px 60px rgba(0,0,0,0.5);
       border: 1px solid rgba(255,215,0,0.3);
+      text-align: right;
+    }
+
+    [lang="en"] .modal-content {
+      text-align: left;
     }
 
     .modal-header {
@@ -290,6 +292,11 @@
       padding: 15px;
       border-radius: 10px;
       border-left: 4px solid #FFD700;
+    }
+
+    [lang="en"] .detail-item {
+      border-left: none;
+      border-right: 4px solid #FFD700;
     }
 
     .detail-label {
@@ -432,20 +439,69 @@
     .notification.show {
       transform: translateX(0);
     }
+
+    .about-content h2 {
+      color: #FFA500;
+      margin-top: 30px;
+    }
+
+    .about-content p, .about-content ul {
+      font-size: 1.1rem;
+      line-height: 1.9;
+      color: #ccc;
+    }
+
+    .about-content ul {
+      padding-right: 20px;
+      list-style-position: outside;
+    }
+
+    [lang="en"] .about-content ul {
+      padding-right: 0;
+      padding-left: 20px;
+    }
+
+    .about-content a {
+      color: #00BFFF;
+      text-decoration: none;
+    }
+
+    .about-content a:hover {
+      text-decoration: underline;
+    }
+
+    .lang-switch {
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    .lang-switch button {
+      background-color: #FFD700;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+      color: #000;
+    }
+
+    .lang-switch button:hover {
+      background-color: #FFA500;
+    }
   </style>
 </head>
 <body>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/luxon/3.4.4/luxon.min.js"></script>
 
   <div class="floating-clock" id="local-clock">
-    <div class="local-label" style="font-size: 0.8rem; color: #FFD700;">🕐 التوقيت المحلي</div>
+    <div class="local-label" style="font-size: 0.8rem; color: #FFD700;"> التوقيت المحلي</div>
     <div style="font-size: 1.1rem; font-weight: bold;" id="local-time">--:--:--</div>
   </div>
 
   <div class="notification" id="notification"></div>
 
   <header class="header">
-    <h1 class="project-title">🌍 ساعة رقمية عالمية  </h1>
+    <h1 class="project-title"> ساعة رقمية عالمية محسّنة</h1>
     <p class="subtitle">استكشف أوقات العالم مع المعلومات الجغرافية والثقافية</p>
     
     <div class="controls">
@@ -509,16 +565,81 @@
     <div class="modal-content">
       <button class="close-btn" onclick="closeModal()">×</button>
       <div class="modal-header">
-        <h2 class="modal-title">📘 نبذة عن المشروع</h2>
+        <h2 class="modal-title"> نبذة عن المشروع</h2>
       </div>
-      <div class="about-content" style="text-align: center;">
-        <p style="line-height: 1.8; margin-bottom: 20px;">
-          هذا المشروع الإبداعي المحسّن يعرض الساعة العالمية لأكثر من 100 دولة حول العالم مع معلومات جغرافية وثقافية شاملة. 
-          يتضمن المشروع خرائط تفاعلية، إحصائيات مباشرة، وتصميماً عصرياً متجاوباً مع جميع الأجهزة.
+      <div class="about-content" id="about-content-ar">
+        <p>
+          هذا المشروع هو مبادرة تقنية إبداعية من تطوير <strong>عبد الصمد بوركيبات</strong>، باحث في <strong>فقه الأمن السيبراني الأسري</strong>، وطالب في:
         </p>
-        <p style="color: #FFD700; font-weight: bold;">
-          ✨ المميزات الجديدة: البحث المتقدم، تصفية القارات، المعلومات الجغرافية، الإحصائيات المباشرة، التحديث التلقائي، معلومات الطقس
+        <ul>
+          <li>🎓 بكالوريوس علوم الحاسوب – <strong>جامعة الشعب الأمريكية</strong></li>
+          <li>🕋 بكالوريوس علوم القرآن الكريم – <strong>جامعة المدينة العالمية بماليزيا</strong></li>
+        </ul>
+        <h2> فكرة المشروع:</h2>
+        <p>
+          تم تطوير هذا المشروع لعرض التوقيت العالمي الحقيقي لأكثر من 50 دولة، مع دعم كامل للتقويمين <strong>الميلادي والهجري</strong>، وتحديد حالة <strong>الليل والنهار</strong> لكل دولة بدقة، في واجهة مرئية متقدمة وسهلة الاستخدام.
         </p>
+        <h2>أهداف المشروع:</h2>
+        <ul>
+          <li>التوعية بالزمن العالمي وترسيخ احترام الوقت.</li>
+          <li>تعزيز الهوية السيبرانية الثقافية والأخلاقية.</li>
+          <li>دمج القيم الإسلامية في تصميمات رقمية عصرية.</li>
+          <li>نشر وعي الأسرة بأهمية الزمن في السياق السيبراني.</li>
+        </ul>
+        <h2>⚙️ مميزات تقنية:</h2>
+        <ul>
+          <li>يعرض الوقت الحقيقي لكل دولة بتنسيق سهل القراءة.</li>
+          <li>يدمج التقويم الميلادي والهجري في كل بطاقة زمنية.</li>
+          <li>تمييز تلقائي بين الليل والنهار حسب التوقيت المحلي للدولة.</li>
+          <li>تصميم متجاوب، مرن، ومناسب لجميع الأجهزة.</li>
+          <li>معلومات الطقس في الوقت الحقيقي باستخدام OpenWeatherMap API.</li>
+        </ul>
+        <p>
+          يمكن الوصول إلى الكود المصدري للمشروع على منصة GitHub:
+          <a href="https://github.com/ABDESSAMAD-BOURKIBATE/DigitalWorldClock" target="_blank">
+            DigitalWorldClock على GitHub
+          </a>
+        </p>
+        <div class="lang-switch">
+          <button onclick="toggleAboutLang()"> English Version</button>
+        </div>
+      </div>
+      <div class="about-content" id="about-content-en" style="display: none;">
+        <p>
+          This project is a creative and technical initiative developed by <strong>Abdessamad Bourkibate</strong>, a researcher in <strong>Family Cybersecurity Jurisprudence</strong>, and a student of:
+        </p>
+        <ul>
+          <li>🎓 Bachelor in Computer Science – <strong>University of the People (USA)</strong></li>
+          <li>🕋 Bachelor in Quranic Sciences – <strong>Al-Madinah International University (Malaysia)</strong></li>
+        </ul>
+        <h2> Project Concept:</h2>
+        <p>
+          A visual web application that displays the real-time clocks of over 50 countries, with integrated <strong>Gregorian and Hijri calendars</strong> and a dynamic indicator of <strong>day or night</strong> based on each country’s local time.
+        </p>
+        <h2> Project Goals:</h2>
+        <ul>
+          <li>Promote awareness of global time and its ethical significance.</li>
+          <li>Bridge Islamic values with digital design practices.</li>
+          <li>Promote family-based time mindfulness in cyberspace.</li>
+          <li>Reinforce ethical cyber identity in a modern interface.</li>
+        </ul>
+        <h2>⚙️ Technical Features:</h2>
+        <ul>
+          <li>Real-time display for each selected country.</li>
+          <li>Dual calendar support (Gregorian and Hijri).</li>
+          <li>Visual differentiation between day and night per timezone.</li>
+          <li>Responsive and user-friendly interface.</li>
+          <li>Real-time weather information using OpenWeatherMap API.</li>
+        </ul>
+        <p>
+          Source code available on GitHub:
+          <a href="https://github.com/ABDESSAMAD-BOURKIBATE/DigitalWorldClock" target="_blank">
+            DigitalWorldClock on GitHub
+          </a>
+        </p>
+        <div class="lang-switch">
+          <button onclick="toggleAboutLang()"> النسخة العربية</button>
+        </div>
       </div>
     </div>
   </div>
@@ -534,15 +655,15 @@
     let currentLanguage = 'ar';
     const translations = {
       ar: {
-        title: ' ساعة رقمية عالمية محسّنة',
+        title: '🌍 ساعة رقمية عالمية ',
         subtitle: 'استكشف أوقات العالم مع المعلومات الجغرافية والثقافية',
         localClock: ' التوقيت المحلي',
         aboutBtn: ' نبذة عن المشروع',
         fullscreenBtn: ' ملء الشاشة',
         exportBtn: ' تصدير البيانات',
         refreshBtn: ' تحديث',
-        langBtn: '🌐 تغيير اللغة',
-        searchPlaceholder: '🔍 البحث عن دولة...',
+        langBtn: ' تغيير اللغة',
+        searchPlaceholder: ' البحث عن دولة...',
         allContinents: 'الكل',
         asia: 'آسيا',
         africa: 'أفريقيا',
@@ -553,10 +674,8 @@
         dayCountries: 'دول في النهار',
         nightCountries: 'دول في الليل',
         timezones: 'المناطق الزمنية',
-        loading: '⏳ جاري تحديث البيانات...',
+        loading: ' جاري تحديث البيانات...',
         aboutTitle: ' نبذة عن المشروع',
-        aboutText: 'هذا المشروع الإبداعي المحسّن يعرض الساعة العالمية لأكثر من 100 دولة حول العالم مع معلومات جغرافية وثقافية شاملة. يتضمن المشروع خرائط تفاعلية، إحصائيات مباشرة، وتصميماً عصرياً متجاوباً مع جميع الأجهزة.',
-        aboutFeatures: ' المميزات الجديدة: البحث المتقدم، تصفية القارات، المعلومات الجغرافية، الإحصائيات المباشرة، التحديث التلقائي، معلومات الطقس',
         copyright: 'حقوق النشر © عبد الصمد بوركيبات - 2025',
         capital: 'العاصمة',
         time: 'التوقيت',
@@ -605,11 +724,9 @@
         dayCountries: 'Countries in Daytime',
         nightCountries: 'Countries at Night',
         timezones: 'Time Zones',
-        loading: '⏳ Updating data...',
-        aboutTitle: '📘 About the Project',
-        aboutText: 'This enhanced creative project displays a world clock for over 100 countries with comprehensive geographic and cultural information. It includes interactive maps, live statistics, and a modern, responsive design for all devices.',
-        aboutFeatures: '✨ New Features: Advanced search, continent filtering, geographic information, live statistics, automatic updates, weather information',
-        copyright: 'Copyright © Abdel Samad Bourkibat - 2025',
+        loading: ' Updating data...',
+        aboutTitle: ' About the Project',
+        copyright: 'Copyright © Abdessamad Bourkibate - 2025',
         capital: 'Capital',
         time: 'Time',
         continent: 'Continent',
