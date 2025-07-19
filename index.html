@@ -2308,11 +2308,21 @@
     function openAboutModal() {
       const modal = document.getElementById('about-modal');
       document.querySelector('#about-modal .modal-title').textContent = translations[currentLanguage].aboutTitle;
-      document.querySelector('.about-content').innerHTML = `
-        <p style="line-height: 1.8; margin-bottom: 20px;">${translations[currentLanguage].aboutText}</p>
-        <p style="color: #FFD700; font-weight: bold;">${translations[currentLanguage].aboutFeatures}</p>
-      `;
+      toggleAboutLang(currentLanguage === 'ar' ? 'ar' : 'en');
       modal.style.display = 'flex';
+    }
+
+    // Toggle about modal language
+    function toggleAboutLang(lang) {
+      const arContent = document.getElementById('about-content-ar');
+      const enContent = document.getElementById('about-content-en');
+      if (lang === 'ar') {
+        arContent.style.display = 'block';
+        enContent.style.display = 'none';
+      } else {
+        arContent.style.display = 'none';
+        enContent.style.display = 'block';
+      }
     }
 
     // Toggle fullscreen
@@ -2396,6 +2406,10 @@
       });
       renderClocks();
       updateLocalClock();
+      if (document.getElementById('about-modal').style.display === 'flex') {
+        toggleAboutLang(currentLanguage);
+        document.querySelector('#about-modal .modal-title').textContent = translations[currentLanguage].aboutTitle;
+      }
       showNotification(translations[currentLanguage].notifications.langChanged);
     }
 
