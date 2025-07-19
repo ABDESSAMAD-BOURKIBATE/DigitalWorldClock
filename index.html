@@ -1,364 +1,2300 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ساعة رقمية عالمية - مشروع إبداعي</title>
+  <title>ساعة رقمية عالمية </title>
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
   <style>
-    body {
+    * {
       margin: 0;
-      padding: 10px;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
       font-family: 'Cairo', sans-serif;
-      background-color: #000;
+      background: linear-gradient(135deg, #0c0c0c 0%, #1a1a2e 50%, #16213e 100%);
       color: #fff;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    [lang="en"] {
+      direction: ltr;
+      font-family: Arial, sans-serif;
+    }
+
+    .header {
       text-align: center;
+      padding: 20px;
+      background: rgba(0,0,0,0.3);
+      backdrop-filter: blur(10px);
+      border-bottom: 2px solid rgba(255,215,0,0.3);
     }
 
-    .project-title {
-      font-size: 1.5rem;
-      font-weight: bold;
-      color: #FFD700;
-      text-shadow: 0 0 8px #FFD700, 0 0 12px #FFA500, 0 0 16px #FF8C00;
-      margin-bottom: 10px;
-    }
+.project-title {
+  font-size: 2.5rem;
+  font-weight: bold;
+  background: linear-gradient(45deg, #FFD700, #FFA500, #FF8C00);
+  -webkit-background-clip: text;
+  background-clip: text; 
+  -webkit-text-fill-color: transparent;
+  color: transparent; 
+  text-shadow: 0 0 10px rgba(255, 217, 5, 0.7); 
+  animation: titleGlow 3s ease-in-out infinite alternate;
+}
 
-    .about-button {
-      display: inline-block;
+@keyframes titleGlow {
+  0% {
+    text-shadow: 0 0 10px rgba(255, 215, 0, 0.7), 0 0 20px rgba(255, 165, 0, 0.5);
+  }
+  100% {
+    text-shadow: 0 0 20px rgba(255, 215, 0, 0.9), 0 0 30px rgba(255, 140, 0, 0.7);
+  }
+}
+    .subtitle {
+      font-size: 1.1rem;
+      color: #ccc;
       margin-bottom: 20px;
-      padding: 10px 20px;
-      background-color: #FFD700;
+    }
+
+    .controls {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+
+    .btn {
+      padding: 12px 24px;
+      background: linear-gradient(45deg, #FFD700, #FFA500);
       color: #000;
       font-weight: bold;
-      border-radius: 10px;
+      border: none;
+      border-radius: 25px;
       text-decoration: none;
       transition: all 0.3s ease;
       cursor: pointer;
-    }
-    .about-button:hover {
-      background-color: #FFA500;
-      box-shadow: 0 0 10px #FFD700;
+      font-size: 0.9rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
     }
 
-    .clock-container {
+    .btn:hover {
+      background: linear-gradient(45deg, #FFA500, #FF8C00);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(255,165,0,0.4);
+    }
+
+    .search-container {
       display: flex;
-      flex-wrap: wrap;
       justify-content: center;
-      gap: 20px;
-      max-width: 1200px;
-      width: 100%;
-      padding: 10px;
+      margin-bottom: 30px;
     }
 
-    .clock-box {
-      width: 200px;
-      min-height: 120px;
-      padding: 15px;
-      margin: 5px;
-      border-radius: 12px;
-      text-align: center;
-      transition: transform 0.3s, box-shadow 0.3s;
-      cursor: pointer;
-    }
-
-    .clock-box.day {
-      background-color: rgba(255, 255, 255, 0.1);
+    .search-input {
+      padding: 12px 20px;
+      border: 2px solid rgba(255,215,0,0.3);
+      border-radius: 25px;
+      background: rgba(0,0,0,0.3);
       color: #fff;
+      font-size: 1rem;
+      width: 300px;
+      max-width: 90%;
+      transition: all 0.3s ease;
     }
 
-    .clock-box.night {
-      background-color: rgba(0, 0, 0, 0.7);
+    .search-input:focus {
+      outline: none;
+      border-color: #FFD700;
+      box-shadow: 0 0 20px rgba(255,215,0,0.3);
+    }
+
+    .search-input::placeholder {
+      color: #aaa;
+    }
+
+    .stats-bar {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      flex-wrap: wrap;
+      margin-bottom: 30px;
+      padding: 15px;
+    }
+
+    .stat-item {
+      text-align: center;
+      background: rgba(255,255,255,0.1);
+      padding: 15px 25px;
+      border-radius: 15px;
+      backdrop-filter: blur(5px);
+    }
+
+    .stat-number {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #FFD700;
+    }
+
+    .stat-label {
+      font-size: 0.9rem;
       color: #ccc;
     }
 
-    .clock-box:hover {
-      transform: scale(1.05);
-      box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+    .clock-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 20px;
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 20px;
     }
 
-    .clock {
-      font-size: 1.5rem;
-      font-weight: bold;
-      text-shadow: 0 0 10px;
-      animation: glow 2s infinite alternate;
-    }
-
-    @keyframes glow {
-      0% { text-shadow: 0 0 5px; }
-      100% { text-shadow: 0 0 15px; }
-    }
-
-    .country {
-      font-size: 1.1rem;
-      font-weight: bold;
-      margin-bottom: 5px;
-      color: inherit;
-    }
-
-    .date {
-      font-size: 0.9rem;
-      opacity: 0.8;
-    }
-
-    .country-info, .about-popup {
-      display: none;
-      position: fixed;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(0, 0, 0, 0.9);
-      justify-content: center;
-      align-items: center;
-      z-index: 1000;
-    }
-
-    .about-content {
-      background: #111;
-      padding: 30px;
-      border-radius: 15px;
-      color: #fff;
-      width: 90%;
-      max-width: 600px;
+    .clock-box {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 20px;
+      padding: 20px;
       text-align: center;
-      box-shadow: 0 0 15px #FFD700;
+      transition: all 0.4s ease;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      backdrop-filter: blur(10px);
     }
 
-    .about-content h2 {
-      color: #FFD700;
+    .clock-box::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+      transition: left 0.6s ease;
+    }
+
+    .clock-box:hover::before {
+      left: 100%;
+    }
+
+    .clock-box:hover {
+      transform: translateY(-5px) scale(1.02);
+      box-shadow: 0 15px 40px rgba(255,255,255,0.1);
+      border-color: rgba(255,215,0,0.5);
+    }
+
+    .country-header {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
       margin-bottom: 15px;
     }
 
-    .about-content button {
-      margin: 10px;
-      padding: 8px 15px;
-      background: #FFD700;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
+    .country-name {
+      font-size: 1.2rem;
       font-weight: bold;
+      color: #fff;
     }
 
-    .about-content button:hover {
-      background: #FFA500;
+    .location-info {
+      font-size: 0.85rem;
+      color: #bbb;
+      margin-bottom: 10px;
+    }
+
+    .clock-display {
+      font-size: 2rem;
+      font-weight: bold;
+      margin: 15px 0;
+      text-shadow: 0 0 20px currentColor;
+      animation: clockPulse 2s infinite;
+    }
+
+    @keyframes clockPulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+
+    .time-info {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin: 15px 0;
+    }
+
+    .time-item {
+      background: rgba(0,0,0,0.2);
+      padding: 8px;
+      border-radius: 10px;
+      font-size: 0.85rem;
+    }
+
+    .weather-info {
+      background: rgba(255,255,255,0.1);
+      padding: 10px;
+      border-radius: 10px;
+      margin-top: 10px;
+      font-size: 0.9rem;
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.8);
+      backdrop-filter: blur(5px);
+      z-index: 1000;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .modal-content {
+      background: linear-gradient(135deg, #1a1a2e, #16213e);
+      padding: 40px;
+      border-radius: 20px;
+      max-width: 600px;
+      width: 90%;
+      max-height: 80vh;
+      overflow-y: auto;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+      border: 1px solid rgba(255,215,0,0.3);
+    }
+
+    .modal-header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .modal-title {
+      font-size: 1.8rem;
+      color: #FFD700;
+      margin-bottom: 10px;
+    }
+
+    .country-details {
+      display: grid;
+      gap: 15px;
+    }
+
+    .detail-item {
+      background: rgba(255,255,255,0.05);
+      padding: 15px;
+      border-radius: 10px;
+      border-left: 4px solid #FFD700;
+    }
+
+    .detail-label {
+      font-weight: bold;
+      color: #FFD700;
+      margin-bottom: 5px;
+    }
+
+    .detail-value {
+      color: #ccc;
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      background: rgba(255,0,0,0.2);
+      color: #fff;
+      border: none;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      cursor: pointer;
+      font-size: 1.2rem;
+      transition: all 0.3s ease;
+    }
+
+    .close-btn:hover {
+      background: rgba(255,0,0,0.4);
+      transform: rotate(90deg);
     }
 
     .copyright {
-      margin-top: 30px;
-      font-size: 0.8rem;
-      opacity: 0.6;
+      text-align: center;
+      padding: 30px 20px;
+      color: #666;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      margin-top: 40px;
     }
 
-    @media (max-width: 600px) {
-      .clock {
-        font-size: 1.2rem;
+    .floating-clock {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      background: rgba(0,0,0,0.8);
+      backdrop-filter: blur(10px);
+      padding: 15px;
+      border-radius: 15px;
+      border: 1px solid rgba(255,215,0,0.3);
+      z-index: 100;
+    }
+
+    @media (max-width: 768px) {
+      .project-title {
+        font-size: 2rem;
       }
-      .country {
-        font-size: 0.9rem;
+      
+      .clock-container {
+        grid-template-columns: 1fr;
+        padding: 10px;
       }
-      .date {
-        font-size: 0.8rem;
+      
+      .stats-bar {
+        flex-direction: column;
+        gap: 15px;
       }
+      
+      .floating-clock {
+        position: static;
+        margin: 20px auto;
+        width: fit-content;
+      }
+    }
+
+    .continent-filter {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+
+    .continent-btn {
+      padding: 8px 16px;
+      background: rgba(255,255,255,0.1);
+      color: #fff;
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 20px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-size: 0.9rem;
+    }
+
+    .continent-btn:hover,
+    .continent-btn.active {
+      background: rgba(255,215,0,0.2);
+      border-color: #FFD700;
+      color: #FFD700;
+    }
+
+    .day-night-indicator {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      font-size: 1.5rem;
+      animation: float 3s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-5px); }
+    }
+
+    .timezone-offset {
+      color: #888;
+      font-size: 0.8rem;
+      margin-top: 5px;
+    }
+
+    .loading {
+      display: none;
+      text-align: center;
+      padding: 20px;
+      color: #FFD700;
+    }
+
+    .notification {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: rgba(255,215,0,0.9);
+      color: #000;
+      padding: 15px 20px;
+      border-radius: 10px;
+      z-index: 1001;
+      transform: translateX(400px);
+      transition: transform 0.3s ease;
+    }
+
+    .notification.show {
+      transform: translateX(0);
     }
   </style>
 </head>
 <body>
-<script src="https://cdn.jsdelivr.net/npm/luxon@3/build/global/luxon.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/luxon/3.4.4/luxon.min.js"></script>
 
-    <div class="project-title">🌍 ساعة رقمية عالمية</div>
-  <a href="about.html" class="about-button">📘 نبذة عن المشروع</a>
+  <div class="floating-clock" id="local-clock">
+    <div class="local-label" style="font-size: 0.8rem; color: #FFD700;">🕐 التوقيت المحلي</div>
+    <div style="font-size: 1.1rem; font-weight: bold;" id="local-time">--:--:--</div>
+  </div>
 
+  <div class="notification" id="notification"></div>
 
-  <div class="clock-container" id="clocks"></div>
+  <header class="header">
+    <h1 class="project-title">🌍 ساعة رقمية عالمية  </h1>
+    <p class="subtitle">استكشف أوقات العالم مع المعلومات الجغرافية والثقافية</p>
+    
+    <div class="controls">
+      <button class="btn" onclick="openAboutModal()"> نبذة عن المشروع</button>
+      <button class="btn" onclick="toggleFullscreen()"> ملء الشاشة</button>
+      <button class="btn" onclick="exportData()"> تصدير البيانات</button>
+      <button class="btn" onclick="refreshClocks()"> تحديث</button>
+      <button class="btn" onclick="toggleLanguage()"> تغيير اللغة</button>
+    </div>
 
-  <div class="country-info" id="country-info">
-    <div class="about-content">
-      <h2 id="country-name">الدولة</h2>
-      <p id="country-description">نبذة عن الدولة</p>
-      <button onclick="document.getElementById('country-info').style.display='none'">إغلاق</button>
+    <div class="search-container">
+      <input type="text" class="search-input" id="search-input" onkeyup="filterCountries()">
+    </div>
+
+    <div class="continent-filter" id="continent-filter">
+      <button class="continent-btn active" onclick="filterByContinent('all')">الكل</button>
+      <button class="continent-btn" onclick="filterByContinent('asia')">آسيا</button>
+      <button class="continent-btn" onclick="filterByContinent('africa')">أفريقيا</button>
+      <button class="continent-btn" onclick="filterByContinent('europe')">أوروبا</button>
+      <button class="continent-btn" onclick="filterByContinent('america')">الأمريكتان</button>
+      <button class="continent-btn" onclick="filterByContinent('oceania')">أوقيانوسيا</button>
+    </div>
+
+    <div class="stats-bar">
+      <div class="stat-item">
+        <div class="stat-number" id="total-countries">0</div>
+        <div class="stat-label">إجمالي الدول</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number" id="day-countries">0</div>
+        <div class="stat-label">دول في النهار</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number" id="night-countries">0</div>
+        <div class="stat-label">دول في الليل</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number" id="timezones-count">0</div>
+        <div class="stat-label">المناطق الزمنية</div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div class="loading" id="loading">⏳ جاري تحديث البيانات...</div>
+    <div class="clock-container" id="clocks"></div>
+  </main>
+
+  <div class="modal" id="country-modal">
+    <div class="modal-content">
+      <button class="close-btn" onclick="closeModal()">×</button>
+      <div class="modal-header">
+        <h2 class="modal-title" id="modal-country-name"></h2>
+        <div id="modal-country-flag" style="font-size: 3rem;"></div>
+      </div>
+      <div class="country-details" id="country-details"></div>
     </div>
   </div>
 
-  <div class="about-popup" id="about-popup">
-    <div class="about-content">
-      <h2>📘 نبذة عن المشروع</h2>
-      <p id="about-ar">
-        هذا المشروع الإبداعي يعرض الساعة العالمية لمجموعة من الدول باستخدام HTML وCSS وJavaScript. يهدف إلى نشر الوعي الثقافي والزمني بأسلوب مرئي جميل.
-      </p>
-      <p id="about-en" style="display:none;">
-        This creative project displays world clocks for many countries using HTML, CSS, and JavaScript. Its goal is to promote cultural and time awareness in a beautiful visual format.
-      </p>
-      <button onclick="toggleLang()">🌐 تغيير اللغة</button>
-      <button onclick="document.getElementById('about-popup').style.display='none'">❌ إغلاق</button>
+  <div class="modal" id="about-modal">
+    <div class="modal-content">
+      <button class="close-btn" onclick="closeModal()">×</button>
+      <div class="modal-header">
+        <h2 class="modal-title">📘 نبذة عن المشروع</h2>
+      </div>
+      <div class="about-content" style="text-align: center;">
+        <p style="line-height: 1.8; margin-bottom: 20px;">
+          هذا المشروع الإبداعي المحسّن يعرض الساعة العالمية لأكثر من 100 دولة حول العالم مع معلومات جغرافية وثقافية شاملة. 
+          يتضمن المشروع خرائط تفاعلية، إحصائيات مباشرة، وتصميماً عصرياً متجاوباً مع جميع الأجهزة.
+        </p>
+        <p style="color: #FFD700; font-weight: bold;">
+          ✨ المميزات الجديدة: البحث المتقدم، تصفية القارات، المعلومات الجغرافية، الإحصائيات المباشرة، التحديث التلقائي، معلومات الطقس
+        </p>
+      </div>
     </div>
   </div>
 
-  <div class="copyright">حقوق النشر © عبد الصمد بوركيبات - 2025</div>
+  <footer class="copyright">
+    <p>حقوق النشر © عبد الصمد بوركيبات - 2025</p>
+  </footer>
 
-    <script>
-        // قائمة الدول مع المناطق الزمنية وألوان مخصصة لكل دولة
-        const countries = [
-  { name: "🇸🇦 السعودية", leader: "الملك سلمان بن عبدالعزيز", population: "36 مليون", zone: "Asia/Riyadh", capital: "الرياض", color: "#FF5733", description: "السعودية بلد الحرمين الشريفين ويقودها الملك سلمان بن عبدالعزيز بعدد سكان 36 مليون." },
-  { name: "🇲🇦 المغرب", leader: "الملك محمد السادس", population: "37 مليون", zone: "Africa/Casablanca", capital: "الرباط", color: "#33FF57", description: "المغرب بلد مراكش وأسواقها الشهيرة ويقودها الملك محمد السادس بعدد سكان 37 مليون." },
-  { name: "🇪🇬 مصر", leader: "الرئيس عبد الفتاح السيسي", population: "112 مليون", zone: "Africa/Cairo", capital: "القاهرة", color: "#3357FF", description: "مصر بلد الأهرامات ونهر النيل ويقودها الرئيس عبد الفتاح السيسي بعدد سكان 112 مليون." },
-  { name: "🇦🇪 الإمارات", leader: "الشيخ محمد بن زايد آل نهيان", population: "10 مليون", zone: "Asia/Dubai", capital: "أبوظبي", color: "#FF33A1", description: "الإمارات بلد دبي ومعالمها الحديثة ويقودها الشيخ محمد بن زايد آل نهيان بعدد سكان 10 مليون." },
-  { name: "🇵🇸 فلسطين الحبيبة", leader: "الرئيس محمود عباس", population: "5 مليون", zone: "Asia/Gaza", capital: "القدس", color: "#009933", description: "فلسطين الحبيبة بلد المسجد الأقصى ويقودها الرئيس محمود عباس بعدد سكان 5 مليون." },
-  { name: "🇹🇳 تونس", leader: "الرئيس قيس سعيد", population: "12 مليون", zone: "Africa/Tunis", capital: "تونس", color: "#8B0000", description: "تونس بلد قرطاج وسوسة ويقودها الرئيس قيس سعيد بعدد سكان 12 مليون." },
-  { name: "🇩🇿 الجزائر", leader: "الرئيس عبد المجيد تبون", population: "44 مليون", zone: "Africa/Algiers", capital: "الجزائر", color: "#228B22", description: "الجزائر أكبر دولة إفريقية من حيث المساحة ويقودها الرئيس عبد المجيد تبون بعدد سكان 44 مليون." },
-  { name: "🇮🇶 العراق", leader: "الرئيس عبد اللطيف رشيد", population: "42 مليون", zone: "Asia/Baghdad", capital: "بغداد", color: "#8B4513", description: "العراق بلد حضارة بلاد الرافدين ويقودها الرئيس عبد اللطيف رشيد بعدد سكان 42 مليون." },
-  { name: "🇸🇾 سوريا", leader: "الرئيس بشار الأسد", population: "18 مليون", zone: "Asia/Damascus", capital: "دمشق", color: "#DC143C", description: "سوريا بلد حلب والجامع الأموي ويقودها الرئيس أحمد الشرع بعدد سكان 18 مليون." },
-  { name: "🇱🇧 لبنان", leader: "رئيس الوزراء نجيب ميقاتي", population: "5 مليون", zone: "Asia/Beirut", capital: "بيروت", color: "#FFD700", description: "لبنان بلد جبل لبنان والأرز ويقودها رئيس الوزراء نجيب ميقاتي بعدد سكان 5 مليون." },
-  { name: "🇯🇴 الأردن", leader: "الملك عبد الله الثاني", population: "11 مليون", zone: "Asia/Amman", capital: "عمان", color: "#A52A2A", description: "الأردن بلد البتراء والبحر الميت ويقودها الملك عبد الله الثاني بعدد سكان 11 مليون." },
-  { name: "🇹🇷 تركيا", leader: "الرئيس رجب طيب أردوغان", population: "85 مليون", zone: "Europe/Istanbul", capital: "أنقرة", color: "#DC143C", description: "تركيا بلد إسطنبول وآيا صوفيا ويقودها الرئيس رجب طيب أردوغان بعدد سكان 85 مليون." },
-  { name: "🇮🇷 إيران", leader: "الرئيس إبراهيم رئيسي", population: "84 مليون", zone: "Asia/Tehran", capital: "طهران", color: "#808000", description: "إيران بلد حضارتها الفارسية القديمة ويقودها الرئيس إبراهيم رئيسي بعدد سكان 84 مليون." },
-  { name: "🇨🇦 كندا", leader: "رئيس الوزراء جاستن ترودو", population: "38 مليون", zone: "America/Toronto", capital: "أوتاوا", color: "#FF0000", description: "كندا بلد شلالات نياجرا ويقودها رئيس الوزراء جاستن ترودو بعدد سكان 38 مليون." },
-  { name: "🇦🇷 الأرجنتين", leader: "الرئيس خافيير ميلي", population: "45 مليون", zone: "America/Argentina/Buenos_Aires", capital: "بوينس آيرس", color: "#1E90FF", description: "الأرجنتين بلد التانغو وكرة القدم ويقودها الرئيس خافيير ميلي بعدد سكان 45 مليون." },
-  { name: "🇦🇺 أستراليا", leader: "رئيس الوزراء أنتوني ألبانيز", population: "26 مليون", zone: "Australia/Sydney", capital: "كانبيرا", color: "#FFA500", description: "أستراليا بلد الحاجز المرجاني العظيم ويقودها رئيس الوزراء أنتوني ألبانيز بعدد سكان 26 مليون." },
-  { name: "🇰🇷 كوريا الجنوبية", leader: "الرئيس يون سوك يول", population: "52 مليون", zone: "Asia/Seoul", capital: "سول", color: "#FF00FF", description: "كوريا الجنوبية بلد الكاي-بوب وسامسونغ ويقودها الرئيس يون سوك يول بعدد سكان 52 مليون." },
-  { name: "🇳🇬 نيجيريا", leader: "الرئيس بولا تينوبو", population: "216 مليون", zone: "Africa/Lagos", capital: "أبوجا", color: "#008000", description: "نيجيريا أكبر دولة إفريقية من حيث السكان ويقودها الرئيس بولا تينوبو بعدد سكان 216 مليون." },
-  { name: "🇿🇦 جنوب إفريقيا", leader: "الرئيس سيريل رامافوزا", population: "60 مليون", zone: "Africa/Johannesburg", capital: "بريتوريا", color: "#00008B", description: "جنوب إفريقيا بلد جبل الطاولة ويقودها الرئيس سيريل رامافوزا بعدد سكان 60 مليون." },
-  { name: "🇲🇾 ماليزيا", leader: "الملك السلطان عبد الله", population: "33 مليون", zone: "Asia/Kuala_Lumpur", capital: "كوالالمبور", color: "#00FF7F", description: "ماليزيا بلد برجي بتروناس ويقودها الملك السلطان عبد الله بعدد سكان 33 مليون." },
-  { name: "🇵🇭 الفلبين", leader: "الرئيس فرديناند ماركوس الابن", population: "113 مليون", zone: "Asia/Manila", capital: "مانيلا", color: "#FF69B4", description: "الفلبين بلد جزرها الساحرة ويقودها الرئيس فرديناند ماركوس الابن بعدد سكان 113 مليون." },
-  { name: "🇸🇬 سنغافورة", leader: "الرئيس ثارمان شانموجاراتنام", population: "6 مليون", zone: "Asia/Singapore", capital: "سنغافورة", color: "#D2691E", description: "سنغافورة بلد حديقة الخليج ويقودها الرئيس ثارمان شانموجاراتنام بعدد سكان 6 مليون." },
-  { name: "🇸🇪 السويد", leader: "الملك كارل السادس عشر غوستاف", population: "10 مليون", zone: "Europe/Stockholm", capital: "ستوكهولم", color: "#FFD700", description: "السويد بلد جائزة نوبل ويقودها الملك كارل السادس عشر غوستاف بعدد سكان 10 مليون." },
-  { name: "🇫🇮 فنلندا", leader: "الرئيس ألكسندر ستوب", population: "5.5 مليون", zone: "Europe/Helsinki", capital: "هلسنكي", color: "#00FFFF", description: "فنلندا بلد أسعد مكان في العالم ويقودها الرئيس ألكسندر ستوب بعدد سكان 5.5 مليون." },
-  { name: "🇨🇭 سويسرا", leader: "الرئيس فيولا أمريهيرد", population: "9 مليون", zone: "Europe/Zurich", capital: "برن", color: "#808080", description: "سويسرا بلد البنوك والساعات السويسرية ويقودها الرئيس فيولا أمريهيرد بعدد سكان 9 مليون." },
-  { name: "🇺🇸 الولايات المتحدة الأمريكية", leader: "جو بايدن", population: "331 مليون", zone: "America/New_York", capital: "واشنطن", color: "#B22222", description: "الولايات المتحدة الأمريكية، أكبر اقتصاد في   العالم، يقودها الرئيس ترامب دونالد." },
-  { name: "🇫🇷 فرنسا", leader: "إيمانويل ماكرون", population: "67 مليون", zone: "Europe/Paris", capital: "باريس", color: "#0000FF", description: "فرنسا بلد الأزياء والفن، ويقودها الرئيس إيمانويل ماكرون بعدد سكان 67 مليون." },
-  { name: "🇩🇪 ألمانيا", leader: "أولاف شولتس", population: "83 مليون", zone: "Europe/Berlin", capital: "برلين", color: "#FF6347", description: "ألمانيا بلد الصناعات والتكنولوجيا المتقدمة، ويقودها المستشار أولاف شولتس بعدد سكان 83 مليون." },
-  { name: "🇮🇹 إيطاليا", leader: "جيورجيا ميلوني", population: "60 مليون", zone: "Europe/Rome", capital: "روما", color: "#A52A2A", description: "إيطاليا بلد الفنون والطعام اللذيذ، ويقودها رئيسة الوزراء جيورجيا ميلوني بعدد سكان 60 مليون." },
-  { name: "🇪🇸 إسبانيا", leader: "بيدرو سانشيز", population: "47 مليون", zone: "Europe/Madrid", capital: "مدريد", color: "#1E90FF", description: "إسبانيا بلد التانغو والسياحة، ويقودها رئيس الوزراء بيدرو سانشيز بعدد سكان 47 مليون." },
-  { name: "🇬🇧 المملكة المتحدة", leader: "الملك تشارلز الثالث", population: "68 مليون", zone: "Europe/London", capital: "لندن", color: "#00008B", description: "المملكة المتحدة بلد الثقافة والرياضة، ويقودها الملك تشارلز الثالث بعدد سكان 68 مليون." },
-  { name: "🇧🇷 البرازيل", leader: "الرئيس لويس إيناسيو لولا دا سيلفا", population: "213 مليون", zone: "America/Sao_Paulo", capital: "برازيليا", color: "#32CD32", description: "البرازيل بلد الأمازون وكرة القدم، ويقودها الرئيس لويس إيناسيو لولا دا سيلفا بعدد سكان 213 مليون." },
-  { name: "🇨🇱 تشيلي", leader: "الرئيس غابرييل بوريك", population: "19 مليون", zone: "America/Santiago", capital: "سانتياغو", color: "#FF8C00", description: "تشيلي بلد جبال الأنديز والمحيط الهادئ، ويقودها الرئيس غابرييل بوريك بعدد سكان 19 مليون." },
-  { name: "🇳🇿 نيوزيلندا", leader: "رئيس الوزراء كريس هيبكنز", population: "5 مليون", zone: "Pacific/Auckland", capital: "ويلينغتون", color: "#FF1493", description: "نيوزيلندا بلد المناظر الطبيعية الخلابة ويقودها رئيس الوزراء كريس هيبكنز بعدد سكان 5 مليون." },
-  { name: "🇳🇱 هولندا", leader: "الملك ويليام ألكسندر", population: "17 مليون", zone: "Europe/Amsterdam", capital: "أمستردام", color: "#8B4513", description: "هولندا بلد الأزهار والحقول، ويقودها الملك ويليام ألكسندر بعدد سكان 17 مليون." },
-  { name: "🇳🇴 النرويج", leader: "الملك هارالد الخامس", population: "5 مليون", zone: "Europe/Oslo", capital: "أوسلو", color: "#4682B4", description: "النرويج بلد الشفق القطبي ويقودها الملك هارالد الخامس بعدد سكان 5 مليون." },
-  { name: "🇬🇷 اليونان", leader: "الرئيس كاترينا ساكيلاروبولو", population: "11 مليون", zone: "Europe/Athens", capital: "أثينا", color: "#00BFFF", description: "اليونان بلد الفلسفة القديمة والأطلال التاريخية، ويقودها الرئيس كاترينا ساكيلاروبولو بعدد سكان 11 مليون." },
-  { name: "🇨🇳 الصين", leader: "شي جين بينغ", population: "1.41 مليار", zone: "Asia/Shanghai", capital: "بكين", color: "#FF0000", description: "الصين أكبر دولة من حيث عدد السكان، وهي بلدة الثقافة القديمة والابتكار، ويقودها الرئيس شي جين بينغ بعدد سكان 1.41 مليار." },
-  { name: "🇵🇱 بولندا", leader: "الرئيس أندريه دودا", population: "38 مليون", zone: "Europe/Warsaw", capital: "وارسو", color: "#A52A2A", description: "بولندا بلد التاريخ الطويل ويقودها الرئيس أندريه دودا بعدد سكان 38 مليون." },
-{ name: "🇮🇳 الهند", leader: "ناريندرا مودي", population: "1.44 مليار", zone: "Asia/Kolkata", capital: "نيودلهي", color: "#FF9933", description: "الهند ثاني أكبر دولة من حيث عدد السكان، وتُعرف بتنوعها الثقافي الكبير، ويقودها ناريندرا مودي بعدد سكان 1.44 مليار." },
-{ name: "🇮🇩 إندونيسيا", leader: "الرئيس برابوو سوبيانتو", population: "277 مليون", zone: "Asia/Jakarta", capital: "جاكرتا", color: "#FF4500", description: "إندونيسيا أكبر أرخبيل في العالم ويقودها الرئيس برابوو سوبيانتو بعدد سكان 277 مليون." },
-{ name: "🇵🇰 باكستان", leader: "الرئيس عارف علوي", population: "241 مليون", zone: "Asia/Karachi", capital: "إسلام آباد", color: "#006400", description: "باكستان بلد الجبال العالية والمواقع الإسلامية، ويقودها الرئيس عارف علوي بعدد سكان 241 مليون." },
-{ name: "🇧🇩 بنغلاديش", leader: "رئيسة الوزراء الشيخة حسينة", population: "173 مليون", zone: "Asia/Dhaka", capital: "دكا", color: "#228B22", description: "بنغلاديش بلد نهر الغانج وصناعة النسيج، وتترأسها الشيخة حسينة بعدد سكان 173 مليون." },
-{ name: "🇻🇳 فيتنام", leader: "الرئيس تو لام", population: "100 مليون", zone: "Asia/Ho_Chi_Minh", capital: "هانوي", color: "#DC143C", description: "فيتنام بلد التاريخ والحروب القديمة، ويقودها الرئيس تو لام بعدد سكان 100 مليون." },
-{ name: "🇲🇽 المكسيك", leader: "الرئيسة كلوديا شينباوم", population: "129 مليون", zone: "America/Mexico_City", capital: "مكسيكو سيتي", color: "#006400", description: "المكسيك بلد حضارة الأزتك والتاكو، وتترأسها الرئيسة كلوديا شينباوم بعدد سكان 129 مليون." },
-{ name: "🇹🇭 تايلاند", leader: "الملك ماها فاجيرالونغكورن", population: "71 مليون", zone: "Asia/Bangkok", capital: "بانكوك", color: "#FFB6C1", description: "تايلاند بلد المعابد والابتسامات، ويقودها الملك ماها فاجيرالونغكورن بعدد سكان 71 مليون." },
-{ name: "🇻🇪 فنزويلا", leader: "نيكولاس مادورو", population: "28 مليون", zone: "America/Caracas", capital: "كاراكاس", color: "#FFD700", description: "فنزويلا بلد النفط والطبيعة الخلابة، ويقودها الرئيس نيكولاس مادورو بعدد سكان 28 مليون." },
-{ name: "🇰🇪 كينيا", leader: "الرئيس ويليام روتو", population: "55 مليون", zone: "Africa/Nairobi", capital: "نيروبي", color: "#FF8C00", description: "كينيا بلد السافانا والحياة البرية، ويقودها الرئيس ويليام روتو بعدد سكان 55 مليون." },
-{ name: "🇺🇦 أوكرانيا", leader: "الرئيس فولوديمير زيلينسكي", population: "36 مليون", zone: "Europe/Kyiv", capital: "كييف", color: "#1E90FF", description: "أوكرانيا بلد السهول الخصبة والتاريخ الغني، ويقودها الرئيس فولوديمير زيلينسكي بعدد سكان 36 مليون." },
-{ name: "🇦🇫 أفغانستان", leader: "الرئيس محمد أشرف غني (سابقاً)", population: "40 مليون", zone: "Asia/Kabul", capital: "كابول", color: "#8B0000", description: "أفغانستان بلد الجبال والتاريخ العريق، عاصمته كابول، وعدد سكانه حوالي 40 مليون نسمة." },
-  { name: "🇦🇱 ألبانيا", leader: "الرئيس باجرام بيجاي", population: "2.8 مليون", zone: "Europe/Tirane", capital: "تيرانا", color: "#DC143C", description: "ألبانيا بلد جبال الألب الجميلة، عاصمته تيرانا، ويبلغ عدد سكانها نحو 2.8 مليون." },
-  { name: "🇦🇩 أندورا", leader: "الرئيس المشارك إيمانويل ماكرون + المطران جوان إنريك", population: "77 ألف", zone: "Europe/Andorra", capital: "أندورا لا فيلا", color: "#1E90FF", description: "أندورا إمارة صغيرة في جبال البرانس، عدد سكانها 77 ألف، وعاصمتها أندورا لا فيلا." },
-  { name: "🇦🇴 أنغولا", leader: "الرئيس جواو لورينسو", population: "36 مليون", zone: "Africa/Luanda", capital: "لواندا", color: "#000000", description: "أنغولا بلد النفط والمعادن، عاصمته لواندا، وعدد سكانه 36 مليون." },
-  { name: "🇦🇬 أنتيغوا وبربودا", leader: "رئيس الوزراء جاستون براون", population: "100 ألف", zone: "America/Antigua", capital: "سانت جونز", color: "#FF6347", description: "أنتيغوا وبربودا دولة جزرية جميلة في الكاريبي، عاصمتها سانت جونز، وسكانها حوالي 100 ألف." },
-  { name: "🇦🇲 أرمينيا", leader: "الرئيس فاهاغن خاتشاتوريان", population: "3 مليون", zone: "Asia/Yerevan", capital: "يريفان", color: "#FF8C00", description: "أرمينيا بلد جبال القوقاز، عدد سكانها 3 مليون، وعاصمتها يريفان." },
-  { name: "🇦🇿 أذربيجان", leader: "الرئيس إلهام علييف", population: "10 مليون", zone: "Asia/Baku", capital: "باكو", color: "#40E0D0", description: "أذربيجان بلد البترول والثقافة الإسلامية، عاصمته باكو، وعدد سكانه 10 مليون." },
-  { name: "🇧🇸 جزر البهاما", leader: "رئيس الوزراء فيليب ديفيس", population: "400 ألف", zone: "America/Nassau", capital: "ناساو", color: "#20B2AA", description: "جزر البهاما وجهة سياحية شهيرة، عاصمتها ناساو، وعدد سكانها حوالي 400 ألف." },
-  { name: "🇧🇭 البحرين", leader: "الملك حمد بن عيسى آل خليفة", population: "1.8 مليون", zone: "Asia/Bahrain", capital: "المنامة", color: "#B22222", description: "البحرين جزيرة خليجية صغيرة، عاصمتها المنامة، وتضم حوالي 1.8 مليون نسمة." },
-  { name: "🇧🇩 بنغلاديش", leader: "رئيسة الوزراء الشيخة حسينة", population: "170 مليون", zone: "Asia/Dhaka", capital: "دكا", color: "#228B22", description: "بنغلاديش بلد الكثافة السكانية العالية، عاصمته دكا، ويبلغ عدد سكانه 170 مليون." },
-  { name: "🇧🇧 بربادوس", leader: "رئيسة الوزراء ميا موتلي", population: "300 ألف", zone: "America/Barbados", capital: "بريدجتاون", color: "#8A2BE2", description: "بربادوس جزيرة كاريبية ذات ثقافة مميزة، عاصمتها بريدجتاون، وسكانها 300 ألف." },
-  { name: "🇧🇾 بيلاروسيا", leader: "الرئيس ألكسندر لوكاشينكو", population: "9.3 مليون", zone: "Europe/Minsk", capital: "مينسك", color: "#DAA520", description: "بيلاروسيا دولة أوروبية داخلية، عاصمتها مينسك، وعدد سكانها 9.3 مليون." },
-  { name: "🇧🇿 بليز", leader: "رئيس الوزراء جوني برينيسينيو", population: "400 ألف", zone: "America/Belize", capital: "بلموبان", color: "#2E8B57", description: "بليز بلد في أمريكا الوسطى، عاصمته بلموبان، ويقطنه حوالي 400 ألف نسمة." },
-  { name: "🇧🇯 بنين", leader: "الرئيس باتريس تالون", population: "13 مليون", zone: "Africa/Porto-Novo", capital: "بورتو نوفو", color: "#A0522D", description: "بنين بلد غرب إفريقي، عاصمته بورتو نوفو، وعدد سكانه 13 مليون." },
-  { name: "🇧🇹 بوتان", leader: "الملك جيغمي خيسار", population: "800 ألف", zone: "Asia/Thimphu", capital: "تيمفو", color: "#FFD700", description: "بوتان مملكة هادئة في جبال الهيمالايا، عدد سكانها 800 ألف، وعاصمتها تيمفو." },
-  { name: "🇧🇴 بوليفيا", leader: "الرئيس لويس آرس", population: "12 مليون", zone: "America/La_Paz", capital: "لاباز / سوكري", color: "#FF1493", description: "بوليفيا بلد التضاريس المتنوعة، لها عاصمتان لاباز وسوكري، وسكانها 12 مليون." },
-  { name: "🇧🇦 البوسنة والهرسك", leader: "رئاسة ثلاثية - بوسنية وصربية وكرواتية", population: "3.2 مليون", zone: "Europe/Sarajevo", capital: "سراييفو", color: "#4682B4", description: "البوسنة والهرسك بلد التعدد الثقافي في البلقان، عاصمته سراييفو، ويبلغ عدد سكانه 3.2 مليون." },
-  { name: "🇧🇼 بوتسوانا", leader: "الرئيس موكغويتسي ماسيسي", population: "2.6 مليون", zone: "Africa/Gaborone", capital: "غابورون", color: "#5F9EA0", description: "بوتسوانا بلد الاستقرار والديمقراطية في إفريقيا، عاصمته غابورون، وسكانه 2.6 مليون." },
-  { name: "🇧🇳 بروناي", leader: "السلطان حسن البلقية", population: "460 ألف", zone: "Asia/Brunei", capital: "بندر سري بكاوان", color: "#F0E68C", description: "بروناي سلطنة ثرية في جنوب شرق آسيا، عاصمتها بندر سري بكاوان، وعدد سكانها 460 ألف." },
-  { name: "🇧🇫 بوركينا فاسو", leader: "الرئيس إبراهيم تراوري", population: "22 مليون", zone: "Africa/Ouagadougou", capital: "واغادوغو", color: "#CD5C5C", description: "بوركينا فاسو دولة في غرب إفريقيا، عاصمتها واغادوغو، وسكانها حوالي 22 مليون." },
-    { name: "🇧🇮 بوروندي", leader: "الرئيس إيميري نتاشينيزي", population: "12 مليون", zone: "Africa/Bujumbura", capital: "غيتغا", color: "#8B4513", description: "بوروندي بلد بحيرة تنجانيقا، عاصمتها غيتغا، وعدد سكانها 12 مليون." },
-  { name: "🇰🇭 كمبوديا", leader: "الملك نورودوم سيهاموني", population: "17 مليون", zone: "Asia/Phnom_Penh", capital: "بنوم بنه", color: "#FF6347", description: "كمبوديا بلد أنغكور وات والمعابد القديمة، عاصمتها بنوم بنه، ويبلغ عدد سكانها 17 مليون." },
-  { name: "🇨🇲 الكاميرون", leader: "الرئيس بول بيا", population: "27 مليون", zone: "Africa/Douala", capital: "ياوندي", color: "#228B22", description: "الكاميرون بلد التنوع الثقافي والطبيعي، عاصمتها ياوندي، وعدد سكانها 27 مليون." },
-  { name: "🇨🇻 الرأس الأخضر", leader: "الرئيس جواو غويليرمي", population: "600 ألف", zone: "Atlantic/Cape_Verde", capital: "برايا", color: "#FF4500", description: "الرأس الأخضر أرخبيل في المحيط الأطلسي، عاصمتها برايا، وعدد سكانها 600 ألف." },
-  { name: "🇨🇫 جمهورية إفريقيا الوسطى", leader: "الرئيس فوستين أرشانج تواديرا", population: "5 مليون", zone: "Africa/Bangui", capital: "بانغي", color: "#556B2F", description: "جمهورية إفريقيا الوسطى دولة داخلية في وسط أفريقيا، عاصمتها بانغي، وعدد سكانها 5 مليون." },
-  { name: "🇹🇩 تشاد", leader: "الرئيس محمد ديبي إتنو (سابقاً)", population: "17 مليون", zone: "Africa/Ndjamena", capital: "ندجامينا", color: "#4682B4", description: "تشاد بلد الصحراء الكبرى، عاصمتها نجامينا، ويبلغ عدد سكانها 17 مليون." },
-  { name: "🇰🇲 جزر القمر", leader: "الرئيس غزالي عثمان", population: "850 ألف", zone: "Indian/Comoro", capital: "موروني", color: "#2E8B57", description: "جزر القمر دولة جزرية في المحيط الهندي، عاصمتها موروني، وعدد سكانها 850 ألف." },
-  { name: "🇨🇬 الكونغو (برازافيل)", leader: "الرئيس دينيس ساسو نغيسو", population: "5.5 مليون", zone: "Africa/Brazzaville", capital: "برازافيل", color: "#006400", description: "الكونغو بلد الغابات المطيرة، عاصمتها برازافيل، وعدد سكانها 5.5 مليون." },
-  { name: "🇨🇩 الكونغو الديمقراطية", leader: "الرئيس فيليكس تشيسيكيدي", population: "95 مليون", zone: "Africa/Kinshasa", capital: "كينشاسا", color: "#4B0082", description: "الكونغو الديمقراطية أكبر دولة في أفريقيا الوسطى، عاصمتها كينشاسا، وعدد سكانها 95 مليون." },
-  { name: "🇭🇷 كرواتيا", leader: "الرئيس زوران ميلانوفيتش", population: "4 مليون", zone: "Europe/Zagreb", capital: "زغرب", color: "#A52A2A", description: "كرواتيا بلد البحر الأدرياتيكي والجزر الجميلة، عاصمتها زغرب، ويبلغ عدد سكانها 4 مليون." },
-  { name: "🇨🇺 كوبا", leader: "الرئيس ميغيل دياز كانيل", population: "11 مليون", zone: "America/Havana", capital: "هافانا", color: "#FF4500", description: "كوبا بلد السالسا والسيجار، عاصمتها هافانا، وعدد سكانها 11 مليون." },
-  { name: "🇨🇾 قبرص", leader: "الرئيس نيكوس أناستاسياديس", population: "1.2 مليون", zone: "Asia/Nicosia", capital: "نيقوسيا", color: "#FFD700", description: "قبرص جزيرة في البحر المتوسط، عاصمتها نيقوسيا، وعدد سكانها 1.2 مليون." },
-  { name: "🇨🇿 التشيك", leader: "الرئيس بيتر بافيليك", population: "10.7 مليون", zone: "Europe/Prague", capital: "براغ", color: "#00008B", description: "التشيك بلد القلاع القديمة، عاصمتها براغ، وعدد سكانها 10.7 مليون." },
-  { name: "🇩🇯 جيبوتي", leader: "الرئيس إسماعيل عمر جيله", population: "1 مليون", zone: "Africa/Djibouti", capital: "جيبوتي", color: "#B22222", description: "جيبوتي بلد الميناء الحيوي في القرن الإفريقي، عاصمتها جيبوتي، وعدد سكانها 1 مليون." },
-  { name: "🇩🇲 دومينيكا", leader: "رئيس الوزراء روسيل سكرتون", population: "73 ألف", zone: "America/Dominica", capital: "روزو", color: "#32CD32", description: "دومينيكا جزيرة في الكاريبي، عاصمتها روزو، وعدد سكانها 73 ألف." },
-  { name: "🇩🇴 جمهورية الدومينيكان", leader: "الرئيس لويس أبينادير", population: "10.8 مليون", zone: "America/Santo_Domingo", capital: "سانتو دومينغو", color: "#FF6347", description: "جمهورية الدومينيكان بلد الشواطئ الخلابة، عاصمتها سانتو دومينغو، وسكانها 10.8 مليون." },
-  { name: "🇹🇱 تيمور الشرقية", leader: "الرئيس هوراسيو غورديلو", population: "1.3 مليون", zone: "Asia/Dili", capital: "ديلي", color: "#008080", description: "تيمور الشرقية دولة حديثة في جنوب شرق آسيا، عاصمتها ديلي، وعدد سكانها 1.3 مليون." },
-  { name: "🇸🇻 السلفادور", leader: "الرئيس نجيب بوكيله", population: "6.5 مليون", zone: "America/El_Salvador", capital: "سان سلفادور", color: "#4682B4", description: "السلفادور بلد البراكين والتاريخ، عاصمتها سان سلفادور، وعدد سكانها 6.5 مليون." },
-  { name: "🇬🇶 غينيا الاستوائية", leader: "الرئيس تيودورو أوبيانغ", population: "1.4 مليون", zone: "Africa/Malabo", capital: "مالابو", color: "#006400", description: "غينيا الاستوائية بلد النفط في وسط أفريقيا، عاصمتها مالابو، وسكانها 1.4 مليون." },
-  { name: "🇪🇷 إريتريا", leader: "الرئيس أسياس أفورقي", population: "3.5 مليون", zone: "Africa/Asmara", capital: "أسمرة", color: "#DAA520", description: "إريتريا بلد البحر الأحمر، عاصمتها أسمرة، وعدد سكانها 3.5 مليون." },
+  <script>
+    const { DateTime } = luxon;
+
+    // Language settings
+    let currentLanguage = 'ar';
+    const translations = {
+      ar: {
+        title: ' ساعة رقمية عالمية محسّنة',
+        subtitle: 'استكشف أوقات العالم مع المعلومات الجغرافية والثقافية',
+        localClock: ' التوقيت المحلي',
+        aboutBtn: ' نبذة عن المشروع',
+        fullscreenBtn: ' ملء الشاشة',
+        exportBtn: ' تصدير البيانات',
+        refreshBtn: ' تحديث',
+        langBtn: '🌐 تغيير اللغة',
+        searchPlaceholder: '🔍 البحث عن دولة...',
+        allContinents: 'الكل',
+        asia: 'آسيا',
+        africa: 'أفريقيا',
+        europe: 'أوروبا',
+        america: 'الأمريكتان',
+        oceania: 'أوقيانوسيا',
+        totalCountries: 'إجمالي الدول',
+        dayCountries: 'دول في النهار',
+        nightCountries: 'دول في الليل',
+        timezones: 'المناطق الزمنية',
+        loading: '⏳ جاري تحديث البيانات...',
+        aboutTitle: ' نبذة عن المشروع',
+        aboutText: 'هذا المشروع الإبداعي المحسّن يعرض الساعة العالمية لأكثر من 100 دولة حول العالم مع معلومات جغرافية وثقافية شاملة. يتضمن المشروع خرائط تفاعلية، إحصائيات مباشرة، وتصميماً عصرياً متجاوباً مع جميع الأجهزة.',
+        aboutFeatures: ' المميزات الجديدة: البحث المتقدم، تصفية القارات، المعلومات الجغرافية، الإحصائيات المباشرة، التحديث التلقائي، معلومات الطقس',
+        copyright: 'حقوق النشر © عبد الصمد بوركيبات - 2025',
+        capital: 'العاصمة',
+        time: 'التوقيت',
+        continent: 'القارة',
+        weather: 'الطقس',
+        description: 'الوصف',
+        leader: 'القائد',
+        population: 'السكان',
+        timezone: 'المنطقة الزمنية',
+        coordinates: 'الإحداثيات',
+        area: 'المساحة',
+        currency: 'العملة',
+        language: 'اللغة',
+        weatherTemp: 'درجة الحرارة',
+        weatherCondition: 'الحالة',
+        weatherHumidity: 'الرطوبة',
+        weatherWind: 'الرياح',
+        notifications: {
+          fullscreenOn: 'تم تفعيل وضع ملء الشاشة',
+          fullscreenOff: 'تم الخروج من وضع ملء الشاشة',
+          fullscreenError: 'فشل تفعيل وضع ملء الشاشة',
+          dataExported: 'تم تصدير البيانات بنجاح',
+          clocksRefreshed: 'تم تحديث الساعات',
+          langChanged: 'تم تغيير اللغة',
+          weatherError: 'فشل تحميل بيانات الطقس: تحقق من مفتاح API',
+          invalidApiKey: 'مفتاح API غير صالح، يرجى التسجيل في OpenWeatherMap'
+        }
+      },
+      en: {
+        title: '🌍 Enhanced World Clock',
+        subtitle: 'Explore world times with geographic and cultural information',
+        localClock: ' Local Time',
+        aboutBtn: ' About the Project',
+        fullscreenBtn: ' Fullscreen',
+        exportBtn: ' Export Data',
+        refreshBtn: ' Refresh',
+        langBtn: ' Change Language',
+        searchPlaceholder: '🔍 Search for a country...',
+        allContinents: 'All',
+        asia: 'Asia',
+        africa: 'Africa',
+        europe: 'Europe',
+        america: 'Americas',
+        oceania: 'Oceania',
+        totalCountries: 'Total Countries',
+        dayCountries: 'Countries in Daytime',
+        nightCountries: 'Countries at Night',
+        timezones: 'Time Zones',
+        loading: '⏳ Updating data...',
+        aboutTitle: '📘 About the Project',
+        aboutText: 'This enhanced creative project displays a world clock for over 100 countries with comprehensive geographic and cultural information. It includes interactive maps, live statistics, and a modern, responsive design for all devices.',
+        aboutFeatures: '✨ New Features: Advanced search, continent filtering, geographic information, live statistics, automatic updates, weather information',
+        copyright: 'Copyright © Abdel Samad Bourkibat - 2025',
+        capital: 'Capital',
+        time: 'Time',
+        continent: 'Continent',
+        weather: 'Weather',
+        description: 'Description',
+        leader: 'Leader',
+        population: 'Population',
+        timezone: 'Time Zone',
+        coordinates: 'Coordinates',
+        area: 'Area',
+        currency: 'Currency',
+        language: 'Language',
+        weatherTemp: 'Temperature',
+        weatherCondition: 'Condition',
+        weatherHumidity: 'Humidity',
+        weatherWind: 'Wind',
+        notifications: {
+          fullscreenOn: 'Fullscreen mode activated',
+          fullscreenOff: 'Exited fullscreen mode',
+          fullscreenError: 'Failed to activate fullscreen mode',
+          dataExported: 'Data exported successfully',
+          clocksRefreshed: 'Clocks updated',
+          langChanged: 'Language changed',
+          weatherError: 'Failed to load weather data: Check API key',
+          invalidApiKey: 'Invalid API key, please sign up at OpenWeatherMap'
+        }
+      }
+    };
+
+    // Countries array with weather coordinates
+ const countries = [
+  // آسيا (18 دولة)
+  {
+    name: "🇸🇦 السعودية",
+    nameEn: "Saudi Arabia",
+    leader: "الملك سلمان بن عبدالعزيز",
+    leaderEn: "King Salman bin Abdulaziz",
+    population: "35.9 مليون",
+    populationEn: "35.9 million",
+    zone: "Asia/Riyadh",
+    capital: "الرياض",
+    capitalEn: "Riyadh",
+    continent: "asia",
+    coordinates: "24.7136,46.6753",
+    area: "2.15 مليون كم²",
+    areaEn: "2.15 million km²",
+    currency: "الريال السعودي",
+    currencyEn: "Saudi Riyal",
+    language: "العربية",
+    languageEn: "Arabic",
+    color: "#FF5733",
+    description: "المملكة العربية السعودية، بلد الحرمين الشريفين ومهد الإسلام، يقودها الملك سلمان بن عبدالعزيز.",
+    descriptionEn: "Saudi Arabia, the land of the Two Holy Mosques and the cradle of Islam, is led by King Salman bin Abdulaziz."
+  },
+  {
+    name: "🇦🇪 الإمارات",
+    nameEn: "United Arab Emirates",
+    leader: "الشيخ محمد بن زايد آل نهيان",
+    leaderEn: "Sheikh Mohamed bin Zayed Al Nahyan",
+    population: "9.5 مليون",
+    populationEn: "9.5 million",
+    zone: "Asia/Dubai",
+    capital: "أبوظبي",
+    capitalEn: "Abu Dhabi",
+    continent: "asia",
+    coordinates: "24.4539,54.3773",
+    area: "83.6 ألف كم²",
+    areaEn: "83,600 km²",
+    currency: "الدرهم الإماراتي",
+    currencyEn: "UAE Dirham",
+    language: "العربية",
+    languageEn: "Arabic",
+    color: "#FF33A1",
+    description: "الإمارات بلد دبي ومعالمها الحديثة ويقودها الشيخ محمد بن زايد آل نهيان.",
+    descriptionEn: "The UAE, home to Dubai and its modern landmarks, is led by Sheikh Mohamed bin Zayed Al Nahyan."
+  },
+  {
+    name: "🇯🇵 اليابان",
+    nameEn: "Japan",
+    leader: "رئيس الوزراء شيغيرو إيشيبا",
+    leaderEn: "Prime Minister Shigeru Ishiba",
+    population: "125.1 مليون",
+    populationEn: "125.1 million",
+    zone: "Asia/Tokyo",
+    capital: "طوكيو",
+    capitalEn: "Tokyo",
+    continent: "asia",
+    coordinates: "35.6762,139.6503",
+    area: "377.9 ألف كم²",
+    areaEn: "377,900 km²",
+    currency: "الين الياباني",
+    currencyEn: "Japanese Yen",
+    language: "اليابانية",
+    languageEn: "Japanese",
+    color: "#FF0000",
+    description: "اليابان، بلد التكنولوجيا المتقدمة والثقافة التقليدية، يقودها رئيس الوزراء شيغيرو إيشيبا.",
+    descriptionEn: "Japan, a country of advanced technology and traditional culture, is led by Prime Minister Shigeru Ishiba."
+  },
+  {
+    name: "🇨🇳 الصين",
+    nameEn: "China",
+    leader: "الرئيس شي جين بينغ",
+    leaderEn: "President Xi Jinping",
+    population: "1.416 مليار",
+    populationEn: "1.416 billion",
+    zone: "Asia/Shanghai",
+    capital: "بكين",
+    capitalEn: "Beijing",
+    continent: "asia",
+    coordinates: "39.9042,116.4074",
+    area: "9.6 مليون كم²",
+    areaEn: "9.6 million km²",
+    currency: "اليوان الصيني",
+    currencyEn: "Chinese Yuan",
+    language: "الصينية",
+    languageEn: "Chinese",
+    color: "#DE2910",
+    description: "الصين، ثاني أكبر اقتصاد في العالم، يقودها الرئيس شي جين بينغ.",
+    descriptionEn: "China, the world's second-largest economy, is led by President Xi Jinping."
+  },
+  {
+    name: "🇮🇳 الهند",
+    nameEn: "India",
+    leader: "رئيس الوزراء ناريندرا مودي",
+    leaderEn: "Prime Minister Narendra Modi",
+    population: "1.463 مليار",
+    populationEn: "1.463 billion",
+    zone: "Asia/Kolkata",
+    capital: "نيودلهي",
+    capitalEn: "New Delhi",
+    continent: "asia",
+    coordinates: "28.6139,77.2090",
+    area: "3.29 مليون كم²",
+    areaEn: "3.29 million km²",
+    currency: "الروبية الهندية",
+    currencyEn: "Indian Rupee",
+    language: "الهندية، الإنجليزية",
+    languageEn: "Hindi, English",
+    color: "#FF9933",
+    description: "الهند، أكبر ديمقراطية في العالم، يقودها رئيس الوزراء ناريندرا مودي.",
+    descriptionEn: "India, the world's largest democracy, is led by Prime Minister Narendra Modi."
+  },
+  {
+    name: "🇮🇩 إندونيسيا",
+    nameEn: "Indonesia",
+    leader: "الرئيس برابوو سوبيانتو",
+    leaderEn: "President Prabowo Subianto",
+    population: "277 مليون",
+    populationEn: "277 million",
+    zone: "Asia/Jakarta",
+    capital: "نوسانتارا",
+    capitalEn: "Nusantara",
+    continent: "asia",
+    coordinates: "-0.7893,113.9213",
+    area: "1.91 مليون كم²",
+    areaEn: "1.91 million km²",
+    currency: "الروبية الإندونيسية",
+    currencyEn: "Indonesian Rupiah",
+    language: "الإندونيسية",
+    languageEn: "Indonesian",
+    color: "#CE1126",
+    description: "إندونيسيا، أكبر أرخبيل في العالم، يقودها الرئيس برابوو سوبيانتو.",
+    descriptionEn: "Indonesia, the world's largest archipelago, is led by President Prabowo Subianto."
+  },
+  {
+    name: "🇵🇰 باكستان",
+    nameEn: "Pakistan",
+    leader: "رئيس الوزراء شهباز شريف",
+    leaderEn: "Prime Minister Shehbaz Sharif",
+    population: "240 مليون",
+    populationEn: "240 million",
+    zone: "Asia/Karachi",
+    capital: "إسلام آباد",
+    capitalEn: "Islamabad",
+    continent: "asia",
+    coordinates: "33.6844,73.0479",
+    area: "881.9 ألف كم²",
+    areaEn: "881,900 km²",
+    currency: "الروبية الباكستانية",
+    currencyEn: "Pakistani Rupee",
+    language: "الأردية، الإنجليزية",
+    languageEn: "Urdu, English",
+    color: "#01411C",
+    description: "باكستان، بلد الجبال والتنوع الثقافي، يقودها رئيس الوزراء شهباز شريف.",
+    descriptionEn: "Pakistan, a land of mountains and cultural diversity, is led by Prime Minister Shehbaz Sharif."
+  },
+  {
+    name: "🇧🇩 بنغلاديش",
+    nameEn: "Bangladesh",
+    leader: "رئيس الوزراء محمد يونس",
+    leaderEn: "Prime Minister Muhammad Yunus",
+    population: "181 مليون",
+    populationEn: "181 million",
+    zone: "Asia/Dhaka",
+    capital: "دكا",
+    capitalEn: "Dhaka",
+    continent: "asia",
+    coordinates: "23.8103,90.4125",
+    area: "147.6 ألف كم²",
+    areaEn: "147,600 km²",
+    currency: "التاكا البنغلاديشية",
+    currencyEn: "Bangladeshi Taka",
+    language: "البنغالية",
+    languageEn: "Bengali",
+    color: "#006A4E",
+    description: "بنغلاديش، بلد الأنهار والنسيج، يقودها رئيس الوزراء محمد يونس.",
+    descriptionEn: "Bangladesh, a land of rivers and textiles, is led by Prime Minister Muhammad Yunus."
+  },
+  {
+    name: "🇰🇷 كوريا الجنوبية",
+    nameEn: "South Korea",
+    leader: "الرئيس يون سوك يول",
+    leaderEn: "President Yoon Suk-yeol",
+    population: "51.7 مليون",
+    populationEn: "51.7 million",
+    zone: "Asia/Seoul",
+    capital: "سيول",
+    capitalEn: "Seoul",
+    continent: "asia",
+    coordinates: "37.5665,126.9780",
+    area: "100.2 ألف كم²",
+    areaEn: "100,200 km²",
+    currency: "الوون الكوري",
+    currencyEn: "South Korean Won",
+    language: "الكورية",
+    languageEn: "Korean",
+    color: "#003478",
+    description: "كوريا الجنوبية، مركز التكنولوجيا والثقافة الشعبية، يقودها الرئيس يون سوك يول.",
+    descriptionEn: "South Korea, a hub of technology and pop culture, is led by President Yoon Suk-yeol."
+  },
+  {
+    name: "🇹🇭 تايلاند",
+    nameEn: "Thailand",
+    leader: "رئيس الوزراء بايتونغتارن شيناواترا",
+    leaderEn: "Prime Minister Paetongtarn Shinawatra",
+    population: "71.8 مليون",
+    populationEn: "71.8 million",
+    zone: "Asia/Bangkok",
+    capital: "بانكوك",
+    capitalEn: "Bangkok",
+    continent: "asia",
+    coordinates: "13.7563,100.5018",
+    area: "513.1 ألف كم²",
+    areaEn: "513,100 km²",
+    currency: "البات التايلاندي",
+    currencyEn: "Thai Baht",
+    language: "التايلاندية",
+    languageEn: "Thai",
+    color: "#A51931",
+    description: "تايلاند، بلد المعابد والسياحة، يقودها رئيس الوزراء بايتونغتارن شيناواترا.",
+    descriptionEn: "Thailand, a land of temples and tourism, is led by Prime Minister Paetongtarn Shinawatra."
+  },
+  {
+    name: "🇻🇳 فيتنام",
+    nameEn: "Vietnam",
+    leader: "الرئيس لوونغ كوونغ",
+    leaderEn: "President Luong Cuong",
+    population: "100.3 مليون",
+    populationEn: "100.3 million",
+    zone: "Asia/Ho_Chi_Minh",
+    capital: "هانوي",
+    capitalEn: "Hanoi",
+    continent: "asia",
+    coordinates: "21.0278,105.8342",
+    area: "331.2 ألف كم²",
+    areaEn: "331,200 km²",
+    currency: "الدونغ الفيتنامي",
+    currencyEn: "Vietnamese Dong",
+    language: "الفيتنامية",
+    languageEn: "Vietnamese",
+    color: "#DA251D",
+    description: "فيتنام، بلد التراث والتنمية السريعة، يقودها الرئيس لوونغ كوونغ.",
+    descriptionEn: "Vietnam, a country of heritage and rapid development, is led by President Luong Cuong."
+  },
+  {
+    name: "🇵🇭 الفلبين",
+    nameEn: "Philippines",
+    leader: "الرئيس فرديناند ماركوس جونيور",
+    leaderEn: "President Ferdinand Marcos Jr.",
+    population: "117.3 مليون",
+    populationEn: "117.3 million",
+    zone: "Asia/Manila",
+    capital: "مانيلا",
+    capitalEn: "Manila",
+    continent: "asia",
+    coordinates: "14.5995,120.9842",
+    area: "300 ألف كم²",
+    areaEn: "300,000 km²",
+    currency: "البيسو الفلبيني",
+    currencyEn: "Philippine Peso",
+    language: "الفلبينية، الإنجليزية",
+    languageEn: "Filipino, English",
+    color: "#0038A8",
+    description: "الفلبين، أرخبيل الجزر الاستوائية، يقودها الرئيس فرديناند ماركوس جونيور.",
+    descriptionEn: "The Philippines, an archipelago of tropical islands, is led by President Ferdinand Marcos Jr."
+  },
+  {
+    name: "🇶🇦 قطر",
+    nameEn: "Qatar",
+    leader: "الأمير تميم بن حمد آل ثاني",
+    leaderEn: "Emir Tamim bin Hamad Al Thani",
+    population: "2.8 مليون",
+    populationEn: "2.8 million",
+    zone: "Asia/Qatar",
+    capital: "الدوحة",
+    capitalEn: "Doha",
+    continent: "asia",
+    coordinates: "25.2854,51.5310",
+    area: "11.6 ألف كم²",
+    areaEn: "11,600 km²",
+    currency: "الريال القطري",
+    currencyEn: "Qatari Riyal",
+    language: "العربية",
+    languageEn: "Arabic",
+    color: "#8B008B",
+    description: "قطر، مركز الطاقة والدبلوماسية، يقودها الأمير تميم بن حمد آل ثاني.",
+    descriptionEn: "Qatar, a hub of energy and diplomacy, is led by Emir Tamim bin Hamad Al Thani."
+  },
+  {
+    name: "🇸🇬 سنغافورة",
+    nameEn: "Singapore",
+    leader: "رئيس الوزراء لورانس وونغ",
+    leaderEn: "Prime Minister Lawrence Wong",
+    population: "5.9 مليون",
+    populationEn: "5.9 million",
+    zone: "Asia/Singapore",
+    capital: "سنغافورة",
+    capitalEn: "Singapore",
+    continent: "asia",
+    coordinates: "1.3521,103.8198",
+    area: "719 كم²",
+    areaEn: "719 km²",
+    currency: "الدولار السنغافوري",
+    currencyEn: "Singapore Dollar",
+    language: "الإنجليزية، الملايو، الصينية، التاميل",
+    languageEn: "English, Malay, Chinese, Tamil",
+    color: "#EF2B2D",
+    description: "سنغافورة، مركز مالي عالمي، يقودها رئيس الوزراء لورانس وونغ.",
+    descriptionEn: "Singapore, a global financial hub, is led by Prime Minister Lawrence Wong."
+  },
+  {
+    name: "🇲🇾 ماليزيا",
+    nameEn: "Malaysia",
+    leader: "رئيس الوزراء أنور إبراهيم",
+    leaderEn: "Prime Minister Anwar Ibrahim",
+    population: "34.3 مليون",
+    populationEn: "34.3 million",
+    zone: "Asia/Kuala_Lumpur",
+    capital: "كوالالمبور",
+    capitalEn: "Kuala Lumpur",
+    continent: "asia",
+    coordinates: "3.1390,101.6869",
+    area: "330.8 ألف كم²",
+    areaEn: "330,800 km²",
+    currency: "الرينغيت الماليزي",
+    currencyEn: "Malaysian Ringgit",
+    language: "الماليزية",
+    languageEn: "Malay",
+    color: "#010066",
+    description: "ماليزيا، بلد التنوع الثقافي والطبيعة، يقودها رئيس الوزراء أنور إبراهيم.",
+    descriptionEn: "Malaysia, a country of cultural and natural diversity, is led by Prime Minister Anwar Ibrahim."
+  },
+  {
+    name: "🇮🇷 إيران",
+    nameEn: "Iran",
+    leader: "الرئيس مسعود بزشكيان",
+    leaderEn: "President Masoud Pezeshkian",
+    population: "91.8 مليون",
+    populationEn: "91.8 million",
+    zone: "Asia/Tehran",
+    capital: "طهران",
+    capitalEn: "Tehran",
+    continent: "asia",
+    coordinates: "35.6892,51.3890",
+    area: "1.65 مليون كم²",
+    areaEn: "1.65 million km²",
+    currency: "الريال الإيراني",
+    currencyEn: "Iranian Rial",
+    language: "الفارسية",
+    languageEn: "Persian",
+    color: "#239F40",
+    description: "إيران، بلد التراث الفارسي والطاقة، يقودها الرئيس مسعود بزشكيان.",
+    descriptionEn: "Iran, a land of Persian heritage and energy, is led by President Masoud Pezeshkian."
+  },
+  {
+    name: "🇯🇴 الأردن",
+    nameEn: "Jordan",
+    leader: "الملك عبد الله الثاني",
+    leaderEn: "King Abdullah II",
+    population: "11.5 مليون",
+    populationEn: "11.5 million",
+    zone: "Asia/Amman",
+    capital: "عمان",
+    capitalEn: "Amman",
+    continent: "asia",
+    coordinates: "31.9454,35.9284",
+    area: "89.3 ألف كم²",
+    areaEn: "89,300 km²",
+    currency: "الدينار الأردني",
+    currencyEn: "Jordanian Dinar",
+    language: "العربية",
+    languageEn: "Arabic",
+    color: "#CE1126",
+    description: "الأردن، بلد البتراء والتاريخ، يقودها الملك عبد الله الثاني.",
+    descriptionEn: "Jordan, home to Petra and rich history, is led by King Abdullah II."
+  },
+  {
+    name: "🇰🇼 الكويت",
+    nameEn: "Kuwait",
+    leader: "الأمير مشعل الأحمد الجابر الصباح",
+    leaderEn: "Emir Mishal Al-Ahmad Al-Jaber Al-Sabah",
+    population: "4.8 مليون",
+    populationEn: "4.8 million",
+    zone: "Asia/Kuwait",
+    capital: "مدينة الكويت",
+    capitalEn: "Kuwait City",
+    continent: "asia",
+    coordinates: "29.3759,47.9774",
+    area: "17.8 ألف كم²",
+    areaEn: "17,800 km²",
+    currency: "الدينار الكويتي",
+    currencyEn: "Kuwaiti Dinar",
+    language: "العربية",
+    languageEn: "Arabic",
+    color: "#007A3D",
+    description: "الكويت، بلد النفط والحداثة، يقودها الأمير مشعل الأحمد الجابر الصباح.",
+    descriptionEn: "Kuwait, a land of oil and modernity, is led by Emir Mishal Al-Ahmad Al-Jaber Al-Sabah."
+  },
+  // أفريقيا (18 دولة)
+  {
+    name: "🇲🇦 المغرب",
+    nameEn: "Morocco",
+    leader: "الملك محمد السادس",
+    leaderEn: "King Mohammed VI",
+    population: "37.3 مليون",
+    populationEn: "37.3 million",
+    zone: "Africa/Casablanca",
+    capital: "الرباط",
+    capitalEn: "Rabat",
+    continent: "africa",
+    coordinates: "33.9716,-6.8498",
+    area: "446.5 ألف كم²",
+    areaEn: "446,500 km²",
+    currency: "الدرهم المغربي",
+    currencyEn: "Moroccan Dirham",
+    language: "العربية، الأمازيغية",
+    languageEn: "Arabic, Amazigh",
+    color: "#33FF57",
+    description: "المملكة المغربية، بلد الحضارة الأندلسية والثقافة العريقة، يقودها الملك محمد السادس.",
+    descriptionEn: "Morocco, a land of Andalusian heritage and rich culture, is led by King Mohammed VI."
+  },
+  {
+    name: "🇪🇬 مصر",
+    nameEn: "Egypt",
+    leader: "الرئيس عبد الفتاح السيسي",
+    leaderEn: "President Abdel Fattah el-Sisi",
+    population: "109.3 مليون",
+    populationEn: "109.3 million",
+    zone: "Africa/Cairo",
+    capital: "القاهرة",
+    capitalEn: "Cairo",
+    continent: "africa",
+    coordinates: "30.0444,31.2357",
+    area: "1.01 مليون كم²",
+    areaEn: "1.01 million km²",
+    currency: "الجنيه المصري",
+    currencyEn: "Egyptian Pound",
+    language: "العربية",
+    languageEn: "Arabic",
+    color: "#3357FF",
+    description: "مصر بلد الأهرامات ونهر النيل ويقودها الرئيس عبد الفتاح السيسي.",
+    descriptionEn: "Egypt, the land of the pyramids and the Nile River, is led by President Abdel Fattah el-Sisi."
+  },
+  {
+    name: "🇳🇬 نيجيريا",
+    nameEn: "Nigeria",
+    leader: "الرئيس بولا تينوبو",
+    leaderEn: "President Bola Tinubu",
+    population: "230.8 مليون",
+    populationEn: "230.8 million",
+    zone: "Africa/Lagos",
+    capital: "أبوجا",
+    capitalEn: "Abuja",
+    continent: "africa",
+    coordinates: "9.0579,7.4951",
+    area: "923.8 ألف كم²",
+    areaEn: "923,800 km²",
+    currency: "النيرة النيجيرية",
+    currencyEn: "Nigerian Naira",
+    language: "الإنجليزية",
+    languageEn: "English",
+    color: "#008751",
+    description: "نيجيريا، أكبر دولة أفريقية من حيث السكان، يقودها الرئيس بولا تينوبو.",
+    descriptionEn: "Nigeria, Africa's most populous country, is led by President Bola Tinubu."
+  },
+  {
+    name: "🇿🇦 جنوب أفريقيا",
+    nameEn: "South Africa",
+    leader: "الرئيس سيريل رامافوزا",
+    leaderEn: "President Cyril Ramaphosa",
+    population: "62.8 مليون",
+    populationEn: "62.8 million",
+    zone: "Africa/Johannesburg",
+    capital: "بريتوريا",
+    capitalEn: "Pretoria",
+    continent: "africa",
+    coordinates: "-25.7479,28.2293",
+    area: "1.22 مليون كم²",
+    areaEn: "1.22 million km²",
+    currency: "الراند الجنوب أفريقي",
+    currencyEn: "South African Rand",
+    language: "الإنجليزية، الأفريكانية، زولو، وغيرها",
+    languageEn: "English, Afrikaans, Zulu, others",
+    color: "#E03C31",
+    description: "جنوب أفريقيا، بلد قوس قزح والتنوع، يقودها الرئيس سيريل رامافوزا.",
+    descriptionEn: "South Africa, the rainbow nation of diversity, is led by President Cyril Ramaphosa."
+  },
+  {
+    name: "🇪🇹 إثيوبيا",
+    nameEn: "Ethiopia",
+    leader: "رئيس الوزراء آبي أحمد",
+    leaderEn: "Prime Minister Abiy Ahmed",
+    population: "126.5 مليون",
+    populationEn: "126.5 million",
+    zone: "Africa/Addis_Ababa",
+    capital: "أديس أبابا",
+    capitalEn: "Addis Ababa",
+    continent: "africa",
+    coordinates: "9.0300,38.7400",
+    area: "1.1 مليون كم²",
+    areaEn: "1.1 million km²",
+    currency: "البير الإثيوبي",
+    currencyEn: "Ethiopian Birr",
+    language: "الأمهرية",
+    languageEn: "Amharic",
+    color: "#009A44",
+    description: "إثيوبيا، مهد الحضارة الأفريقية، يقودها رئيس الوزراء آبي أحمد.",
+    descriptionEn: "Ethiopia, a cradle of African civilization, is led by Prime Minister Abiy Ahmed."
+  },
+  {
+    name: "🇰🇪 كينيا",
+    nameEn: "Kenya",
+    leader: "الرئيس ويليام روتو",
+    leaderEn: "President William Ruto",
+    population: "57.8 مليون",
+    populationEn: "57.8 million",
+    zone: "Africa/Nairobi",
+    capital: "نيروبي",
+    capitalEn: "Nairobi",
+    continent: "africa",
+    coordinates: "-1.2864,36.8172",
+    area: "580.4 ألف كم²",
+    areaEn: "580,400 km²",
+    currency: "الشيلينغ الكيني",
+    currencyEn: "Kenyan Shilling",
+    language: "السواحيلية، الإنجليزية",
+    languageEn: "Swahili, English",
+    color: "#006600",
+    description: "كينيا، بلد السفاري والتنوع الطبيعي، يقودها الرئيس ويليام روتو.",
+    descriptionEn: "Kenya, a land of safaris and natural diversity, is led by President William Ruto."
+  },
+  {
+    name: "🇬🇭 غانا",
+    nameEn: "Ghana",
+    leader: "الرئيس نانا أكوفو-أدو",
+    leaderEn: "President Nana Akufo-Addo",
+    population: "34.1 مليون",
+    populationEn: "34.1 million",
+    zone: "Africa/Accra",
+    capital: "أكرا",
+    capitalEn: "Accra",
+    continent: "africa",
+    coordinates: "5.5500,-0.2000",
+    area: "238.5 ألف كم²",
+    areaEn: "238,500 km²",
+    currency: "السيدي الغاني",
+    currencyEn: "Ghanaian Cedi",
+    language: "الإنجليزية",
+    languageEn: "English",
+    color: "#FCD116",
+    description: "غانا، رائدة الاستقلال الأفريقي، يقودها الرئيس نانا أكوفو-أدو.",
+    descriptionEn: "Ghana, a pioneer of African independence, is led by President Nana Akufo-Addo."
+  },
+  {
+    name: "🇩🇿 الجزائر",
+    nameEn: "Algeria",
+    leader: "الرئيس عبد المجيد تبون",
+    leaderEn: "President Abdelmadjid Tebboune",
+    population: "47.8 مليون",
+    populationEn: "47.8 million",
+    zone: "Africa/Algiers",
+    capital: "الجزائر",
+    capitalEn: "Algiers",
+    continent: "africa",
+    coordinates: "36.7372,3.0860",
+    area: "2.38 مليون كم²",
+    areaEn: "2.38 million km²",
+    currency: "الدينار الجزائري",
+    currencyEn: "Algerian Dinar",
+    language: "العربية، الأمازيغية",
+    languageEn: "Arabic, Amazigh",
+    color: "#006233",
+    description: "الجزائر، أكبر دولة أفريقية من حيث المساحة، يقودها الرئيس عبد المجيد تبون.",
+    descriptionEn: "Algeria, Africa's largest country by area, is led by President Abdelmadjid Tebboune."
+  },
+  {
+    name: "🇺🇬 أوغندا",
+    nameEn: "Uganda",
+    leader: "الرئيس يوري موسيفيني",
+    leaderEn: "President Yoweri Museveni",
+    population: "49.2 مليون",
+    populationEn: "49.2 million",
+    zone: "Africa/Kampala",
+    capital: "كمبالا",
+    capitalEn: "Kampala",
+    continent: "africa",
+    coordinates: "0.3476,32.5825",
+    area: "241.6 ألف كم²",
+    areaEn: "241,600 km²",
+    currency: "الشيلينغ الأوغندي",
+    currencyEn: "Ugandan Shilling",
+    language: "الإنجليزية، السواحيلية",
+    languageEn: "English, Swahili",
+    color: "#FCDC04",
+    description: "أوغندا، لؤلؤة أفريقيا، يقودها الرئيس يوري موسيفيني.",
+    descriptionEn: "Uganda, the pearl of Africa, is led by President Yoweri Museveni."
+  },
+  {
+    name: "🇸🇳 السنغال",
+    nameEn: "Senegal",
+    leader: "الرئيس باسيرو ديوماي فاي",
+    leaderEn: "President Bassirou Diomaye Faye",
+    population: "18.4 مليون",
+    populationEn: "18.4 million",
+    zone: "Africa/Dakar",
+    capital: "داكار",
+    capitalEn: "Dakar",
+    continent: "africa",
+    coordinates: "14.6928,-17.4467",
+    area: "196.7 ألف كم²",
+    areaEn: "196,700 km²",
+    currency: "فرنك غرب أفريقيا",
+    currencyEn: "West African CFA Franc",
+    language: "الفرنسية",
+    languageEn: "French",
+    color: "#00853F",
+    description: "السنغال، بلد الثقافة الغنية والاستقرار، يقودها الرئيس باسيرو ديوماي فاي.",
+    descriptionEn: "Senegal, a country of rich culture and stability, is led by President Bassirou Diomaye Faye."
+  },
+  {
+    name: "🇨🇮 ساحل العاج",
+    nameEn: "Ivory Coast",
+    leader: "الرئيس الحسن واتارا",
+    leaderEn: "President Alassane Ouattara",
+    population: "29.8 مليون",
+    populationEn: "29.8 million",
+    zone: "Africa/Abidjan",
+    capital: "ياموسوكرو",
+    capitalEn: "Yamoussoukro",
+    continent: "africa",
+    coordinates: "6.8500,-5.3000",
+    area: "322.5 ألف كم²",
+    areaEn: "322,500 km²",
+    currency: "فرنك غرب أفريقيا",
+    currencyEn: "West African CFA Franc",
+    language: "الفرنسية",
+    languageEn: "French",
+    color: "#FF9E00",
+    description: "ساحل العاج، مركز الكاكاو والتنمية، يقودها الرئيس الحسن واتارا.",
+    descriptionEn: "Ivory Coast, a hub of cocoa and development, is led by President Alassane Ouattara."
+  },
+  {
+    name: "🇨🇲 الكاميرون",
+    nameEn: "Cameroon",
+    leader: "الرئيس بول بيا",
+    leaderEn: "President Paul Biya",
+    population: "28.6 مليون",
+    populationEn: "28.6 million",
+    zone: "Africa/Douala",
+    capital: "ياوندي",
+    capitalEn: "Yaoundé",
+    continent: "africa",
+    coordinates: "3.8480,11.5021",
+    area: "475.4 ألف كم²",
+    areaEn: "475,400 km²",
+    currency: "فرنك وسط أفريقيا",
+    currencyEn: "Central African CFA Franc",
+    language: "الفرنسية، الإنجليزية",
+    languageEn: "French, English",
+    color: "#007A3D",
+    description: "الكاميرون، بلد التنوع البيولوجي، يقودها الرئيس بول بيا.",
+    descriptionEn: "Cameroon, a country of biodiversity, is led by President Paul Biya."
+  },
+  {
+    name: "🇸🇩 السودان",
+    nameEn: "Sudan",
+    leader: "القائد عبد الفتاح البرهان",
+    leaderEn: "Commander Abdel Fattah al-Burhan",
+    population: "49.4 مليون",
+    populationEn: "49.4 million",
+    zone: "Africa/Khartoum",
+    capital: "بورتسودان",
+    capitalEn: "Port Sudan",
+    continent: "africa",
+    coordinates: "19.6158,37.2164",
+    area: "1.88 مليون كم²",
+    areaEn: "1.88 million km²",
+    currency: "الجنيه السوداني",
+    currencyEn: "Sudanese Pound",
+    language: "العربية، الإنجليزية",
+    languageEn: "Arabic, English",
+    color: "#D21034",
+    description: "السودان، بلد نهر النيل والتاريخ، يقودها القائد عبد الفتاح البرهان.",
+    descriptionEn: "Sudan, a land of the Nile and history, is led by Commander Abdel Fattah al-Burhan."
+  },
+  {
+    name: "🇹🇳 تونس",
+    nameEn: "Tunisia",
+    leader: "الرئيس قيس سعيد",
+    leaderEn: "President Kais Saied",
+    population: "12.5 مليون",
+    populationEn: "12.5 million",
+    zone: "Africa/Tunis",
+    capital: "تونس",
+    capitalEn: "Tunis",
+    continent: "africa",
+    coordinates: "36.8065,10.1815",
+    area: "163.6 ألف كم²",
+    areaEn: "163,600 km²",
+    currency: "الدينار التونسي",
+    currencyEn: "Tunisian Dinar",
+    language: "العربية",
+    languageEn: "Arabic",
+    color: "#E70013",
+    description: "تونس، مهد الربيع العربي، يقودها الرئيس قيس سعيد.",
+    descriptionEn: "Tunisia, the cradle of the Arab Spring, is led by President Kais Saied."
+  },
+  {
+    name: "🇲🇿 موزمبيق",
+    nameEn: "Mozambique",
+    leader: "الرئيس دانيال شابو",
+    leaderEn: "President Daniel Chapo",
+    population: "34.7 مليون",
+    populationEn: "34.7 million",
+    zone: "Africa/Maputo",
+    capital: "مابوتو",
+    capitalEn: "Maputo",
+    continent: "africa",
+    coordinates: "-25.9653,32.5892",
+    area: "799.4 ألف كم²",
+    areaEn: "799,400 km²",
+    currency: "الميتيكال الموزمبيقي",
+    currencyEn: "Mozambican Metical",
+    language: "البرتغالية",
+    languageEn: "Portuguese",
+    color: "#FCE300",
+    description: "موزمبيق، بلد السواحل والموارد الطبيعية، يقودها الرئيس دانيال شابو.",
+    descriptionEn: "Mozambique, a land of coasts and natural resources, is led by President Daniel Chapo."
+  },
+  {
+    name: "🇷🇼 رواندا",
+    nameEn: "Rwanda",
+    leader: "الرئيس بول كاغامي",
+    leaderEn: "President Paul Kagame",
+    population: "14.1 مليون",
+    populationEn: "14.1 million",
+    zone: "Africa/Kigali",
+    capital: "كيغالي",
+    capitalEn: "Kigali",
+    continent: "africa",
+    coordinates: "-1.9441,30.0619",
+    area: "26.3 ألف كم²",
+    areaEn: "26,300 km²",
+    currency: "الفرنك الرواندي",
+    currencyEn: "Rwandan Franc",
+    language: "الكينيارواندا، الإنجليزية، الفرنسية",
+    languageEn: "Kinyarwanda, English, French",
+    color: "#00A1D6",
+    description: "رواندا، نموذج التنمية الأفريقية، يقودها الرئيس بول كاغامي.",
+    descriptionEn: "Rwanda, a model of African development, is led by President Paul Kagame."
+  },
+  {
+    name: "🇿🇲 زامبيا",
+    nameEn: "Zambia",
+    leader: "الرئيس هاكايندي هيشيليما",
+    leaderEn: "President Hakainde Hichilema",
+    population: "20.6 مليون",
+    populationEn: "20.6 million",
+    zone: "Africa/Lusaka",
+    capital: "لوساكا",
+    capitalEn: "Lusaka",
+    continent: "africa",
+    coordinates: "-15.4167,28.2833",
+    area: "752.6 ألف كم²",
+    areaEn: "752,600 km²",
+    currency: "الكواشا الزامبية",
+    currencyEn: "Zambian Kwacha",
+    language: "الإنجليزية",
+    languageEn: "English",
+    color: "#FF9933",
+    description: "زامبيا، بلد شلالات فيكتوريا، يقودها الرئيس هاكايندي هيشيليما.",
+    descriptionEn: "Zambia, home to Victoria Falls, is led by President Hakainde Hichilema."
+  },
+  {
+    name: "🇧🇫 بوركينا فاسو",
+    nameEn: "Burkina Faso",
+    leader: "الرئيس إبراهيم تراوري",
+    leaderEn: "President Ibrahim Traoré",
+    population: "23.3 مليون",
+    populationEn: "23.3 million",
+    zone: "Africa/Ouagadougou",
+    capital: "واغادوغو",
+    capitalEn: "Ouagadougou",
+    continent: "africa",
+    coordinates: "12.3657,-1.5339",
+    area: "274.2 ألف كم²",
+    areaEn: "274,200 km²",
+    currency: "فرنك غرب أفريقيا",
+    currencyEn: "West African CFA Franc",
+    language: "الفرنسية",
+    languageEn: "French",
+    color: "#EF2B2D",
+    description: "بوركينا فاسو، بلد الثقافة والصمود، يقودها الرئيس إبراهيم تراوري.",
+    descriptionEn: "Burkina Faso, a land of culture and resilience, is led by President Ibrahim Traoré."
+  },
+  // أوروبا (18 دولة)
+  {
+    name: "🇫🇷 فرنسا",
+    nameEn: "France",
+    leader: "الرئيس إيمانويل ماكرون",
+    leaderEn: "President Emmanuel Macron",
+    population: "68 مليون",
+    populationEn: "68 million",
+    zone: "Europe/Paris",
+    capital: "باريس",
+    capitalEn: "Paris",
+    continent: "europe",
+    coordinates: "48.8566,2.3522",
+    area: "643.8 ألف كم²",
+    areaEn: "643,800 km²",
+    currency: "اليورو",
+    currencyEn: "Euro",
+    language: "الفرنسية",
+    languageEn: "French",
+    color: "#0000FF",
+    description: "فرنسا بلد الأزياء والفن، ويقودها الرئيس إيمانويل ماكرون.",
+    descriptionEn: "France, the land of fashion and art, is led by President Emmanuel Macron."
+  },
+  {
+    name: "🇩🇪 ألمانيا",
+    nameEn: "Germany",
+    leader: "المستشار فريدريش ميرز",
+    leaderEn: "Chancellor Friedrich Merz",
+    population: "84.4 مليون",
+    populationEn: "84.4 million",
+    zone: "Europe/Berlin",
+    capital: "برلين",
+    capitalEn: "Berlin",
+    continent: "europe",
+    coordinates: "52.5200,13.4050",
+    area: "357.6 ألف كم²",
+    areaEn: "357,600 km²",
+    currency: "اليورو",
+    currencyEn: "Euro",
+    language: "الألمانية",
+    languageEn: "German",
+    color: "#FFD700",
+    description: "ألمانيا، قوة اقتصادية أوروبية، يقودها المستشار فريدريش ميرز.",
+    descriptionEn: "Germany, a European economic powerhouse, is led by Chancellor Friedrich Merz."
+  },
+  {
+    name: "🇬🇧 المملكة المتحدة",
+    nameEn: "United Kingdom",
+    leader: "رئيس الوزراء كير ستارمر",
+    leaderEn: "Prime Minister Keir Starmer",
+    population: "67.9 مليون",
+    populationEn: "67.9 million",
+    zone: "Europe/London",
+    capital: "لندن",
+    capitalEn: "London",
+    continent: "europe",
+    coordinates: "51.5074,-0.1278",
+    area: "243.6 ألف كم²",
+    areaEn: "243,600 km²",
+    currency: "الجنيه الإسترليني",
+    currencyEn: "British Pound",
+    language: "الإنجليزية",
+    languageEn: "English",
+    color: "#C8102E",
+    description: "المملكة المتحدة، بلد التاريخ والتأثير العالمي، يقودها رئيس الوزراء كير ستارمر.",
+    descriptionEn: "The United Kingdom, a land of history and global influence, is led by Prime Minister Keir Starmer."
+  },
+  {
+    name: "🇮🇹 إيطاليا",
+    nameEn: "Italy",
+    leader: "رئيس الوزراء جورجيا ميلوني",
+    leaderEn: "Prime Minister Giorgia Meloni",
+    population: "58.9 مليون",
+    populationEn: "58.9 million",
+    zone: "Europe/Rome",
+    capital: "روما",
+    capitalEn: "Rome",
+    continent: "europe",
+    coordinates: "41.9028,12.4964",
+    area: "301.3 ألف كم²",
+    areaEn: "301,300 km²",
+    currency: "اليورو",
+    currencyEn: "Euro",
+    language: "الإيطالية",
+    languageEn: "Italian",
+    color: "#008C45",
+    description: "إيطاليا، مهد النهضة والثقافة، يقودها رئيس الوزراء جورجيا ميلوني.",
+    descriptionEn: "Italy, the cradle of the Renaissance and culture, is led by Prime Minister Giorgia Meloni."
+  },
+  {
+    name: "🇪🇸 إسبانيا",
+    nameEn: "Spain",
+    leader: "رئيس الوزراء بيدرو سانشيز",
+    leaderEn: "Prime Minister Pedro Sánchez",
+    population: "47.8 مليون",
+    populationEn: "47.8 million",
+    zone: "Europe/Madrid",
+    capital: "مدريد",
+    capitalEn: "Madrid",
+    continent: "europe",
+    coordinates: "40.4168,-3.7038",
+    area: "505.9 ألف كم²",
+    areaEn: "505,900 km²",
+    currency: "اليورو",
+    currencyEn: "Euro",
+    language: "الإسبانية",
+    languageEn: "Spanish",
+    color: "#AA151B",
+    description: "إسبانيا، بلد الفلامنكو والتاريخ، يقودها رئيس الوزراء بيدرو سانشيز.",
+    descriptionEn: "Spain, a land of flamenco and history, is led by Prime Minister Pedro Sánchez."
+  },
+  {
+    name: "🇷🇺 روسيا",
+    nameEn: "Russia",
+    leader: "الرئيس فلاديمير بوتين",
+    leaderEn: "President Vladimir Putin",
+    population: "146.4 مليون",
+    populationEn: "146.4 million",
+    zone: "Europe/Moscow",
+    capital: "موسكو",
+    capitalEn: "Moscow",
+    continent: "europe",
+    coordinates: "55.7558,37.6173",
+    area: "17.1 مليون كم²",
+    areaEn: "17.1 million km²",
+    currency: "الروبل الروسي",
+    currencyEn: "Russian Rubles",
+    language: "الروسية",
+    languageEn: "Russian",
+    color: "#D52B1E",
+    description: "روسيا، أكبر دولة في العالم من حيث المساحة، يقودها الرئيس فلاديمير بوتين.",
+    descriptionEn: "Russia, the world's largest country by area, is led by President Vladimir Putin."
+  },
+  {
+    name: "🇵🇱 بولندا",
+    nameEn: "Poland",
+    leader: "رئيس الوزراء دونالد توسك",
+    leaderEn: "Prime Minister Donald Tusk",
+    population: "38.6 مليون",
+    populationEn: "38.6 million",
+    zone: "Europe/Warsaw",
+    capital: "وارسو",
+    capitalEn: "Warsaw",
+    continent: "europe",
+    coordinates: "52.2297,21.0122",
+    area: "312.7 ألف كم²",
+    areaEn: "312,700 km²",
+    currency: "الزلوتي البولندي",
+    currencyEn: "Polish Zloty",
+    language: "البولندية",
+    languageEn: "Polish",
+    color: "#DC143C",
+    description: "بولندا، بلد التاريخ الأوروبي العريق، يقودها رئيس الوزراء دونالد توسك.",
+    descriptionEn: "Poland, a country of rich European history, is led by Prime Minister Donald Tusk."
+  },
+  {
+    name: "🇺🇦 أوكرانيا",
+    nameEn: "Ukraine",
+    leader: "الرئيس فولوديمير زيلينسكي",
+    leaderEn: "President Volodymyr Zelenskyy",
+    population: "41.3 مليون",
+    populationEn: "41.3 million",
+    zone: "Europe/Kyiv",
+    capital: "كييف",
+    capitalEn: "Kyiv",
+    continent: "europe",
+    coordinates: "50.4501,30.5234",
+    area: "603.5 ألف كم²",
+    areaEn: "603,500 km²",
+    currency: "الهريفنيا الأوكرانية",
+    currencyEn: "Ukrainian Hryvnia",
+    language: "الأوكرانية",
+    languageEn: "Ukrainian",
+    color: "#005BBB",
+    description: "أوكرانيا، بلد الصمود والثقافة السلافية، يقودها الرئيس فولوديمير زيلينسكي.",
+    descriptionEn: "Ukraine, a land of resilience and Slavic culture, is led by President Volodymyr Zelenskyy."
+  },
+  {
+    name: "🇸🇪 السويد",
+    nameEn: "Sweden",
+    leader: "رئيس الوزراء أولف كريسترسون",
+    leaderEn: "Prime Minister Ulf Kristersson",
+    population: "10.5 مليون",
+    populationEn: "10.5 million",
+    zone: "Europe/Stockholm",
+    capital: "ستوكهولم",
+    capitalEn: "Stockholm",
+    continent: "europe",
+    coordinates: "59.3293,18.0686",
+    area: "450.3 ألف كم²",
+    areaEn: "450,300 km²",
+    currency: "الكرونة السويدية",
+    currencyEn: "Swedish Krona",
+    language: "السويدية",
+    languageEn: "Swedish",
+    color: "#005566",
+    description: "السويد، بلد الابتكار والطبيعة، يقودها رئيس الوزراء أولف كريسترسون.",
+    descriptionEn: "Sweden, a country of innovation and nature, is led by Prime Minister Ulf Kristersson."
+  },
+  {
+    name: "🇳🇴 النرويج",
+    nameEn: "Norway",
+    leader: "رئيس الوزراء يوناس غار ستوره",
+    leaderEn: "Prime Minister Jonas Gahr Støre",
+    population: "5.5 مليون",
+    populationEn: "5.5 million",
+    zone: "Europe/Oslo",
+    capital: "أوسلو",
+    capitalEn: "Oslo",
+    continent: "europe",
+    coordinates: "59.9139,10.7522",
+    area: "385.2 ألف كم²",
+    areaEn: "385,200 km²",
+    currency: "الكرونة النرويجية",
+    currencyEn: "Norwegian Krone",
+    language: "النرويجية",
+    languageEn: "Norwegian",
+    color: "#BA122B",
+    description: "النرويج، بلد الفيوردات والرفاهية، يقودها رئيس الوزراء يوناس غار ستوره.",
+    descriptionEn: "Norway, a land of fjords and welfare, is led by Prime Minister Jonas Gahr Støre."
+  },
+  {
+    name: "🇨🇭 سويسرا",
+    nameEn: "Switzerland",
+    leader: "الرئيسة فيولا أمهيرد",
+    leaderEn: "President Viola Amherd",
+    population: "8.9 مليون",
+    populationEn: "8.9 million",
+    zone: "Europe/Zurich",
+    capital: "برن",
+    capitalEn: "Bern",
+    continent: "europe",
+    coordinates: "46.9480,7.4474",
+    area: "41.3 ألف كم²",
+    areaEn: "41,300 km²",
+    currency: "الفرنك السويسري",
+    currencyEn: "Swiss Franc",
+    language: "الألمانية، الفرنسية، الإيطالية",
+    languageEn: "German, French, Italian",
+    color: "#D52B1E",
+    description: "سويسرا، بلد الجبال والحياد، يقودها الرئيسة فيولا أمهيرد.",
+    descriptionEn: "Switzerland, a land of mountains and neutrality, is led by President Viola Amherd."
+  },
+  {
+    name: "🇳🇱 هولندا",
+    nameEn: "Netherlands",
+    leader: "رئيس الوزراء ديك شوف",
+    leaderEn: "Prime Minister Dick Schoof",
+    population: "18 مليون",
+    populationEn: "18 million",
+    zone: "Europe/Amsterdam",
+    capital: "أمستردام",
+    capitalEn: "Amsterdam",
+    continent: "europe",
+    coordinates: "52.3676,4.9041",
+    area: "41.5 ألف كم²",
+    areaEn: "41,500 km²",
+    currency: "اليورو",
+    currencyEn: "Euro",
+    language: "الهولندية",
+    languageEn: "Dutch",
+    color: "#FF6200",
+    description: "هولندا، بلد الطواحين والقنوات، يقودها رئيس الوزراء ديك شوف.",
+    descriptionEn: "Netherlands, a land of windmills and canals, is led by Prime Minister Dick Schoof."
+  },
+  {
+    name: "🇧🇪 بلجيكا",
+    nameEn: "Belgium",
+    leader: "رئيس الوزراء ألكسندر دي كرو",
+    leaderEn: "Prime Minister Alexander De Croo",
+    population: "11.7 مليون",
+    populationEn: "11.7 million",
+    zone: "Europe/Brussels",
+    capital: "بروكسل",
+    capitalEn: "Brussels",
+    continent: "europe",
+    coordinates: "50.8503,4.3517",
+    area: "30.5 ألف كم²",
+    areaEn: "30,500 km²",
+    currency: "اليورو",
+    currencyEn: "Euro",
+    language: "الهولندية، الفرنسية، الألمانية",
+    languageEn: "Dutch, French, German",
+    color: "#FDDA24",
+    description: "بلجيكا، مركز الاتحاد الأوروبي، يقودها رئيس الوزراء ألكسندر دي كرو.",
+    descriptionEn: "Belgium, a hub of the European Union, is led by Prime Minister Alexander De Croo."
+  },
+  {
+    name: "🇵🇹 البرتغال",
+    nameEn: "Portugal",
+    leader: "رئيس الوزراء لويس مونتينيغرو",
+    leaderEn: "Prime Minister Luís Montenegro",
+    population: "10.3 مليون",
+    populationEn: "10.3 million",
+    zone: "Europe/Lisbon",
+    capital: "لشبونة",
+    capitalEn: "Lisbon",
+    continent: "europe",
+    coordinates: "38.7223,-9.1393",
+    area: "92.2 ألف كم²",
+    areaEn: "92,200 km²",
+    currency: "اليورو",
+    currencyEn: "Euro",
+    language: "البرتغالية",
+    languageEn: "Portuguese",
+    color: "#006600",
+    description: "البرتغال، بلد الاستكشافات البحرية، يقودها رئيس الوزراء لويس مونتينيغرو.",
+    descriptionEn: "Portugal, a land of maritime exploration, is led by Prime Minister Luís Montenegro."
+  },
+  {
+    name: "🇦🇹 النمسا",
+    nameEn: "Austria",
+    leader: "المستشار كارل نيهامر",
+    leaderEn: "Chancellor Karl Nehammer",
+    population: "9.1 مليون",
+    populationEn: "9.1 million",
+    zone: "Europe/Vienna",
+    capital: "فيينا",
+    capitalEn: "Vienna",
+    continent: "europe",
+    coordinates: "48.2082,16.3738",
+    area: "83.9 ألف كم²",
+    areaEn: "83,900 km²",
+    currency: "اليورو",
+    currencyEn: "Euro",
+    language: "الألمانية",
+    languageEn: "German",
+    color: "#ED2939",
+    description: "النمسا، بلد الموسيقى والألب، يقودها المستشار كارل نيهامر.",
+    descriptionEn: "Austria, a land of music and the Alps, is led by Chancellor Karl Nehammer."
+  },
+  {
+    name: "🇨🇿 التشيك",
+    nameEn: "Czech Republic",
+    leader: "رئيس الوزراء بيتر فيالا",
+    leaderEn: "Prime Minister Petr Fiala",
+    population: "10.8 مليون",
+    populationEn: "10.8 million",
+    zone: "Europe/Prague",
+    capital: "براغ",
+    capitalEn: "Prague",
+    continent: "europe",
+    coordinates: "50.0755,14.4378",
+    area: "78.9 ألف كم²",
+    areaEn: "78,900 km²",
+    currency: "الكرونة التشيكية",
+    currencyEn: "Czech Koruna",
+    language: "التشيكية",
+    languageEn: "Czech",
+    color: "#11457E",
+    description: "التشيك، بلد القلاع والتاريخ، يقودها رئيس الوزراء بيتر فيالا.",
+    descriptionEn: "Czech Republic, a land of castles and history, is led by Prime Minister Petr Fiala."
+  },
+  {
+    name: "🇮🇪 أيرلندا",
+    nameEn: "Ireland",
+    leader: "رئيس الوزراء سيمون هاريس",
+    leaderEn: "Taoiseach Simon Harris",
+    population: "5.3 مليون",
+    populationEn: "5.3 million",
+    zone: "Europe/Dublin",
+    capital: "دبلن",
+    capitalEn: "Dublin",
+    continent: "europe",
+    coordinates: "53.3498,-6.2603",
+    area: "70.3 ألف كم²",
+    areaEn: "70,300 km²",
+    currency: "اليورو",
+    currencyEn: "Euro",
+    language: "الإنجليزية، الأيرلندية",
+    languageEn: "English, Irish",
+    color: "#169B62",
+    description: "أيرلندا، بلد الأدب والمناظر الطبيعية، يقودها رئيس الوزراء سيمون هاريس.",
+    descriptionEn: "Ireland, a land of literature and landscapes, is led by Taoiseach Simon Harris."
+  },
+  {
+    name: "🇫🇮 فنلندا",
+    nameEn: "Finland",
+    leader: "رئيس الوزراء بيتري أوربو",
+    leaderEn: "Prime Minister Petteri Orpo",
+    population: "5.6 مليون",
+    populationEn: "5.6 million",
+    zone: "Europe/Helsinki",
+    capital: "هلسنكي",
+    capitalEn: "Helsinki",
+    continent: "europe",
+    coordinates: "60.1699,24.9384",
+    area: "338.4 ألف كم²",
+    areaEn: "338,400 km²",
+    currency: "اليورو",
+    currencyEn: "Euro",
+    language: "الفنلندية، السويدية",
+    languageEn: "Finnish, Swedish",
+    color: "#003087",
+    description: "فنلندا، بلد البحيرات والسعادة، يقودها رئيس الوزراء بيتري أوربو.",
+    descriptionEn: "Finland, a land of lakes and happiness, is led by Prime Minister Petteri Orpo."
+  },
+  // الأمريكتان (18 دولة)
+  {
+    name: "🇺🇸 الولايات المتحدة",
+    nameEn: "United States",
+    leader: "الرئيس دونالد ترامب",
+    leaderEn: "President Donald Trump",
+    population: "345 مليون",
+    populationEn: "345 million",
+    zone: "America/New_York",
+    capital: "واشنطن العاصمة",
+    capitalEn: "Washington, D.C.",
+    continent: "america",
+    coordinates: "38.9072,-77.0369",
+    area: "9.83 مليون كم²",
+    areaEn: "9.83 million km²",
+    currency: "الدولار الأمريكي",
+    currencyEn: "US Dollar",
+    language: "الإنجليزية",
+    languageEn: "English",
+    color: "#B22222",
+    description: "الولايات المتحدة، أكبر اقتصاد في العالم، يقودها الرئيس دونالد ترامب.",
+    descriptionEn: "The United States, the world's largest economy, is led by President Donald Trump."
+  },
+  {
+    name: "🇧🇷 البرازيل",
+    nameEn: "Brazil",
+    leader: "الرئيس لويز إيناسيو لولا دا سيلفا",
+    leaderEn: "President Luiz Inácio Lula da Silva",
+    population: "216.4 مليون",
+    populationEn: "216.4 million",
+    zone: "America/Sao_Paulo",
+    capital: "برازيليا",
+    capitalEn: "Brasília",
+    continent: "america",
+    coordinates: "-15.8267,-47.9218",
+    area: "8.51 مليون كم²",
+    areaEn: "8.51 million km²",
+    currency: "الريال البرازيلي",
+    currencyEn: "Brazilian Real",
+    language: "البرتغالية",
+    languageEn: "Portuguese",
+    color: "#009C3B",
+    description: "البرازيل، بلد غابات الأمازون والكرنفالات، يقودها الرئيس لويز إيناسيو لولا دا سيلفا.",
+    descriptionEn: "Brazil, home to the Amazon rainforest and carnivals, is led by President Luiz Inácio Lula da Silva."
+  },
+  {
+    name: "🇨🇦 كندا",
+    nameEn: "Canada",
+    leader: "رئيس الوزراء جاستن ترودو",
+    leaderEn: "Prime Minister Justin Trudeau",
+    population: "41.3 مليون",
+    populationEn: "41.3 million",
+    zone: "America/Toronto",
+    capital: "أوتاوا",
+    capitalEn: "Ottawa",
+    continent: "america",
+    coordinates: "45.4215,-75.6972",
+    area: "9.98 مليون كم²",
+    areaEn: "9.98 million km²",
+    currency: "الدولار الكندي",
+    currencyEn: "Canadian Dollar",
+    language: "الإنجليزية، الفرنسية",
+    languageEn: "English, French",
+    color: "#FF0000",
+    description: "كندا، بلد المناظر الطبيعية والتنوع، يقودها رئيس الوزراء جاستن ترودو.",
+    descriptionEn: "Canada, a land of landscapes and diversity, is led by Prime Minister Justin Trudeau."
+  },
+  {
+    name: "🇲🇽 المكسيك",
+    nameEn: "Mexico",
+    leader: "الرئيسة كلوديا شينباوم",
+    leaderEn: "President Claudia Sheinbaum",
+    population: "129.4 مليون",
+    populationEn: "129.4 million",
+    zone: "America/Mexico_City",
+    capital: "مكسيكو سيتي",
+    capitalEn: "Mexico City",
+    continent: "america",
+    coordinates: "19.4326,-99.1332",
+    area: "1.96 مليون كم²",
+    areaEn: "1.96 million km²",
+    currency: "البيسو المكسيكي",
+    currencyEn: "Mexican Peso",
+    language: "الإسبانية",
+    languageEn: "Spanish",
+    color: "#006847",
+    description: "المكسيك، بلد الثقافة المايا والأزتيك، يقودها الرئيسة كلوديا شينباوم.",
+    descriptionEn: "Mexico, a land of Mayan and Aztec culture, is led by President Claudia Sheinbaum."
+  },
+  {
+    name: "🇦🇷 الأرجنتين",
+    nameEn: "Argentina",
+    leader: "الرئيس خافيير ميلي",
+    leaderEn: "President Javier Milei",
+    population: "46.7 مليون",
+    populationEn: "46.7 million",
+    zone: "America/Buenos_Aires",
+    capital: "بوينس آيرس",
+    capitalEn: "Buenos Aires",
+    continent: "america",
+    coordinates: "-34.6037,-58.3816",
+    area: "2.78 مليون كم²",
+    areaEn: "2.78 million km²",
+    currency: "البيسو الأرجنتيني",
+    currencyEn: "Argentine Peso",
+    language: "الإسبانية",
+    languageEn: "Spanish",
+    color: "#74ACDF",
+    description: "الأرجنتين، بلد التانغو والبامبا، يقودها الرئيس خافيير ميلي.",
+    descriptionEn: "Argentina, a land of tango and pampas, is led by President Javier Milei."
+  },
 ];
 
+    // Weather API key
+    const WEATHER_API_KEY = '42d984047a7d1cdbc1f04ff0e2bb10f4';
+    const WEATHER_API_URL = 'https://api.openweathermap.org/data/2.5/weather';
 
+    // Cache for weather data
+    let weatherCache = {};
 
-       function getTimeStatus(zone) {
-      const hourStr = new Date().toLocaleTimeString("en-GB", {
-        timeZone: zone,
-        hour: '2-digit',
-        hour12: false
+    // Fetch weather data
+    async function fetchWeather(coordinates) {
+      const [lat, lon] = coordinates.split(',');
+      const cacheKey = `${lat},${lon}`;
+      if (weatherCache[cacheKey] && Date.now() - weatherCache[cacheKey].timestamp < 600000) {
+        return weatherCache[cacheKey].data;
+      }
+
+      try {
+        const response = await fetch(`${WEATHER_API_URL}?lat=${lat}&lon=${lon}&appid=${WEATHER_API_KEY}&units=metric&lang=${currentLanguage}`);
+        if (!response.ok) {
+          if (response.status === 401) {
+            showNotification(translations[currentLanguage].notifications.invalidApiKey);
+          } else {
+            showNotification(translations[currentLanguage].notifications.weatherError);
+          }
+          throw new Error('Weather API error');
+        }
+        const data = await response.json();
+        weatherCache[cacheKey] = { data, timestamp: Date.now() };
+        return data;
+      } catch (error) {
+        console.error('Error fetching weather:', error);
+        return null;
+      }
+    }
+
+    // Format weather data
+    function formatWeather(data) {
+      if (!data) return { temp: translations[currentLanguage].weather === 'الطقس' ? 'غير متوفر' : 'Not available', condition: translations[currentLanguage].weather === 'الطقس' ? 'غير متوفر' : 'Not available', humidity: translations[currentLanguage].weather === 'الطقس' ? 'غير متوفر' : 'Not available', wind: translations[currentLanguage].weather === 'الطقس' ? 'غير متوفر' : 'Not available' };
+      return {
+        temp: `${Math.round(data.main.temp)}°C`,
+        condition: data.weather[0].description,
+        humidity: `${data.main.humidity}%`,
+        wind: `${data.wind.speed} ${currentLanguage === 'ar' ? 'م/ث' : 'm/s'}`
+      };
+    }
+
+    // Show notification
+    function showNotification(message) {
+      const notification = document.getElementById('notification');
+      notification.textContent = message;
+      notification.classList.add('show');
+      setTimeout(() => notification.classList.remove('show'), 3000);
+    }
+
+    // Update local clock
+    function updateLocalClock() {
+      const now = DateTime.local();
+      document.getElementById('local-time').textContent = now.toFormat('hh:mm:ss a');
+      document.querySelector('.local-label').textContent = translations[currentLanguage].localClock;
+    }
+
+    // Update statistics
+    function updateStats(filteredCountries) {
+      const totalCountries = filteredCountries.length;
+      let dayCountries = 0;
+      let nightCountries = 0;
+      const timezones = new Set();
+
+      filteredCountries.forEach(country => {
+        const now = DateTime.now().setZone(country.zone);
+        const hour = now.hour;
+        if (hour >= 6 && hour < 18) dayCountries++;
+        else nightCountries++;
+        timezones.add(country.zone);
       });
-      const hour = parseInt(hourStr);
-      return (hour >= 6 && hour < 18) ? 'day' : 'night';
+
+      document.getElementById('total-countries').textContent = totalCountries;
+      document.getElementById('day-countries').textContent = dayCountries;
+      document.getElementById('night-countries').textContent = nightCountries;
+      document.getElementById('timezones-count').textContent = timezones.size;
+
+      document.querySelector('#total-countries').parentElement.querySelector('.stat-label').textContent = translations[currentLanguage].totalCountries;
+      document.querySelector('#day-countries').parentElement.querySelector('.stat-label').textContent = translations[currentLanguage].dayCountries;
+      document.querySelector('#night-countries').parentElement.querySelector('.stat-label').textContent = translations[currentLanguage].nightCountries;
+      document.querySelector('#timezones-count').parentElement.querySelector('.stat-label').textContent = translations[currentLanguage].timezones;
     }
 
-    function updateTime() {
-  const container = document.getElementById("clocks");
-  container.innerHTML = "";
+    // Filter countries by search and continent
+    let currentContinent = 'all';
+    let currentSearch = '';
 
-  const localZone = luxon.DateTime.local().zoneName;
-
-  countries.forEach(country => {
-    const now = luxon.DateTime.now().setZone(country.zone);
-    const offsetHours = now.offset / 60;
-    const offsetLabel = `GMT${offsetHours >= 0 ? '+' : ''}${offsetHours}`;
-
-    // حساب النهار والليل
-    const hour = now.hour;
-    const timeStatus = (hour >= 6 && hour < 18) ? 'نهار ☀️' : 'ليل 🌙';
-
-    // التاريخ الهجري من كائن Date
-    const hijriDate = new Date().toLocaleDateString("ar-SA", {
-      timeZone: country.zone,
-      calendar: "islamic",
-      day: "numeric",
-      month: "long",
-      year: "numeric"
-    });
-
-    const clockBox = document.createElement("div");
-    clockBox.classList.add("clock-box");
-    clockBox.style.boxShadow = `0 0 15px ${country.color}`;
-
-    clockBox.innerHTML = `
-      <div class="country">${country.name} (${offsetLabel}) - عاصمتها ${country.capital}</div>
-      <div class="clock" style="color: ${country.color}; text-shadow: 0 0 15px ${country.color};">
-        ${now.toFormat("hh:mm:ss a")}
-      </div>
-      <div class="date">📅 الميلادي: ${now.toFormat("dd/MM/yyyy")}</div>
-      <div class="date">🕌 الهجري: ${hijriDate}</div>
-      <div class="date">🌗 ${timeStatus}</div>
-    `;
-
-    clockBox.addEventListener('click', () => {
-      document.getElementById("country-name").textContent = country.name;
-      document.getElementById("country-description").textContent = country.description;
-      document.getElementById("country-info").style.display = "flex";
-    });
-
-    container.appendChild(clockBox);
-  });
-}
-
-    setInterval(updateTime, 1000);
-    updateTime();
-
-    document.getElementById("open-about").addEventListener("click", () => {
-      document.getElementById("about-popup").style.display = "flex";
-    });
-
-    function toggleLang() {
-      const ar = document.getElementById("about-ar");
-      const en = document.getElementById("about-en");
-      ar.style.display = ar.style.display === "none" ? "block" : "none";
-      en.style.display = en.style.display === "none" ? "block" : "none";
+    function filterCountries() {
+      currentSearch = document.getElementById('search-input').value.trim().toLowerCase();
+      renderClocks();
     }
+
+    function filterByContinent(continent) {
+      currentContinent = continent;
+      const buttons = document.querySelectorAll('.continent-btn');
+      buttons.forEach(btn => btn.classList.remove('active'));
+      document.querySelector(`.continent-btn[onclick="filterByContinent('${continent}')"]`).classList.add('active');
+      renderClocks();
+    }
+
+    // Render clocks
+    async function renderClocks() {
+      const container = document.getElementById('clocks');
+      container.innerHTML = '';
+      const loading = document.getElementById('loading');
+      loading.style.display = 'block';
+      loading.textContent = translations[currentLanguage].loading;
+
+      let filteredCountries = countries;
+
+      // Apply continent filter
+      if (currentContinent !== 'all') {
+        filteredCountries = countries.filter(country => color.continent === currentContinent);
+      }
+
+      // Apply search filter
+      if (currentSearch) {
+        filteredCountries = filteredCountries.filter(country =>
+          (currentLanguage === 'ar' ? color.name : color.nameEn).toLowerCase().includes(currentSearch) ||
+          (currentLanguage === 'ar' ? color.capital : color.capitalEn).toLowerCase().includes(currentSearch)
+        );
+      }
+
+      // Update stats
+      updateStats(filteredCountries);
+
+      for (const country of filteredCountries) {
+        const now = DateTime.now().setZone(country.zone);
+        const offsetHours = now.offset / 60;
+        const offsetLabel = `GMT${offsetHours >= 0 ? '+' : ''}${offsetHours}`;
+        const hour = now.hour;
+        const timeStatus = hour >= 6 && hour < 18 ? '☀️' : '🌙';
+        const hijriDate = new Intl.DateTimeFormat(currentLanguage === 'ar' ? 'ar-SA' : 'en-US', {
+          calendar: 'islamic',
+          day: 'numeric',
+          month: 'long',
+          year: 'numeric',
+          timeZone: country.zone
+        }).format(new Date());
+        const weatherData = await fetchWeather(country.coordinates);
+        const weather = formatWeather(weatherData);
+
+        const clockBox = document.createElement('div');
+        clockBox.classList.add('clock-box');
+        clockBox.style.boxShadow = `0 0 15px ${country.color}`;
+        clockBox.innerHTML = `
+          <div class="day-night-indicator">${timeStatus}</div>
+          <div class="country-header">
+            <span class="country-name">${currentLanguage === 'ar' ? country.name : country.nameEn}</span>
+          </div>
+          <div class="location-info">${translations[currentLanguage].capital}: ${currentLanguage === 'ar' ? country.capital : country.capitalEn}</div>
+          <div class="clock-display" style="color: ${country.color}; text-shadow: 0 0 15px ${country.color};">${now.toFormat('hh:mm:ss a')}</div>
+          <div class="time-info">
+            <div class="time-item">${currentLanguage === 'ar' ? 'الميلادي' : 'Gregorian'}: ${now.toFormat('dd/MM/yyyy')}</div>
+            <div class="time-item">${currentLanguage === 'ar' ? 'الهجري' : 'Hijri'}: ${hijriDate}</div>
+            <div class="time-item">${translations[currentLanguage].time}: ${offsetLabel}</div>
+            <div class="time-item">${translations[currentLanguage].continent}: ${translations[currentLanguage][country.continent]}</div>
+          </div>
+          <div class="weather-info">
+            ${translations[currentLanguage].weather}: ${weather.temp} | ${weather.condition}
+          </div>
+        `;
+
+        clockBox.addEventListener('click', () => openCountryModal(country, weather));
+        container.appendChild(clockBox);
+      }
+
+      loading.style.display = 'none';
+    }
+
+    // Open country modal
+    function openCountryModal(country, weather) {
+      const modal = document.getElementById('country-modal');
+      document.getElementById('modal-country-name').textContent = currentLanguage === 'ar' ? country.name : country.nameEn;
+      document.getElementById('modal-country-flag').textContent = country.name.split(' ')[0];
+      const details = document.getElementById('country-details');
+      details.innerHTML = `
+        <div class="detail-item">
+          <div class="detail-label">${translations[currentLanguage].description}</div>
+          <div class="detail-value">${currentLanguage === 'ar' ? country.description : country.descriptionEn}</div>
+        </div>
+        <div class="detail-item">
+          <div class="detail-label">${translations[currentLanguage].leader}</div>
+          <div class="detail-value">${currentLanguage === 'ar' ? country.leader : country.leaderEn}</div>
+        </div>
+        <div class="detail-item">
+          <div class="detail-label">${translations[currentLanguage].population}</div>
+          <div class="detail-value">${currentLanguage === 'ar' ? country.population : country.populationEn}</div>
+        </div>
+        <div class="detail-item">
+          <div class="detail-label">${translations[currentLanguage].capital}</div>
+          <div class="detail-value">${currentLanguage === 'ar' ? country.capital : country.capitalEn}</div>
+        </div>
+        <div class="detail-item">
+          <div class="detail-label">${translations[currentLanguage].timezone}</div>
+          <div class="detail-value">${country.zone}</div>
+        </div>
+        <div class="detail-item">
+          <div class="detail-label">${translations[currentLanguage].coordinates}</div>
+          <div class="detail-value">${country.coordinates}</div>
+        </div>
+        <div class="detail-item">
+          <div class="detail-label">${translations[currentLanguage].area}</div>
+          <div class="detail-value">${currentLanguage === 'ar' ? country.area : country.areaEn}</div>
+        </div>
+        <div class="detail-item">
+          <div class="detail-label">${translations[currentLanguage].currency}</div>
+          <div class="detail-value">${currentLanguage === 'ar' ? country.currency : country.currencyEn}</div>
+        </div>
+        <div class="detail-item">
+          <div class="detail-label">${translations[currentLanguage].language}</div>
+          <div class="detail-value">${currentLanguage === 'ar' ? country.language : country.languageEn}</div>
+        </div>
+        <div class="detail-item">
+          <div class="detail-label">${translations[currentLanguage].weatherTemp}</div>
+          <div class="detail-value">${weather.temp}</div>
+        </div>
+        <div class="detail-item">
+          <div class="detail-label">${translations[currentLanguage].weatherCondition}</div>
+          <div class="detail-value">${weather.condition}</div>
+        </div>
+        <div class="detail-item">
+          <div class="detail-label">${translations[currentLanguage].weatherHumidity}</div>
+          <div class="detail-value">${weather.humidity}</div>
+        </div>
+        <div class="detail-item">
+          <div class="detail-label">${translations[currentLanguage].weatherWind}</div>
+          <div class="detail-value">${weather.wind}</div>
+        </div>
+      `;
+      modal.style.display = 'flex';
+    }
+
+    // Close modal
+    function closeModal() {
+      document.getElementById('country-modal').style.display = 'none';
+      document.getElementById('about-modal').style.display = 'none';
+    }
+
+    // Open about modal
+    function openAboutModal() {
+      const modal = document.getElementById('about-modal');
+      document.querySelector('#about-modal .modal-title').textContent = translations[currentLanguage].aboutTitle;
+      document.querySelector('.about-content').innerHTML = `
+        <p style="line-height: 1.8; margin-bottom: 20px;">${translations[currentLanguage].aboutText}</p>
+        <p style="color: #FFD700; font-weight: bold;">${translations[currentLanguage].aboutFeatures}</p>
+      `;
+      modal.style.display = 'flex';
+    }
+
+    // Toggle fullscreen
+    function toggleFullscreen() {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen().then(() => {
+          showNotification(translations[currentLanguage].notifications.fullscreenOn);
+        }).catch(() => {
+          showNotification(translations[currentLanguage].notifications.fullscreenError);
+        });
+      } else {
+        document.exitFullscreen().then(() => {
+          showNotification(translations[currentLanguage].notifications.fullscreenOff);
+        });
+      }
+    }
+
+    // Export data as CSV
+    function exportData() {
+      const headers = [
+        translations[currentLanguage].name,
+        translations[currentLanguage].leader,
+        translations[currentLanguage].population,
+        translations[currentLanguage].timezone,
+        translations[currentLanguage].capital,
+        translations[currentLanguage].continent,
+        translations[currentLanguage].coordinates,
+        translations[currentLanguage].area,
+        translations[currentLanguage].currency,
+        translations[currentLanguage].language,
+        translations[currentLanguage].description
+      ];
+      const rows = countries.map(country => [
+        currentLanguage === 'ar' ? country.name : country.nameEn,
+        currentLanguage === 'ar' ? country.leader : country.leaderEn,
+        currentLanguage === 'ar' ? country.population : country.populationEn,
+        country.zone,
+        currentLanguage === 'ar' ? country.capital : country.capitalEn,
+        translations[currentLanguage][country.continent],
+        country.coordinates,
+        currentLanguage === 'ar' ? country.area : country.areaEn,
+        currentLanguage === 'ar' ? country.currency : country.currencyEn,
+        currentLanguage === 'ar' ? country.language : country.languageEn,
+        currentLanguage === 'ar' ? country.description : country.descriptionEn
+      ].map(field => `"${field.replace(/"/g, '""')}"`).join(','));
+
+      const csv = [headers.join(','), ...rows].join('\n');
+      const blob = new Blob([new Uint8Array([0xEF, 0xBB, 0xBF]), csv], { type: 'text/csv;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'world_clocks_data.csv';
+      a.click();
+      URL.revokeObjectURL(url);
+      showNotification(translations[currentLanguage].notifications.dataExported);
+    }
+
+    // Refresh clocks
+    function refreshClocks() {
+      weatherCache = {}; // Clear weather cache
+      renderClocks();
+      showNotification(translations[currentLanguage].notifications.clocksRefreshed);
+    }
+
+    // Toggle language
+    function toggleLanguage() {
+      currentLanguage = currentLanguage === 'ar' ? 'en' : 'ar';
+      document.documentElement.lang = currentLanguage;
+      document.documentElement.dir = currentLanguage === 'ar' ? 'rtl' : 'ltr';
+      document.querySelector('.project-title').textContent = translations[currentLanguage].title;
+      document.querySelector('.subtitle').textContent = translations[currentLanguage].subtitle;
+      document.querySelector('.search-input').placeholder = translations[currentLanguage].searchPlaceholder;
+      document.querySelector('.copyright p').textContent = translations[currentLanguage].copyright;
+      document.querySelectorAll('.continent-btn').forEach((btn, index) => {
+        const continents = ['all', 'asia', 'africa', 'europe', 'america', 'oceania'];
+        btn.textContent = translations[currentLanguage][continents[index]];
+      });
+      document.querySelectorAll('.btn').forEach((btn, index) => {
+        const btnKeys = ['aboutBtn', 'fullscreenBtn', 'exportBtn', 'refreshBtn', 'langBtn'];
+        btn.innerHTML = translations[currentLanguage][btnKeys[index]];
+      });
+      renderClocks();
+      updateLocalClock();
+      showNotification(translations[currentLanguage].notifications.langChanged);
+    }
+
+    // Initialize
+    function init() {
+      document.querySelector('.search-input').placeholder = translations[currentLanguage].searchPlaceholder;
+      renderClocks();
+      updateLocalClock();
+      setInterval(() => {
+        renderClocks();
+        updateLocalClock();
+      }, 1000);
+    }
+
+    // Start the application
+    init();
   </script>
 </body>
 </html>
