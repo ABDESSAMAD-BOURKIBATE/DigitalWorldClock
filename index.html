@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ساعة رقمية عالمية </title>
+  <title>ساعة رقمية عالمية - مشروع إبداعي محسّن</title>
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
   <style>
     * {
@@ -535,15 +535,15 @@
   <div class="notification" id="notification"></div>
 
   <header class="header">
-    <h1 class="project-title">🌍 ساعة رقمية عالمية </h1>
-    <p class="subtitle">استكشف أوقات العالم مع المعلومات الجغرافية والثقافيةوالدينية</p>
+    <h1 class="project-title">🌍 ساعة رقمية عالمية محسّنة</h1>
+    <p class="subtitle">استكشف أوقات العالم مع المعلومات الجغرافية والثقافية</p>
     
     <div class="controls">
-      <button class="btn" onclick="openAboutModal()"> نبذة عن المشروع</button>
-      <button class="btn" onclick="toggleFullscreen()"> ملء الشاشة</button>
-      <button class="btn" onclick="exportData()"> تصدير البيانات</button>
-      <button class="btn" onclick="refreshClocks()">تحديث</button>
-      <button class="btn" onclick="toggleLanguage()"> تغيير اللغة</button>
+      <button class="btn" onclick="openAboutModal()">📘 نبذة عن المشروع</button>
+      <button class="btn" onclick="toggleFullscreen()">🖥️ ملء الشاشة</button>
+      <button class="btn" onclick="exportData()">📊 تصدير البيانات</button>
+      <button class="btn" onclick="refreshClocks()">🔄 تحديث</button>
+      <button class="btn" onclick="toggleLanguage()">🌐 تغيير اللغة</button>
     </div>
 
     <div class="search-container">
@@ -599,7 +599,7 @@
     <div class="modal-content">
       <button class="close-btn" onclick="closeModal()">×</button>
       <div class="modal-header">
-        <h2 class="modal-title"> نبذة عن المشروع</h2>
+        <h2 class="modal-title">📘 نبذة عن المشروع</h2>
       </div>
       <div class="about-content" id="about-content-ar">
         <p>
@@ -611,7 +611,7 @@
         </ul>
         <h2>🎯 فكرة المشروع:</h2>
         <p>
-          تم تطوير هذا المشروع لعرض التوقيت العالمي الحقيقي لأكثر من 100 دولة، مع دعم كامل للتقويمين <strong>الميلادي والهجري</strong>، وتحديد حالة <strong>الليل والنهار</strong>، وأوقات الصلاة لكل دولة بدقة، في واجهة مرئية متقدمة وسهلة الاستخدام.
+          تم تطوير هذا المشروع لعرض التوقيت العالمي الحقيقي لأكثر من 40 دولة، مع دعم كامل للتقويمين <strong>الميلادي والهجري</strong>، وتحديد حالة <strong>الليل والنهار</strong>، وأوقات الصلاة لكل دولة بدقة، في واجهة مرئية متقدمة وسهلة الاستخدام.
         </p>
         <h2>✨ أهداف المشروع:</h2>
         <ul>
@@ -691,14 +691,14 @@
     let currentLanguage = 'ar';
     const translations = {
       ar: {
-        title: '🌍 ساعة رقمية عالمية ',
+        title: '🌍 ساعة رقمية عالمية محسّنة',
         subtitle: 'استكشف أوقات العالم مع المعلومات الجغرافية والثقافية',
-        localClock: ' التوقيت المحلي',
-        aboutBtn: ' نبذة عن المشروع',
-        fullscreenBtn: ' ملء الشاشة',
-        exportBtn: ' تصدير البيانات',
-        refreshBtn: ' تحديث',
-        langBtn: ' تغيير اللغة',
+        localClock: '🕐 التوقيت المحلي',
+        aboutBtn: '📘 نبذة عن المشروع',
+        fullscreenBtn: '🖥️ ملء الشاشة',
+        exportBtn: '📊 تصدير البيانات',
+        refreshBtn: '🔄 تحديث',
+        langBtn: '🌐 تغيير اللغة',
         searchPlaceholder: '🔍 البحث عن دولة...',
         noResults: 'لم يتم العثور على دول تطابق البحث',
         allContinents: 'الكل',
@@ -712,7 +712,7 @@
         nightCountries: 'دول في الليل',
         timezones: 'المناطق الزمنية',
         loading: '⏳ جاري تحديث البيانات...',
-        aboutTitle: ' نبذة عن المشروع',
+        aboutTitle: '📘 نبذة عن المشروع',
         copyright: 'حقوق النشر © عبد الصمد بوركيبات - 2025',
         capital: 'العاصمة',
         time: 'التوقيت',
@@ -746,19 +746,19 @@
           weatherError: 'فشل تحميل بيانات الطقس: تحقق من مفتاح API أو الاتصال بالإنترنت',
           invalidApiKey: 'مفتاح API غير صالح، يرجى التسجيل في OpenWeatherMap',
           noResults: 'لم يتم العثور على نتائج',
-          prayerError: 'فشل تحميل أوقات الصلاة: تحقق من الاتصال بالإنترنت',
+          prayerError: 'فشل تحميل أوقات الصلاة: تحقق من الاتصال بالإنترنت أو جرب لاحقًا',
           networkError: 'لا يوجد اتصال بالإنترنت'
         }
       },
       en: {
         title: '🌍 Enhanced World Clock',
         subtitle: 'Explore world times with geographic and cultural information',
-        localClock: ' Local Time',
-        aboutBtn: ' About the Project',
-        fullscreenBtn: ' Fullscreen',
-        exportBtn: ' Export Data',
-        refreshBtn: ' Refresh',
-        langBtn: ' Change Language',
+        localClock: '🕐 Local Time',
+        aboutBtn: '📘 About the Project',
+        fullscreenBtn: '🖥️ Fullscreen',
+        exportBtn: '📊 Export Data',
+        refreshBtn: '🔄 Refresh',
+        langBtn: '🌐 Change Language',
         searchPlaceholder: '🔍 Search for a country...',
         noResults: 'No countries found matching the search',
         allContinents: 'All',
@@ -772,7 +772,7 @@
         nightCountries: 'Countries at Night',
         timezones: 'Time Zones',
         loading: '⏳ Updating data...',
-        aboutTitle: ' About the Project',
+        aboutTitle: '📘 About the Project',
         copyright: 'Copyright © Abdessamad Bourkibate - 2025',
         capital: 'Capital',
         time: 'Time',
@@ -806,7 +806,7 @@
           weatherError: 'Failed to load weather data: Check API key or internet connection',
           invalidApiKey: 'Invalid API key, please sign up at OpenWeatherMap',
           noResults: 'No results found',
-          prayerError: 'Failed to load prayer times: Check internet connection',
+          prayerError: 'Failed to load prayer times: Check internet connection or try again later',
           networkError: 'No internet connection'
         }
       }
@@ -2118,10 +2118,10 @@
   },
 ];
 
-   // API settings
+  // API settings
     const WEATHER_API_KEY = '42d984047a7d1cdbc1f04ff0e2bb10f4'; // Provided OpenWeatherMap API key
     const WEATHER_API_URL = 'https://api.openweathermap.org/data/2.5/weather';
-    const PRAYER_API_URL = 'http://api.aladhan.com/v1/timings';
+    const PRAYER_API_URL = 'https://cors-anywhere.herokuapp.com/http://api.aladhan.com/v1/timings'; // Using CORS proxy for Aladhan API
 
     // Cache for weather and prayer data
     let weatherCache = {};
@@ -2586,19 +2586,14 @@
     // Initialize
     function init() {
       if (!window.luxon) {
-        showNotification('فشل تحميل مكتبة Luxon. تحقق من اتصالك بالإنترنت.');
+        showNotification('فشل تحميل مكتبة Luxon. تحقق من الاتصال بالإنترنت.');
         return;
       }
-      document.querySelector('.search-input').placeholder = translations[currentLanguage].searchPlaceholder;
-      renderClocks();
       updateLocalClock();
-      setInterval(() => {
-        renderClocks();
-        updateLocalClock();
-      }, 1000);
+      setInterval(updateLocalClock, 1000);
+      renderClocks();
     }
 
-    // Start the application
     init();
   </script>
 </body>
