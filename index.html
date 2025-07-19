@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ساعة رقمية عالمية</title>
+  <title>ساعة رقمية عالمية </title>
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
   <style>
     * {
@@ -193,6 +193,11 @@
       margin-bottom: 15px;
     }
 
+    .country-flag {
+      font-size: 2rem;
+      line-height: 1;
+    }
+
     .country-name {
       font-size: 1.2rem;
       font-weight: bold;
@@ -230,6 +235,24 @@
       padding: 8px;
       border-radius: 10px;
       font-size: 0.85rem;
+    }
+
+    .prayer-info {
+      background: rgba(255,255,255,0.1);
+      padding: 10px;
+      border-radius: 10px;
+      margin-top: 10px;
+      font-size: 0.9rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+      gap: 5px;
+    }
+
+    .prayer-item {
+      background: rgba(0,0,0,0.2);
+      padding: 5px;
+      border-radius: 5px;
+      text-align: center;
     }
 
     .weather-info {
@@ -369,6 +392,10 @@
         margin: 20px auto;
         width: fit-content;
       }
+
+      .prayer-info {
+        grid-template-columns: 1fr;
+      }
     }
 
     .continent-filter {
@@ -488,32 +515,39 @@
     .lang-switch button:hover {
       background-color: #FFA500;
     }
+
+    .no-results {
+      text-align: center;
+      padding: 20px;
+      color: #FFD700;
+      font-size: 1.2rem;
+    }
   </style>
 </head>
 <body>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/luxon/3.4.4/luxon.min.js"></script>
 
   <div class="floating-clock" id="local-clock">
-    <div class="local-label" style="font-size: 0.8rem; color: #FFD700;"> التوقيت المحلي</div>
+    <div class="local-label" style="font-size: 0.8rem; color: #FFD700;">🕐 التوقيت المحلي</div>
     <div style="font-size: 1.1rem; font-weight: bold;" id="local-time">--:--:--</div>
   </div>
 
   <div class="notification" id="notification"></div>
 
   <header class="header">
-    <h1 class="project-title"> ساعة رقمية عالمية محسّنة</h1>
-    <p class="subtitle">استكشف أوقات العالم مع المعلومات الجغرافية والثقافية</p>
+    <h1 class="project-title">🌍 ساعة رقمية عالمية </h1>
+    <p class="subtitle">استكشف أوقات العالم مع المعلومات الجغرافية والثقافيةوالدينية</p>
     
     <div class="controls">
       <button class="btn" onclick="openAboutModal()"> نبذة عن المشروع</button>
       <button class="btn" onclick="toggleFullscreen()"> ملء الشاشة</button>
       <button class="btn" onclick="exportData()"> تصدير البيانات</button>
-      <button class="btn" onclick="refreshClocks()"> تحديث</button>
+      <button class="btn" onclick="refreshClocks()">تحديث</button>
       <button class="btn" onclick="toggleLanguage()"> تغيير اللغة</button>
     </div>
 
     <div class="search-container">
-      <input type="text" class="search-input" id="search-input" onkeyup="filterCountries()">
+      <input type="text" class="search-input" id="search-input" placeholder="🔍 البحث عن دولة..." oninput="filterCountries()">
     </div>
 
     <div class="continent-filter" id="continent-filter">
@@ -575,11 +609,11 @@
           <li>🎓 بكالوريوس علوم الحاسوب – <strong>جامعة الشعب الأمريكية</strong></li>
           <li>🕋 بكالوريوس علوم القرآن الكريم – <strong>جامعة المدينة العالمية بماليزيا</strong></li>
         </ul>
-        <h2> فكرة المشروع:</h2>
+        <h2>🎯 فكرة المشروع:</h2>
         <p>
-          تم تطوير هذا المشروع لعرض التوقيت العالمي الحقيقي لأكثر من 50 دولة، مع دعم كامل للتقويمين <strong>الميلادي والهجري</strong>، وتحديد حالة <strong>الليل والنهار</strong> لكل دولة بدقة، في واجهة مرئية متقدمة وسهلة الاستخدام.
+          تم تطوير هذا المشروع لعرض التوقيت العالمي الحقيقي لأكثر من 100 دولة، مع دعم كامل للتقويمين <strong>الميلادي والهجري</strong>، وتحديد حالة <strong>الليل والنهار</strong>، وأوقات الصلاة لكل دولة بدقة، في واجهة مرئية متقدمة وسهلة الاستخدام.
         </p>
-        <h2>أهداف المشروع:</h2>
+        <h2>✨ أهداف المشروع:</h2>
         <ul>
           <li>التوعية بالزمن العالمي وترسيخ احترام الوقت.</li>
           <li>تعزيز الهوية السيبرانية الثقافية والأخلاقية.</li>
@@ -590,6 +624,7 @@
         <ul>
           <li>يعرض الوقت الحقيقي لكل دولة بتنسيق سهل القراءة.</li>
           <li>يدمج التقويم الميلادي والهجري في كل بطاقة زمنية.</li>
+          <li>يعرض أوقات الصلاة باستخدام Aladhan API.</li>
           <li>تمييز تلقائي بين الليل والنهار حسب التوقيت المحلي للدولة.</li>
           <li>تصميم متجاوب، مرن، ومناسب لجميع الأجهزة.</li>
           <li>معلومات الطقس في الوقت الحقيقي باستخدام OpenWeatherMap API.</li>
@@ -601,7 +636,7 @@
           </a>
         </p>
         <div class="lang-switch">
-          <button onclick="toggleAboutLang()"> English Version</button>
+          <button onclick="toggleAboutLang('en')">🌐 English Version</button>
         </div>
       </div>
       <div class="about-content" id="about-content-en" style="display: none;">
@@ -612,11 +647,11 @@
           <li>🎓 Bachelor in Computer Science – <strong>University of the People (USA)</strong></li>
           <li>🕋 Bachelor in Quranic Sciences – <strong>Al-Madinah International University (Malaysia)</strong></li>
         </ul>
-        <h2> Project Concept:</h2>
+        <h2>🎯 Project Concept:</h2>
         <p>
-          A visual web application that displays the real-time clocks of over 50 countries, with integrated <strong>Gregorian and Hijri calendars</strong> and a dynamic indicator of <strong>day or night</strong> based on each country’s local time.
+          A visual web application that displays the real-time clocks of over 40 countries, with integrated <strong>Gregorian and Hijri calendars</strong>, a dynamic indicator of <strong>day or night</strong>, and prayer times for each country.
         </p>
-        <h2> Project Goals:</h2>
+        <h2>✨ Project Goals:</h2>
         <ul>
           <li>Promote awareness of global time and its ethical significance.</li>
           <li>Bridge Islamic values with digital design practices.</li>
@@ -627,6 +662,7 @@
         <ul>
           <li>Real-time display for each selected country.</li>
           <li>Dual calendar support (Gregorian and Hijri).</li>
+          <li>Prayer times integration using Aladhan API.</li>
           <li>Visual differentiation between day and night per timezone.</li>
           <li>Responsive and user-friendly interface.</li>
           <li>Real-time weather information using OpenWeatherMap API.</li>
@@ -638,7 +674,7 @@
           </a>
         </p>
         <div class="lang-switch">
-          <button onclick="toggleAboutLang()"> النسخة العربية</button>
+          <button onclick="toggleAboutLang('ar')">🌐 النسخة العربية</button>
         </div>
       </div>
     </div>
@@ -663,7 +699,8 @@
         exportBtn: ' تصدير البيانات',
         refreshBtn: ' تحديث',
         langBtn: ' تغيير اللغة',
-        searchPlaceholder: ' البحث عن دولة...',
+        searchPlaceholder: '🔍 البحث عن دولة...',
+        noResults: 'لم يتم العثور على دول تطابق البحث',
         allContinents: 'الكل',
         asia: 'آسيا',
         africa: 'أفريقيا',
@@ -674,7 +711,7 @@
         dayCountries: 'دول في النهار',
         nightCountries: 'دول في الليل',
         timezones: 'المناطق الزمنية',
-        loading: ' جاري تحديث البيانات...',
+        loading: '⏳ جاري تحديث البيانات...',
         aboutTitle: ' نبذة عن المشروع',
         copyright: 'حقوق النشر © عبد الصمد بوركيبات - 2025',
         capital: 'العاصمة',
@@ -693,6 +730,12 @@
         weatherCondition: 'الحالة',
         weatherHumidity: 'الرطوبة',
         weatherWind: 'الرياح',
+        prayerTimes: 'أوقات الصلاة',
+        fajr: 'الفجر',
+        dhuhr: 'الظهر',
+        asr: 'العصر',
+        maghrib: 'المغرب',
+        isha: 'العشاء',
         notifications: {
           fullscreenOn: 'تم تفعيل وضع ملء الشاشة',
           fullscreenOff: 'تم الخروج من وضع ملء الشاشة',
@@ -700,8 +743,11 @@
           dataExported: 'تم تصدير البيانات بنجاح',
           clocksRefreshed: 'تم تحديث الساعات',
           langChanged: 'تم تغيير اللغة',
-          weatherError: 'فشل تحميل بيانات الطقس: تحقق من مفتاح API',
-          invalidApiKey: 'مفتاح API غير صالح، يرجى التسجيل في OpenWeatherMap'
+          weatherError: 'فشل تحميل بيانات الطقس: تحقق من مفتاح API أو الاتصال بالإنترنت',
+          invalidApiKey: 'مفتاح API غير صالح، يرجى التسجيل في OpenWeatherMap',
+          noResults: 'لم يتم العثور على نتائج',
+          prayerError: 'فشل تحميل أوقات الصلاة: تحقق من الاتصال بالإنترنت',
+          networkError: 'لا يوجد اتصال بالإنترنت'
         }
       },
       en: {
@@ -714,6 +760,7 @@
         refreshBtn: ' Refresh',
         langBtn: ' Change Language',
         searchPlaceholder: '🔍 Search for a country...',
+        noResults: 'No countries found matching the search',
         allContinents: 'All',
         asia: 'Asia',
         africa: 'Africa',
@@ -724,7 +771,7 @@
         dayCountries: 'Countries in Daytime',
         nightCountries: 'Countries at Night',
         timezones: 'Time Zones',
-        loading: ' Updating data...',
+        loading: '⏳ Updating data...',
         aboutTitle: ' About the Project',
         copyright: 'Copyright © Abdessamad Bourkibate - 2025',
         capital: 'Capital',
@@ -743,6 +790,12 @@
         weatherCondition: 'Condition',
         weatherHumidity: 'Humidity',
         weatherWind: 'Wind',
+        prayerTimes: 'Prayer Times',
+        fajr: 'Fajr',
+        dhuhr: 'Dhuhr',
+        asr: 'Asr',
+        maghrib: 'Maghrib',
+        isha: 'Isha',
         notifications: {
           fullscreenOn: 'Fullscreen mode activated',
           fullscreenOff: 'Exited fullscreen mode',
@@ -750,8 +803,11 @@
           dataExported: 'Data exported successfully',
           clocksRefreshed: 'Clocks updated',
           langChanged: 'Language changed',
-          weatherError: 'Failed to load weather data: Check API key',
-          invalidApiKey: 'Invalid API key, please sign up at OpenWeatherMap'
+          weatherError: 'Failed to load weather data: Check API key or internet connection',
+          invalidApiKey: 'Invalid API key, please sign up at OpenWeatherMap',
+          noResults: 'No results found',
+          prayerError: 'Failed to load prayer times: Check internet connection',
+          networkError: 'No internet connection'
         }
       }
     };
@@ -2062,15 +2118,26 @@
   },
 ];
 
-    // Weather API key
-    const WEATHER_API_KEY = '42d984047a7d1cdbc1f04ff0e2bb10f4';
+   // API settings
+    const WEATHER_API_KEY = '42d984047a7d1cdbc1f04ff0e2bb10f4'; // Provided OpenWeatherMap API key
     const WEATHER_API_URL = 'https://api.openweathermap.org/data/2.5/weather';
+    const PRAYER_API_URL = 'http://api.aladhan.com/v1/timings';
 
-    // Cache for weather data
+    // Cache for weather and prayer data
     let weatherCache = {};
+    let prayerCache = {};
+
+    // Check internet connectivity
+    function checkNetwork() {
+      return navigator.onLine;
+    }
 
     // Fetch weather data
     async function fetchWeather(coordinates) {
+      if (!checkNetwork()) {
+        showNotification(translations[currentLanguage].notifications.networkError);
+        return null;
+      }
       const [lat, lon] = coordinates.split(',');
       const cacheKey = `${lat},${lon}`;
       if (weatherCache[cacheKey] && Date.now() - weatherCache[cacheKey].timestamp < 600000) {
@@ -2085,7 +2152,7 @@
           } else {
             showNotification(translations[currentLanguage].notifications.weatherError);
           }
-          throw new Error('Weather API error');
+          throw new Error(`Weather API error: ${response.status} ${response.statusText}`);
         }
         const data = await response.json();
         weatherCache[cacheKey] = { data, timestamp: Date.now() };
@@ -2096,14 +2163,68 @@
       }
     }
 
+    // Fetch prayer times
+    async function fetchPrayerTimes(coordinates, date) {
+      if (!checkNetwork()) {
+        showNotification(translations[currentLanguage].notifications.networkError);
+        return null;
+      }
+      const [lat, lon] = coordinates.split(',');
+      const cacheKey = `${lat},${lon}|${date}`;
+      if (prayerCache[cacheKey] && Date.now() - prayerCache[cacheKey].timestamp < 86400000) {
+        return prayerCache[cacheKey].data;
+      }
+
+      try {
+        const response = await fetch(`${PRAYER_API_URL}/${date}?latitude=${lat}&longitude=${lon}&method=2`);
+        if (!response.ok) {
+          showNotification(translations[currentLanguage].notifications.prayerError);
+          throw new Error(`Prayer API error: ${response.status} ${response.statusText}`);
+        }
+        const data = await response.json();
+        prayerCache[cacheKey] = { data: data.data.timings, timestamp: Date.now() };
+        return data.data.timings;
+      } catch (error) {
+        console.error('Error fetching prayer times:', error);
+        return null;
+      }
+    }
+
     // Format weather data
     function formatWeather(data) {
-      if (!data) return { temp: translations[currentLanguage].weather === 'الطقس' ? 'غير متوفر' : 'Not available', condition: translations[currentLanguage].weather === 'الطقس' ? 'غير متوفر' : 'Not available', humidity: translations[currentLanguage].weather === 'الطقس' ? 'غير متوفر' : 'Not available', wind: translations[currentLanguage].weather === 'الطقس' ? 'غير متوفر' : 'Not available' };
+      if (!data) {
+        return {
+          temp: translations[currentLanguage].weather === 'الطقس' ? 'غير متوفر' : 'Not available',
+          condition: translations[currentLanguage].weather === 'الطقس' ? 'غير متوفر' : 'Not available',
+          humidity: translations[currentLanguage].weather === 'الطقس' ? 'غير متوفر' : 'Not available',
+          wind: translations[currentLanguage].weather === 'الطقس' ? 'غير متوفر' : 'Not available'
+        };
+      }
       return {
         temp: `${Math.round(data.main.temp)}°C`,
         condition: data.weather[0].description,
         humidity: `${data.main.humidity}%`,
         wind: `${data.wind.speed} ${currentLanguage === 'ar' ? 'م/ث' : 'm/s'}`
+      };
+    }
+
+    // Format prayer times
+    function formatPrayerTimes(data) {
+      if (!data) {
+        return {
+          fajr: translations[currentLanguage].prayerTimes === 'أوقات الصلاة' ? 'غير متوفر' : 'Not available',
+          dhuhr: translations[currentLanguage].prayerTimes === 'أوقات الصلاة' ? 'غير متوفر' : 'Not available',
+          asr: translations[currentLanguage].prayerTimes === 'أوقات الصلاة' ? 'غير متوفر' : 'Not available',
+          maghrib: translations[currentLanguage].prayerTimes === 'أوقات الصلاة' ? 'غير متوفر' : 'Not available',
+          isha: translations[currentLanguage].prayerTimes === 'أوقات الصلاة' ? 'غير متوفر' : 'Not available'
+        };
+      }
+      return {
+        fajr: data.Fajr || 'N/A',
+        dhuhr: data.Dhuhr || 'N/A',
+        asr: data.Asr || 'N/A',
+        maghrib: data.Maghrib || 'N/A',
+        isha: data.Isha || 'N/A'
       };
     }
 
@@ -2159,6 +2280,8 @@
 
     function filterByContinent(continent) {
       currentContinent = continent;
+      currentSearch = '';
+      document.getElementById('search-input').value = '';
       const buttons = document.querySelectorAll('.continent-btn');
       buttons.forEach(btn => btn.classList.remove('active'));
       document.querySelector(`.continent-btn[onclick="filterByContinent('${continent}')"]`).classList.add('active');
@@ -2175,21 +2298,31 @@
 
       let filteredCountries = countries;
 
-      // Apply continent filter
       if (currentContinent !== 'all') {
-        filteredCountries = countries.filter(country => color.continent === currentContinent);
+        filteredCountries = countries.filter(country => country.continent.toLowerCase() === currentContinent.toLowerCase());
       }
 
-      // Apply search filter
       if (currentSearch) {
-        filteredCountries = filteredCountries.filter(country =>
-          (currentLanguage === 'ar' ? color.name : color.nameEn).toLowerCase().includes(currentSearch) ||
-          (currentLanguage === 'ar' ? color.capital : color.capitalEn).toLowerCase().includes(currentSearch)
-        );
+        filteredCountries = filteredCountries.filter(country => {
+          const searchFields = [
+            currentLanguage === 'ar' ? country.name : country.nameEn,
+            currentLanguage === 'ar' ? country.capital : country.capitalEn,
+            currentLanguage === 'ar' ? country.currency : country.currencyEn,
+            currentLanguage === 'ar' ? country.language : country.languageEn,
+            currentLanguage === 'ar' ? country.description : country.descriptionEn
+          ].map(field => field.toLowerCase());
+          return searchFields.some(field => field.includes(currentSearch));
+        });
       }
 
-      // Update stats
       updateStats(filteredCountries);
+
+      if (filteredCountries.length === 0) {
+        container.innerHTML = `<div class="no-results">${translations[currentLanguage].noResults}</div>`;
+        loading.style.display = 'none';
+        showNotification(translations[currentLanguage].notifications.noResults);
+        return;
+      }
 
       for (const country of filteredCountries) {
         const now = DateTime.now().setZone(country.zone);
@@ -2206,6 +2339,9 @@
         }).format(new Date());
         const weatherData = await fetchWeather(country.coordinates);
         const weather = formatWeather(weatherData);
+        const prayerDate = now.toFormat('yyyy-MM-dd');
+        const prayerData = await fetchPrayerTimes(country.coordinates, prayerDate);
+        const prayers = formatPrayerTimes(prayerData);
 
         const clockBox = document.createElement('div');
         clockBox.classList.add('clock-box');
@@ -2213,6 +2349,7 @@
         clockBox.innerHTML = `
           <div class="day-night-indicator">${timeStatus}</div>
           <div class="country-header">
+            <span class="country-flag">${country.name.split(' ')[0]}</span>
             <span class="country-name">${currentLanguage === 'ar' ? country.name : country.nameEn}</span>
           </div>
           <div class="location-info">${translations[currentLanguage].capital}: ${currentLanguage === 'ar' ? country.capital : country.capitalEn}</div>
@@ -2223,12 +2360,19 @@
             <div class="time-item">${translations[currentLanguage].time}: ${offsetLabel}</div>
             <div class="time-item">${translations[currentLanguage].continent}: ${translations[currentLanguage][country.continent]}</div>
           </div>
+          <div class="prayer-info">
+            <div class="prayer-item">${translations[currentLanguage].fajr}: ${prayers.fajr}</div>
+            <div class="prayer-item">${translations[currentLanguage].dhuhr}: ${prayers.dhuhr}</div>
+            <div class="prayer-item">${translations[currentLanguage].asr}: ${prayers.asr}</div>
+            <div class="prayer-item">${translations[currentLanguage].maghrib}: ${prayers.maghrib}</div>
+            <div class="prayer-item">${translations[currentLanguage].isha}: ${prayers.isha}</div>
+          </div>
           <div class="weather-info">
             ${translations[currentLanguage].weather}: ${weather.temp} | ${weather.condition}
           </div>
         `;
 
-        clockBox.addEventListener('click', () => openCountryModal(country, weather));
+        clockBox.addEventListener('click', () => openCountryModal(country, weather, prayers));
         container.appendChild(clockBox);
       }
 
@@ -2236,7 +2380,7 @@
     }
 
     // Open country modal
-    function openCountryModal(country, weather) {
+    function openCountryModal(country, weather, prayers) {
       const modal = document.getElementById('country-modal');
       document.getElementById('modal-country-name').textContent = currentLanguage === 'ar' ? country.name : country.nameEn;
       document.getElementById('modal-country-flag').textContent = country.name.split(' ')[0];
@@ -2294,6 +2438,16 @@
           <div class="detail-label">${translations[currentLanguage].weatherWind}</div>
           <div class="detail-value">${weather.wind}</div>
         </div>
+        <div class="detail-item">
+          <div class="detail-label">${translations[currentLanguage].prayerTimes}</div>
+          <div class="detail-value">
+            ${translations[currentLanguage].fajr}: ${prayers.fajr}<br>
+            ${translations[currentLanguage].dhuhr}: ${prayers.dhuhr}<br>
+            ${translations[currentLanguage].asr}: ${prayers.asr}<br>
+            ${translations[currentLanguage].maghrib}: ${prayers.maghrib}<br>
+            ${translations[currentLanguage].isha}: ${prayers.isha}
+          </div>
+        </div>
       `;
       modal.style.display = 'flex';
     }
@@ -2308,7 +2462,7 @@
     function openAboutModal() {
       const modal = document.getElementById('about-modal');
       document.querySelector('#about-modal .modal-title').textContent = translations[currentLanguage].aboutTitle;
-      toggleAboutLang(currentLanguage === 'ar' ? 'ar' : 'en');
+      toggleAboutLang(currentLanguage);
       modal.style.display = 'flex';
     }
 
@@ -2319,9 +2473,11 @@
       if (lang === 'ar') {
         arContent.style.display = 'block';
         enContent.style.display = 'none';
+        document.querySelector('#about-content-ar .lang-switch button').textContent = '🌐 English Version';
       } else {
         arContent.style.display = 'none';
         enContent.style.display = 'block';
+        document.querySelector('#about-content-en .lang-switch button').textContent = '🌐 النسخة العربية';
       }
     }
 
@@ -2353,21 +2509,34 @@
         translations[currentLanguage].area,
         translations[currentLanguage].currency,
         translations[currentLanguage].language,
-        translations[currentLanguage].description
+        translations[currentLanguage].description,
+        translations[currentLanguage].prayerTimes
       ];
-      const rows = countries.map(country => [
-        currentLanguage === 'ar' ? country.name : country.nameEn,
-        currentLanguage === 'ar' ? country.leader : country.leaderEn,
-        currentLanguage === 'ar' ? country.population : country.populationEn,
-        country.zone,
-        currentLanguage === 'ar' ? country.capital : country.capitalEn,
-        translations[currentLanguage][country.continent],
-        country.coordinates,
-        currentLanguage === 'ar' ? country.area : country.areaEn,
-        currentLanguage === 'ar' ? country.currency : country.currencyEn,
-        currentLanguage === 'ar' ? country.language : country.languageEn,
-        currentLanguage === 'ar' ? country.description : country.descriptionEn
-      ].map(field => `"${field.replace(/"/g, '""')}"`).join(','));
+      const rows = countries.map(country => {
+        const prayerDate = DateTime.now().toFormat('yyyy-MM-dd');
+        const prayerCacheKey = `${country.coordinates}|${prayerDate}`;
+        const prayers = prayerCache[prayerCacheKey]?.data || {
+          Fajr: 'N/A', Dhuhr: 'N/A', Asr: 'N/A', Maghrib: 'N/A', Isha: 'N/A'
+        };
+        return [
+          currentLanguage === 'ar' ? country.name : country.nameEn,
+          currentLanguage === 'ar' ? country.leader : country.leaderEn,
+          currentLanguage === 'ar' ? country.population : country.populationEn,
+          country.zone,
+          currentLanguage === 'ar' ? country.capital : country.capitalEn,
+          translations[currentLanguage][country.continent],
+          country.coordinates,
+          currentLanguage === 'ar' ? country.area : country.areaEn,
+          currentLanguage === 'ar' ? country.currency : country.currencyEn,
+          currentLanguage === 'ar' ? country.language : country.languageEn,
+          currentLanguage === 'ar' ? country.description : country.descriptionEn,
+          `${translations[currentLanguage].fajr}: ${prayers.Fajr}, ` +
+          `${translations[currentLanguage].dhuhr}: ${prayers.Dhuhr}, ` +
+          `${translations[currentLanguage].asr}: ${prayers.Asr}, ` +
+          `${translations[currentLanguage].maghrib}: ${prayers.Maghrib}, ` +
+          `${translations[currentLanguage].isha}: ${prayers.Isha}`
+        ].map(field => `"${field.replace(/"/g, '""')}"`).join(',');
+      });
 
       const csv = [headers.join(','), ...rows].join('\n');
       const blob = new Blob([new Uint8Array([0xEF, 0xBB, 0xBF]), csv], { type: 'text/csv;charset=utf-8;' });
@@ -2382,7 +2551,8 @@
 
     // Refresh clocks
     function refreshClocks() {
-      weatherCache = {}; // Clear weather cache
+      weatherCache = {};
+      prayerCache = {};
       renderClocks();
       showNotification(translations[currentLanguage].notifications.clocksRefreshed);
     }
@@ -2415,6 +2585,10 @@
 
     // Initialize
     function init() {
+      if (!window.luxon) {
+        showNotification('فشل تحميل مكتبة Luxon. تحقق من اتصالك بالإنترنت.');
+        return;
+      }
       document.querySelector('.search-input').placeholder = translations[currentLanguage].searchPlaceholder;
       renderClocks();
       updateLocalClock();
