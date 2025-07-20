@@ -746,7 +746,7 @@
           weatherError: 'فشل تحميل بيانات الطقس: تحقق من مفتاح API أو الاتصال بالإنترنت',
           invalidApiKey: 'مفتاح API غير صالح، يرجى التسجيل في OpenWeatherMap',
           noResults: 'لم يتم العثور على نتائج',
-          prayerError: 'فشل تحميل أوقات الصلاة: تحقق من الاتصال بالإنترنت أو جرب لاحقًا',
+          prayerError: 'فشل تحميل أوقات الصلاة: تحقق من الاتصال بالإنترنت أو الوكيل',
           networkError: 'لا يوجد اتصال بالإنترنت'
         }
       },
@@ -806,7 +806,7 @@
           weatherError: 'Failed to load weather data: Check API key or internet connection',
           invalidApiKey: 'Invalid API key, please sign up at OpenWeatherMap',
           noResults: 'No results found',
-          prayerError: 'Failed to load prayer times: Check internet connection or try again later',
+          prayerError: 'Failed to load prayer times: Check internet connection or proxy',
           networkError: 'No internet connection'
         }
       }
@@ -2118,10 +2118,10 @@
   },
 ];
 
-  // API settings
-    const WEATHER_API_KEY = '42d984047a7d1cdbc1f04ff0e2bb10f4'; // Provided OpenWeatherMap API key
+   // API settings
+    const WEATHER_API_KEY = '42d984047a7d1cdbc1f04ff0e2bb10f4';
     const WEATHER_API_URL = 'https://api.openweathermap.org/data/2.5/weather';
-    const PRAYER_API_URL = 'https://cors-anywhere.herokuapp.com/http://api.aladhan.com/v1/timings'; // Using CORS proxy for Aladhan API
+    const PRAYER_API_URL = 'https://world-clock-proxy-e6806kjdq-abdessamads-projects-f398f3ba.vercel.app/aladhan/v1/timings';
 
     // Cache for weather and prayer data
     let weatherCache = {};
@@ -2176,16 +2176,25 @@
       }
 
       try {
-        const response = await fetch(`${PRAYER_API_URL}/${date}?latitude=${lat}&longitude=${lon}&method=2`);
+        const response = await fetch(`${PRAYER_API_URL}/${date}?latitude=${lat}&longitude=${lon}&method=2`, {
+          headers: {
+            'Accept': 'application/json'
+          }
+        });
         if (!response.ok) {
           showNotification(translations[currentLanguage].notifications.prayerError);
           throw new Error(`Prayer API error: ${response.status} ${response.statusText}`);
         }
         const data = await response.json();
+        if (data.code !== 200) {
+          showNotification(translations[currentLanguage].notifications.prayerError);
+          throw new Error(`Prayer API error: ${data.status || 'Unknown error'}`);
+        }
         prayerCache[cacheKey] = { data: data.data.timings, timestamp: Date.now() };
         return data.data.timings;
       } catch (error) {
         console.error('Error fetching prayer times:', error);
+        showNotification(translations[currentLanguage].notifications.prayerError);
         return null;
       }
     }
@@ -2288,7 +2297,7 @@
       renderClocks();
     }
 
-    // Render clocks
+    // Render clocks (initial render with weather and prayer times)
     async function renderClocks() {
       const container = document.getElementById('clocks');
       container.innerHTML = '';
@@ -2339,12 +2348,13 @@
         }).format(new Date());
         const weatherData = await fetchWeather(country.coordinates);
         const weather = formatWeather(weatherData);
-        const prayerDate = now.toFormat('yyyy-MM-dd');
+        const prayerDate = now.toFormat('dd-MM-yyyy');
         const prayerData = await fetchPrayerTimes(country.coordinates, prayerDate);
         const prayers = formatPrayerTimes(prayerData);
 
         const clockBox = document.createElement('div');
         clockBox.classList.add('clock-box');
+        clockBox.dataset.country = country.nameEn; // Store country identifier
         clockBox.style.boxShadow = `0 0 15px ${country.color}`;
         clockBox.innerHTML = `
           <div class="day-night-indicator">${timeStatus}</div>
@@ -2377,6 +2387,39 @@
       }
 
       loading.style.display = 'none';
+    }
+
+    // Update clocks dynamically
+    function updateClocks() {
+      const clockBoxes = document.querySelectorAll('.clock-box');
+      clockBoxes.forEach(box => {
+        const countryName = box.dataset.country;
+        const country = countries.find(c => c.nameEn === countryName);
+        if (!country) return;
+
+        const now = DateTime.now().setZone(country.zone);
+        const hour = now.hour;
+        const timeStatus = hour >= 6 && hour < 18 ? '☀️' : '🌙';
+        const hijriDate = new Intl.DateTimeFormat(currentLanguage === 'ar' ? 'ar-SA' : 'en-US', {
+          calendar: 'islamic',
+          day: 'numeric',
+          month: 'long',
+          year: 'numeric',
+          timeZone: country.zone
+        }).format(new Date());
+        const offsetHours = now.offset / 60;
+        const offsetLabel = `GMT${offsetHours >= 0 ? '+' : ''}${offsetHours}`;
+
+        box.querySelector('.clock-display').textContent = now.toFormat('hh:mm:ss a');
+        box.querySelector('.day-night-indicator').textContent = timeStatus;
+        const timeInfo = box.querySelector('.time-info');
+        timeInfo.innerHTML = `
+          <div class="time-item">${currentLanguage === 'ar' ? 'الميلادي' : 'Gregorian'}: ${now.toFormat('dd/MM/yyyy')}</div>
+          <div class="time-item">${currentLanguage === 'ar' ? 'الهجري' : 'Hijri'}: ${hijriDate}</div>
+          <div class="time-item">${translations[currentLanguage].time}: ${offsetLabel}</div>
+          <div class="time-item">${translations[currentLanguage].continent}: ${translations[currentLanguage][country.continent]}</div>
+        `;
+      });
     }
 
     // Open country modal
@@ -2513,7 +2556,7 @@
         translations[currentLanguage].prayerTimes
       ];
       const rows = countries.map(country => {
-        const prayerDate = DateTime.now().toFormat('yyyy-MM-dd');
+        const prayerDate = DateTime.now().toFormat('dd-MM-yyyy');
         const prayerCacheKey = `${country.coordinates}|${prayerDate}`;
         const prayers = prayerCache[prayerCacheKey]?.data || {
           Fajr: 'N/A', Dhuhr: 'N/A', Asr: 'N/A', Maghrib: 'N/A', Isha: 'N/A'
@@ -2592,6 +2635,7 @@
       updateLocalClock();
       setInterval(updateLocalClock, 1000);
       renderClocks();
+      setInterval(updateClocks, 1000); // Update clocks every second
     }
 
     init();
