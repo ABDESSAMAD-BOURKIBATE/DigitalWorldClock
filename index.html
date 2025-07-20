@@ -3,9 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ساعة رقمية عالمية - مشروع إبداعي محسّن</title>
+  <title>ساعة رقمية عالمية </title>
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
   <style>
+    /* أنماط CSS (نفس الأنماط السابقة دون تغيير) */
     * {
       margin: 0;
       padding: 0;
@@ -528,26 +529,26 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/luxon/3.4.4/luxon.min.js"></script>
 
   <div class="floating-clock" id="local-clock">
-    <div class="local-label" style="font-size: 0.8rem; color: #FFD700;">🕐 التوقيت المحلي</div>
+    <div class="local-label" style="font-size: 0.8rem; color: #FFD700;"> التوقيت المحلي</div>
     <div style="font-size: 1.1rem; font-weight: bold;" id="local-time">--:--:--</div>
   </div>
 
   <div class="notification" id="notification"></div>
 
   <header class="header">
-    <h1 class="project-title">🌍 ساعة رقمية عالمية محسّنة</h1>
+    <h1 class="project-title">🌍ساعة رقمية عالمية </h1>
     <p class="subtitle">استكشف أوقات العالم مع المعلومات الجغرافية والثقافية</p>
     
     <div class="controls">
-      <button class="btn" onclick="openAboutModal()">📘 نبذة عن المشروع</button>
-      <button class="btn" onclick="toggleFullscreen()">🖥️ ملء الشاشة</button>
-      <button class="btn" onclick="exportData()">📊 تصدير البيانات</button>
-      <button class="btn" onclick="refreshClocks()">🔄 تحديث</button>
-      <button class="btn" onclick="toggleLanguage()">🌐 تغيير اللغة</button>
+      <button class="btn" onclick="openAboutModal()"> نبذة عن المشروع</button>
+      <button class="btn" onclick="toggleFullscreen()"> ملء الشاشة</button>
+      <button class="btn" onclick="exportData()"> تصدير البيانات</button>
+      <button class="btn" onclick="refreshClocks()"> تحديث</button>
+      <button class="btn" onclick="toggleLanguage()"> تغيير اللغة</button>
     </div>
 
     <div class="search-container">
-      <input type="text" class="search-input" id="search-input" placeholder="🔍 البحث عن دولة..." oninput="filterCountries()">
+      <input type="text" class="search-input" id="search-input" placeholder=" البحث عن دولة..." oninput="filterCountries()">
     </div>
 
     <div class="continent-filter" id="continent-filter">
@@ -599,7 +600,7 @@
     <div class="modal-content">
       <button class="close-btn" onclick="closeModal()">×</button>
       <div class="modal-header">
-        <h2 class="modal-title">📘 نبذة عن المشروع</h2>
+        <h2 class="modal-title"> نبذة عن المشروع</h2>
       </div>
       <div class="about-content" id="about-content-ar">
         <p>
@@ -609,11 +610,11 @@
           <li>🎓 بكالوريوس علوم الحاسوب – <strong>جامعة الشعب الأمريكية</strong></li>
           <li>🕋 بكالوريوس علوم القرآن الكريم – <strong>جامعة المدينة العالمية بماليزيا</strong></li>
         </ul>
-        <h2>🎯 فكرة المشروع:</h2>
+        <h2> فكرة المشروع:</h2>
         <p>
           تم تطوير هذا المشروع لعرض التوقيت العالمي الحقيقي لأكثر من 40 دولة، مع دعم كامل للتقويمين <strong>الميلادي والهجري</strong>، وتحديد حالة <strong>الليل والنهار</strong>، وأوقات الصلاة لكل دولة بدقة، في واجهة مرئية متقدمة وسهلة الاستخدام.
         </p>
-        <h2>✨ أهداف المشروع:</h2>
+        <h2>أهداف المشروع:</h2>
         <ul>
           <li>التوعية بالزمن العالمي وترسيخ احترام الوقت.</li>
           <li>تعزيز الهوية السيبرانية الثقافية والأخلاقية.</li>
@@ -647,11 +648,11 @@
           <li>🎓 Bachelor in Computer Science – <strong>University of the People (USA)</strong></li>
           <li>🕋 Bachelor in Quranic Sciences – <strong>Al-Madinah International University (Malaysia)</strong></li>
         </ul>
-        <h2>🎯 Project Concept:</h2>
+        <h2> Project Concept:</h2>
         <p>
           A visual web application that displays the real-time clocks of over 40 countries, with integrated <strong>Gregorian and Hijri calendars</strong>, a dynamic indicator of <strong>day or night</strong>, and prayer times for each country.
         </p>
-        <h2>✨ Project Goals:</h2>
+        <h2> Project Goals:</h2>
         <ul>
           <li>Promote awareness of global time and its ethical significance.</li>
           <li>Bridge Islamic values with digital design practices.</li>
@@ -691,15 +692,15 @@
     let currentLanguage = 'ar';
     const translations = {
       ar: {
-        title: '🌍 ساعة رقمية عالمية محسّنة',
+        title: 'ساعة رقمية عالمية  ',
         subtitle: 'استكشف أوقات العالم مع المعلومات الجغرافية والثقافية',
-        localClock: '🕐 التوقيت المحلي',
-        aboutBtn: '📘 نبذة عن المشروع',
-        fullscreenBtn: '🖥️ ملء الشاشة',
-        exportBtn: '📊 تصدير البيانات',
-        refreshBtn: '🔄 تحديث',
-        langBtn: '🌐 تغيير اللغة',
-        searchPlaceholder: '🔍 البحث عن دولة...',
+        localClock: ' التوقيت المحلي',
+        aboutBtn: ' نبذة عن المشروع',
+        fullscreenBtn: ' ملء الشاشة',
+        exportBtn: ' تصدير البيانات',
+        refreshBtn: ' تحديث',
+        langBtn: ' تغيير اللغة',
+        searchPlaceholder: ' البحث عن دولة...',
         noResults: 'لم يتم العثور على دول تطابق البحث',
         allContinents: 'الكل',
         asia: 'آسيا',
@@ -712,7 +713,7 @@
         nightCountries: 'دول في الليل',
         timezones: 'المناطق الزمنية',
         loading: '⏳ جاري تحديث البيانات...',
-        aboutTitle: '📘 نبذة عن المشروع',
+        aboutTitle: ' نبذة عن المشروع',
         copyright: 'حقوق النشر © عبد الصمد بوركيبات - 2025',
         capital: 'العاصمة',
         time: 'التوقيت',
@@ -746,20 +747,19 @@
           weatherError: 'فشل تحميل بيانات الطقس: تحقق من مفتاح API أو الاتصال بالإنترنت',
           invalidApiKey: 'مفتاح API غير صالح، يرجى التسجيل في OpenWeatherMap',
           noResults: 'لم يتم العثور على نتائج',
-          prayerError: 'فشل تحميل أوقات الصلاة: تحقق من الاتصال بالإنترنت أو الوكيل',
           networkError: 'لا يوجد اتصال بالإنترنت'
         }
       },
       en: {
-        title: '🌍 Enhanced World Clock',
+        title: ' Enhanced World Clock',
         subtitle: 'Explore world times with geographic and cultural information',
-        localClock: '🕐 Local Time',
-        aboutBtn: '📘 About the Project',
-        fullscreenBtn: '🖥️ Fullscreen',
-        exportBtn: '📊 Export Data',
-        refreshBtn: '🔄 Refresh',
-        langBtn: '🌐 Change Language',
-        searchPlaceholder: '🔍 Search for a country...',
+        localClock: ' Local Time',
+        aboutBtn: ' About the Project',
+        fullscreenBtn: ' Fullscreen',
+        exportBtn: ' Export Data',
+        refreshBtn: ' Refresh',
+        langBtn: ' Change Language',
+        searchPlaceholder: ' Search for a country...',
         noResults: 'No countries found matching the search',
         allContinents: 'All',
         asia: 'Asia',
@@ -772,7 +772,7 @@
         nightCountries: 'Countries at Night',
         timezones: 'Time Zones',
         loading: '⏳ Updating data...',
-        aboutTitle: '📘 About the Project',
+        aboutTitle: ' About the Project',
         copyright: 'Copyright © Abdessamad Bourkibate - 2025',
         capital: 'Capital',
         time: 'Time',
@@ -806,7 +806,6 @@
           weatherError: 'Failed to load weather data: Check API key or internet connection',
           invalidApiKey: 'Invalid API key, please sign up at OpenWeatherMap',
           noResults: 'No results found',
-          prayerError: 'Failed to load prayer times: Check internet connection or proxy',
           networkError: 'No internet connection'
         }
       }
@@ -2116,12 +2115,1235 @@
     description: "الأرجنتين، بلد التانغو والبامبا، يقودها الرئيس خافيير ميلي.",
     descriptionEn: "Argentina, a land of tango and pampas, is led by President Javier Milei."
   },
+  // آسيا (2 دول إضافية)
+  {
+    name: "🇹🇷 تركيا",
+    nameEn: "Turkey",
+    leader: "الرئيس رجب طيب أردوغان",
+    leaderEn: "President Recep Tayyip Erdoğan",
+    population: "85.8 مليون",
+    populationEn: "85.8 million",
+    zone: "Europe/Istanbul",
+    capital: "أنقرة",
+    capitalEn: "Ankara",
+    continent: "asia",
+    coordinates: "39.9334,32.8597",
+    area: "783.6 ألف كم²",
+    areaEn: "783,600 km²",
+    currency: "الليرة التركية",
+    currencyEn: "Turkish Lira",
+    language: "التركية",
+    languageEn: "Turkish",
+    color: "#E30A17",
+    description: "تركيا، جسر بين آسيا وأوروبا، يقودها الرئيس رجب طيب أردوغان.",
+    descriptionEn: "Turkey, a bridge between Asia and Europe, is led by President Recep Tayyip Erdoğan."
+  },
+  {
+    name: "🇮🇶 العراق",
+    nameEn: "Iraq",
+    leader: "رئيس الوزراء محمد شياع السوداني",
+    leaderEn: "Prime Minister Mohammed Shia' Al Sudani",
+    population: "45.5 مليون",
+    populationEn: "45.5 million",
+    zone: "Asia/Baghdad",
+    capital: "بغداد",
+    capitalEn: "Baghdad",
+    continent: "asia",
+    coordinates: "33.3152,44.3661",
+    area: "438.3 ألف كم²",
+    areaEn: "438,300 km²",
+    currency: "الدينار العراقي",
+    currencyEn: "Iraqi Dinar",
+    language: "العربية، الكردية",
+    languageEn: "Arabic, Kurdish",
+    color: "#CE1126",
+    description: "العراق، مهد الحضارات القديمة، يقوده رئيس الوزراء محمد شياع السوداني.",
+    descriptionEn: "Iraq, a cradle of ancient civilizations, is led by Prime Minister Mohammed Shia' Al Sudani."
+  },
+  // أفريقيا (2 دول إضافية)
+  {
+    name: "🇳🇦 ناميبيا",
+    nameEn: "Namibia",
+    leader: "الرئيس نانغولو مبومبا",
+    leaderEn: "President Nangolo Mbumba",
+    population: "2.6 مليون",
+    populationEn: "2.6 million",
+    zone: "Africa/Windhoek",
+    capital: "ويندهوك",
+    capitalEn: "Windhoek",
+    continent: "africa",
+    coordinates: "-22.5597,17.0832",
+    area: "824.3 ألف كم²",
+    areaEn: "824,300 km²",
+    currency: "الدولار الناميبي",
+    currencyEn: "Namibian Dollar",
+    language: "الإنجليزية",
+    languageEn: "English",
+    color: "#003087",
+    description: "ناميبيا، بلد الصحاري الشاسعة والحياة البرية، يقودها الرئيس نانغولو مبومبا.",
+    descriptionEn: "Namibia, a land of vast deserts and wildlife, is led by President Nangolo Mbumba."
+  },
+  {
+    name: "🇸🇴 الصومال",
+    nameEn: "Somalia",
+    leader: "الرئيس حسن شيخ محمود",
+    leaderEn: "President Hassan Sheikh Mohamud",
+    population: "18.1 مليون",
+    populationEn: "18.1 million",
+    zone: "Africa/Mogadishu",
+    capital: "مقديشو",
+    capitalEn: "Mogadishu",
+    continent: "africa",
+    coordinates: "2.0469,45.3182",
+    area: "637.7 ألف كم²",
+    areaEn: "637,700 km²",
+    currency: "شلن صومالي",
+    currencyEn: "Somali Shilling",
+    language: "الصومالية، العربية",
+    languageEn: "Somali, Arabic",
+    color: "#4189DD",
+    description: "الصومال، بلد القرن الأفريقي، يقودها الرئيس حسن شيخ محمود.",
+    descriptionEn: "Somalia, a Horn of Africa nation, is led by President Hassan Sheikh Mohamud."
+  },
+  // أوروبا (2 دول إضافية)
+  {
+    name: "🇩🇰 الدنمارك",
+    nameEn: "Denmark",
+    leader: "رئيس الوزراء ميتي فريدريكسن",
+    leaderEn: "Prime Minister Mette Frederiksen",
+    population: "6.0 مليون",
+    populationEn: "6.0 million",
+    zone: "Europe/Copenhagen",
+    capital: "كوبنهاغن",
+    capitalEn: "Copenhagen",
+    continent: "europe",
+    coordinates: "55.6761,12.5683",
+    area: "43.1 ألف كم²",
+    areaEn: "43,100 km²",
+    currency: "الكرونة الدنماركية",
+    currencyEn: "Danish Krone",
+    language: "الدنماركية",
+    languageEn: "Danish",
+    color: "#C60C30",
+    description: "الدنمارك، بلد الفايكنج والتصميم الحديث، يقودها رئيس الوزراء ميتي فريدريكسن.",
+    descriptionEn: "Denmark, a land of Vikings and modern design, is led by Prime Minister Mette Frederiksen."
+  },
+  {
+    name: "🇬🇷 اليونان",
+    nameEn: "Greece",
+    leader: "رئيس الوزراء كيرياكوس ميتسوتاكيس",
+    leaderEn: "Prime Minister Kyriakos Mitsotakis",
+    population: "10.3 مليون",
+    populationEn: "10.3 million",
+    zone: "Europe/Athens",
+    capital: "أثينا",
+    capitalEn: "Athens",
+    continent: "europe",
+    coordinates: "37.9838,23.7275",
+    area: "131.9 ألف كم²",
+    areaEn: "131,900 km²",
+    currency: "اليورو",
+    currencyEn: "Euro",
+    language: "اليونانية",
+    languageEn: "Greek",
+    color: "#0D5EAF",
+    description: "اليونان، مهد الحضارة الغربية، يقودها رئيس الوزراء كيرياكوس ميتسوتاكيس.",
+    descriptionEn: "Greece, the cradle of Western civilization, is led by Prime Minister Kyriakos Mitsotakis."
+  },
+  // الأمريكتان (2 دول إضافية)
+  {
+    name: "🇨🇱 تشيلي",
+    nameEn: "Chile",
+    leader: "الرئيس غابرييل بوريك",
+    leaderEn: "President Gabriel Boric",
+    population: "19.7 مليون",
+    populationEn: "19.7 million",
+    zone: "America/Santiago",
+    capital: "سانتياغو",
+    capitalEn: "Santiago",
+    continent: "americas",
+    coordinates: "-33.4489,-70.6693",
+    area: "756.1 ألف كم²",
+    areaEn: "756,100 km²",
+    currency: "بيزو تشيلي",
+    currencyEn: "Chilean Peso",
+    language: "الإسبانية",
+    languageEn: "Spanish",
+    color: "#0033A0",
+    description: "تشيلي، بلد جبال الأنديز والسواحل الطويلة، يقودها الرئيس غابرييل بوريك.",
+    descriptionEn: "Chile, a land of Andes mountains and long coastlines, is led by President Gabriel Boric."
+  },
+  {
+    name: "🇨🇴 كولومبيا",
+    nameEn: "Colombia",
+    leader: "الرئيس غوستافو بيترو",
+    leaderEn: "President Gustavo Petro",
+    population: "52.2 مليون",
+    populationEn: "52.2 million",
+    zone: "America/Bogota",
+    capital: "بوغوتا",
+    capitalEn: "Bogotá",
+    continent: "americas",
+    coordinates: "4.7109,-74.0721",
+    area: "1.14 مليون كم²",
+    areaEn: "1.14 million km²",
+    currency: "بيزو كولومبي",
+    currencyEn: "Colombian Peso",
+    language: "الإسبانية",
+    languageEn: "Spanish",
+    color: "#CE1126",
+    description: "كولومبيا، بلد القهوة والتنوع البيولوجي، يقودها الرئيس غوستافو بيترو.",
+    descriptionEn: "Colombia, a land of coffee and biodiversity, is led by President Gustavo Petro."
+  },
+  // أوقيانوسيا (2 دول إضافية)
+  {
+    name: "🇦🇺 أستراليا",
+    nameEn: "Australia",
+    leader: "رئيس الوزراء أنتوني ألبانيز",
+    leaderEn: "Prime Minister Anthony Albanese",
+    population: "27.4 مليون",
+    populationEn: "27.4 million",
+    zone: "Australia/Sydney",
+    capital: "كانبيرا",
+    capitalEn: "Canberra",
+    continent: "oceania",
+    coordinates: "-35.2809,149.1300",
+    area: "7.69 مليون كم²",
+    areaEn: "7.69 million km²",
+    currency: "الدولار الأسترالي",
+    currencyEn: "Australian Dollar",
+    language: "الإنجليزية",
+    languageEn: "English",
+    color: "#00008B",
+    description: "أستراليا، بلد الكنغر والطبيعة الفريدة، يقودها رئيس الوزراء أنتوني ألبانيز.",
+    descriptionEn: "Australia, a land of kangaroos and unique nature, is led by Prime Minister Anthony Albanese."
+  },
+  {
+    name: "🇳🇿 نيوزيلندا",
+    nameEn: "New Zealand",
+    leader: "رئيس الوزراء كريستوفر لوكسون",
+    leaderEn: "Prime Minister Christopher Luxon",
+    population: "5.3 مليون",
+    populationEn: "5.3 million",
+    zone: "Pacific/Auckland",
+    capital: "ويلينغتون",
+    capitalEn: "Wellington",
+    continent: "oceania",
+    coordinates: "-41.2865,174.7762",
+    area: "268.0 ألف كم²",
+    areaEn: "268,000 km²",
+    currency: "الدولار النيوزيلندي",
+    currencyEn: "New Zealand Dollar",
+    language: "الإنجليزية، الماورية",
+    languageEn: "English, Māori",
+    color: "#00247D",
+    description: "نيوزيلندا، بلد المناظر الطبيعية الخلابة، يقودها رئيس الوزراء كريستوفر لوكسون.",
+    descriptionEn: "New Zealand, a land of stunning landscapes, is led by Prime Minister Christopher Luxon."
+  },
+
+   // آسيا (4 دول)
+  {
+    "name": "🇳🇵 نيبال",
+    "nameEn": "Nepal",
+    "leader": "رئيس الوزراء كي بي شارما أولي",
+    "leaderEn": "Prime Minister KP Sharma Oli",
+    "population": "30.9 مليون",
+    "populationEn": "30.9 million",
+    "zone": "Asia/Kathmandu",
+    "capital": "كاتماندو",
+    "capitalEn": "Kathmandu",
+    "continent": "asia",
+    "coordinates": "27.7172,85.3240",
+    "area": "147.5 ألف كم²",
+    "areaEn": "147,500 km²",
+    "currency": "الروبية النيبالية",
+    "currencyEn": "Nepalese Rupee",
+    "language": "النيبالية",
+    "languageEn": "Nepali",
+    "color": "#DC143C",
+    "description": "نيبال، بلد جبال الهيمالايا وإيفرست، يقودها رئيس الوزراء كي بي شارما أولي.",
+    "descriptionEn": "Nepal, home to the Himalayas and Everest, is led by Prime Minister KP Sharma Oli."
+  },
+  {
+    "name": "🇰🇷 كوريا الشمالية",
+    "nameEn": "North Korea",
+    "leader": "الزعيم كيم جونغ أون",
+    "leaderEn": "Supreme Leader Kim Jong-un",
+    "population": "26.1 مليون",
+    "populationEn": "26.1 million",
+    "zone": "Asia/Pyongyang",
+    "capital": "بيونغ يانغ",
+    "capitalEn": "Pyongyang",
+    "continent": "asia",
+    "coordinates": "39.0392,125.7625",
+    "area": "120.5 ألف كم²",
+    "areaEn": "120,500 km²",
+    "currency": "الوون الكوري الشمالي",
+    "currencyEn": "North Korean Won",
+    "language": "الكورية",
+    "languageEn": "Korean",
+    "color": "#024FA2",
+    "description": "كوريا الشمالية، بلد التنمية النووية، يقودها الزعيم كيم جونغ أون.",
+    "descriptionEn": "North Korea, a nation focused on nuclear development, is led by Supreme Leader Kim Jong-un."
+  },
+  {
+    "name": "🇱🇧 لبنان",
+    "nameEn": "Lebanon",
+    "leader": "رئيس الوزراء نجيب ميقاتي",
+    "leaderEn": "Prime Minister Najib Mikati",
+    "population": "5.5 مليون",
+    "populationEn": "5.5 million",
+    "zone": "Asia/Beirut",
+    "capital": "بيروت",
+    "capitalEn": "Beirut",
+    "continent": "asia",
+    "coordinates": "33.8938,35.5018",
+    "area": "10.5 ألف كم²",
+    "areaEn": "10,500 km²",
+    "currency": "الليرة اللبنانية",
+    "currencyEn": "Lebanese Pound",
+    "language": "العربية",
+    "languageEn": "Arabic",
+    "color": "#ED1C24",
+    "description": "لبنان، بلد الأرز والتنوع الثقافي، يقوده رئيس الوزراء نجيب ميقاتي.",
+    "descriptionEn": "Lebanon, land of cedars and cultural diversity, is led by Prime Minister Najib Mikati."
+  },
+  {
+    "name": "🇲🇳 منغوليا",
+    "nameEn": "Mongolia",
+    "leader": "الرئيس أوخناجين خوريلسوخ",
+    "leaderEn": "President Ukhnaagiin Khürelsükh",
+    "population": "3.5 مليون",
+    "populationEn": "3.5 million",
+    "zone": "Asia/Ulaanbaatar",
+    "capital": "أولان باتور",
+    "capitalEn": "Ulaanbaatar",
+    "continent": "asia",
+    "coordinates": "47.8864,106.9057",
+    "area": "1.56 مليون كم²",
+    "areaEn": "1.56 million km²",
+    "currency": "توغريك منغولي",
+    "currencyEn": "Mongolian Tögrög",
+    "language": "المنغولية",
+    "languageEn": "Mongolian",
+    "color": "#0066B3",
+    "description": "منغوليا، بلد السهوب وجنكيز خان، يقودها الرئيس أوخناجين خوريلسوخ.",
+    "descriptionEn": "Mongolia, land of steppes and Genghis Khan, is led by President Ukhnaagiin Khürelsükh."
+  },
+  // أفريقيا (4 دول)
+  {
+    "name": "🇦🇴 أنغولا",
+    "nameEn": "Angola",
+    "leader": "الرئيس جواو لورنسو",
+    "leaderEn": "President João Lourenço",
+    "population": "36.7 مليون",
+    "populationEn": "36.7 million",
+    "zone": "Africa/Luanda",
+    "capital": "لواندا",
+    "capitalEn": "Luanda",
+    "continent": "africa",
+    "coordinates": "-8.8368,13.2343",
+    "area": "1.25 مليون كم²",
+    "areaEn": "1.25 million km²",
+    "currency": "كوانزا أنغولي",
+    "currencyEn": "Angolan Kwanza",
+    "language": "البرتغالية",
+    "languageEn": "Portuguese",
+    "color": "#CE1126",
+    "description": "أنغولا، بلد النفط والسواحل الأطلسية، يقودها الرئيس جواو لورنسو.",
+    "descriptionEn": "Angola, a land of oil and Atlantic coasts, is led by President João Lourenço."
+  },
+  {
+    "name": "🇨🇩 الكونغو الديمقراطية",
+    "nameEn": "Democratic Republic of the Congo",
+    "leader": "الرئيس فيليكس تشيسكيدي",
+    "leaderEn": "President Félix Tshisekedi",
+    "population": "105.6 مليون",
+    "populationEn": "105.6 million",
+    "zone": "Africa/Kinshasa",
+    "capital": "كينشاسا",
+    "capitalEn": "Kinshasa",
+    "continent": "africa",
+    "coordinates": "-4.4419,15.2663",
+    "area": "2.34 مليون كم²",
+    "areaEn": "2.34 million km²",
+    "currency": "فرنك كونغولي",
+    "currencyEn": "Congolese Franc",
+    "language": "الفرنسية",
+    "languageEn": "French",
+    "color": "#007FFF",
+    "description": "الكونغو الديمقراطية، بلد الغابات المطيرة، يقودها الرئيس فيليكس تشيسكيدي.",
+    "descriptionEn": "DR Congo, a land of rainforests, is led by President Félix Tshisekedi."
+  },
+  {
+    "name": "🇬🇭 غينيا",
+    "nameEn": "Guinea",
+    "leader": "الرئيس مامادي دومبويا",
+    "leaderEn": "President Mamady Doumbouya",
+    "population": "14.2 مليون",
+    "populationEn": "14.2 million",
+    "zone": "Africa/Conakry",
+    "capital": "كوناكري",
+    "capitalEn": "Conakry",
+    "continent": "africa",
+    "coordinates": "9.6412,-13.5784",
+    "area": "245.9 ألف كم²",
+    "areaEn": "245,900 km²",
+    "currency": "فرنك غيني",
+    "currencyEn": "Guinean Franc",
+    "language": "الفرنسية",
+    "languageEn": "French",
+    "color": "#CE1126",
+    "description": "غينيا، بلد الموارد المعدنية، يقودها الرئيس مامادي دومبويا.",
+    "descriptionEn": "Guinea, a land of mineral resources, is led by President Mamady Doumbouya."
+  },
+  {
+    "name": "🇱🇷 ليبيريا",
+    "nameEn": "Liberia",
+    "leader": "الرئيس جوزيف بواكاي",
+    "leaderEn": "President Joseph Boakai",
+    "population": "5.5 مليون",
+    "populationEn": "5.5 million",
+    "zone": "Africa/Monrovia",
+    "capital": "مونروفيا",
+    "capitalEn": "Monrovia",
+    "continent": "africa",
+    "coordinates": "6.3156,-10.8074",
+    "area": "111.4 ألف كم²",
+    "areaEn": "111,400 km²",
+    "currency": "الدولار الليبيري",
+    "currencyEn": "Liberian Dollar",
+    "language": "الإنجليزية",
+    "languageEn": "English",
+    "color": "#BF0A30",
+    "description": "ليبيريا، أول جمهورية أفريقية مستقلة، يقودها الرئيس جوزيف بواكاي.",
+    "descriptionEn": "Liberia, Africa’s first independent republic, is led by President Joseph Boakai."
+  },
+  // أوروبا (4 دول)
+  {
+    "name": "🇧🇦 البوسنة والهرسك",
+    "nameEn": "Bosnia and Herzegovina",
+    "leader": "رئيس المجلس دينيس بيشيروفيتش",
+    "leaderEn": "Chairman Denis Bećirović",
+    "population": "3.2 مليون",
+    "populationEn": "3.2 million",
+    "zone": "Europe/Sarajevo",
+    "capital": "سراييفو",
+    "capitalEn": "Sarajevo",
+    "continent": "europe",
+    "coordinates": "43.8563,18.4131",
+    "area": "51.2 ألف كم²",
+    "areaEn": "51,200 km²",
+    "currency": "المارك القابل للتحويل",
+    "currencyEn": "Convertible Mark",
+    "language": "البوسنية، الكرواتية، الصربية",
+    "languageEn": "Bosnian, Croatian, Serbian",
+    "color": "#002395",
+    "description": "البوسنة والهرسك، بلد البلقان متعدد الثقافات، يقودها رئيس المجلس دينيس بيشيروفيتش.",
+    "descriptionEn": "Bosnia and Herzegovina, a multicultural Balkan nation, is led by Chairman Denis Bećirović."
+  },
+  {
+    "name": "🇧🇬 بلغاريا",
+    "nameEn": "Bulgaria",
+    "leader": "الرئيس رومن راديف",
+    "leaderEn": "President Rumen Radev",
+    "population": "6.7 مليون",
+    "populationEn": "6.7 million",
+    "zone": "Europe/Sofia",
+    "capital": "صوفيا",
+    "capitalEn": "Sofia",
+    "continent": "europe",
+    "coordinates": "42.6977,23.3219",
+    "area": "111.0 ألف كم²",
+    "areaEn": "111,000 km²",
+    "currency": "الليف البلغاري",
+    "currencyEn": "Bulgarian Lev",
+    "language": "البلغارية",
+    "languageEn": "Bulgarian",
+    "color": "#00966E",
+    "description": "بلغاريا، بلد التراث الثراكي والبحر الأسود، يقودها الرئيس رومن راديف.",
+    "descriptionEn": "Bulgaria, a land of Thracian heritage and the Black Sea, is led by President Rumen Radev."
+  },
+  {
+    "name": "🇭🇷 كرواتيا",
+    "nameEn": "Croatia",
+    "leader": "رئيس الوزراء أندري بلينكوفيتش",
+    "leaderEn": "Prime Minister Andrej Plenković",
+    "population": "3.9 مليون",
+    "populationEn": "3.9 million",
+    "zone": "Europe/Zagreb",
+    "capital": "زغرب",
+    "capitalEn": "Zagreb",
+    "continent": "europe",
+    "coordinates": "45.8150,15.9819",
+    "area": "56.6 ألف كم²",
+    "areaEn": "56,600 km²",
+    "currency": "اليورو",
+    "currencyEn": "Euro",
+    "language": "الكرواتية",
+    "languageEn": "Croatian",
+    "color": "#FF0000",
+    "description": "كرواتيا، بلد السواحل الأدرياتيكية، يقودها رئيس الوزراء أندري بلينكوفيتش.",
+    "descriptionEn": "Croatia, a land of Adriatic coasts, is led by Prime Minister Andrej Plenković."
+  },
+  {
+    "name": "🇪🇪 إستونيا",
+    "nameEn": "Estonia",
+    "leader": "رئيس الوزراء كايا كالاس",
+    "leaderEn": "Prime Minister Kaja Kallas",
+    "population": "1.3 مليون",
+    "populationEn": "1.3 million",
+    "zone": "Europe/Tallinn",
+    "capital": "تالين",
+    "capitalEn": "Tallinn",
+    "continent": "europe",
+    "coordinates": "59.4370,24.7536",
+    "area": "45.3 ألف كم²",
+    "areaEn": "45,300 km²",
+    "currency": "اليورو",
+    "currencyEn": "Euro",
+    "language": "الإستونية",
+    "languageEn": "Estonian",
+    "color": "#0072CE",
+    "description": "إستونيا، بلد التكنولوجيا والبحر البلطيقي، يقودها رئيس الوزراء كايا كالاس.",
+    "descriptionEn": "Estonia, a land of technology and the Baltic Sea, is led by Prime Minister Kaja Kallas."
+  },
+  // الأمريكتان (4 دول)
+  {
+    "name": "🇧🇧 باربادوس",
+    "nameEn": "Barbados",
+    "leader": "رئيس الوزراء ميا موتلي",
+    "leaderEn": "Prime Minister Mia Mottley",
+    "population": "0.3 مليون",
+    "populationEn": "0.3 million",
+    "zone": "America/Barbados",
+    "capital": "بريدج تاون",
+    "capitalEn": "Bridgetown",
+    "continent": "americas",
+    "coordinates": "13.1939,-59.5432",
+    "area": "432 كم²",
+    "areaEn": "432 km²",
+    "currency": "الدولار الباربادوسي",
+    "currencyEn": "Barbadian Dollar",
+    "language": "الإنجليزية",
+    "languageEn": "English",
+    "color": "#00267F",
+    "description": "باربادوس، جزيرة الكاريبي الجميلة، يقودها رئيس الوزراء ميا موتلي.",
+    "descriptionEn": "Barbados, a beautiful Caribbean island, is led by Prime Minister Mia Mottley."
+  },
+  {
+    "name": "🇧🇴 بوليفيا",
+    "nameEn": "Bolivia",
+    "leader": "الرئيس لويس آرسي",
+    "leaderEn": "President Luis Arce",
+    "population": "12.4 مليون",
+    "populationEn": "12.4 million",
+    "zone": "America/La_Paz",
+    "capital": "لاباز",
+    "capitalEn": "La Paz",
+    "continent": "americas",
+    "coordinates": "-16.4897,-68.1193",
+    "area": "1.1 مليون كم²",
+    "areaEn": "1.1 million km²",
+    "currency": "البوليفيانو البوليفي",
+    "currencyEn": "Bolivian Boliviano",
+    "language": "الإسبانية، الكيتشوا، الأيمارا",
+    "languageEn": "Spanish, Quechua, Aymara",
+    "color": "#D52B1E",
+    "description": "بوليفيا، بلد هضبة الأنديز، يقودها الرئيس لويس آرسي.",
+    "descriptionEn": "Bolivia, a land of Andean highlands, is led by President Luis Arce."
+  },
+  {
+    "name": "🇨🇷 كوستاريكا",
+    "nameEn": "Costa Rica",
+    "leader": "الرئيس رودريغو شافيز",
+    "leaderEn": "President Rodrigo Chaves",
+    "population": "5.2 مليون",
+    "populationEn": "5.2 million",
+    "zone": "America/Costa_Rica",
+    "capital": "سان خوسيه",
+    "capitalEn": "San José",
+    "continent": "americas",
+    "coordinates": "9.9281,-84.0907",
+    "area": "51.1 ألف كم²",
+    "areaEn": "51,100 km²",
+    "currency": "كولون كوستاريكي",
+    "currencyEn": "Costa Rican Colón",
+    "language": "الإسبانية",
+    "languageEn": "Spanish",
+    "color": "#002B7F",
+    "description": "كوستاريكا، بلد التنوع البيولوجي والسلام، يقودها الرئيس رودريغو شافيز.",
+    "descriptionEn": "Costa Rica, a land of biodiversity and peace, is led by President Rodrigo Chaves."
+  },
+  {
+    "name": "🇨🇺 كوبا",
+    "nameEn": "Cuba",
+    "leader": "الرئيس ميغيل دياز كانيل",
+    "leaderEn": "President Miguel Díaz-Canel",
+    "population": "11.2 مليون",
+    "populationEn": "11.2 million",
+    "zone": "America/Havana",
+    "capital": "هافانا",
+    "capitalEn": "Havana",
+    "continent": "americas",
+    "coordinates": "23.1136,-82.3666",
+    "area": "109.9 ألف كم²",
+    "areaEn": "109,900 km²",
+    "currency": "البيزو الكوبي",
+    "currencyEn": "Cuban Peso",
+    "language": "الإسبانية",
+    "languageEn": "Spanish",
+    "color": "#002A8F",
+    "description": "كوبا، جزيرة الكاريبي ذات التاريخ الثوري، يقودها الرئيس ميغيل دياز كانيل.",
+    "descriptionEn": "Cuba, a Caribbean island with a revolutionary history, is led by President Miguel Díaz-Canel."
+  },
+  // أوقيانوسيا (4 دول)
+  {
+    "name": "🇫🇯 فيجي",
+    "nameEn": "Fiji",
+    "leader": "رئيس الوزراء سيتايني رامبالوكا",
+    "leaderEn": "Prime Minister Sitiveni Rabuka",
+    "population": "0.93 مليون",
+    "populationEn": "0.93 million",
+    "zone": "Pacific/Fiji",
+    "capital": "سوفا",
+    "capitalEn": "Suva",
+    "continent": "oceania",
+    "coordinates": "-18.1248,178.4501",
+    "area": "18.3 ألف كم²",
+    "areaEn": "18,300 km²",
+    "currency": "الدولار الفيجي",
+    "currencyEn": "Fijian Dollar",
+    "language": "الإنجليزية، الفيجية، الهندية الفيجية",
+    "languageEn": "English, Fijian, Fiji Hindi",
+    "color": "#00A1D6",
+    "description": "فيجي، أرخبيل الجزر الاستوائية، يقودها رئيس الوزراء سيتايني رامبالوكا.",
+    "descriptionEn": "Fiji, an archipelago of tropical islands, is led by Prime Minister Sitiveni Rabuka."
+  },
+  {
+    "name": "🇰🇮 كيريباتي",
+    "nameEn": "Kiribati",
+    "leader": "الرئيس تانيتي ماماو",
+    "leaderEn": "President Taneti Maamau",
+    "population": "0.13 مليون",
+    "populationEn": "0.13 million",
+    "zone": "Pacific/Tarawa",
+    "capital": "تاراوا",
+    "capitalEn": "Tarawa",
+    "continent": "oceania",
+    "coordinates": "1.4518,172.9717",
+    "area": "811 كم²",
+    "areaEn": "811 km²",
+    "currency": "الدولار الأسترالي",
+    "currencyEn": "Australian Dollar",
+    "language": "الإنجليزية، الكيريباتية",
+    "languageEn": "English, Kiribati",
+    "color": "#FFD700",
+    "description": "كيريباتي، أمة جزر المحيط الهادئ، يقودها الرئيس تانيتي ماماو.",
+    "descriptionEn": "Kiribati, a Pacific island nation, is led by President Taneti Maamau."
+  },
+  {
+    "name": "🇲🇭 جزر مارشال",
+    "nameEn": "Marshall Islands",
+    "leader": "الرئيس هيلدا هاين",
+    "leaderEn": "President Hilda Heine",
+    "population": "0.06 مليون",
+    "populationEn": "0.06 million",
+    "zone": "Pacific/Majuro",
+    "capital": "ماجورو",
+    "capitalEn": "Majuro",
+    "continent": "oceania",
+    "coordinates": "7.1167,171.0667",
+    "area": "181 كم²",
+    "areaEn": "181 km²",
+    "currency": "الدولار الأمريكي",
+    "currencyEn": "United States Dollar",
+    "language": "الإنجليزية، المارشالية",
+    "languageEn": "English, Marshallese",
+    "color": "#003087",
+    "description": "جزر مارشال، أمة جزر المحيط الهادئ، يقودها الرئيس هيلدا هاين.",
+    "descriptionEn": "Marshall Islands, a Pacific island nation, is led by President Hilda Heine."
+  },
+  {
+    "name": "🇳🇷 ناورو",
+    "nameEn": "Nauru",
+    "leader": "الرئيس ديفيد أديانغ",
+    "leaderEn": "President David Adeang",
+    "population": "0.01 مليون",
+    "populationEn": "0.01 million",
+    "zone": "Pacific/Nauru",
+    "capital": "يارين",
+    "capitalEn": "Yaren",
+    "continent": "oceania",
+    "coordinates": "-0.5477,166.9209",
+    "area": "21 كم²",
+    "areaEn": "21 km²",
+    "currency": "الدولار الأسترالي",
+    "currencyEn": "Australian Dollar",
+    "language": "الإنجليزية، النآورية",
+    "languageEn": "English, Nauruan",
+    "color": "#002B7F",
+    "description": "ناورو، أصغر جمهورية في العالم، يقودها الرئيس ديفيد أديانغ.",
+    "descriptionEn": "Nauru, the world’s smallest republic, is led by President David Adeang."
+  },
+  // الأمريكتان (11 دولة إضافية)
+  {
+    name: "🇵🇪 بيرو",
+    nameEn: "Peru",
+    leader: "الرئيسة دينا بولوارتي",
+    leaderEn: "President Dina Boluarte",
+    population: "34.0 مليون",
+    populationEn: "34.0 million",
+    zone: "America/Lima",
+    capital: "ليما",
+    capitalEn: "Lima",
+    continent: "americas",
+    coordinates: "-12.0464,-77.0428",
+    area: "1.29 مليون كم²",
+    areaEn: "1.29 million km²",
+    currency: "سول بيروفي",
+    currencyEn: "Peruvian Sol",
+    language: "الإسبانية، الكيتشوا",
+    languageEn: "Spanish, Quechua",
+    color: "#D91023",
+    description: "بيرو، بلد الإنكا وماتشو بيتشو، يقودها الرئيسة دينا بولوارتي.",
+    descriptionEn: "Peru, land of the Incas and Machu Picchu, is led by President Dina Boluarte."
+  },
+  {
+    name: "🇻🇪 فنزويلا",
+    nameEn: "Venezuela",
+    leader: "الرئيس نيكولاس مادورو",
+    leaderEn: "President Nicolás Maduro",
+    population: "28.8 مليون",
+    populationEn: "28.8 million",
+    zone: "America/Caracas",
+    capital: "كاراكاس",
+    capitalEn: "Caracas",
+    continent: "americas",
+    coordinates: "10.4806,-66.9036",
+    area: "916.4 ألف كم²",
+    areaEn: "916,400 km²",
+    currency: "بوليفار فنزويلي",
+    currencyEn: "Venezuelan Bolívar",
+    language: "الإسبانية",
+    languageEn: "Spanish",
+    color: "#FFD700",
+    description: "فنزويلا، بلد النفط والشلالات، يقودها الرئيس نيكولاس مادورو.",
+    descriptionEn: "Venezuela, a land of oil and waterfalls, is led by President Nicolás Maduro."
+  },
+  {
+    name: "🇪🇨 الإكوادور",
+    nameEn: "Ecuador",
+    leader: "الرئيس دانييل نوبوا",
+    leaderEn: "President Daniel Noboa",
+    population: "18.2 مليون",
+    populationEn: "18.2 million",
+    zone: "America/Guayaquil",
+    capital: "كيتو",
+    capitalEn: "Quito",
+    continent: "americas",
+    coordinates: "-0.1807,-78.4678",
+    area: "283.6 ألف كم²",
+    areaEn: "283,600 km²",
+    currency: "الدولار الأمريكي",
+    currencyEn: "United States Dollar",
+    language: "الإسبانية",
+    languageEn: "Spanish",
+    color: "#FFDE00",
+    description: "الإكوادور، بلد جزر غالاباغوس، يقودها الرئيس دانييل نوبوا.",
+    descriptionEn: "Ecuador, home to the Galápagos Islands, is led by President Daniel Noboa."
+  },
+  {
+    name: "🇺🇾 أوروغواي",
+    nameEn: "Uruguay",
+    leader: "الرئيس لويس لاكايي بو",
+    leaderEn: "President Luis Lacalle Pou",
+    population: "3.6 مليون",
+    populationEn: "3.6 million",
+    zone: "America/Montevideo",
+    capital: "مونتيفيديو",
+    capitalEn: "Montevideo",
+    continent: "americas",
+    coordinates: "-34.9011,-56.1645",
+    area: "176.2 ألف كم²",
+    areaEn: "176,200 km²",
+    currency: "بيزو أوروغواي",
+    currencyEn: "Uruguayan Peso",
+    language: "الإسبانية",
+    languageEn: "Spanish",
+    color: "#0038A8",
+    description: "أوروغواي، بلد الشواطئ والكرة القدم، يقودها الرئيس لويس لاكايي بو.",
+    descriptionEn: "Uruguay, a land of beaches and football, is led by President Luis Lacalle Pou."
+  },
+  {
+    name: "🇵🇾 باراغواي",
+    nameEn: "Paraguay",
+    leader: "الرئيس سانتياغو بينيا",
+    leaderEn: "President Santiago Peña",
+    population: "7.5 مليون",
+    populationEn: "7.5 million",
+    zone: "America/Asuncion",
+    capital: "أسونسيون",
+    capitalEn: "Asunción",
+    continent: "americas",
+    coordinates: "-25.2637,-57.5759",
+    area: "406.8 ألف كم²",
+    areaEn: "406,800 km²",
+    currency: "غواراني باراغواي",
+    currencyEn: "Paraguayan Guarani",
+    language: "الإسبانية، الغواراني",
+    languageEn: "Spanish, Guarani",
+    color: "#D52B1E",
+    description: "باراغواي، بلد الأنهار والثقافة الغواراني، يقودها الرئيس سانتياغو بينيا.",
+    descriptionEn: "Paraguay, a land of rivers and Guarani culture, is led by President Santiago Peña."
+  },
+  {
+    name: "🇬🇹 غواتيمالا",
+    nameEn: "Guatemala",
+    leader: "الرئيس برناردو أريفالو",
+    leaderEn: "President Bernardo Arévalo",
+    population: "18.7 مليون",
+    populationEn: "18.7 million",
+    zone: "America/Guatemala",
+    capital: "غواتيمالا سيتي",
+    capitalEn: "Guatemala City",
+    continent: "americas",
+    coordinates: "14.6349,-90.5069",
+    area: "108.9 ألف كم²",
+    areaEn: "108,900 km²",
+    currency: "كويتزال غواتيمالي",
+    currencyEn: "Guatemalan Quetzal",
+    language: "الإسبانية",
+    languageEn: "Spanish",
+    color: "#4997D0",
+    description: "غواتيمالا، بلد المايا والبراكين، يقودها الرئيس برناردو أريفالو.",
+    descriptionEn: "Guatemala, a land of Mayan culture and volcanoes, is led by President Bernardo Arévalo."
+  },
+  {
+    name: "🇸🇻 السلفادور",
+    nameEn: "El Salvador",
+    leader: "الرئيس ناييب بوكيلي",
+    leaderEn: "President Nayib Bukele",
+    population: "6.5 مليون",
+    populationEn: "6.5 million",
+    zone: "America/El_Salvador",
+    capital: "سان سلفادور",
+    capitalEn: "San Salvador",
+    continent: "americas",
+    coordinates: "13.6929,-89.2182",
+    area: "21.0 ألف كم²",
+    areaEn: "21,000 km²",
+    currency: "الدولار الأمريكي",
+    currencyEn: "United States Dollar",
+    language: "الإسبانية",
+    languageEn: "Spanish",
+    color: "#003087",
+    description: "السلفادور، بلد البراكين والشواطئ، يقودها الرئيس ناييب بوكيلي.",
+    descriptionEn: "El Salvador, a land of volcanoes and beaches, is led by President Nayib Bukele."
+  },
+  {
+    name: "🇭🇳 هندوراس",
+    nameEn: "Honduras",
+    leader: "الرئيسة شيومارا كاسترو",
+    leaderEn: "President Xiomara Castro",
+    population: "10.6 مليون",
+    populationEn: "10.6 million",
+    zone: "America/Tegucigalpa",
+    capital: "تيغوسيغالبا",
+    capitalEn: "Tegucigalpa",
+    continent: "americas",
+    coordinates: "14.0723,-87.1921",
+    area: "112.5 ألف كم²",
+    areaEn: "112,500 km²",
+    currency: "ليمبيرا هندوراسي",
+    currencyEn: "Honduran Lempira",
+    language: "الإسبانية",
+    languageEn: "Spanish",
+    color: "#00A1D6",
+    description: "هندوراس، بلد الغابات والآثار المايا، يقودها الرئيسة شيومارا كاسترو.",
+    descriptionEn: "Honduras, a land of forests and Mayan ruins, is led by President Xiomara Castro."
+  },
+  {
+    name: "🇵🇦 بنما",
+    nameEn: "Panama",
+    leader: "الرئيس خوسيه راؤول مولينو",
+    leaderEn: "President José Raúl Mulino",
+    population: "4.5 مليون",
+    populationEn: "4.5 million",
+    zone: "America/Panama",
+    capital: "بنما سيتي",
+    capitalEn: "Panama City",
+    continent: "americas",
+    coordinates: "8.9824,-79.5199",
+    area: "75.4 ألف كم²",
+    areaEn: "75,400 km²",
+    currency: "بالبوا بنمي",
+    currencyEn: "Panamanian Balboa",
+    language: "الإسبانية",
+    languageEn: "Spanish",
+    color: "#D91023",
+    description: "بنما، بلد القناة والتجارة، يقودها الرئيس خوسيه راؤول مولينو.",
+    descriptionEn: "Panama, a land of the canal and trade, is led by President José Raúl Mulino."
+  },
+  {
+    name: "🇩🇴 الدومينيكان",
+    nameEn: "Dominican Republic",
+    leader: "الرئيس لويس أبينادر",
+    leaderEn: "President Luis Abinader",
+    population: "11.3 مليون",
+    populationEn: "11.3 million",
+    zone: "America/Santo_Domingo",
+    capital: "سانتو دومينغو",
+    capitalEn: "Santo Domingo",
+    continent: "americas",
+    coordinates: "18.4861,-69.9312",
+    area: "48.7 ألف كم²",
+    areaEn: "48,700 km²",
+    currency: "بيزو دومينيكاني",
+    currencyEn: "Dominican Peso",
+    language: "الإسبانية",
+    languageEn: "Spanish",
+    color: "#00247D",
+    description: "الدومينيكان، بلد الشواطئ الكاريبية، يقودها الرئيس لويس أبينادر.",
+    descriptionEn: "Dominican Republic, a land of Caribbean beaches, is led by President Luis Abinader."
+  },
+  {
+    name: "🇯🇲 جامايكا",
+    nameEn: "Jamaica",
+    leader: "رئيس الوزراء أندرو هولنيس",
+    leaderEn: "Prime Minister Andrew Holness",
+    population: "2.8 مليون",
+    populationEn: "2.8 million",
+    zone: "America/Jamaica",
+    capital: "كينغستون",
+    capitalEn: "Kingston",
+    continent: "americas",
+    coordinates: "17.9712,-76.7927",
+    area: "11.0 ألف كم²",
+    areaEn: "11,000 km²",
+    currency: "الدولار الجامايكي",
+    currencyEn: "Jamaican Dollar",
+    language: "الإنجليزية",
+    languageEn: "English",
+    color: "#009B3A",
+    description: "جامايكا، بلد الريغي والشواطئ، يقودها رئيس الوزراء أندرو هولنيس.",
+    descriptionEn: "Jamaica, a land of reggae and beaches, is led by Prime Minister Andrew Holness."
+  },
+  // أوقيانوسيا (14 دولة إضافية)
+  {
+    name: "🇵🇬 بابوا غينيا الجديدة",
+    nameEn: "Papua New Guinea",
+    leader: "رئيس الوزراء جيمس مارابي",
+    leaderEn: "Prime Minister James Marape",
+    population: "10.3 مليون",
+    populationEn: "10.3 million",
+    zone: "Pacific/Port_Moresby",
+    capital: "بورت مورسبي",
+    capitalEn: "Port Moresby",
+    continent: "oceania",
+    coordinates: "-9.4438,147.1803",
+    area: "462.8 ألف كم²",
+    areaEn: "462,800 km²",
+    currency: "كينا بابوا غينيا الجديدة",
+    currencyEn: "Papua New Guinean Kina",
+    language: "الإنجليزية، توك بيسين، هيري موتو",
+    languageEn: "English, Tok Pisin, Hiri Motu",
+    color: "#CE1126",
+    description: "بابوا غينيا الجديدة، بلد التنوع القبلي، يقودها رئيس الوزراء جيمس مارابي.",
+    descriptionEn: "Papua New Guinea, a land of tribal diversity, is led by Prime Minister James Marape."
+  },
+  {
+    name: "🇸🇧 جزر سليمان",
+    nameEn: "Solomon Islands",
+    leader: "رئيس الوزراء جيريمايا مانيلي",
+    leaderEn: "Prime Minister Jeremiah Manele",
+    population: "0.74 مليون",
+    populationEn: "0.74 million",
+    zone: "Pacific/Guadalcanal",
+    capital: "هونيارا",
+    capitalEn: "Honiara",
+    continent: "oceania",
+    coordinates: "-9.4280,159.9731",
+    area: "28.9 ألف كم²",
+    areaEn: "28,900 km²",
+    currency: "دولار جزر سليمان",
+    currencyEn: "Solomon Islands Dollar",
+    language: "الإنجليزية",
+    languageEn: "English",
+    color: "#0051BA",
+    description: "جزر سليمان، أمة جزر المحيط الهادئ، يقودها رئيس الوزراء جيريمايا مانيلي.",
+    descriptionEn: "Solomon Islands, a Pacific island nation, is led by Prime Minister Jeremiah Manele."
+  },
+  {
+    name: "🇻🇺 فانواتو",
+    nameEn: "Vanuatu",
+    leader: "رئيس الوزراء شارلوت سالواي",
+    leaderEn: "Prime Minister Charlot Salwai",
+    population: "0.33 مليون",
+    populationEn: "0.33 million",
+    zone: "Pacific/Efate",
+    capital: "بورت فيلا",
+    capitalEn: "Port Vila",
+    continent: "oceania",
+    coordinates: "-17.7333,168.3167",
+    area: "12.2 ألف كم²",
+    areaEn: "12,200 km²",
+    currency: "فاتو فانواتو",
+    currencyEn: "Vanuatu Vatu",
+    language: "الإنجليزية، الفرنسية، بيسلاما",
+    languageEn: "English, French, Bislama",
+    color: "#D21034",
+    description: "فانواتو، أمة جزر المحيط الهادئ، يقودها رئيس الوزراء شارلوت سالواي.",
+    descriptionEn: "Vanuatu, a Pacific island nation, is led by Prime Minister Charlot Salwai."
+  },
+  {
+    name: "🇹🇴 تونغا",
+    nameEn: "Tonga",
+    leader: "رئيس الوزراء سياسيا تويونيتوا",
+    leaderEn: "Prime Minister Siaosi Sovaleni",
+    population: "0.11 مليون",
+    populationEn: "0.11 million",
+    zone: "Pacific/Tongatapu",
+    capital: "نوكوالوفا",
+    capitalEn: "Nukuʻalofa",
+    continent: "oceania",
+    coordinates: "-21.1393,175.2018",
+    area: "747 كم²",
+    areaEn: "747 km²",
+    currency: "بانغا تونغا",
+    currencyEn: "Tongan Paʻanga",
+    language: "الإنجليزية، التّونغية",
+    languageEn: "English, Tongan",
+    color: "#C10000",
+    description: "تونغا، مملكة المحيط الهادئ، يقودها رئيس الوزراء سياسيا تويونيتوا.",
+    descriptionEn: "Tonga, a Pacific kingdom, is led by Prime Minister Siaosi Sovaleni."
+  },
+  {
+    name: "🇼🇸 ساموا",
+    nameEn: "Samoa",
+    leader: "رئيسة الوزراء فيامي نعومي ماتافا",
+    leaderEn: "Prime Minister Fiamē Naomi Mataʻafa",
+    population: "0.22 مليون",
+    populationEn: "0.22 million",
+    zone: "Pacific/Apia",
+    capital: "أبيا",
+    capitalEn: "Apia",
+    continent: "oceania",
+    coordinates: "-13.8507,-171.7518",
+    area: "2.8 ألف كم²",
+    areaEn: "2,800 km²",
+    currency: "تالا ساموا",
+    currencyEn: "Samoan Tala",
+    language: "الإنجليزية، الساموية",
+    languageEn: "English, Samoan",
+    color: "#002B7F",
+    description: "ساموا، أمة جزر المحيط الهادئ، يقودها رئيسة الوزراء فيامي نعومي ماتافا.",
+    descriptionEn: "Samoa, a Pacific island nation, is led by Prime Minister Fiamē Naomi Mataʻafa."
+  },
+  {
+    name: "🇹🇻 توفالو",
+    nameEn: "Tuvalu",
+    leader: "رئيس الوزراء فيليمون تيليكا",
+    leaderEn: "Prime Minister Feleti Teo",
+    population: "0.01 مليون",
+    populationEn: "0.01 million",
+    zone: "Pacific/Funafuti",
+    capital: "فونافوتي",
+    capitalEn: "Funafuti",
+    continent: "oceania",
+    coordinates: "-8.5200,179.1982",
+    area: "26 كم²",
+    areaEn: "26 km²",
+    currency: "الدولار الأسترالي",
+    currencyEn: "Australian Dollar",
+    language: "الإنجليزية، التوفالية",
+    languageEn: "English, Tuvaluan",
+    color: "#00A1D6",
+    description: "توفالو، أمة جزر المحيط الهادئ الصغيرة، يقودها رئيس الوزراء فيليمون تيليكا.",
+    descriptionEn: "Tuvalu, a small Pacific island nation, is led by Prime Minister Feleti Teo."
+  },
+  {
+    name: "🇵🇼 بالاو",
+    nameEn: "Palau",
+    leader: "الرئيس سورانغل ويبس جونيور",
+    leaderEn: "President Surangel Whipps Jr.",
+    population: "0.02 مليون",
+    populationEn: "0.02 million",
+    zone: "Pacific/Palau",
+    capital: "نجيرولمود",
+    capitalEn: "Ngerulmud",
+    continent: "oceania",
+    coordinates: "7.5000,134.6234",
+    area: "459 كم²",
+    areaEn: "459 km²",
+    currency: "الدولار الأمريكي",
+    currencyEn: "United States Dollar",
+    language: "الإنجليزية، البالاوية",
+    languageEn: "English, Palauan",
+    color: "#4AADD6",
+    description: "بالاو، أمة جزر المحيط الهادئ، يقودها الرئيس سورانغل ويبس جونيور.",
+    descriptionEn: "Palau, a Pacific island nation, is led by President Surangel Whipps Jr."
+  },
+  {
+    name: "🇫🇲 ميكرونيزيا",
+    nameEn: "Micronesia",
+    leader: "الرئيس ويسلي سيما",
+    leaderEn: "President Wesley Simina",
+    population: "0.11 مليون",
+    populationEn: "0.11 million",
+    zone: "Pacific/Pohnpei",
+    capital: "باليكير",
+    capitalEn: "Palikir",
+    continent: "oceania",
+    coordinates: "6.9147,158.1610",
+    area: "702 كم²",
+    areaEn: "702 km²",
+    currency: "الدولار الأمريكي",
+    currencyEn: "United States Dollar",
+    language: "الإنجليزية",
+    languageEn: "English",
+    color: "#3C8BDC",
+    description: "ميكرونيزيا، اتحاد جزر المحيط الهادئ، يقودها الرئيس ويسلي سيما.",
+    descriptionEn: "Micronesia, a federation of Pacific islands, is led by President Wesley Simina."
+  },
+  {
+    name: "🇸🇲 سان مارينو",
+    nameEn: "San Marino",
+    leader: "القائدان ميلينا غاسبيروني وأليساندرو سكارفانو",
+    leaderEn: "Captains Regent Milena Gasperoni and Alessandro Scarano",
+    population: "0.03 مليون",
+    populationEn: "0.03 million",
+    zone: "Europe/San_Marino",
+    capital: "سان مارينو",
+    capitalEn: "San Marino",
+    continent: "europe",
+    coordinates: "43.9333,12.4500",
+    area: "61 كم²",
+    areaEn: "61 km²",
+    currency: "اليورو",
+    currencyEn: "Euro",
+    language: "الإيطالية",
+    languageEn: "Italian",
+    color: "#00A1D6",
+    description: "سان مارينو، واحدة من أقدم الجمهوريات في العالم، يقودها القائدان ميلينا غاسبيروني وأليساندرو سكارفانو.",
+    descriptionEn: "San Marino, one of the world’s oldest republics, is led by Captains Regent Milena Gasperoni and Alessandro Scarano."
+  },
+  {
+    name: "🇦🇩 أندورا",
+    nameEn: "Andorra",
+    leader: "رئيس الوزراء كزافييه إسبوت زامورا",
+    leaderEn: "Prime Minister Xavier Espot Zamora",
+    population: "0.08 مليون",
+    populationEn: "0.08 million",
+    zone: "Europe/Andorra",
+    capital: "أندورا لا فيلا",
+    capitalEn: "Andorra la Vella",
+    continent: "europe",
+    coordinates: "42.5063,1.5218",
+    area: "468 كم²",
+    areaEn: "468 km²",
+    currency: "اليورو",
+    currencyEn: "Euro",
+    language: "الكتالونية",
+    languageEn: "Catalan",
+    color: "#FFD700",
+    description: "أندورا، بلد جبال البيرينيه، يقودها رئيس الوزراء كزافييه إسبوت زامورا.",
+    descriptionEn: "Andorra, a land of the Pyrenees mountains, is led by Prime Minister Xavier Espot Zamora."
+  },
+  {
+    name: "🇲🇹 مالطا",
+    nameEn: "Malta",
+    leader: "رئيس الوزراء روبرت أبيلا",
+    leaderEn: "Prime Minister Robert Abela",
+    population: "0.56 مليون",
+    populationEn: "0.56 million",
+    zone: "Europe/Malta",
+    capital: "فاليتا",
+    capitalEn: "Valletta",
+    continent: "europe",
+    coordinates: "35.8989,14.5146",
+    area: "316 كم²",
+    areaEn: "316 km²",
+    currency: "اليورو",
+    currencyEn: "Euro",
+    language: "المالطية، الإنجليزية",
+    languageEn: "Maltese, English",
+    color: "#D91023",
+    description: "مالطا، جزيرة البحر الأبيض المتوسط، يقودها رئيس الوزراء روبرت أبيلا.",
+    descriptionEn: "Malta, a Mediterranean island, is led by Prime Minister Robert Abela."
+  },
+  {
+    name: "🇱🇮 ليختنشتاين",
+    nameEn: "Liechtenstein",
+    leader: "رئيس الوزراء دانييل ريش",
+    leaderEn: "Prime Minister Daniel Risch",
+    population: "0.04 مليون",
+    populationEn: "0.04 million",
+    zone: "Europe/Vaduz",
+    capital: "فادوز",
+    capitalEn: "Vaduz",
+    continent: "europe",
+    coordinates: "47.1410,9.5209",
+    area: "160 كم²",
+    areaEn: "160 km²",
+    currency: "الفرنك السويسري",
+    currencyEn: "Swiss Franc",
+    language: "الألمانية",
+    languageEn: "German",
+    color: "#00247D",
+    description: "ليختنشتاين، إمارة جبال الألب الصغيرة، يقودها رئيس الوزراء دانييل ريش.",
+    descriptionEn: "Liechtenstein, a small Alpine principality, is led by Prime Minister Daniel Risch."
+  },
+  {
+    name: "🇦🇸 ساموا الأمريكية",
+    nameEn: "American Samoa",
+    leader: "الحاكم ليمانو بيلي سوفا",
+    leaderEn: "Governor Lemanu Peleti Mauga",
+    population: "0.05 مليون",
+    populationEn: "0.05 million",
+    zone: "Pacific/Pago_Pago",
+    capital: "باغو باغو",
+    capitalEn: "Pago Pago",
+    continent: "oceania",
+    coordinates: "-14.2756,-170.7020",
+    area: "199 كم²",
+    areaEn: "199 km²",
+    currency: "الدولار الأمريكي",
+    currencyEn: "United States Dollar",
+    language: "الإنجليزية، الساموية",
+    languageEn: "English, Samoan",
+    color: "#003087",
+    description: "ساموا الأمريكية، إقليم أمريكي في المحيط الهادئ، يقوده الحاكم ليمانو بيلي سوفا.",
+    descriptionEn: "American Samoa, a U.S. territory in the Pacific, is led by Governor Lemanu Peleti Mauga."
+  },
+  {
+    name: "🇨🇰 جزر كوك",
+    nameEn: "Cook Islands",
+    leader: "رئيس الوزراء مارك براون",
+    leaderEn: "Prime Minister Mark Brown",
+    population: "0.02 مليون",
+    populationEn: "0.02 million",
+    zone: "Pacific/Rarotonga",
+    capital: "أفاروا",
+    capitalEn: "Avarua",
+    continent: "oceania",
+    coordinates: "-21.2367,-159.7777",
+    area: "236 كم²",
+    areaEn: "236 km²",
+    currency: "الدولار النيوزيلندي",
+    currencyEn: "New Zealand Dollar",
+    language: "الإنجليزية، الماورية",
+    languageEn: "English, Cook Islands Māori",
+    color: "#006847",
+    description: "جزر كوك، أمة جزر المحيط الهادئ، يقودها رئيس الوزراء مارك براون.",
+    descriptionEn: "Cook Islands, a Pacific island nation, is led by Prime Minister Mark Brown."
+  },
 ];
 
-   // API settings
+// API settings
     const WEATHER_API_KEY = '42d984047a7d1cdbc1f04ff0e2bb10f4';
     const WEATHER_API_URL = 'https://api.openweathermap.org/data/2.5/weather';
-    const PRAYER_API_URL = 'https://world-clock-proxy-e6806kjdq-abdessamads-projects-f398f3ba.vercel.app/aladhan/v1/timings';
+    const PRAYER_API_URL = 'https://cors-anywhere.herokuapp.com/http://api.aladhan.com/v1/timings';
 
     // Cache for weather and prayer data
     let weatherCache = {};
@@ -2132,7 +3354,7 @@
       return navigator.onLine;
     }
 
-    // Fetch weather data
+    // Fetch weather data with extended caching
     async function fetchWeather(coordinates) {
       if (!checkNetwork()) {
         showNotification(translations[currentLanguage].notifications.networkError);
@@ -2140,7 +3362,7 @@
       }
       const [lat, lon] = coordinates.split(',');
       const cacheKey = `${lat},${lon}`;
-      if (weatherCache[cacheKey] && Date.now() - weatherCache[cacheKey].timestamp < 600000) {
+      if (weatherCache[cacheKey] && Date.now() - weatherCache[cacheKey].timestamp < 1800000) { // 30 minutes
         return weatherCache[cacheKey].data;
       }
 
@@ -2163,39 +3385,44 @@
       }
     }
 
-    // Fetch prayer times
+    // Fetch prayer times with retry logic and optimized caching (no notification on failure)
     async function fetchPrayerTimes(coordinates, date) {
       if (!checkNetwork()) {
-        showNotification(translations[currentLanguage].notifications.networkError);
-        return null;
+        return null; // Silently return null if offline
       }
       const [lat, lon] = coordinates.split(',');
       const cacheKey = `${lat},${lon}|${date}`;
-      if (prayerCache[cacheKey] && Date.now() - prayerCache[cacheKey].timestamp < 86400000) {
+      if (prayerCache[cacheKey] && Date.now() - prayerCache[cacheKey].timestamp < 172800000) { // 48 hours
         return prayerCache[cacheKey].data;
       }
 
-      try {
-        const response = await fetch(`${PRAYER_API_URL}/${date}?latitude=${lat}&longitude=${lon}&method=2`, {
-          headers: {
-            'Accept': 'application/json'
+      const maxRetries = 2;
+      let attempt = 0;
+
+      while (attempt < maxRetries) {
+        try {
+          const response = await fetch(`${PRAYER_API_URL}/${date}?latitude=${lat}&longitude=${lon}&method=2`, {
+            headers: {
+              'Accept': 'application/json'
+            }
+          });
+          if (!response.ok) {
+            throw new Error(`Prayer API error: ${response.status} ${response.statusText}`);
           }
-        });
-        if (!response.ok) {
-          showNotification(translations[currentLanguage].notifications.prayerError);
-          throw new Error(`Prayer API error: ${response.status} ${response.statusText}`);
+          const data = await response.json();
+          if (data.code !== 200) {
+            throw new Error(`Prayer API error: ${data.status || 'Unknown error'}`);
+          }
+          prayerCache[cacheKey] = { data: data.data.timings, timestamp: Date.now() };
+          return data.data.timings;
+        } catch (error) {
+          attempt++;
+          console.error(`Prayer API attempt ${attempt} failed: ${error.message}`);
+          if (attempt === maxRetries) {
+            return null; // Silently return null on final failure
+          }
+          await new Promise(resolve => setTimeout(resolve, 2000)); // 2-second delay
         }
-        const data = await response.json();
-        if (data.code !== 200) {
-          showNotification(translations[currentLanguage].notifications.prayerError);
-          throw new Error(`Prayer API error: ${data.status || 'Unknown error'}`);
-        }
-        prayerCache[cacheKey] = { data: data.data.timings, timestamp: Date.now() };
-        return data.data.timings;
-      } catch (error) {
-        console.error('Error fetching prayer times:', error);
-        showNotification(translations[currentLanguage].notifications.prayerError);
-        return null;
       }
     }
 
@@ -2297,6 +3524,17 @@
       renderClocks();
     }
 
+    // Check if element is in viewport
+    function isInViewport(element) {
+      const rect = element.getBoundingClientRect();
+      return (
+        rect.top >= 0 &&
+        rect.left >= 0 &&
+        rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+        rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+      );
+    }
+
     // Render clocks (initial render with weather and prayer times)
     async function renderClocks() {
       const container = document.getElementById('clocks');
@@ -2389,10 +3627,11 @@
       loading.style.display = 'none';
     }
 
-    // Update clocks dynamically
+    // Update clocks dynamically (only visible clocks)
     function updateClocks() {
       const clockBoxes = document.querySelectorAll('.clock-box');
       clockBoxes.forEach(box => {
+        if (!isInViewport(box)) return; // Skip non-visible clocks
         const countryName = box.dataset.country;
         const country = countries.find(c => c.nameEn === countryName);
         if (!country) return;
