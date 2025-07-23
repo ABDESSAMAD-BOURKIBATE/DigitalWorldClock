@@ -46,11 +46,27 @@
       text-shadow: 0 0 20px rgba(255,215,0,0.5);
       margin-bottom: 10px;
       animation: titleGlow 3s ease-in-out infinite alternate;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      justify-content: center;
+    }
+
+    .project-icon {
+      font-size: 2.2rem;
+      color: #FFD700;
+      filter: drop-shadow(0 0 15px #FFD700);
+      animation: globeRotate 8s linear infinite;
     }
 
     @keyframes titleGlow {
       0% { filter: brightness(1); }
       100% { filter: brightness(1.3); }
+    }
+
+    @keyframes globeRotate {
+      from { transform: rotateY(0deg); }
+      to { transform: rotateY(360deg); }
     }
 
     .subtitle {
@@ -62,31 +78,95 @@
     .controls {
       display: flex;
       justify-content: center;
-      gap: 15px;
+      gap: 18px;
       flex-wrap: wrap;
-      margin-bottom: 20px;
+      margin-bottom: 25px;
+      padding: 15px;
+      background: rgba(0,0,0,0.1);
+      border-radius: 25px;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,215,0,0.2);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
     }
 
     .btn {
-      padding: 12px 24px;
+      padding: 14px 20px;
       background: linear-gradient(45deg, #FFD700, #FFA500);
       color: #000;
-      font-weight: bold;
+      font-weight: 600;
       border: none;
-      border-radius: 25px;
+      border-radius: 30px;
       text-decoration: none;
-      transition: all 0.3s ease;
+      transition: all 0.4s ease;
       cursor: pointer;
       font-size: 0.9rem;
       display: inline-flex;
       align-items: center;
       gap: 8px;
+      box-shadow: 0 4px 15px rgba(255,165,0,0.3);
+      position: relative;
+      overflow: hidden;
+      min-width: 160px;
+      justify-content: center;
+    }
+
+    .btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+      transition: left 0.6s ease;
+    }
+
+    .btn:hover::before {
+      left: 100%;
     }
 
     .btn:hover {
       background: linear-gradient(45deg, #FFA500, #FF8C00);
-      transform: translateY(-2px);
-      box-shadow: 0 8px 25px rgba(255,165,0,0.4);
+      transform: translateY(-3px) scale(1.02);
+      box-shadow: 0 12px 30px rgba(255,165,0,0.5);
+    }
+
+    .btn i {
+      font-size: 1.1rem;
+      margin-right: 4px;
+      transition: transform 0.3s ease;
+    }
+
+    .btn:hover i {
+      transform: scale(1.2) rotate(5deg);
+    }
+
+    /* Special animations for specific icons */
+    .btn:hover .fa-sync-alt {
+      transform: scale(1.2) rotate(360deg);
+      transition: transform 0.6s ease;
+    }
+
+    .btn:hover .fa-expand {
+      transform: scale(1.3);
+    }
+
+    .btn:hover .fa-download {
+      transform: scale(1.2) translateY(-2px);
+    }
+
+    .btn:hover .fa-language {
+      transform: scale(1.2) rotateY(180deg);
+    }
+
+    .btn:hover .fa-info-circle {
+      transform: scale(1.2);
+      color: #0066cc;
+    }
+
+    .btn-text {
+      position: relative;
+      z-index: 1;
     }
 
     .search-container {
@@ -127,22 +207,100 @@
     }
 
     .stat-item {
-      text-align: center;
-      background: rgba(255,255,255,0.1);
-      padding: 15px 25px;
-      border-radius: 15px;
-      backdrop-filter: blur(5px);
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05));
+      padding: 18px 25px;
+      border-radius: 20px;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.1);
+      transition: all 0.4s ease;
+      min-width: 180px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+
+    .stat-item:hover {
+      transform: translateY(-3px);
+      background: linear-gradient(135deg, rgba(255,255,255,0.15), rgba(255,255,255,0.08));
+      box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+      border-color: rgba(255,215,0,0.3);
+    }
+
+    .stat-icon {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, rgba(255,215,0,0.2), rgba(255,165,0,0.1));
+      border: 2px solid rgba(255,215,0,0.3);
+      transition: all 0.3s ease;
+    }
+
+    .stat-icon i {
+      font-size: 1.3rem;
+      color: #FFD700;
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+      transition: all 0.3s ease;
+    }
+
+    .stat-content {
+      text-align: left;
+      flex: 1;
     }
 
     .stat-number {
-      font-size: 1.5rem;
-      font-weight: bold;
+      font-size: 1.8rem;
+      font-weight: 700;
       color: #FFD700;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+      margin-bottom: 2px;
+      font-family: 'Courier New', monospace;
     }
 
     .stat-label {
       font-size: 0.9rem;
-      color: #ccc;
+      color: #e0e0e0;
+      font-weight: 500;
+    }
+
+    /* Special animations for different stat icons */
+    .day-icon {
+      background: linear-gradient(135deg, rgba(255,215,0,0.3), rgba(255,165,0,0.2));
+    }
+
+    .day-icon i {
+      animation: sunRotate 4s linear infinite;
+    }
+
+    .night-icon {
+      background: linear-gradient(135deg, rgba(100,149,237,0.3), rgba(70,130,180,0.2));
+    }
+
+    .night-icon i {
+      color: #6495ED;
+      animation: moonPulse 3s ease-in-out infinite;
+    }
+
+    .stat-item:hover .stat-icon {
+      transform: scale(1.1);
+      box-shadow: 0 4px 15px rgba(255,215,0,0.3);
+    }
+
+    .stat-item:hover .stat-icon i {
+      filter: drop-shadow(0 0 10px currentColor);
+    }
+
+    @keyframes sunRotate {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    @keyframes moonPulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.7; transform: scale(1.1); }
     }
 
     .clock-container {
@@ -888,12 +1046,81 @@
       position: fixed;
       top: 20px;
       left: 20px;
-      background: rgba(0,0,0,0.8);
-      backdrop-filter: blur(10px);
-      padding: 15px;
-      border-radius: 15px;
-      border: 1px solid rgba(255,215,0,0.3);
+      background: rgba(0,0,0,0.05);
+      backdrop-filter: blur(25px);
+      padding: 12px 18px;
+      border-radius: 20px;
+      border: 1px solid rgba(255,255,255,0.15);
       z-index: 100;
+      box-shadow: 
+        0 8px 32px rgba(0,0,0,0.1),
+        inset 0 1px 0 rgba(255,255,255,0.1);
+      transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      min-width: 160px;
+      opacity: 0.85;
+    }
+
+    .floating-clock:hover {
+      background: rgba(0,0,0,0.15);
+      transform: translateY(-3px) scale(1.02);
+      box-shadow: 
+        0 16px 48px rgba(0,0,0,0.2),
+        inset 0 1px 0 rgba(255,255,255,0.2);
+      border-color: rgba(255,215,0,0.3);
+      opacity: 1;
+    }
+
+    .local-clock-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+
+    .local-clock-header i {
+      font-size: 0.9rem;
+      color: #FFD700;
+      animation: clockTick 2s infinite;
+      filter: drop-shadow(0 1px 2px rgba(0,0,0,0.5));
+    }
+
+    .local-label {
+      font-size: 0.75rem;
+      color: #FFD700;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+    }
+
+    .local-time-display {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: #ffffff;
+      font-family: 'Courier New', monospace;
+      text-align: center;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.7);
+      margin-bottom: 4px;
+      letter-spacing: 1px;
+    }
+
+    .local-date-display {
+      font-size: 0.7rem;
+      color: #e0e0e0;
+      text-align: center;
+      opacity: 0.9;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+    }
+
+    @keyframes clockTick {
+      0%, 50% { 
+        opacity: 1;
+        transform: scale(1);
+      }
+      51%, 100% { 
+        opacity: 0.6;
+        transform: scale(0.95);
+      }
     }
 
     @media (max-width: 768px) {
@@ -912,9 +1139,32 @@
       }
       
       .floating-clock {
-        position: static;
-        margin: 20px auto;
-        width: fit-content;
+        position: fixed;
+        top: 10px;
+        left: 10px;
+        right: 10px;
+        margin: 0;
+        background: rgba(0,0,0,0.2);
+        backdrop-filter: blur(15px);
+        padding: 10px 15px;
+        border-radius: 15px;
+        min-width: auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .local-clock-header {
+        margin-bottom: 0;
+      }
+
+      .local-time-display {
+        font-size: 1rem;
+        margin-bottom: 0;
+      }
+
+      .local-date-display {
+        font-size: 0.6rem;
       }
 
       .prayer-info {
@@ -984,8 +1234,49 @@
     }
 
     .continent-icon {
-      font-size: 2rem;
+      font-size: 1.8rem;
       line-height: 1;
+      margin-bottom: 8px;
+      transition: all 0.4s ease;
+      background: linear-gradient(135deg, rgba(255,215,0,0.2), rgba(255,165,0,0.1));
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+      border: 2px solid rgba(255,215,0,0.3);
+    }
+
+    .continent-icon i {
+      color: #FFD700;
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+      transition: all 0.3s ease;
+    }
+
+    .continent-btn:hover .continent-icon {
+      transform: scale(1.1) rotate(5deg);
+      background: linear-gradient(135deg, rgba(255,215,0,0.4), rgba(255,165,0,0.2));
+      box-shadow: 0 8px 25px rgba(255,215,0,0.3);
+      border-color: rgba(255,215,0,0.5);
+    }
+
+    .continent-btn:hover .continent-icon i {
+      color: #fff;
+      filter: drop-shadow(0 0 10px #FFD700);
+      transform: scale(1.2);
+    }
+
+    .continent-btn.active .continent-icon {
+      background: linear-gradient(135deg, rgba(255,215,0,0.6), rgba(255,165,0,0.3));
+      box-shadow: 0 6px 20px rgba(255,215,0,0.4);
+      border-color: rgba(255,215,0,0.7);
+    }
+
+    .continent-btn.active .continent-icon i {
+      color: #fff;
+      filter: drop-shadow(0 0 8px #FFD700);
     }
 
     .continent-name {
@@ -1177,22 +1468,44 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/luxon/3.4.4/luxon.min.js"></script>
 
   <div class="floating-clock" id="local-clock">
-    <div class="local-label" style="font-size: 0.8rem; color: #FFD700;"> التوقيت المحلي</div>
-    <div style="font-size: 1.1rem; font-weight: bold;" id="local-time">--:--:--</div>
+    <div class="local-clock-header">
+      <i class="fas fa-clock"></i>
+      <span class="local-label" id="local-label">التوقيت المحلي</span>
+    </div>
+    <div class="local-time-display" id="local-time">--:--:--</div>
+    <div class="local-date-display" id="local-date">--/--/----</div>
   </div>
 
   <div class="notification" id="notification"></div>
 
   <header class="header">
-    <h1 class="project-title">🌍ساعة رقمية عالمية </h1>
+    <h1 class="project-title">
+      <i class="fas fa-globe-americas project-icon"></i>
+      ساعة رقمية عالمية
+    </h1>
     <p class="subtitle">استكشف أوقات العالم مع المعلومات الجغرافية والثقافية</p>
     
     <div class="controls">
-      <button class="btn" onclick="openAboutModal()"> نبذة عن المشروع</button>
-      <button class="btn" onclick="toggleFullscreen()"> ملء الشاشة</button>
-      <button class="btn" onclick="exportData()"> تصدير البيانات</button>
-      <button class="btn" onclick="refreshClocks()"> تحديث</button>
-      <button class="btn" onclick="toggleLanguage()"> تغيير اللغة</button>
+      <button class="btn" onclick="openAboutModal()">
+        <i class="fas fa-info-circle"></i>
+        <span class="btn-text"> نبذة عن المشروع</span>
+      </button>
+      <button class="btn" onclick="toggleFullscreen()">
+        <i class="fas fa-expand"></i>
+        <span class="btn-text"> ملء الشاشة</span>
+      </button>
+      <button class="btn" onclick="exportData()">
+        <i class="fas fa-download"></i>
+        <span class="btn-text"> تصدير البيانات</span>
+      </button>
+      <button class="btn" onclick="refreshClocks()">
+        <i class="fas fa-sync-alt"></i>
+        <span class="btn-text"> تحديث</span>
+      </button>
+      <button class="btn" onclick="toggleLanguage()">
+        <i class="fas fa-language"></i>
+        <span class="btn-text"> تغيير اللغة</span>
+      </button>
     </div>
 
     <div class="search-container">
@@ -1201,32 +1514,44 @@
 
     <div class="continent-filter" id="continent-filter">
       <button class="continent-btn active" onclick="filterByContinent('all')">
-        <div class="continent-icon">🌍</div>
+        <div class="continent-icon">
+          <i class="fas fa-globe-americas"></i>
+        </div>
         <div class="continent-name">الكل</div>
         <div class="continent-count" id="all-count">0</div>
       </button>
       <button class="continent-btn" onclick="filterByContinent('asia')">
-        <div class="continent-icon">🏯</div>
+        <div class="continent-icon">
+          <i class="fas fa-torii-gate"></i>
+        </div>
         <div class="continent-name">آسيا</div>
         <div class="continent-count" id="asia-count">0</div>
       </button>
       <button class="continent-btn" onclick="filterByContinent('africa')">
-        <div class="continent-icon">🦒</div>
+        <div class="continent-icon">
+          <i class="fas fa-globe-africa"></i>
+        </div>
         <div class="continent-name">أفريقيا</div>
         <div class="continent-count" id="africa-count">0</div>
       </button>
       <button class="continent-btn" onclick="filterByContinent('europe')">
-        <div class="continent-icon">🏰</div>
+        <div class="continent-icon">
+          <i class="fas fa-globe-europe"></i>
+        </div>
         <div class="continent-name">أوروبا</div>
         <div class="continent-count" id="europe-count">0</div>
       </button>
       <button class="continent-btn" onclick="filterByContinent('america')">
-        <div class="continent-icon">🗽</div>
+        <div class="continent-icon">
+          <i class="fas fa-landmark"></i>
+        </div>
         <div class="continent-name">الأمريكتان</div>
         <div class="continent-count" id="america-count">0</div>
       </button>
       <button class="continent-btn" onclick="filterByContinent('oceania')">
-        <div class="continent-icon">🏄</div>
+        <div class="continent-icon">
+          <i class="fas fa-water"></i>
+        </div>
         <div class="continent-name">أوقيانوسيا</div>
         <div class="continent-count" id="oceania-count">0</div>
       </button>
@@ -1234,20 +1559,40 @@
 
     <div class="stats-bar">
       <div class="stat-item">
-        <div class="stat-number" id="total-countries">0</div>
-        <div class="stat-label">إجمالي الدول</div>
+        <div class="stat-icon">
+          <i class="fas fa-globe"></i>
+        </div>
+        <div class="stat-content">
+          <div class="stat-number" id="total-countries">0</div>
+          <div class="stat-label">إجمالي الدول</div>
+        </div>
       </div>
       <div class="stat-item">
-        <div class="stat-number" id="day-countries">0</div>
-        <div class="stat-label">دول في النهار</div>
+        <div class="stat-icon day-icon">
+          <i class="fas fa-sun"></i>
+        </div>
+        <div class="stat-content">
+          <div class="stat-number" id="day-countries">0</div>
+          <div class="stat-label">دول في النهار</div>
+        </div>
       </div>
       <div class="stat-item">
-        <div class="stat-number" id="night-countries">0</div>
-        <div class="stat-label">دول في الليل</div>
+        <div class="stat-icon night-icon">
+          <i class="fas fa-moon"></i>
+        </div>
+        <div class="stat-content">
+          <div class="stat-number" id="night-countries">0</div>
+          <div class="stat-label">دول في الليل</div>
+        </div>
       </div>
       <div class="stat-item">
-        <div class="stat-number" id="timezones-count">0</div>
-        <div class="stat-label">المناطق الزمنية</div>
+        <div class="stat-icon">
+          <i class="fas fa-clock"></i>
+        </div>
+        <div class="stat-content">
+          <div class="stat-number" id="timezones-count">0</div>
+          <div class="stat-label">المناطق الزمنية</div>
+        </div>
       </div>
     </div>
   </header>
@@ -1441,11 +1786,11 @@
         title: 'ساعة رقمية عالمية  ',
         subtitle: 'استكشف أوقات العالم مع المعلومات الجغرافية والثقافية',
         localClock: ' التوقيت المحلي',
-        aboutBtn: ' نبذة عن المشروع',
-        fullscreenBtn: ' ملء الشاشة',
-        exportBtn: ' تصدير البيانات',
-        refreshBtn: ' تحديث',
-        langBtn: ' تغيير اللغة',
+        aboutBtn: '<i class="fas fa-info-circle"></i> نبذة عن المشروع',
+        fullscreenBtn: '<i class="fas fa-expand"></i> ملء الشاشة',
+        exportBtn: '<i class="fas fa-download"></i> تصدير البيانات',
+        refreshBtn: '<i class="fas fa-sync-alt"></i> تحديث',
+        langBtn: '<i class="fas fa-language"></i> تغيير اللغة',
         searchPlaceholder: ' البحث عن دولة...',
         noResults: 'لم يتم العثور على دول تطابق البحث',
         allContinents: 'الكل',
@@ -1517,11 +1862,11 @@
         title: ' Enhanced World Clock',
         subtitle: 'Explore world times with geographic and cultural information',
         localClock: ' Local Time',
-        aboutBtn: ' About the Project',
-        fullscreenBtn: ' Fullscreen',
-        exportBtn: ' Export Data',
-        refreshBtn: ' Refresh',
-        langBtn: ' Change Language',
+        aboutBtn: '<i class="fas fa-info-circle"></i> About the Project',
+        fullscreenBtn: '<i class="fas fa-expand"></i> Fullscreen',
+        exportBtn: '<i class="fas fa-download"></i> Export Data',
+        refreshBtn: '<i class="fas fa-sync-alt"></i> Refresh',
+        langBtn: '<i class="fas fa-language"></i> Change Language',
         searchPlaceholder: ' Search for a country...',
         noResults: 'No countries found matching the search',
         allContinents: 'All',
@@ -3221,8 +3566,22 @@ function getFlagCode(countryName) {
     // Update local clock
     function updateLocalClock() {
       const now = DateTime.local();
-      document.getElementById('local-time').textContent = now.toFormat('hh:mm:ss a');
-      document.querySelector('.local-label').textContent = translations[currentLanguage].localClock;
+      const timeElement = document.getElementById('local-time');
+      const dateElement = document.getElementById('local-date');
+      const labelElement = document.getElementById('local-label');
+      
+      if (timeElement) {
+        timeElement.textContent = now.toFormat('HH:mm:ss');
+      }
+      
+      if (dateElement) {
+        const dateFormat = currentLanguage === 'ar' ? 'yyyy/MM/dd' : 'dd/MM/yyyy';
+        dateElement.textContent = now.toFormat(dateFormat);
+      }
+      
+      if (labelElement) {
+        labelElement.textContent = translations[currentLanguage].localClock;
+      }
     }
 
     // Update statistics and continent counts
@@ -4023,7 +4382,10 @@ function getFlagCode(countryName) {
       currentLanguage = currentLanguage === 'ar' ? 'en' : 'ar';
       document.documentElement.lang = currentLanguage;
       document.documentElement.dir = currentLanguage === 'ar' ? 'rtl' : 'ltr';
-      document.querySelector('.project-title').textContent = translations[currentLanguage].title;
+      document.querySelector('.project-title').innerHTML = `
+        <i class="fas fa-globe-americas project-icon"></i>
+        ${translations[currentLanguage].title}
+      `;
       document.querySelector('.subtitle').textContent = translations[currentLanguage].subtitle;
       document.querySelector('.search-input').placeholder = translations[currentLanguage].searchPlaceholder;
       document.querySelector('.copyright p').textContent = translations[currentLanguage].copyright;
