@@ -1314,6 +1314,112 @@
       font-weight: bold;
     }
 
+    /* Cities Tab Styles */
+    .cities-container {
+      padding: 20px;
+    }
+
+    .cities-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 15px;
+      margin-top: 20px;
+    }
+
+    .city-item {
+      background: linear-gradient(135deg, rgba(255,215,0,0.1), rgba(255,165,0,0.05));
+      padding: 15px;
+      border-radius: 12px;
+      border: 2px solid rgba(255,215,0,0.3);
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+
+    .city-item:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 25px rgba(255,215,0,0.3);
+      background: linear-gradient(135deg, rgba(255,215,0,0.2), rgba(255,165,0,0.1));
+    }
+
+    .city-name {
+      font-size: 1.1rem;
+      font-weight: bold;
+      color: #FFD700;
+      margin-bottom: 8px;
+    }
+
+    .city-type {
+      font-size: 0.9rem;
+      color: #fff;
+      opacity: 0.8;
+    }
+
+    /* Culture and Government Tab Styles */
+    .culture-container {
+      padding: 20px;
+    }
+
+    .culture-section {
+      margin-bottom: 25px;
+      background: linear-gradient(135deg, rgba(0,191,255,0.1), rgba(30,144,255,0.05));
+      padding: 20px;
+      border-radius: 15px;
+      border: 2px solid rgba(0,191,255,0.3);
+    }
+
+    .culture-section h4 {
+      color: #00BFFF;
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 1.1rem;
+    }
+
+    .culture-info {
+      display: grid;
+      gap: 12px;
+    }
+
+    .culture-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 10px;
+      background: rgba(255,255,255,0.05);
+      border-radius: 8px;
+      border-left: 4px solid #00BFFF;
+    }
+
+    .culture-label {
+      font-weight: bold;
+      color: #FFD700;
+      min-width: 100px;
+    }
+
+    .culture-value {
+      color: #fff;
+      flex: 1;
+      line-height: 1.5;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .cities-grid {
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 10px;
+      }
+      
+      .culture-item {
+        flex-direction: column;
+        gap: 5px;
+      }
+      
+      .culture-label {
+        min-width: auto;
+      }
+    }
+
     .countdown-timer {
       font-size: 2rem;
       color: #00ff88;
@@ -2474,6 +2580,279 @@
       border-radius: 3px;
       box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
     }
+
+    /* أنماط وضعية المسافر */
+    .traveler-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.9);
+      z-index: 10000;
+      backdrop-filter: blur(10px);
+    }
+
+    .traveler-modal.active {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      animation: modalFadeIn 0.3s ease;
+    }
+
+    .traveler-content {
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+      max-width: 1000px;
+      max-height: 90vh;
+      width: 95%;
+      border-radius: 20px;
+      border: 2px solid rgba(255, 215, 0, 0.3);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .traveler-header {
+      background: linear-gradient(45deg, #FFD700, #FFA500);
+      color: #000;
+      padding: 20px;
+      text-align: center;
+      font-size: 1.8rem;
+      font-weight: bold;
+      position: relative;
+      box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
+    }
+
+    .traveler-header i {
+      margin-right: 15px;
+      font-size: 2rem;
+      animation: planeFly 3s ease-in-out infinite;
+    }
+
+    @keyframes planeFly {
+      0%, 100% { transform: translateX(0) rotate(0deg); }
+      50% { transform: translateX(10px) rotate(5deg); }
+    }
+
+    .traveler-close {
+      position: absolute;
+      top: 15px;
+      right: 20px;
+      background: rgba(255, 255, 255, 0.2);
+      border: none;
+      color: #000;
+      font-size: 1.5rem;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .traveler-close:hover {
+      background: rgba(255, 255, 255, 0.3);
+      transform: scale(1.1);
+    }
+
+    .traveler-body {
+      padding: 0;
+      max-height: calc(90vh - 100px);
+      overflow-y: auto;
+    }
+
+    .traveler-tabs {
+      display: flex;
+      background: rgba(0, 0, 0, 0.3);
+      border-bottom: 2px solid rgba(255, 215, 0, 0.3);
+    }
+
+    .traveler-tab {
+      flex: 1;
+      padding: 15px 10px;
+      background: transparent;
+      border: none;
+      color: #ccc;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border-bottom: 3px solid transparent;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .traveler-tab:hover {
+      background: rgba(255, 215, 0, 0.1);
+      color: #FFD700;
+    }
+
+    .traveler-tab.active {
+      background: rgba(255, 215, 0, 0.2);
+      color: #FFD700;
+      border-bottom-color: #FFD700;
+    }
+
+    .traveler-tab-content {
+      display: none;
+      padding: 25px;
+      color: #fff;
+      line-height: 1.8;
+    }
+
+    .traveler-tab-content.active {
+      display: block;
+      animation: tabFadeIn 0.3s ease;
+    }
+
+    @keyframes tabFadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .traveler-section {
+      margin-bottom: 25px;
+      padding: 20px;
+      background: rgba(0, 0, 0, 0.2);
+      border-radius: 12px;
+      border: 1px solid rgba(255, 215, 0, 0.2);
+    }
+
+    .traveler-section h3 {
+      color: #FFD700;
+      font-size: 1.3rem;
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .traveler-section h4 {
+      color: #FFA500;
+      font-size: 1.1rem;
+      margin: 15px 0 10px 0;
+    }
+
+    .traveler-list {
+      list-style: none;
+      padding: 0;
+    }
+
+    .traveler-list li {
+      padding: 8px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      position: relative;
+      padding-right: 25px;
+    }
+
+    .traveler-list li::before {
+      content: "✈";
+      position: absolute;
+      right: 0;
+      color: #FFD700;
+      font-weight: bold;
+    }
+
+    .traveler-list li:last-child {
+      border-bottom: none;
+    }
+
+    .hadith-box, .dua-box {
+      background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), rgba(255, 165, 0, 0.1));
+      padding: 20px;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 215, 0, 0.3);
+      margin: 15px 0;
+      position: relative;
+    }
+
+    .hadith-box::before, .dua-box::before {
+      content: '"';
+      position: absolute;
+      top: -10px;
+      right: 15px;
+      font-size: 3rem;
+      color: #FFD700;
+      opacity: 0.3;
+    }
+
+    .hadith-text, .dua-text {
+      font-style: italic;
+      font-size: 1.1rem;
+      color: #f0f0f0;
+      text-align: center;
+      margin-bottom: 10px;
+    }
+
+    .hadith-source, .dua-source {
+      text-align: left;
+      color: #FFA500;
+      font-size: 0.9rem;
+      font-weight: bold;
+    }
+
+    .language-toggle {
+      position: absolute;
+      top: 15px;
+      left: 20px;
+      display: flex;
+      gap: 10px;
+    }
+
+    .lang-btn {
+      padding: 8px 12px;
+      background: rgba(255, 255, 255, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      color: #000;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 0.8rem;
+      transition: all 0.3s ease;
+    }
+
+    .lang-btn.active {
+      background: rgba(255, 255, 255, 0.4);
+      border-color: rgba(255, 255, 255, 0.6);
+    }
+
+    .lang-btn:hover {
+      background: rgba(255, 255, 255, 0.3);
+    }
+
+    /* تحسينات للجوال */
+    @media (max-width: 768px) {
+      .traveler-content {
+        width: 98%;
+        max-height: 95vh;
+      }
+      
+      .traveler-header {
+        padding: 15px;
+        font-size: 1.4rem;
+      }
+      
+      .traveler-tabs {
+        flex-wrap: wrap;
+      }
+      
+      .traveler-tab {
+        font-size: 0.8rem;
+        padding: 12px 8px;
+      }
+      
+      .traveler-tab-content {
+        padding: 15px;
+      }
+      
+      .language-toggle {
+        position: relative;
+        top: 0;
+        left: 0;
+        justify-content: center;
+        margin-bottom: 15px;
+      }
+    }
   </style>
 </head>
 <body>
@@ -2517,6 +2896,10 @@
       <button class="btn" onclick="toggleLanguage()">
         <i class="fas fa-language"></i>
         <span class="btn-text"> تغيير اللغة</span>
+      </button>
+      <button class="btn" onclick="openTravelerMode()">
+        <i class="fas fa-plane"></i>
+        <span class="btn-text"> وضعية المسافر</span>
       </button>
     </div>
 
@@ -2644,6 +3027,14 @@
           <i class="fas fa-info-circle"></i>
           <span>معلومات عامة</span>
         </button>
+        <button class="tab-btn" onclick="showTab('cities')" data-tab="cities">
+          <i class="fas fa-city"></i>
+          <span>المدن</span>
+        </button>
+        <button class="tab-btn" onclick="showTab('culture')" data-tab="culture">
+          <i class="fas fa-landmark"></i>
+          <span>الثقافة والحكم</span>
+        </button>
         <button class="tab-btn" onclick="showTab('qibla')" data-tab="qibla">
           <i class="fas fa-kaaba"></i>
           <span>اتجاه القبلة</span>
@@ -2681,6 +3072,47 @@
               <div class="timezone-item">
                 <span class="timezone-label">المنطقة الزمنية:</span>
                 <span class="timezone-value" id="modal-timezone">UTC+--</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Cities Tab -->
+        <div class="tab-content" id="cities-tab">
+          <div class="cities-container">
+            <h3><i class="fas fa-city"></i> مدن الدولة الرئيسية</h3>
+            <div class="cities-grid" id="modal-cities">
+              <!-- Cities will be populated here -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Culture and Government Tab -->
+        <div class="tab-content" id="culture-tab">
+          <div class="culture-container">
+            <h3><i class="fas fa-landmark"></i> الثقافة ونظام الحكم</h3>
+            
+            <!-- Religion Section -->
+            <div class="culture-section">
+              <h4><i class="fas fa-mosque"></i> الديانة والمذهب</h4>
+              <div class="culture-info" id="modal-religion">
+                <!-- Religion info will be populated here -->
+              </div>
+            </div>
+
+            <!-- Government Section -->
+            <div class="culture-section">
+              <h4><i class="fas fa-university"></i> نظام الحكم</h4>
+              <div class="culture-info" id="modal-government">
+                <!-- Government info will be populated here -->
+              </div>
+            </div>
+
+            <!-- Culture Section -->
+            <div class="culture-section">
+              <h4><i class="fas fa-theater-masks"></i> الثقافة والتراث</h4>
+              <div class="culture-info" id="modal-culture">
+                <!-- Culture info will be populated here -->
               </div>
             </div>
           </div>
@@ -3302,7 +3734,33 @@
         languageEn: 'Arabic',
         description: 'المملكة العربية السعودية، مهد الإسلام وموطن الحرمين الشريفين',
         descriptionEn: 'Saudi Arabia, birthplace of Islam and home to the Two Holy Mosques',
-        flagCode: 'sa'
+        flagCode: 'sa',
+        majorCities: [
+          { name: 'الرياض', type: 'العاصمة' },
+          { name: 'مكة المكرمة', type: 'المدينة المقدسة' },
+          { name: 'المدينة المنورة', type: 'المدينة المقدسة' },
+          { name: 'جدة', type: 'العاصمة الاقتصادية' },
+          { name: 'الدمام', type: 'العاصمة النفطية' },
+          { name: 'الطائف', type: 'عاصمة المصايف' },
+          { name: 'أبها', type: 'عروس الجبال' },
+          { name: 'تبوك', type: 'بوابة الشمال' }
+        ],
+        religion: {
+          main: 'الإسلام',
+          denomination: 'أهل السنة والجماعة',
+          details: 'الدولة الراعية للحرمين الشريفين ومهد الإسلام'
+        },
+        government: {
+          system: 'ملكية مطلقة',
+          ruler: 'الملك سلمان بن عبد العزيز آل سعود',
+          crownPrince: 'الأمير محمد بن سلمان بن عبد العزيز',
+          consultativeCouncil: 'مجلس الشورى'
+        },
+        culture: {
+          traditions: ['الضيافة العربية', 'الشعر النبطي', 'السيف والقلم', 'سباق الهجن'],
+          landmarks: ['الحرم المكي', 'المسجد النبوي', 'مدائن صالح', 'الدرعية التاريخية'],
+          festivals: ['موسم الحج', 'موسم العمرة', 'اليوم الوطني', 'موسم الرياض']
+        }
       },
       {
         name: 'دولة الإمارات العربية المتحدة',
@@ -3325,7 +3783,32 @@
         languageEn: 'Arabic',
         description: 'دولة الإمارات العربية المتحدة، عاصمة التجارة والابتكار في الشرق الأوسط',
         descriptionEn: 'United Arab Emirates, capital of trade and innovation in the Middle East',
-        flagCode: 'ae'
+        flagCode: 'ae',
+        majorCities: [
+          { name: 'أبو ظبي', type: 'العاصمة الاتحادية' },
+          { name: 'دبي', type: 'العاصمة التجارية' },
+          { name: 'الشارقة', type: 'العاصمة الثقافية' },
+          { name: 'عجمان', type: 'اللؤلؤة الساحلية' },
+          { name: 'رأس الخيمة', type: 'جبال وشواطئ' },
+          { name: 'الفجيرة', type: 'ساحل المحيط الهندي' },
+          { name: 'أم القيوين', type: 'التراث البحري' }
+        ],
+        religion: {
+          main: 'الإسلام',
+          denomination: 'أهل السنة والجماعة',
+          details: 'دولة متسامحة تضم أكثر من 200 جنسية'
+        },
+        government: {
+          system: 'اتحاد فيدرالي',
+          ruler: 'الشيخ محمد بن زايد آل نهيان',
+          vicePresident: 'الشيخ محمد بن راشد آل مكتوم',
+          federalCouncil: 'المجلس الوطني الاتحادي'
+        },
+        culture: {
+          traditions: ['الضيافة الإماراتية', 'الشعر النبطي', 'السباق البحري', 'الصقارة'],
+          landmarks: ['برج خليفة', 'جامع الشيخ زايد', 'متحف اللوفر أبوظبي', 'نافورة دبي'],
+          festivals: ['مهرجان دبي للتسوق', 'أسبوع أبوظبي للاستدامة', 'مهرجان الشارقة للتراث']
+        }
       },
       {
         name: 'دولة قطر',
@@ -3346,9 +3829,34 @@
         currencyEn: 'Qatari Riyal',
         language: 'العربية',
         languageEn: 'Arabic',
-        description: 'دولة قطر، لؤلؤة الخليج العربي ومضيفة كأس العالم 2022',
-        descriptionEn: 'Qatar, pearl of the Arabian Gulf and host of FIFA World Cup 2022',
-        flagCode: 'qa'
+        description: 'دولة قطر، لؤلؤة الخليج ومضيفة كأس العالم 2022',
+        descriptionEn: 'Qatar, Pearl of the Gulf and host of FIFA World Cup 2022',
+        flagCode: 'qa',
+        majorCities: [
+          { name: 'الدوحة', type: 'العاصمة' },
+          { name: 'الريان', type: 'المدينة الثانية' },
+          { name: 'الوكرة', type: 'المدينة الساحلية' },
+          { name: 'أم صلال', type: 'المدينة التراثية' },
+          { name: 'الخور', type: 'مدينة اللؤلؤ' },
+          { name: 'دخان', type: 'المدينة النفطية' },
+          { name: 'مسيعيد', type: 'المدينة الصناعية' }
+        ],
+        religion: {
+          main: 'الإسلام',
+          denomination: 'أهل السنة والجماعة - المذهب الوهابي',
+          details: 'الإسلام دين الدولة مع احترام الأديان الأخرى'
+        },
+        government: {
+          system: 'إمارة وراثية',
+          ruler: 'الشيخ تميم بن حمد آل ثاني',
+          heir: 'الشيخ جاسم بن حمد آل ثاني',
+          consultativeCouncil: 'مجلس الشورى'
+        },
+        culture: {
+          traditions: ['الضيافة القطرية', 'سباق الهجن', 'الصقارة', 'اللؤلؤ'],
+          landmarks: ['متحف قطر الوطني', 'سوق واقف', 'كتارا', 'مدينة لوسيل'],
+          festivals: ['مهرجان قطر الثقافي', 'مهرجان الدوحة للأفلام', 'أيام قطر الثقافية']
+        }
       },
       {
         name: 'دولة الكويت',
@@ -3371,7 +3879,31 @@
         languageEn: 'Arabic',
         description: 'دولة الكويت، إحدى أغنى دول العالم بالنفط',
         descriptionEn: 'Kuwait, one of the world\'s richest oil nations',
-        flagCode: 'kw'
+        flagCode: 'kw',
+        majorCities: [
+          { name: 'مدينة الكويت', type: 'العاصمة' },
+          { name: 'حولي', type: 'المدينة السكنية' },
+          { name: 'الأحمدي', type: 'المدينة النفطية' },
+          { name: 'الفروانية', type: 'المدينة التجارية' },
+          { name: 'الجهراء', type: 'البوابة الشمالية' },
+          { name: 'مبارك الكبير', type: 'المدينة الحديثة' }
+        ],
+        religion: {
+          main: 'الإسلام',
+          denomination: 'أهل السنة والجماعة - المذهب المالكي والحنبلي',
+          details: 'دولة إسلامية مع احترام الأقليات الدينية'
+        },
+        government: {
+          system: 'إمارة دستورية',
+          ruler: 'الشيخ مشعل الأحمد الجابر الصباح',
+          crownPrince: 'الشيخ صباح خالد الحمد الصباح',
+          parliament: 'مجلس الأمة الكويتي'
+        },
+        culture: {
+          traditions: ['الضيافة الكويتية', 'النهمة البحرية', 'صيد اللؤلؤ', 'الشعر النبطي'],
+          landmarks: ['أبراج الكويت', 'المسجد الكبير', 'سوق المباركية', 'بيت السدو'],
+          festivals: ['مهرجان هلا فبراير', 'مهرجان الكويت الثقافي', 'اليوم الوطني الكويتي']
+        }
       },
       {
         name: 'مملكة البحرين',
@@ -3393,8 +3925,32 @@
         language: 'العربية',
         languageEn: 'Arabic',
         description: 'مملكة البحرين، لؤلؤة الخليج العربي',
-        descriptionEn: 'Bahrain, pearl of the Arabian Gulf',
-        flagCode: 'bh'
+        descriptionEn: 'Kingdom of Bahrain, Pearl of the Arabian Gulf',
+        flagCode: 'bh',
+        majorCities: [
+          { name: 'المنامة', type: 'العاصمة' },
+          { name: 'المحرق', type: 'المدينة التاريخية' },
+          { name: 'مدينة حمد', type: 'المدينة الجديدة' },
+          { name: 'الرفاع', type: 'المدينة الملكية' },
+          { name: 'مدينة عيسى', type: 'المدينة السكنية' },
+          { name: 'سترة', type: 'المدينة الصناعية' }
+        ],
+        religion: {
+          main: 'الإسلام',
+          denomination: 'أهل السنة والجماعة والشيعة',
+          details: 'دولة إسلامية متنوعة المذاهب مع احترام جميع الأديان'
+        },
+        government: {
+          system: 'ملكية دستورية',
+          ruler: 'الملك حمد بن عيسى آل خليفة',
+          crownPrince: 'الأمير سلمان بن حمد آل خليفة',
+          parliament: 'مجلس النواب ومجلس الشورى'
+        },
+        culture: {
+          traditions: ['الضيافة البحرينية', 'صيد اللؤلؤ', 'النسيج التقليدي', 'الموسيقى الشعبية'],
+          landmarks: ['قلعة البحرين', 'مسجد الفاتح', 'بيت القرآن', 'متحف البحرين الوطني'],
+          festivals: ['مهرجان البحرين الدولي للموسيقى', 'معرض البحرين الدولي', 'مهرجان ربيع الثقافة']
+        }
       },
       {
         name: 'سلطنة عُمان',
@@ -3417,7 +3973,32 @@
         languageEn: 'Arabic',
         description: 'سلطنة عُمان، أرض الحضارة والتاريخ العريق',
         descriptionEn: 'Oman, land of civilization and ancient history',
-        flagCode: 'om'
+        flagCode: 'om',
+        majorCities: [
+          { name: 'مسقط', type: 'العاصمة' },
+          { name: 'صلالة', type: 'عاصمة الجنوب' },
+          { name: 'نزوى', type: 'المدينة التاريخية' },
+          { name: 'صحار', type: 'المدينة الصناعية' },
+          { name: 'صور', type: 'مدينة البحارة' },
+          { name: 'الرستاق', type: 'المدينة الأثرية' },
+          { name: 'عبري', type: 'واحة النخيل' }
+        ],
+        religion: {
+          main: 'الإسلام',
+          denomination: 'المذهب الإباضي',
+          details: 'سلطنة إسلامية ذات طابع خاص بالمذهب الإباضي'
+        },
+        government: {
+          system: 'سلطنة مطلقة',
+          ruler: 'السلطان هيثم بن طارق آل سعيد',
+          heir: 'ولي العهد ذي يزن بن هيثم',
+          consultativeCouncil: 'مجلس الشورى ومجلس الدولة'
+        },
+        culture: {
+          traditions: ['الحرف التقليدية', 'الموسيقى العُمانية', 'الشعر العربي', 'الخنجر العُماني'],
+          landmarks: ['قلعة نزوى', 'مسجد السلطان قابوس', 'أفلاج عُمان', 'جبل شمس'],
+          festivals: ['مهرجان مسقط', 'مهرجان صلالة السياحي', 'مهرجان التراث العُماني']
+        }
       },
       {
         name: 'المملكة الأردنية الهاشمية',
@@ -3440,7 +4021,33 @@
         languageEn: 'Arabic',
         description: 'المملكة الأردنية الهاشمية، حارسة المقدسات الإسلامية والمسيحية',
         descriptionEn: 'Jordan, guardian of Islamic and Christian holy sites',
-        flagCode: 'jo'
+        flagCode: 'jo',
+        majorCities: [
+          { name: 'عمّان', type: 'العاصمة' },
+          { name: 'إربد', type: 'عروس الشمال' },
+          { name: 'الزرقاء', type: 'المدينة الزرقاء' },
+          { name: 'العقبة', type: 'نافذة الأردن البحرية' },
+          { name: 'السلط', type: 'المدينة التاريخية' },
+          { name: 'مادبا', type: 'مدينة الفسيفساء' },
+          { name: 'جرش', type: 'مدينة الألف عمود' },
+          { name: 'الكرك', type: 'مدينة القلاع' }
+        ],
+        religion: {
+          main: 'الإسلام',
+          denomination: 'أهل السنة والجماعة وأقلية مسيحية',
+          details: 'مملكة إسلامية تحمي المقدسات الإسلامية والمسيحية'
+        },
+        government: {
+          system: 'ملكية دستورية',
+          ruler: 'الملك عبد الله الثاني بن الحسين',
+          crownPrince: 'الأمير الحسين بن عبد الله',
+          consultativeCouncil: 'مجلسي الأعيان والنواب'
+        },
+        culture: {
+          traditions: ['الضيافة الأردنية', 'المنسف', 'الدبكة', 'الحرف التراثية'],
+          landmarks: ['البتراء', 'وادي رم', 'قلعة عمان', 'البحر الميت'],
+          festivals: ['مهرجان جرش', 'مهرجان فيلادلفيا', 'مهرجان العقبة الصيفي']
+        }
       },
       {
         name: 'الجمهورية اللبنانية',
@@ -3463,7 +4070,31 @@
         languageEn: 'Arabic',
         description: 'الجمهورية اللبنانية، سويسرا الشرق الأوسط',
         descriptionEn: 'Lebanon, Switzerland of the Middle East',
-        flagCode: 'lb'
+        flagCode: 'lb',
+        majorCities: [
+          { name: 'بيروت', type: 'العاصمة' },
+          { name: 'طرابلس', type: 'عاصمة الشمال' },
+          { name: 'صيدا', type: 'عاصمة الجنوب' },
+          { name: 'زحلة', type: 'عروس البقاع' },
+          { name: 'جبيل', type: 'أقدم مدن العالم' },
+          { name: 'صور', type: 'المدينة الأثرية' }
+        ],
+        religion: {
+          main: 'متنوع الأديان',
+          denomination: 'مسيحيون ومسلمون (سنة وشيعة)',
+          details: 'جمهورية متعددة الطوائف والأديان'
+        },
+        government: {
+          system: 'جمهورية برلمانية',
+          president: 'الرئيس ميشال عون',
+          primeMinister: 'رئيس الوزراء',
+          parliament: 'مجلس النواب اللبناني'
+        },
+        culture: {
+          traditions: ['الضيافة اللبنانية', 'المطبخ اللبناني', 'الموسيقى اللبنانية', 'الشعر والأدب'],
+          landmarks: ['بعلبك', 'جبيل الأثرية', 'قصر بيت الدين', 'غابة الأرز'],
+          festivals: ['مهرجان بعلبك الدولي', 'مهرجان بيت الدين', 'أيام قرطاج اللبنانية']
+        }
       },
       {
         name: 'الجمهورية العربية السورية',
@@ -3532,7 +4163,32 @@
         languageEn: 'Persian',
         description: 'الجمهورية الإسلامية الإيرانية، أرض الحضارة الفارسية العريقة',
         descriptionEn: 'Iran, land of ancient Persian civilization',
-        flagCode: 'ir'
+        flagCode: 'ir',
+        majorCities: [
+          { name: 'طهران', type: 'العاصمة' },
+          { name: 'مشهد', type: 'المدينة المقدسة' },
+          { name: 'أصفهان', type: 'نصف العالم' },
+          { name: 'شيراز', type: 'مدينة الشعر والورد' },
+          { name: 'تبريز', type: 'العاصمة التاريخية' },
+          { name: 'كرمان', type: 'مدينة السجاد' },
+          { name: 'قم', type: 'المدينة الدينية' }
+        ],
+        religion: {
+          main: 'الإسلام',
+          denomination: 'الشيعة الاثني عشرية',
+          details: 'جمهورية إسلامية شيعية مع أقليات سنية وغير مسلمة'
+        },
+        government: {
+          system: 'جمهورية إسلامية',
+          ruler: 'علي خامنئي - المرشد الأعلى',
+          president: 'إبراهيم رئيسي',
+          consultativeCouncil: 'مجلس الشورى الإسلامي'
+        },
+        culture: {
+          traditions: ['الشعر الفارسي', 'السجاد الفارسي', 'الخط الفارسي', 'النوروز'],
+          landmarks: ['برسبوليس', 'نقش رستم', 'مسجد الشاه', 'جسر خواجو'],
+          festivals: ['النوروز', 'يوم الطبيعة', 'عاشوراء', 'مهرجان فجر']
+        }
       },
       {
         name: 'جمهورية أفغانستان الإسلامية',
@@ -3555,7 +4211,31 @@
         languageEn: 'Dari and Pashto',
         description: 'جمهورية أفغانستان الإسلامية، مفترق طرق آسيا',
         descriptionEn: 'Afghanistan, crossroads of Asia',
-        flagCode: 'af'
+        flagCode: 'af',
+        majorCities: [
+          { name: 'كابول', type: 'العاصمة' },
+          { name: 'قندهار', type: 'العاصمة الجنوبية' },
+          { name: 'هرات', type: 'لؤلؤة خراسان' },
+          { name: 'مزار شريف', type: 'المدينة المقدسة' },
+          { name: 'جلال أباد', type: 'مدينة النخيل' },
+          { name: 'باميان', type: 'وادي التماثيل' }
+        ],
+        religion: {
+          main: 'الإسلام',
+          denomination: 'أهل السنة والجماعة وأقلية شيعية',
+          details: 'دولة إسلامية تحت حكم طالبان'
+        },
+        government: {
+          system: 'إمارة إسلامية',
+          ruler: 'هبة الله أخوند زاده - أمير المؤمنين',
+          deputyLeader: 'ملا عبد الغني برادر',
+          consultativeCouncil: 'مجلس الشورى'
+        },
+        culture: {
+          traditions: ['الضيافة الأفغانية', 'الشعر الفارسي والبشتو', 'الحرف اليدوية', 'لعبة البوزكاشي'],
+          landmarks: ['تماثيل باميان', 'المسجد الأزرق في مزار شريف', 'قلعة هرات', 'حدائق بابور'],
+          festivals: ['النوروز', 'عيد الأضحى', 'يوم الاستقلال', 'عيد الفطر']
+        }
       },
       {
         name: 'جمهورية باكستان الإسلامية',
@@ -3578,7 +4258,32 @@
         languageEn: 'Urdu and English',
         description: 'جمهورية باكستان الإسلامية، أرض الطهر والإيمان',
         descriptionEn: 'Pakistan, land of the pure and faithful',
-        flagCode: 'pk'
+        flagCode: 'pk',
+        majorCities: [
+          { name: 'إسلام أباد', type: 'العاصمة' },
+          { name: 'كراتشي', type: 'العاصمة الاقتصادية' },
+          { name: 'لاهور', type: 'قلب باكستان' },
+          { name: 'فيصل أباد', type: 'مانشستر باكستان' },
+          { name: 'راولبندي', type: 'المدينة التوأم' },
+          { name: 'بيشاوار', type: 'مدينة الزهور' },
+          { name: 'كويتا', type: 'فاكهة باكستان' }
+        ],
+        religion: {
+          main: 'الإسلام',
+          denomination: 'أهل السنة والجماعة وأقلية شيعية',
+          details: 'جمهورية إسلامية مع أقليات دينية محمية'
+        },
+        government: {
+          system: 'جمهورية إسلامية فيدرالية',
+          president: 'عارف علوي',
+          primeMinister: 'شهباز شريف',
+          parliament: 'الجمعية الوطنية ومجلس الشيوخ'
+        },
+        culture: {
+          traditions: ['الضيافة الباكستانية', 'الشعر الأردي', 'الموسيقى الصوفية', 'الطبخ الباكستاني'],
+          landmarks: ['بادشاهي مسجد', 'قلعة لاهور', 'موهينجو دارو', 'مسجد فيصل'],
+          festivals: ['عيد الفطر', 'عيد الأضحى', 'يوم باكستان', 'يوم إقبال']
+        }
       },
       {
         name: 'جمهورية الهند',
@@ -3877,7 +4582,32 @@
         languageEn: 'Indonesian',
         description: 'إندونيسيا، أكبر دولة أرخبيلية في العالم',
         descriptionEn: 'Indonesia, world\'s largest archipelagic country',
-        flagCode: 'id'
+        flagCode: 'id',
+        majorCities: [
+          { name: 'جاكرتا', type: 'العاصمة' },
+          { name: 'سورابايا', type: 'مدينة الأبطال' },
+          { name: 'باندونغ', type: 'باريس جاوة' },
+          { name: 'ميدان', type: 'عاصمة سومطرة' },
+          { name: 'سيمارانغ', type: 'مدينة التاريخ' },
+          { name: 'يوغياكارتا', type: 'مدينة الثقافة' },
+          { name: 'ماكاسار', type: 'مدينة البحارة' }
+        ],
+        religion: {
+          main: 'الإسلام',
+          denomination: 'أهل السنة والجماعة مع أقليات دينية',
+          details: 'أكبر دولة مسلمة في العالم مع تنوع ديني'
+        },
+        government: {
+          system: 'جمهورية رئاسية',
+          president: 'جوكو ويدودو',
+          vicePresident: 'معروف أمين',
+          parliament: 'مجلس نواب الشعب الإندونيسي'
+        },
+        culture: {
+          traditions: ['الباتيك', 'الوايانغ', 'الغاميلان', 'الرقص التقليدي'],
+          landmarks: ['بوروبودور', 'برامبانان', 'كومودو', 'بحيرة توبا'],
+          festivals: ['ليباران', 'نياپي', 'مولود النبي', 'يوم الاستقلال']
+        }
       },
       {
         name: 'ماليزيا',
@@ -3900,7 +4630,32 @@
         languageEn: 'Malay',
         description: 'ماليزيا، أرض التنوع الثقافي والطبيعة الخلابة',
         descriptionEn: 'Malaysia, land of cultural diversity and stunning nature',
-        flagCode: 'my'
+        flagCode: 'my',
+        majorCities: [
+          { name: 'كوالالمبور', type: 'العاصمة' },
+          { name: 'جورج تاون', type: 'لؤلؤة الشرق' },
+          { name: 'جوهور باهرو', type: 'مدينة الحدود' },
+          { name: 'إيبوه', type: 'مدينة القصدير' },
+          { name: 'ملاكا', type: 'المدينة التاريخية' },
+          { name: 'كوتا كينابالو', type: 'عاصمة صباح' },
+          { name: 'كوتشينغ', type: 'مدينة القطط' }
+        ],
+        religion: {
+          main: 'الإسلام',
+          denomination: 'أهل السنة والجماعة مع تنوع ديني',
+          details: 'دولة إسلامية متعددة الأعراق والأديان'
+        },
+        government: {
+          system: 'ملكية دستورية فيدرالية',
+          king: 'السلطان عبد الله رعاية الدين المصطفى بالله شاه',
+          primeMinister: 'أنور إبراهيم',
+          parliament: 'البرلمان الماليزي'
+        },
+        culture: {
+          traditions: ['الباتيك الماليزي', 'الوايانغ كوليت', 'الطبخ الماليزي', 'الرقص التقليدي'],
+          landmarks: ['برجا بتروناس', 'مسجد بوترا', 'معبد باتو', 'جزر لانغكاوي'],
+          festivals: ['هاري رايا', 'الصينية الجديدة', 'ديوالي', 'يوم الاستقلال']
+        }
       },
       {
         name: 'جمهورية سنغافورة',
@@ -4245,7 +5000,32 @@
         languageEn: 'Turkish',
         description: 'تركيا، جسر بين أوروبا وآسيا',
         descriptionEn: 'Turkey, bridge between Europe and Asia',
-        flagCode: 'tr'
+        flagCode: 'tr',
+        majorCities: [
+          { name: 'أنقرة', type: 'العاصمة' },
+          { name: 'إسطنبول', type: 'العاصمة الاقتصادية' },
+          { name: 'إزمير', type: 'لؤلؤة بحر إيجة' },
+          { name: 'بورصة', type: 'المدينة الخضراء' },
+          { name: 'أنطاليا', type: 'عاصمة السياحة' },
+          { name: 'أضنة', type: 'قلب الأناضول' },
+          { name: 'غازي عنتاب', type: 'مدينة المقاومة' }
+        ],
+        religion: {
+          main: 'الإسلام',
+          denomination: 'أهل السنة والجماعة - المذهب الحنفي',
+          details: 'جمهورية علمانية ذات أغلبية مسلمة'
+        },
+        government: {
+          system: 'جمهورية رئاسية',
+          ruler: 'رجب طيب أردوغان',
+          vicePresident: 'فؤاد أوقطاي',
+          consultativeCouncil: 'المجلس الوطني التركي الكبير'
+        },
+        culture: {
+          traditions: ['الضيافة التركية', 'الحمام التركي', 'الخط العثماني', 'المولوية'],
+          landmarks: ['آيا صوفيا', 'المسجد الأزرق', 'قصر طوب قابي', 'كابادوكيا'],
+          festivals: ['مهرجان إسطنبول', 'عيد الربيع', 'مهرجان الزهور', 'مهرجان أنطاليا']
+        }
       },
       {
         name: 'دولة فلسطين',
@@ -4349,7 +5129,9 @@ function getFlagCode(countryName) {
     const WEATHER_API_KEY = '42d984047a7d1cdbc1f04ff0e2bb10f4';
     const WEATHER_API_URL = 'https://api.openweathermap.org/data/2.5/weather';
     const PRAYER_API_URL = 'https://api.aladhan.com/v1/timings';
-    const PRAYER_CITY_API_URL = 'https://api.aladhan.com/v1/timingsByCity';    // Cache for weather and prayer data
+    const PRAYER_CITY_API_URL = 'https://api.aladhan.com/v1/timingsByCity';
+    
+    // Cache for weather and prayer data
     let weatherCache = {};
     let prayerCache = {};
 
@@ -5655,6 +6437,12 @@ function getFlagCode(countryName) {
       
       // Load tab content
       switch(tabName) {
+        case 'cities':
+          loadCitiesTab();
+          break;
+        case 'culture':
+          loadCultureTab();
+          break;
         case 'qibla':
           loadQiblaTab();
           break;
@@ -5886,6 +6674,124 @@ function getFlagCode(countryName) {
       }
     }
 
+    // Load Cities Tab
+    function loadCitiesTab() {
+      const citiesContainer = document.getElementById('modal-cities');
+      citiesContainer.innerHTML = '';
+      
+      if (currentModalCountry && currentModalCountry.majorCities) {
+        currentModalCountry.majorCities.forEach(city => {
+          const cityDiv = document.createElement('div');
+          cityDiv.className = 'city-item';
+          cityDiv.innerHTML = `
+            <div class="city-name">${city.name}</div>
+            <div class="city-type">${city.type}</div>
+          `;
+          citiesContainer.appendChild(cityDiv);
+        });
+      } else {
+        // Default cities based on capital and country name
+        const defaultCities = [
+          { name: currentModalCountry.capital, type: 'العاصمة' },
+          { name: 'المدينة الثانية', type: 'مدينة رئيسية' },
+          { name: 'المدينة الثالثة', type: 'مدينة هامة' }
+        ];
+        
+        defaultCities.forEach(city => {
+          const cityDiv = document.createElement('div');
+          cityDiv.className = 'city-item';
+          cityDiv.innerHTML = `
+            <div class="city-name">${city.name}</div>
+            <div class="city-type">${city.type}</div>
+          `;
+          citiesContainer.appendChild(cityDiv);
+        });
+      }
+    }
+
+    // Load Culture Tab
+    function loadCultureTab() {
+      const religionContainer = document.getElementById('modal-religion');
+      const governmentContainer = document.getElementById('modal-government');
+      const cultureContainer = document.getElementById('modal-culture');
+      
+      if (currentModalCountry) {
+        // Religion Section
+        if (currentModalCountry.religion) {
+          religionContainer.innerHTML = `
+            <div class="culture-item">
+              <span class="culture-label">الديانة الرئيسية:</span>
+              <span class="culture-value">${currentModalCountry.religion.main}</span>
+            </div>
+            <div class="culture-item">
+              <span class="culture-label">المذهب:</span>
+              <span class="culture-value">${currentModalCountry.religion.denomination}</span>
+            </div>
+            <div class="culture-item">
+              <span class="culture-label">تفاصيل:</span>
+              <span class="culture-value">${currentModalCountry.religion.details}</span>
+            </div>
+          `;
+        } else {
+          religionContainer.innerHTML = '<div class="culture-item"><span class="culture-value">لا توجد بيانات متاحة</span></div>';
+        }
+        
+        // Government Section
+        if (currentModalCountry.government) {
+          const gov = currentModalCountry.government;
+          governmentContainer.innerHTML = `
+            <div class="culture-item">
+              <span class="culture-label">نظام الحكم:</span>
+              <span class="culture-value">${gov.system}</span>
+            </div>
+            <div class="culture-item">
+              <span class="culture-label">الحاكم:</span>
+              <span class="culture-value">${gov.ruler}</span>
+            </div>
+            ${gov.crownPrince ? `
+            <div class="culture-item">
+              <span class="culture-label">ولي العهد:</span>
+              <span class="culture-value">${gov.crownPrince}</span>
+            </div>
+            ` : ''}
+            ${gov.vicePresident ? `
+            <div class="culture-item">
+              <span class="culture-label">نائب الرئيس:</span>
+              <span class="culture-value">${gov.vicePresident}</span>
+            </div>
+            ` : ''}
+            <div class="culture-item">
+              <span class="culture-label">البرلمان:</span>
+              <span class="culture-value">${gov.consultativeCouncil || gov.federalCouncil || 'غير محدد'}</span>
+            </div>
+          `;
+        } else {
+          governmentContainer.innerHTML = '<div class="culture-item"><span class="culture-value">لا توجد بيانات متاحة</span></div>';
+        }
+        
+        // Culture Section
+        if (currentModalCountry.culture) {
+          const culture = currentModalCountry.culture;
+          cultureContainer.innerHTML = `
+            <div class="culture-item">
+              <span class="culture-label">التقاليد:</span>
+              <span class="culture-value">${culture.traditions ? culture.traditions.join(' • ') : 'غير محدد'}</span>
+            </div>
+            <div class="culture-item">
+              <span class="culture-label">المعالم الأثرية:</span>
+              <span class="culture-value">${culture.landmarks ? culture.landmarks.join(' • ') : 'غير محدد'}</span>
+            </div>
+            <div class="culture-item">
+              <span class="culture-label">المهرجانات:</span>
+              <span class="culture-value">${culture.festivals ? culture.festivals.join(' • ') : 'غير محدد'}</span>
+            </div>
+          `;
+        } else {
+          cultureContainer.innerHTML = '<div class="culture-item"><span class="culture-value">لا توجد بيانات متاحة</span></div>';
+        }
+      }
+    }
+
     // Load Weather Forecast
     function loadWeatherForecast() {
       const forecastContainer = document.getElementById('weather-forecast');
@@ -6111,6 +7017,248 @@ function getFlagCode(countryName) {
       }
     }
 
+    // وظائف وضعية المسافر
+    let currentTravelerLanguage = 'ar';
+
+    // الترجمات لوضعية المسافر
+    const travelerTranslations = {
+      ar: {
+        title: 'وضعية المسافر',
+        definition: 'التعريف',
+        rulings: 'الأحكام', 
+        duas: 'أذكار السفر',
+        hadith: 'أحاديث',
+        definitionTitle: 'تعريف المسافر',
+        definitionText: 'المسافر هو من خرج من بلده إلى بلد آخر تزيد المسافة بينهما على قرابة 80 كلم (حسب رأي الجمهور)، بنية السفر، سواء كان لغرض مباح أو طاعة.',
+        rulingsTitle: 'التيسيرات الشرعية للمسافر',
+        conditionsTitle: 'شروط الأخذ بالرخص',
+        duasTitle: 'أذكار السفر',
+        hadithTitle: 'أحاديث نبوية عن السفر'
+      },
+      en: {
+        title: 'Traveler Mode',
+        definition: 'Definition',
+        rulings: 'Rulings',
+        duas: 'Travel Supplications',
+        hadith: 'Prophetic Traditions',
+        definitionTitle: 'Definition of Traveler',
+        definitionText: 'A traveler is one who leaves his homeland to another country where the distance between them exceeds approximately 80 km (according to the majority opinion), with the intention of traveling, whether for a permissible purpose or worship.',
+        rulingsTitle: 'Islamic Concessions for Travelers',
+        conditionsTitle: 'Conditions for Taking Concessions',
+        duasTitle: 'Travel Supplications',
+        hadithTitle: 'Prophetic Traditions about Travel'
+      }
+    };
+
+    function openTravelerMode() {
+      const modal = document.getElementById('traveler-modal');
+      modal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+      updateTravelerLanguage();
+    }
+
+    function closeTravelerModal() {
+      const modal = document.getElementById('traveler-modal');
+      modal.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    function switchTravelerLanguage(lang) {
+      currentTravelerLanguage = lang;
+      
+      // تحديث أزرار اللغة
+      document.getElementById('ar-btn').classList.toggle('active', lang === 'ar');
+      document.getElementById('en-btn').classList.toggle('active', lang === 'en');
+      
+      updateTravelerLanguage();
+    }
+
+    function updateTravelerLanguage() {
+      const t = travelerTranslations[currentTravelerLanguage];
+      
+      // تحديث العنوان
+      document.getElementById('traveler-title').textContent = t.title;
+      
+      // تحديث أسماء التبويبات
+      const tabs = {
+        'definition-tab': t.definition,
+        'rulings-tab': t.rulings,
+        'duas-tab': t.duas,
+        'hadith-tab': t.hadith
+      };
+      
+      Object.keys(tabs).forEach(tabId => {
+        const tab = document.getElementById(tabId);
+        if (tab) {
+          tab.querySelector('span').textContent = tabs[tabId];
+        }
+      });
+
+      // تحديث محتوى التبويبات باللغة الإنجليزية إذا لزم الأمر
+      if (currentTravelerLanguage === 'en') {
+        updateEnglishContent();
+      } else {
+        revertToArabicContent();
+      }
+    }
+
+    function updateEnglishContent() {
+      // تحديث محتوى التعريف
+      const definitionContent = document.getElementById('definition-content');
+      if (definitionContent) {
+        definitionContent.innerHTML = `
+          <div class="traveler-section">
+            <h3><i class="fas fa-user-tie"></i> <span>Definition of Traveler</span></h3>
+            <p>A traveler is one who leaves his homeland to another country where the distance between them exceeds approximately <strong>80 km</strong> (according to the majority opinion), with the intention of traveling, whether for a permissible purpose or worship.</p>
+          </div>
+        `;
+      }
+
+      // تحديث محتوى الأحكام
+      const rulingsContent = document.getElementById('rulings-content');
+      if (rulingsContent) {
+        rulingsContent.innerHTML = `
+          <div class="traveler-section">
+            <h3><i class="fas fa-star-and-crescent"></i> <span>Islamic Concessions for Travelers</span></h3>
+            
+            <h4>1. Shortening Prayers:</h4>
+            <ul class="traveler-list">
+              <li>Travelers may shorten four-unit prayers (Dhuhr, Asr, Isha) to two units</li>
+              <li>Fajr and Maghrib prayers are not shortened</li>
+            </ul>
+
+            <h4>2. Combining Prayers:</h4>
+            <ul class="traveler-list">
+              <li>May combine Dhuhr with Asr and Maghrib with Isha</li>
+              <li>Either advancing or delaying, according to need</li>
+            </ul>
+
+            <h4>3. Breaking Fast in Ramadan:</h4>
+            <ul class="traveler-list">
+              <li>Travelers may break their fast during Ramadan</li>
+              <li>Make up the days after Ramadan</li>
+            </ul>
+
+            <h4>4. Friday and Congregational Prayers:</h4>
+            <ul class="traveler-list">
+              <li>Friday prayers and congregation are not obligatory</li>
+              <li>It's preferable to attend if possible</li>
+            </ul>
+
+            <h4>5. Answered Supplications:</h4>
+            <ul class="traveler-list">
+              <li>The traveler's supplication is among those answered</li>
+              <li>As mentioned in the noble hadith</li>
+            </ul>
+          </div>
+
+          <div class="traveler-section">
+            <h3><i class="fas fa-check-circle"></i> <span>Conditions for Taking Concessions</span></h3>
+            <ul class="traveler-list">
+              <li>The travel must be permissible (not for sin)</li>
+              <li>Must exceed the prescribed travel distance</li>
+              <li>Must not intend to stay more than 4 days (majority opinion)</li>
+              <li>Begin taking concessions after leaving the boundaries of one's city</li>
+            </ul>
+          </div>
+        `;
+      }
+    }
+
+    function revertToArabicContent() {
+      // إعادة المحتوى العربي الأصلي
+      const definitionContent = document.getElementById('definition-content');
+      if (definitionContent) {
+        definitionContent.innerHTML = `
+          <div class="traveler-section">
+            <h3><i class="fas fa-user-tie"></i> <span>تعريف المسافر</span></h3>
+            <p>المسافر هو من خرج من بلده إلى بلد آخر تزيد المسافة بينهما على قرابة <strong>80 كلم</strong> (حسب رأي الجمهور)، بنية السفر، سواء كان لغرض مباح أو طاعة.</p>
+          </div>
+        `;
+      }
+
+      const rulingsContent = document.getElementById('rulings-content');
+      if (rulingsContent) {
+        rulingsContent.innerHTML = `
+          <div class="traveler-section">
+            <h3><i class="fas fa-star-and-crescent"></i> <span>التيسيرات الشرعية للمسافر</span></h3>
+            
+            <h4>1. قصر الصلاة:</h4>
+            <ul class="traveler-list">
+              <li>يجوز للمسافر أن يقصر الصلاة الرباعية (الظهر، العصر، العشاء) إلى ركعتين</li>
+              <li>لا يُقصر الفجر ولا المغرب</li>
+            </ul>
+
+            <h4>2. الجمع بين الصلوات:</h4>
+            <ul class="traveler-list">
+              <li>يمكنه جمع الظهر مع العصر والمغرب مع العشاء</li>
+              <li>جمع تقديم أو تأخير، بحسب الحاجة</li>
+            </ul>
+
+            <h4>3. الفطر في رمضان:</h4>
+            <ul class="traveler-list">
+              <li>يجوز للمسافر أن يفطر في رمضان</li>
+              <li>يقضي الأيام بعد رمضان</li>
+            </ul>
+
+            <h4>4. عدم وجوب الجمعة والجماعة:</h4>
+            <ul class="traveler-list">
+              <li>لا تجب عليه صلاة الجمعة ولا الجماعة</li>
+              <li>الأفضل إن تيسر له أن يؤديها</li>
+            </ul>
+
+            <h4>5. الدعاء مستجاب:</h4>
+            <ul class="traveler-list">
+              <li>دعاء المسافر من الأدعية المستجابة</li>
+              <li>كما ورد في الحديث الشريف</li>
+            </ul>
+          </div>
+
+          <div class="traveler-section">
+            <h3><i class="fas fa-check-circle"></i> <span>شروط الأخذ بالرخص</span></h3>
+            <ul class="traveler-list">
+              <li>أن يكون السفر مباحًا (لا يكون لمعصية)</li>
+              <li>أن يتجاوز المسافة المحددة للسفر</li>
+              <li>أن لا يكون قد نوى الإقامة أكثر من 4 أيام (في رأي الجمهور)</li>
+              <li>أن يبدأ بأخذ الرخص بعد خروجه من حدود بلده</li>
+            </ul>
+          </div>
+        `;
+      }
+    }
+
+    function switchTravelerTab(tabName) {
+      // إخفاء جميع التبويبات
+      document.querySelectorAll('.traveler-tab').forEach(tab => {
+        tab.classList.remove('active');
+      });
+      document.querySelectorAll('.traveler-tab-content').forEach(content => {
+        content.classList.remove('active');
+      });
+
+      // إظهار التبويب المحدد
+      document.getElementById(tabName + '-tab').classList.add('active');
+      document.getElementById(tabName + '-content').classList.add('active');
+    }
+
+    // إغلاق النافذة عند الضغط خارجها
+    document.addEventListener('click', function(e) {
+      const travelerModal = document.getElementById('traveler-modal');
+      if (e.target === travelerModal) {
+        closeTravelerModal();
+      }
+    });
+
+    // إغلاق النافذة بمفتاح Escape
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        const travelerModal = document.getElementById('traveler-modal');
+        if (travelerModal.classList.contains('active')) {
+          closeTravelerModal();
+        }
+      }
+    });
+
     // Toggle fullscreen
     function toggleFullscreen() {
       if (!document.fullscreenElement) {
@@ -6248,5 +7396,156 @@ function getFlagCode(countryName) {
 
     init();
   </script>
+
+  <!-- نافذة وضعية المسافر -->
+  <div class="traveler-modal" id="traveler-modal">
+    <div class="traveler-content">
+      <div class="traveler-header">
+        <div class="language-toggle">
+          <button class="lang-btn active" onclick="switchTravelerLanguage('ar')" id="ar-btn">عربي</button>
+          <button class="lang-btn" onclick="switchTravelerLanguage('en')" id="en-btn">English</button>
+        </div>
+        <i class="fas fa-plane"></i>
+        <span id="traveler-title">وضعية المسافر</span>
+        <button class="traveler-close" onclick="closeTravelerModal()">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      
+      <div class="traveler-tabs">
+        <button class="traveler-tab active" onclick="switchTravelerTab('definition')" id="definition-tab">
+          <i class="fas fa-info-circle"></i>
+          <span>التعريف</span>
+        </button>
+        <button class="traveler-tab" onclick="switchTravelerTab('rulings')" id="rulings-tab">
+          <i class="fas fa-gavel"></i>
+          <span>الأحكام</span>
+        </button>
+        <button class="traveler-tab" onclick="switchTravelerTab('duas')" id="duas-tab">
+          <i class="fas fa-hands"></i>
+          <span>أذكار السفر</span>
+        </button>
+        <button class="traveler-tab" onclick="switchTravelerTab('hadith')" id="hadith-tab">
+          <i class="fas fa-book"></i>
+          <span>أحاديث</span>
+        </button>
+      </div>
+
+      <div class="traveler-body">
+        <!-- تبويب التعريف -->
+        <div class="traveler-tab-content active" id="definition-content">
+          <div class="traveler-section">
+            <h3><i class="fas fa-user-tie"></i> <span>تعريف المسافر</span></h3>
+            <p>المسافر هو من خرج من بلده إلى بلد آخر تزيد المسافة بينهما على قرابة <strong>80 كلم</strong> (حسب رأي الجمهور)، بنية السفر، سواء كان لغرض مباح أو طاعة.</p>
+          </div>
+        </div>
+
+        <!-- تبويب الأحكام -->
+        <div class="traveler-tab-content" id="rulings-content">
+          <div class="traveler-section">
+            <h3><i class="fas fa-star-and-crescent"></i> <span>التيسيرات الشرعية للمسافر</span></h3>
+            
+            <h4>1. قصر الصلاة:</h4>
+            <ul class="traveler-list">
+              <li>يجوز للمسافر أن يقصر الصلاة الرباعية (الظهر، العصر، العشاء) إلى ركعتين</li>
+              <li>لا يُقصر الفجر ولا المغرب</li>
+            </ul>
+
+            <h4>2. الجمع بين الصلوات:</h4>
+            <ul class="traveler-list">
+              <li>يمكنه جمع الظهر مع العصر والمغرب مع العشاء</li>
+              <li>جمع تقديم أو تأخير، بحسب الحاجة</li>
+            </ul>
+
+            <h4>3. الفطر في رمضان:</h4>
+            <ul class="traveler-list">
+              <li>يجوز للمسافر أن يفطر في رمضان</li>
+              <li>يقضي الأيام بعد رمضان</li>
+            </ul>
+
+            <h4>4. عدم وجوب الجمعة والجماعة:</h4>
+            <ul class="traveler-list">
+              <li>لا تجب عليه صلاة الجمعة ولا الجماعة</li>
+              <li>الأفضل إن تيسر له أن يؤديها</li>
+            </ul>
+
+            <h4>5. الدعاء مستجاب:</h4>
+            <ul class="traveler-list">
+              <li>دعاء المسافر من الأدعية المستجابة</li>
+              <li>كما ورد في الحديث الشريف</li>
+            </ul>
+          </div>
+
+          <div class="traveler-section">
+            <h3><i class="fas fa-check-circle"></i> <span>شروط الأخذ بالرخص</span></h3>
+            <ul class="traveler-list">
+              <li>أن يكون السفر مباحًا (لا يكون لمعصية)</li>
+              <li>أن يتجاوز المسافة المحددة للسفر</li>
+              <li>أن لا يكون قد نوى الإقامة أكثر من 4 أيام (في رأي الجمهور)</li>
+              <li>أن يبدأ بأخذ الرخص بعد خروجه من حدود بلده</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- تبويب أذكار السفر -->
+        <div class="traveler-tab-content" id="duas-content">
+          <div class="traveler-section">
+            <h3><i class="fas fa-hands"></i> <span>أذكار السفر</span></h3>
+            
+            <div class="dua-box">
+              <h4>دعاء السفر:</h4>
+              <p class="dua-text">اللَّهُمَّ إِنَّا نَسْأَلُكَ فِي سَفَرِنَا هَذَا الْبِرَّ وَالتَّقْوَى، وَمِنَ الْعَمَلِ مَا تَرْضَى، اللَّهُمَّ هَوِّنْ عَلَيْنَا سَفَرَنَا هَذَا وَاطْوِ عَنَّا بُعْدَهُ، اللَّهُمَّ أَنْتَ الصَّاحِبُ فِي السَّفَرِ، وَالْخَلِيفَةُ فِي الْأَهْلِ</p>
+              <p class="dua-source">رواه مسلم</p>
+            </div>
+
+            <div class="dua-box">
+              <h4>دعاء ركوب الدابة:</h4>
+              <p class="dua-text">بِسْمِ اللَّهِ، وَالْحَمْدُ لِلَّهِ، ﴿سُبْحَانَ الَّذِي سَخَّرَ لَنَا هَذَا وَمَا كُنَّا لَهُ مُقْرِنِينَ * وَإِنَّا إِلَى رَبِّنَا لَمُنْقَلِبُونَ﴾ الْحَمْدُ لِلَّهِ، الْحَمْدُ لِلَّهِ، الْحَمْدُ لِلَّهِ، اللَّهُ أَكْبَرُ، اللَّهُ أَكْبَرُ، اللَّهُ أَكْبَرُ</p>
+              <p class="dua-source">أبو داود والترمذي</p>
+            </div>
+
+            <div class="dua-box">
+              <h4>دعاء النزول:</h4>
+              <p class="dua-text">أَعُوذُ بِكَلِمَاتِ اللَّهِ التَّامَّاتِ مِنْ شَرِّ مَا خَلَقَ</p>
+              <p class="dua-source">رواه مسلم</p>
+            </div>
+
+            <div class="dua-box">
+              <h4>دعاء الرجوع من السفر:</h4>
+              <p class="dua-text">آيِبُونَ تَائِبُونَ عَابِدُونَ لِرَبِّنَا حَامِدُونَ</p>
+              <p class="dua-source">متفق عليه</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- تبويب الأحاديث -->
+        <div class="traveler-tab-content" id="hadith-content">
+          <div class="traveler-section">
+            <h3><i class="fas fa-book"></i> <span>أحاديث نبوية عن السفر</span></h3>
+            
+            <div class="hadith-box">
+              <p class="hadith-text">عن أبي هريرة رضي الله عنه قال: قال رسول الله صلى الله عليه وسلم: "ثَلاَثُ دَعَوَاتٍ مُسْتَجَابَاتٌ لاَ شَكَّ فِيهِنَّ: دَعْوَةُ الْمَظْلُومِ، وَدَعْوَةُ الْمُسَافِرِ، وَدَعْوَةُ الْوَالِدِ عَلَى وَلَدِهِ"</p>
+              <p class="hadith-source">رواه أبو داود والترمذي</p>
+            </div>
+
+            <div class="hadith-box">
+              <p class="hadith-text">عن عبد الله بن عمر رضي الله عنهما قال: "كَانَ رَسُولُ اللَّهِ صلى الله عليه وسلم إِذَا اسْتَوَى عَلَى بَعِيرِهِ خَارِجًا إِلَى سَفَرٍ كَبَّرَ ثَلاَثًا ثُمَّ قَالَ: ﴿سُبْحَانَ الَّذِي سَخَّرَ لَنَا هَذَا وَمَا كُنَّا لَهُ مُقْرِنِينَ * وَإِنَّا إِلَى رَبِّنَا لَمُنْقَلِبُونَ﴾"</p>
+              <p class="hadith-source">رواه مسلم</p>
+            </div>
+
+            <div class="hadith-box">
+              <p class="hadith-text">عن أنس بن مالك رضي الله عنه قال: قال رسول الله صلى الله عليه وسلم: "السَّفَرُ قِطْعَةٌ مِنَ الْعَذَابِ، يَمْنَعُ أَحَدَكُمْ طَعَامَهُ وَشَرَابَهُ وَنَوْمَهُ، فَإِذَا قَضَى نَهْمَتَهُ فَلْيُعَجِّلْ إِلَى أَهْلِهِ"</p>
+              <p class="hadith-source">متفق عليه</p>
+            </div>
+
+            <div class="hadith-box">
+              <p class="hadith-text">عن عبد الله بن عباس رضي الله عنهما قال: "فَرَضَ اللَّهُ الصَّلاَةَ عَلَى لِسَانِ نَبِيِّكُمْ فِي الْحَضَرِ أَرْبَعًا، وَفِي السَّفَرِ رَكْعَتَيْنِ، وَفِي الْخَوْفِ رَكْعَةً"</p>
+              <p class="hadith-source">رواه مسلم</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </body>
 </html>
