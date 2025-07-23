@@ -980,6 +980,38 @@
       font-family: 'Courier New', monospace;
     }
 
+    .timezone-item.next-prayer-item {
+      background: linear-gradient(135deg, rgba(76, 175, 80, 0.1), rgba(76, 175, 80, 0.05));
+      border: 1px solid rgba(76, 175, 80, 0.3);
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .next-prayer-info {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      margin-top: 8px;
+    }
+
+    .next-prayer-name {
+      color: #4CAF50;
+      font-weight: bold;
+      font-size: 14px;
+    }
+
+    .next-prayer-time {
+      color: #FFD700;
+      font-weight: 700;
+      font-family: 'Courier New', monospace;
+      font-size: 16px;
+      background: rgba(255, 215, 0, 0.1);
+      padding: 4px 8px;
+      border-radius: 6px;
+      border: 1px solid rgba(255, 215, 0, 0.3);
+    }
+
     /* Qibla Direction Styles */
     .qibla-container {
       text-align: center;
@@ -5317,31 +5349,31 @@ function getFlagCode(countryName) {
       const prayers = [
         { 
           key: 'Fajr', 
-          time: prayerTimes.Fajr, 
+          time: prayerTimes.Fajr || prayerTimes.fajr, 
           name: 'الفجر', 
           nameEn: 'Fajr' 
         },
         { 
           key: 'Dhuhr', 
-          time: prayerTimes.Dhuhr, 
+          time: prayerTimes.Dhuhr || prayerTimes.dhuhr, 
           name: 'الظهر', 
           nameEn: 'Dhuhr' 
         },
         { 
           key: 'Asr', 
-          time: prayerTimes.Asr, 
+          time: prayerTimes.Asr || prayerTimes.asr, 
           name: 'العصر', 
           nameEn: 'Asr' 
         },
         { 
           key: 'Maghrib', 
-          time: prayerTimes.Maghrib, 
+          time: prayerTimes.Maghrib || prayerTimes.maghrib, 
           name: 'المغرب', 
           nameEn: 'Maghrib' 
         },
         { 
           key: 'Isha', 
-          time: prayerTimes.Isha, 
+          time: prayerTimes.Isha || prayerTimes.isha, 
           name: 'العشاء', 
           nameEn: 'Isha' 
         }
@@ -5524,8 +5556,10 @@ function getFlagCode(countryName) {
       currentModalPrayers = prayers;
 
       const modal = document.getElementById('country-modal');
-      document.getElementById('modal-country-name').textContent = currentLanguage === 'ar' ? country.name : country.nameEn;
-      document.getElementById('modal-country-flag').textContent = country.name.split(' ')[0];
+      const countryName = currentLanguage === 'ar' ? country.name : country.nameEn;
+      document.getElementById('modal-country-name').textContent = countryName;
+      // Remove text from flag element to avoid duplication
+      document.getElementById('modal-country-flag').textContent = '🏴';
       
       // Populate general details
       populateGeneralTab();
@@ -5601,6 +5635,9 @@ function getFlagCode(countryName) {
           <div class="detail-value">${currentLanguage === 'ar' ? currentModalCountry.language : currentModalCountry.languageEn}</div>
         </div>
       `;
+      
+      // Update timezone information immediately
+      updateModalTime();
     }
 
     // Show Tab Function
@@ -5805,8 +5842,18 @@ function getFlagCode(countryName) {
           }
         });
         
-        // Update next prayer countdown
+        // Update next prayer countdown immediately
         updateModalPrayerCountdown();
+        
+        // Set up interval for continuous countdown update
+        if (window.modalPrayerInterval) {
+          clearInterval(window.modalPrayerInterval);
+        }
+        window.modalPrayerInterval = setInterval(() => {
+          if (document.getElementById('country-modal').style.display === 'flex') {
+            updateModalPrayerCountdown();
+          }
+        }, 1000);
       }
     }
 
@@ -5878,26 +5925,141 @@ function getFlagCode(countryName) {
       const now = DateTime.now().setZone(currentModalCountry.zone);
       const hijriDate = getHijriDate(now.toJSDate());
       
-      document.getElementById('modal-local-time').textContent = now.toFormat('HH:mm:ss');
-      document.getElementById('modal-hijri-date').textContent = hijriDate;
-      document.getElementById('modal-timezone').textContent = now.toFormat('ZZZZZ');
+      // Update local time
+      const localTimeElement = document.getElementById('modal-local-time');
+      if (localTimeElement) {
+        localTimeElement.textContent = now.toFormat('HH:mm:ss');
+      }
+      
+      // Update Hijri date
+      const hijriDateElement = document.getElementById('modal-hijri-date');
+      if (hijriDateElement) {
+        hijriDateElement.textContent = hijriDate;
+      }
+      
+      // Update timezone with proper UTC format
+      const timezoneElement = document.getElementById('modal-timezone');
+      if (timezoneElement) {
+        const offset = now.toFormat('ZZ');
+        timezoneElement.textContent = `UTC${offset}`;
+      }
+      
+      // Update next prayer if prayers data is available
+      if (currentModalPrayers) {
+        updateNextPrayerInfo(now, currentModalPrayers);
+      }
+    }
+
+    // Update Next Prayer Information
+    function updateNextPrayerInfo(currentTime, prayers) {
+      const prayerTimes = {
+        'الفجر': prayers.Fajr,
+        'الشروق': prayers.Sunrise,
+        'الظهر': prayers.Dhuhr,
+        'العصر': prayers.Asr,
+        'المغرب': prayers.Maghrib,
+        'العشاء': prayers.Isha
+      };
+      
+      let nextPrayer = null;
+      let nextPrayerTime = null;
+      
+      // Find next prayer
+      for (const [name, timeStr] of Object.entries(prayerTimes)) {
+        if (!timeStr || timeStr === 'N/A') continue;
+        
+        const prayerTime = DateTime.fromFormat(timeStr, 'HH:mm', { zone: currentModalCountry.zone });
+        if (prayerTime > currentTime) {
+          nextPrayer = name;
+          nextPrayerTime = prayerTime;
+          break;
+        }
+      }
+      
+      // If no prayer found for today, get Fajr for tomorrow
+      if (!nextPrayer && prayers.Fajr && prayers.Fajr !== 'N/A') {
+        nextPrayer = 'الفجر';
+        nextPrayerTime = DateTime.fromFormat(prayers.Fajr, 'HH:mm', { zone: currentModalCountry.zone }).plus({ days: 1 });
+      }
+      
+      // Update display
+      const nextPrayerElement = document.getElementById('modal-next-prayer');
+      const countdownElement = document.getElementById('modal-countdown');
+      
+      if (nextPrayerElement && countdownElement) {
+        if (nextPrayer && nextPrayerTime) {
+          nextPrayerElement.textContent = nextPrayer;
+          
+          // Calculate time remaining
+          const timeDiff = nextPrayerTime.diff(currentTime);
+          const hours = Math.floor(timeDiff.as('hours'));
+          const minutes = Math.floor(timeDiff.as('minutes') % 60);
+          const seconds = Math.floor(timeDiff.as('seconds') % 60);
+          
+          countdownElement.textContent = 
+            `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+        } else {
+          nextPrayerElement.textContent = '--';
+          countdownElement.textContent = '--:--:--';
+        }
+      }
+    }
+
+    // Get Hijri Date
+    function getHijriDate(gregorianDate) {
+      // Simple Hijri date calculation (approximate)
+      const hijriEpoch = new Date(622, 6, 16); // July 16, 622 CE (approximate start of Hijri calendar)
+      const diffTime = gregorianDate - hijriEpoch;
+      const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+      
+      // Hijri year is approximately 354.37 days
+      const hijriYear = Math.floor(diffDays / 354.37) + 1;
+      const dayOfYear = diffDays % 354.37;
+      const hijriMonth = Math.floor(dayOfYear / 29.53) + 1;
+      const hijriDay = Math.floor(dayOfYear % 29.53) + 1;
+      
+      // Hijri month names
+      const hijriMonths = [
+        'محرم', 'صفر', 'ربيع الأول', 'ربيع الثاني', 'جمادى الأولى', 'جمادى الثانية',
+        'رجب', 'شعبان', 'رمضان', 'شوال', 'ذو القعدة', 'ذو الحجة'
+      ];
+      
+      const monthName = hijriMonths[Math.min(hijriMonth - 1, 11)];
+      
+      return `${hijriDay}/${hijriMonth}/${Math.floor(hijriYear)} - ${monthName}`;
     }
 
     // Update Modal Prayer Countdown
     function updateModalPrayerCountdown() {
       if (!currentModalPrayers) return;
       
-      const nextPrayer = getNextPrayerFromTimes(currentModalPrayers);
+      const currentTime = DateTime.now().setZone(currentModalCountry?.zone || 'UTC').toJSDate();
+      const nextPrayer = getNextPrayerFromTimes(currentModalPrayers, currentTime);
+      
       if (nextPrayer) {
-        document.getElementById('modal-next-prayer').textContent = 
-          translations[currentLanguage][nextPrayer.name];
+        const nextPrayerElement = document.getElementById('modal-next-prayer');
+        const countdownElement = document.getElementById('modal-countdown');
+        const progressBar = document.getElementById('modal-progress-bar');
         
-        const timeLeft = getTimeUntilPrayer(nextPrayer.time);
-        document.getElementById('modal-countdown').textContent = timeLeft;
+        if (nextPrayerElement) {
+          nextPrayerElement.textContent = nextPrayer.name;
+        }
         
-        // Update progress bar
-        const progress = getPrayerProgress(currentModalPrayers, nextPrayer.name);
-        document.getElementById('modal-progress-bar').style.width = progress + '%';
+        if (countdownElement) {
+          const { hours, minutes, seconds } = nextPrayer.timeRemaining;
+          const timeLeft = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+          countdownElement.textContent = timeLeft;
+        }
+        
+        if (progressBar) {
+          progressBar.style.width = nextPrayer.progress + '%';
+        }
+      } else {
+        const nextPrayerElement = document.getElementById('modal-next-prayer');
+        const countdownElement = document.getElementById('modal-countdown');
+        
+        if (nextPrayerElement) nextPrayerElement.textContent = '--';
+        if (countdownElement) countdownElement.textContent = '--:--:--';
       }
     }
 
@@ -5918,6 +6080,12 @@ function getFlagCode(countryName) {
     function closeModal() {
       document.getElementById('country-modal').style.display = 'none';
       document.getElementById('about-modal').style.display = 'none';
+      
+      // Clear prayer countdown interval
+      if (window.modalPrayerInterval) {
+        clearInterval(window.modalPrayerInterval);
+        window.modalPrayerInterval = null;
+      }
     }
 
     // Open about modal
