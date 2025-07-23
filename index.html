@@ -795,6 +795,612 @@
       transform: rotate(90deg);
     }
 
+    /* Enhanced Country Modal Styles */
+    .country-modal-enhanced {
+      max-width: 900px;
+      width: 95%;
+      max-height: 90vh;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .country-modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 25px;
+      border-bottom: 2px solid rgba(255,215,0,0.3);
+      background: linear-gradient(135deg, rgba(255,215,0,0.1), rgba(255,165,0,0.05));
+    }
+
+    .modal-title-section {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .enhanced-flag {
+      font-size: 2.5rem;
+      filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));
+      animation: flagWave 3s ease-in-out infinite;
+    }
+
+    @keyframes flagWave {
+      0%, 100% { transform: scale(1) rotate(0deg); }
+      50% { transform: scale(1.05) rotate(2deg); }
+    }
+
+    .modal-quick-actions {
+      display: flex;
+      gap: 10px;
+    }
+
+    .quick-action-btn {
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      border: 2px solid rgba(255,215,0,0.4);
+      background: linear-gradient(135deg, rgba(255,215,0,0.2), rgba(255,165,0,0.1));
+      color: #FFD700;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+    }
+
+    .quick-action-btn:hover {
+      background: linear-gradient(135deg, rgba(255,215,0,0.4), rgba(255,165,0,0.2));
+      transform: scale(1.1);
+      border-color: #FFD700;
+      box-shadow: 0 4px 15px rgba(255,215,0,0.3);
+    }
+
+    /* Modal Tabs */
+    .modal-tabs {
+      display: flex;
+      background: rgba(0,0,0,0.2);
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .tab-btn {
+      flex: 1;
+      padding: 15px 10px;
+      background: transparent;
+      border: none;
+      color: #ccc;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 5px;
+      font-size: 0.9rem;
+      position: relative;
+    }
+
+    .tab-btn i {
+      font-size: 1.2rem;
+      transition: all 0.3s ease;
+    }
+
+    .tab-btn:hover {
+      background: rgba(255,215,0,0.1);
+      color: #FFD700;
+    }
+
+    .tab-btn.active {
+      background: linear-gradient(135deg, rgba(255,215,0,0.2), rgba(255,165,0,0.1));
+      color: #FFD700;
+      border-bottom: 3px solid #FFD700;
+    }
+
+    .tab-btn.active i {
+      transform: scale(1.2);
+      filter: drop-shadow(0 0 8px #FFD700);
+    }
+
+    /* Modal Body */
+    .modal-body {
+      flex: 1;
+      overflow-y: auto;
+      padding: 25px;
+    }
+
+    .tab-content {
+      display: none;
+      animation: fadeInUp 0.4s ease;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    /* Enhanced Details */
+    .enhanced-details .detail-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px;
+      margin-bottom: 10px;
+      background: linear-gradient(135deg, rgba(255,255,255,0.08), rgba(255,255,255,0.04));
+      border-radius: 12px;
+      border-left: 4px solid #FFD700;
+      transition: all 0.3s ease;
+    }
+
+    .enhanced-details .detail-item:hover {
+      background: linear-gradient(135deg, rgba(255,215,0,0.1), rgba(255,165,0,0.05));
+      transform: translateX(-5px);
+    }
+
+    /* Timezone Info */
+    .timezone-info {
+      margin-top: 25px;
+      padding: 20px;
+      background: linear-gradient(135deg, rgba(0,191,255,0.1), rgba(30,144,255,0.05));
+      border-radius: 15px;
+      border: 2px solid rgba(0,191,255,0.3);
+    }
+
+    .timezone-info h3 {
+      color: #00BFFF;
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .timezone-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 15px;
+    }
+
+    .timezone-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px;
+      background: rgba(0,0,0,0.3);
+      border-radius: 10px;
+      border: 1px solid rgba(0,191,255,0.2);
+    }
+
+    .timezone-label {
+      color: #00BFFF;
+      font-weight: 600;
+    }
+
+    .timezone-value {
+      color: #fff;
+      font-weight: 700;
+      font-family: 'Courier New', monospace;
+    }
+
+    /* Qibla Direction Styles */
+    .qibla-container {
+      text-align: center;
+    }
+
+    .qibla-container h3 {
+      color: #FFD700;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .location-method {
+      margin-bottom: 30px;
+    }
+
+    .method-options {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-bottom: 15px;
+    }
+
+    .method-btn {
+      padding: 12px 20px;
+      background: rgba(255,255,255,0.1);
+      border: 2px solid rgba(255,215,0,0.3);
+      border-radius: 25px;
+      color: #ccc;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .method-btn:hover,
+    .method-btn.active {
+      background: linear-gradient(135deg, rgba(255,215,0,0.2), rgba(255,165,0,0.1));
+      border-color: #FFD700;
+      color: #FFD700;
+      transform: scale(1.05);
+    }
+
+    .location-status {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      color: #00BFFF;
+      font-size: 0.9rem;
+    }
+
+    /* Qibla Compass */
+    .qibla-compass-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 30px;
+    }
+
+    .qibla-compass {
+      width: 250px;
+      height: 250px;
+      position: relative;
+      margin-bottom: 20px;
+    }
+
+    .compass-ring {
+      width: 100%;
+      height: 100%;
+      border: 4px solid rgba(255,215,0,0.6);
+      border-radius: 50%;
+      position: relative;
+      background: radial-gradient(circle, rgba(255,215,0,0.1) 0%, rgba(0,0,0,0.3) 70%);
+      box-shadow: 
+        0 0 30px rgba(255,215,0,0.3),
+        inset 0 0 30px rgba(255,215,0,0.1);
+    }
+
+    .compass-directions {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    .direction {
+      position: absolute;
+      font-weight: bold;
+      font-size: 1.2rem;
+      color: #FFD700;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+    }
+
+    .direction.north {
+      top: 5px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .direction.east {
+      right: 5px;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    .direction.south {
+      bottom: 5px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .direction.west {
+      left: 5px;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    .compass-needle {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 4px;
+      height: 80px;
+      transform: translate(-50%, -50%);
+      transition: transform 0.5s ease;
+    }
+
+    .needle-north {
+      width: 100%;
+      height: 40px;
+      background: linear-gradient(to bottom, #ff4444, #cc3333);
+      border-radius: 2px 2px 0 0;
+      position: relative;
+    }
+
+    .needle-south {
+      width: 100%;
+      height: 40px;
+      background: linear-gradient(to bottom, #333, #666);
+      border-radius: 0 0 2px 2px;
+    }
+
+    .qibla-arrow {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 2rem;
+      color: #FFD700;
+      transition: transform 0.5s ease;
+      filter: drop-shadow(0 0 10px #FFD700);
+      animation: qiblaGlow 2s infinite;
+    }
+
+    @keyframes qiblaGlow {
+      0%, 100% { filter: drop-shadow(0 0 10px #FFD700); }
+      50% { filter: drop-shadow(0 0 20px #FFD700); }
+    }
+
+    .compass-center {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 20px;
+      height: 20px;
+      background: radial-gradient(circle, #FFD700, #FFA500);
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      border: 3px solid rgba(255,255,255,0.5);
+      box-shadow: 0 0 15px rgba(255,215,0,0.5);
+    }
+
+    .qibla-info {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 15px;
+      width: 100%;
+      max-width: 600px;
+    }
+
+    .qibla-info-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 15px;
+      background: rgba(0,0,0,0.3);
+      border-radius: 10px;
+      border: 1px solid rgba(255,215,0,0.3);
+    }
+
+    .qibla-label {
+      color: #FFD700;
+      font-weight: 600;
+    }
+
+    .qibla-value {
+      color: #fff;
+      font-weight: 700;
+      font-family: 'Courier New', monospace;
+    }
+
+    .qibla-instructions {
+      background: rgba(0,191,255,0.1);
+      padding: 20px;
+      border-radius: 15px;
+      border: 1px solid rgba(0,191,255,0.3);
+      text-align: right;
+      margin-top: 20px;
+    }
+
+    .qibla-instructions h4 {
+      color: #00BFFF;
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .qibla-instructions ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .qibla-instructions li {
+      margin-bottom: 8px;
+      padding: 8px 12px;
+      background: rgba(0,0,0,0.2);
+      border-radius: 8px;
+      border-right: 3px solid #00BFFF;
+    }
+
+    /* Prayer Times Enhanced */
+    .prayer-times-enhanced {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 15px;
+      margin-bottom: 25px;
+    }
+
+    .prayer-item-enhanced {
+      text-align: center;
+      padding: 15px;
+      background: linear-gradient(135deg, rgba(255,215,0,0.1), rgba(255,165,0,0.05));
+      border-radius: 15px;
+      border: 2px solid rgba(255,215,0,0.3);
+      transition: all 0.3s ease;
+    }
+
+    .prayer-item-enhanced:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 25px rgba(255,215,0,0.3);
+    }
+
+    .prayer-name-enhanced {
+      font-weight: bold;
+      color: #FFD700;
+      margin-bottom: 8px;
+      font-size: 1rem;
+    }
+
+    .prayer-time-enhanced {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: #fff;
+      font-family: 'Courier New', monospace;
+    }
+
+    .next-prayer-countdown {
+      background: linear-gradient(135deg, rgba(0,255,136,0.15), rgba(0,255,136,0.05));
+      padding: 20px;
+      border-radius: 15px;
+      border: 2px solid rgba(0,255,136,0.3);
+      text-align: center;
+    }
+
+    .next-prayer-countdown h4 {
+      color: #00ff88;
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .countdown-display {
+      margin-bottom: 15px;
+    }
+
+    .next-prayer-name {
+      display: block;
+      font-size: 1.1rem;
+      color: #FFD700;
+      margin-bottom: 8px;
+      font-weight: bold;
+    }
+
+    .countdown-timer {
+      font-size: 2rem;
+      color: #00ff88;
+      font-family: 'Courier New', monospace;
+      font-weight: bold;
+      text-shadow: 0 0 10px rgba(0,255,136,0.5);
+    }
+
+    /* Weather Enhanced */
+    .weather-enhanced {
+      display: grid;
+      gap: 15px;
+      margin-bottom: 25px;
+    }
+
+    .weather-main {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      padding: 20px;
+      background: linear-gradient(135deg, rgba(0,191,255,0.1), rgba(30,144,255,0.05));
+      border-radius: 15px;
+      border: 2px solid rgba(0,191,255,0.3);
+    }
+
+    .weather-icon-large {
+      font-size: 3rem;
+      color: #00BFFF;
+      filter: drop-shadow(0 0 10px #00BFFF);
+    }
+
+    .weather-details {
+      text-align: center;
+    }
+
+    .weather-temp {
+      font-size: 2.5rem;
+      font-weight: bold;
+      color: #fff;
+      margin-bottom: 5px;
+    }
+
+    .weather-desc {
+      font-size: 1.1rem;
+      color: #00BFFF;
+      margin-bottom: 10px;
+    }
+
+    .weather-feels {
+      color: #ccc;
+      font-size: 0.9rem;
+    }
+
+    .forecast-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap: 10px;
+    }
+
+    .forecast-item {
+      text-align: center;
+      padding: 15px 10px;
+      background: rgba(0,0,0,0.3);
+      border-radius: 12px;
+      border: 1px solid rgba(0,191,255,0.2);
+      transition: all 0.3s ease;
+    }
+
+    .forecast-item:hover {
+      background: rgba(0,191,255,0.1);
+      transform: translateY(-3px);
+    }
+
+    .forecast-day {
+      font-size: 0.8rem;
+      color: #00BFFF;
+      margin-bottom: 8px;
+      font-weight: 600;
+    }
+
+    .forecast-icon {
+      font-size: 1.5rem;
+      color: #87CEEB;
+      margin-bottom: 8px;
+    }
+
+    .forecast-temp {
+      font-size: 0.9rem;
+      color: #fff;
+      font-weight: 600;
+    }
+
+    @media (max-width: 768px) {
+      .country-modal-enhanced {
+        width: 98%;
+        margin: 1%;
+      }
+
+      .modal-tabs {
+        flex-wrap: wrap;
+      }
+
+      .tab-btn {
+        flex: 1 1 50%;
+        font-size: 0.8rem;
+      }
+
+      .qibla-compass {
+        width: 200px;
+        height: 200px;
+      }
+
+      .timezone-grid,
+      .qibla-info {
+        grid-template-columns: 1fr;
+      }
+    }
+
     /* Prayer Modal Styles */
     .prayer-modal-content {
       max-width: 600px;
@@ -1976,14 +2582,192 @@
     <div class="clock-container" id="clocks"></div>
   </main>
 
+  <!-- Enhanced Country Modal with Qibla Feature -->
   <div class="modal" id="country-modal">
-    <div class="modal-content">
+    <div class="modal-content country-modal-enhanced">
       <button class="close-btn" onclick="closeModal()">×</button>
-      <div class="modal-header">
-        <h2 class="modal-title" id="modal-country-name"></h2>
-        <div id="modal-country-flag" style="font-size: 3rem;"></div>
+      
+      <!-- Modal Header -->
+      <div class="modal-header country-modal-header">
+        <div class="modal-title-section">
+          <h2 class="modal-title" id="modal-country-name"></h2>
+          <div id="modal-country-flag" class="enhanced-flag"></div>
+        </div>
+        <div class="modal-quick-actions">
+          <button class="quick-action-btn" onclick="showQiblaDirection()" title="اتجاه القبلة">
+            <i class="fas fa-kaaba"></i>
+          </button>
+          <button class="quick-action-btn" onclick="showPrayerTimes()" title="أوقات الصلاة">
+            <i class="fas fa-mosque"></i>
+          </button>
+          <button class="quick-action-btn" onclick="showWeatherDetails()" title="تفاصيل الطقس">
+            <i class="fas fa-cloud-sun"></i>
+          </button>
+        </div>
       </div>
-      <div class="country-details" id="country-details"></div>
+
+      <!-- Tabs Navigation -->
+      <div class="modal-tabs">
+        <button class="tab-btn active" onclick="showTab('general')" data-tab="general">
+          <i class="fas fa-info-circle"></i>
+          <span>معلومات عامة</span>
+        </button>
+        <button class="tab-btn" onclick="showTab('qibla')" data-tab="qibla">
+          <i class="fas fa-kaaba"></i>
+          <span>اتجاه القبلة</span>
+        </button>
+        <button class="tab-btn" onclick="showTab('prayers')" data-tab="prayers">
+          <i class="fas fa-mosque"></i>
+          <span>أوقات الصلاة</span>
+        </button>
+        <button class="tab-btn" onclick="showTab('weather')" data-tab="weather">
+          <i class="fas fa-cloud-sun"></i>
+          <span>الطقس</span>
+        </button>
+      </div>
+
+      <!-- Tab Content -->
+      <div class="modal-body">
+        <!-- General Information Tab -->
+        <div class="tab-content active" id="general-tab">
+          <div class="country-details enhanced-details" id="country-details">
+            <!-- Country details will be populated here -->
+          </div>
+          
+          <!-- Time Zone Information -->
+          <div class="timezone-info">
+            <h3><i class="fas fa-clock"></i> معلومات التوقيت</h3>
+            <div class="timezone-grid">
+              <div class="timezone-item">
+                <span class="timezone-label">التوقيت المحلي:</span>
+                <span class="timezone-value" id="modal-local-time">--:--</span>
+              </div>
+              <div class="timezone-item">
+                <span class="timezone-label">التاريخ الهجري:</span>
+                <span class="timezone-value" id="modal-hijri-date">----/--/--</span>
+              </div>
+              <div class="timezone-item">
+                <span class="timezone-label">المنطقة الزمنية:</span>
+                <span class="timezone-value" id="modal-timezone">UTC+--</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Qibla Direction Tab -->
+        <div class="tab-content" id="qibla-tab">
+          <div class="qibla-container">
+            <h3><i class="fas fa-kaaba"></i> اتجاه القبلة</h3>
+            
+            <!-- Location Method Selection -->
+            <div class="location-method">
+              <div class="method-options">
+                <button class="method-btn active" onclick="useGPSLocation()" id="gps-btn">
+                  <i class="fas fa-crosshairs"></i>
+                  <span>استخدام GPS</span>
+                </button>
+                <button class="method-btn" onclick="useSelectedCountry()" id="country-btn">
+                  <i class="fas fa-map-marker-alt"></i>
+                  <span>حسب الدولة المختارة</span>
+                </button>
+              </div>
+              <div class="location-status" id="location-status">
+                <i class="fas fa-spinner fa-spin"></i>
+                <span>جاري تحديد الموقع...</span>
+              </div>
+            </div>
+
+            <!-- Qibla Compass -->
+            <div class="qibla-compass-container">
+              <div class="qibla-compass" id="qibla-compass">
+                <div class="compass-ring">
+                  <div class="compass-directions">
+                    <span class="direction north">ش</span>
+                    <span class="direction east">ر</span>
+                    <span class="direction south">ج</span>
+                    <span class="direction west">غ</span>
+                  </div>
+                  <div class="compass-needle" id="compass-needle">
+                    <div class="needle-north"></div>
+                    <div class="needle-south"></div>
+                  </div>
+                  <div class="qibla-arrow" id="qibla-arrow">
+                    <i class="fas fa-kaaba"></i>
+                  </div>
+                </div>
+                <div class="compass-center"></div>
+              </div>
+              
+              <!-- Qibla Information -->
+              <div class="qibla-info">
+                <div class="qibla-info-item">
+                  <span class="qibla-label">الاتجاه:</span>
+                  <span class="qibla-value" id="qibla-direction">--°</span>
+                </div>
+                <div class="qibla-info-item">
+                  <span class="qibla-label">المسافة إلى مكة:</span>
+                  <span class="qibla-value" id="distance-to-mecca">-- كم</span>
+                </div>
+                <div class="qibla-info-item">
+                  <span class="qibla-label">موقعك:</span>
+                  <span class="qibla-value" id="user-location">--</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Qibla Instructions -->
+            <div class="qibla-instructions">
+              <h4><i class="fas fa-info-circle"></i> تعليمات الاستخدام</h4>
+              <ul>
+                <li>تأكد من السماح للمتصفح بالوصول إلى الموقع</li>
+                <li>ضع الجهاز في وضع أفقي للحصول على نتائج أكثر دقة</li>
+                <li>السهم الذهبي يشير إلى اتجاه القبلة الشريفة</li>
+                <li>يمكنك استخدام موقع الدولة المختارة كبديل</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Prayer Times Tab -->
+        <div class="tab-content" id="prayers-tab">
+          <div class="prayer-times-container">
+            <h3><i class="fas fa-mosque"></i> أوقات الصلاة اليوم</h3>
+            <div class="prayer-times-enhanced" id="modal-prayer-times">
+              <!-- Prayer times will be populated here -->
+            </div>
+            
+            <!-- Next Prayer Countdown -->
+            <div class="next-prayer-countdown">
+              <h4><i class="fas fa-hourglass-half"></i> الصلاة القادمة</h4>
+              <div class="countdown-display">
+                <span class="next-prayer-name" id="modal-next-prayer">--</span>
+                <span class="countdown-timer" id="modal-countdown">--:--:--</span>
+              </div>
+              <div class="countdown-progress">
+                <div class="countdown-progress-bar" id="modal-progress-bar"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Weather Tab -->
+        <div class="tab-content" id="weather-tab">
+          <div class="weather-container">
+            <h3><i class="fas fa-cloud-sun"></i> حالة الطقس</h3>
+            <div class="weather-enhanced" id="modal-weather">
+              <!-- Weather details will be populated here -->
+            </div>
+            
+            <!-- Weather Forecast -->
+            <div class="weather-forecast">
+              <h4><i class="fas fa-calendar-week"></i> توقعات الأيام القادمة</h4>
+              <div class="forecast-grid" id="weather-forecast">
+                <!-- Forecast will be populated here -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -2319,6 +3103,32 @@
         hijriDate: 'التاريخ الهجري',
         prayerTimesUpdated: 'تم تحديث أوقات الصلاة بنجاح',
         prayerUpdateFailed: 'فشل في تحديث أوقات الصلاة',
+        // Qibla direction translations
+        qiblaDirection: 'اتجاه القبلة',
+        qiblaGeneral: 'معلومات عامة',
+        qiblaPrayers: 'أوقات الصلاة',
+        qiblaWeather: 'الطقس',
+        useGPS: 'استخدام GPS',
+        useCountryLocation: 'حسب الدولة المختارة',
+        locatingPosition: 'جاري تحديد موقعك...',
+        locationSuccess: 'تم تحديد موقعك بنجاح',
+        locationError: 'لا يمكن تحديد الموقع - استخدم موقع الدولة',
+        gpsNotSupported: 'GPS غير مدعوم - استخدم موقع الدولة',
+        direction: 'الاتجاه',
+        distanceToMecca: 'المسافة إلى مكة',
+        yourLocation: 'موقعك',
+        qiblaInstructions: 'تعليمات الاستخدام',
+        qiblaInstruction1: 'تأكد من السماح للمتصفح بالوصول إلى الموقع',
+        qiblaInstruction2: 'ضع الجهاز في وضع أفقي للحصول على نتائج أكثر دقة',
+        qiblaInstruction3: 'السهم الذهبي يشير إلى اتجاه القبلة الشريفة',
+        qiblaInstruction4: 'يمكنك استخدام موقع الدولة المختارة كبديل',
+        todayPrayerTimes: 'أوقات الصلاة اليوم',
+        upcomingPrayer: 'الصلاة القادمة',
+        weatherCondition: 'حالة الطقس',
+        comingDaysForecast: 'توقعات الأيام القادمة',
+        localTime: 'التوقيت المحلي',
+        timeZone: 'المنطقة الزمنية',
+        timeInformation: 'معلومات التوقيت',
         notifications: {
           fullscreenOn: 'تم تفعيل وضع ملء الشاشة',
           fullscreenOff: 'تم الخروج من وضع ملء الشاشة',
@@ -2395,6 +3205,32 @@
         hijriDate: 'Hijri Date',
         prayerTimesUpdated: 'Prayer times updated successfully',
         prayerUpdateFailed: 'Failed to update prayer times',
+        // Qibla direction translations
+        qiblaDirection: 'Qibla Direction',
+        qiblaGeneral: 'General Information',
+        qiblaPrayers: 'Prayer Times',
+        qiblaWeather: 'Weather',
+        useGPS: 'Use GPS',
+        useCountryLocation: 'Use Selected Country',
+        locatingPosition: 'Locating your position...',
+        locationSuccess: 'Location determined successfully',
+        locationError: 'Cannot determine location - use country location',
+        gpsNotSupported: 'GPS not supported - use country location',
+        direction: 'Direction',
+        distanceToMecca: 'Distance to Mecca',
+        yourLocation: 'Your Location',
+        qiblaInstructions: 'Usage Instructions',
+        qiblaInstruction1: 'Make sure to allow browser access to location',
+        qiblaInstruction2: 'Place device horizontally for more accurate results',
+        qiblaInstruction3: 'The golden arrow points to the Qibla direction',
+        qiblaInstruction4: 'You can use the selected country location as alternative',
+        todayPrayerTimes: 'Today\'s Prayer Times',
+        upcomingPrayer: 'Upcoming Prayer',
+        weatherCondition: 'Weather Condition',
+        comingDaysForecast: 'Coming Days Forecast',
+        localTime: 'Local Time',
+        timeZone: 'Time Zone',
+        timeInformation: 'Time Information',
         notifications: {
           fullscreenOn: 'Fullscreen mode activated',
           fullscreenOff: 'Exited fullscreen mode',
@@ -4674,76 +5510,408 @@ function getFlagCode(countryName) {
     }
 
     // Open country modal
+    // Global variables for modal data
+    let currentModalCountry = null;
+    let currentModalWeather = null;
+    let currentModalPrayers = null;
+    let userLocation = null;
+    let qiblaDirection = 0;
+
+    // Enhanced Country Modal Function
     function openCountryModal(country, weather, prayers) {
+      currentModalCountry = country;
+      currentModalWeather = weather;
+      currentModalPrayers = prayers;
+
       const modal = document.getElementById('country-modal');
       document.getElementById('modal-country-name').textContent = currentLanguage === 'ar' ? country.name : country.nameEn;
       document.getElementById('modal-country-flag').textContent = country.name.split(' ')[0];
+      
+      // Populate general details
+      populateGeneralTab();
+      
+      // Initialize tabs
+      showTab('general');
+      
+      // Show modal
+      modal.style.display = 'flex';
+      
+      // Start real-time updates
+      startModalUpdates();
+    }
+
+    // Populate General Tab
+    function populateGeneralTab() {
       const details = document.getElementById('country-details');
       details.innerHTML = `
         <div class="detail-item">
-          <div class="detail-label">${translations[currentLanguage].description}</div>
-          <div class="detail-value">${currentLanguage === 'ar' ? country.description : country.descriptionEn}</div>
-        </div>
-        <div class="detail-item">
-          <div class="detail-label">${translations[currentLanguage].leader}</div>
-          <div class="detail-value">${currentLanguage === 'ar' ? country.leader : country.leaderEn}</div>
-        </div>
-        <div class="detail-item">
-          <div class="detail-label">${translations[currentLanguage].population}</div>
-          <div class="detail-value">${currentLanguage === 'ar' ? country.population : country.populationEn}</div>
-        </div>
-        <div class="detail-item">
-          <div class="detail-label">${translations[currentLanguage].capital}</div>
-          <div class="detail-value">${currentLanguage === 'ar' ? country.capital : country.capitalEn}</div>
-        </div>
-        <div class="detail-item">
-          <div class="detail-label">${translations[currentLanguage].timezone}</div>
-          <div class="detail-value">${country.zone}</div>
-        </div>
-        <div class="detail-item">
-          <div class="detail-label">${translations[currentLanguage].coordinates}</div>
-          <div class="detail-value">${country.coordinates}</div>
-        </div>
-        <div class="detail-item">
-          <div class="detail-label">${translations[currentLanguage].area}</div>
-          <div class="detail-value">${currentLanguage === 'ar' ? country.area : country.areaEn}</div>
-        </div>
-        <div class="detail-item">
-          <div class="detail-label">${translations[currentLanguage].currency}</div>
-          <div class="detail-value">${currentLanguage === 'ar' ? country.currency : country.currencyEn}</div>
-        </div>
-        <div class="detail-item">
-          <div class="detail-label">${translations[currentLanguage].language}</div>
-          <div class="detail-value">${currentLanguage === 'ar' ? country.language : country.languageEn}</div>
-        </div>
-        <div class="detail-item">
-          <div class="detail-label">${translations[currentLanguage].weatherTemp}</div>
-          <div class="detail-value">${weather.temp}</div>
-        </div>
-        <div class="detail-item">
-          <div class="detail-label">${translations[currentLanguage].weatherCondition}</div>
-          <div class="detail-value">${weather.condition}</div>
-        </div>
-        <div class="detail-item">
-          <div class="detail-label">${translations[currentLanguage].weatherHumidity}</div>
-          <div class="detail-value">${weather.humidity}</div>
-        </div>
-        <div class="detail-item">
-          <div class="detail-label">${translations[currentLanguage].weatherWind}</div>
-          <div class="detail-value">${weather.wind}</div>
-        </div>
-        <div class="detail-item">
-          <div class="detail-label">${translations[currentLanguage].prayerTimes}</div>
-          <div class="detail-value">
-            ${translations[currentLanguage].fajr}: ${prayers.fajr}<br>
-            ${translations[currentLanguage].dhuhr}: ${prayers.dhuhr}<br>
-            ${translations[currentLanguage].asr}: ${prayers.asr}<br>
-            ${translations[currentLanguage].maghrib}: ${prayers.maghrib}<br>
-            ${translations[currentLanguage].isha}: ${prayers.isha}
+          <div class="detail-label">
+            <i class="fas fa-info-circle" style="color: #FFD700; margin-left: 8px;"></i>
+            ${translations[currentLanguage].description}
           </div>
+          <div class="detail-value">${currentLanguage === 'ar' ? currentModalCountry.description : currentModalCountry.descriptionEn}</div>
+        </div>
+        <div class="detail-item">
+          <div class="detail-label">
+            <i class="fas fa-crown" style="color: #FFD700; margin-left: 8px;"></i>
+            ${translations[currentLanguage].leader}
+          </div>
+          <div class="detail-value">${currentLanguage === 'ar' ? currentModalCountry.leader : currentModalCountry.leaderEn}</div>
+        </div>
+        <div class="detail-item">
+          <div class="detail-label">
+            <i class="fas fa-users" style="color: #32CD32; margin-left: 8px;"></i>
+            ${translations[currentLanguage].population}
+          </div>
+          <div class="detail-value">${currentLanguage === 'ar' ? currentModalCountry.population : currentModalCountry.populationEn}</div>
+        </div>
+        <div class="detail-item">
+          <div class="detail-label">
+            <i class="fas fa-city" style="color: #00BFFF; margin-left: 8px;"></i>
+            ${translations[currentLanguage].capital}
+          </div>
+          <div class="detail-value">${currentLanguage === 'ar' ? currentModalCountry.capital : currentModalCountry.capitalEn}</div>
+        </div>
+        <div class="detail-item">
+          <div class="detail-label">
+            <i class="fas fa-globe" style="color: #FF6347; margin-left: 8px;"></i>
+            ${translations[currentLanguage].coordinates}
+          </div>
+          <div class="detail-value">${currentModalCountry.coordinates}</div>
+        </div>
+        <div class="detail-item">
+          <div class="detail-label">
+            <i class="fas fa-expand-arrows-alt" style="color: #9370DB; margin-left: 8px;"></i>
+            ${translations[currentLanguage].area}
+          </div>
+          <div class="detail-value">${currentLanguage === 'ar' ? currentModalCountry.area : currentModalCountry.areaEn}</div>
+        </div>
+        <div class="detail-item">
+          <div class="detail-label">
+            <i class="fas fa-coins" style="color: #FFD700; margin-left: 8px;"></i>
+            ${translations[currentLanguage].currency}
+          </div>
+          <div class="detail-value">${currentLanguage === 'ar' ? currentModalCountry.currency : currentModalCountry.currencyEn}</div>
+        </div>
+        <div class="detail-item">
+          <div class="detail-label">
+            <i class="fas fa-language" style="color: #FF69B4; margin-left: 8px;"></i>
+            ${translations[currentLanguage].language}
+          </div>
+          <div class="detail-value">${currentLanguage === 'ar' ? currentModalCountry.language : currentModalCountry.languageEn}</div>
         </div>
       `;
-      modal.style.display = 'flex';
+    }
+
+    // Show Tab Function
+    function showTab(tabName) {
+      // Hide all tabs
+      const tabContents = document.querySelectorAll('.tab-content');
+      const tabButtons = document.querySelectorAll('.tab-btn');
+      
+      tabContents.forEach(tab => tab.classList.remove('active'));
+      tabButtons.forEach(btn => btn.classList.remove('active'));
+      
+      // Show selected tab
+      document.getElementById(tabName + '-tab').classList.add('active');
+      document.querySelector(`[data-tab="${tabName}"]`).classList.add('active');
+      
+      // Load tab content
+      switch(tabName) {
+        case 'qibla':
+          loadQiblaTab();
+          break;
+        case 'prayers':
+          loadPrayersTab();
+          break;
+        case 'weather':
+          loadWeatherTab();
+          break;
+      }
+    }
+
+    // Load Qibla Tab
+    function loadQiblaTab() {
+      // Try to get user location for GPS method
+      if (navigator.geolocation) {
+        updateLocationStatus('جاري تحديد موقعك...', 'fas fa-spinner fa-spin');
+        navigator.geolocation.getCurrentPosition(
+          position => {
+            userLocation = {
+              lat: position.coords.latitude,
+              lng: position.coords.longitude
+            };
+            updateLocationStatus('تم تحديد موقعك بنجاح', 'fas fa-check-circle');
+            calculateQiblaDirection();
+          },
+          error => {
+            updateLocationStatus('لا يمكن تحديد الموقع - استخدم موقع الدولة', 'fas fa-exclamation-triangle');
+            useSelectedCountry();
+          }
+        );
+      } else {
+        updateLocationStatus('GPS غير مدعوم - استخدم موقع الدولة', 'fas fa-times-circle');
+        useSelectedCountry();
+      }
+    }
+
+    // Use GPS Location
+    function useGPSLocation() {
+      document.getElementById('gps-btn').classList.add('active');
+      document.getElementById('country-btn').classList.remove('active');
+      
+      if (navigator.geolocation) {
+        updateLocationStatus('جاري تحديد موقعك...', 'fas fa-spinner fa-spin');
+        navigator.geolocation.getCurrentPosition(
+          position => {
+            userLocation = {
+              lat: position.coords.latitude,
+              lng: position.coords.longitude
+            };
+            updateLocationStatus('تم تحديد موقعك بنجاح', 'fas fa-check-circle');
+            calculateQiblaDirection();
+          },
+          error => {
+            updateLocationStatus('فشل في تحديد الموقع', 'fas fa-times-circle');
+          }
+        );
+      } else {
+        updateLocationStatus('GPS غير مدعوم في هذا المتصفح', 'fas fa-times-circle');
+      }
+    }
+
+    // Use Selected Country Location
+    function useSelectedCountry() {
+      document.getElementById('gps-btn').classList.remove('active');
+      document.getElementById('country-btn').classList.add('active');
+      
+      if (currentModalCountry) {
+        // Parse coordinates from country data
+        const coords = currentModalCountry.coordinates.split(',');
+        userLocation = {
+          lat: parseFloat(coords[0].trim()),
+          lng: parseFloat(coords[1].trim())
+        };
+        updateLocationStatus(`موقع ${currentLanguage === 'ar' ? currentModalCountry.name : currentModalCountry.nameEn}`, 'fas fa-map-marker-alt');
+        calculateQiblaDirection();
+      }
+    }
+
+    // Update Location Status
+    function updateLocationStatus(message, iconClass) {
+      const statusElement = document.getElementById('location-status');
+      statusElement.innerHTML = `<i class="${iconClass}"></i><span>${message}</span>`;
+    }
+
+    // Calculate Qibla Direction
+    function calculateQiblaDirection() {
+      if (!userLocation) return;
+      
+      // Mecca coordinates
+      const meccaLat = 21.4225;
+      const meccaLng = 39.8262;
+      
+      // Calculate bearing from user location to Mecca
+      const lat1 = userLocation.lat * Math.PI / 180;
+      const lat2 = meccaLat * Math.PI / 180;
+      const deltaLng = (meccaLng - userLocation.lng) * Math.PI / 180;
+      
+      const x = Math.sin(deltaLng) * Math.cos(lat2);
+      const y = Math.cos(lat1) * Math.sin(lat2) - Math.sin(lat1) * Math.cos(lat2) * Math.cos(deltaLng);
+      
+      let bearing = Math.atan2(x, y) * 180 / Math.PI;
+      bearing = (bearing + 360) % 360; // Normalize to 0-360
+      
+      qiblaDirection = bearing;
+      
+      // Calculate distance to Mecca
+      const distance = calculateDistance(userLocation.lat, userLocation.lng, meccaLat, meccaLng);
+      
+      // Update UI
+      updateQiblaDisplay(bearing, distance);
+    }
+
+    // Calculate Distance between two points
+    function calculateDistance(lat1, lng1, lat2, lng2) {
+      const R = 6371; // Earth's radius in km
+      const dLat = (lat2 - lat1) * Math.PI / 180;
+      const dLng = (lng2 - lng1) * Math.PI / 180;
+      const a = Math.sin(dLat/2) * Math.sin(dLat/2) + 
+                Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) * 
+                Math.sin(dLng/2) * Math.sin(dLng/2);
+      const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+      return Math.round(R * c);
+    }
+
+    // Update Qibla Display
+    function updateQiblaDisplay(bearing, distance) {
+      // Update direction value
+      document.getElementById('qibla-direction').textContent = Math.round(bearing) + '°';
+      
+      // Update distance
+      document.getElementById('distance-to-mecca').textContent = distance + ' كم';
+      
+      // Update user location
+      const locationText = userLocation ? 
+        `${userLocation.lat.toFixed(4)}, ${userLocation.lng.toFixed(4)}` : '--';
+      document.getElementById('user-location').textContent = locationText;
+      
+      // Rotate qibla arrow
+      const qiblaArrow = document.getElementById('qibla-arrow');
+      qiblaArrow.style.transform = `translate(-50%, -50%) rotate(${bearing}deg)`;
+      
+      // If device supports orientation, also update compass needle
+      if (window.DeviceOrientationEvent) {
+        window.addEventListener('deviceorientation', handleOrientation);
+      }
+    }
+
+    // Handle Device Orientation for Compass
+    function handleOrientation(event) {
+      if (event.alpha !== null) {
+        const compass = event.alpha; // Device heading
+        const needle = document.getElementById('compass-needle');
+        needle.style.transform = `translate(-50%, -50%) rotate(${-compass}deg)`;
+      }
+    }
+
+    // Load Prayers Tab
+    function loadPrayersTab() {
+      const prayerContainer = document.getElementById('modal-prayer-times');
+      prayerContainer.innerHTML = '';
+      
+      if (currentModalPrayers) {
+        const prayerNames = ['fajr', 'dhuhr', 'asr', 'maghrib', 'isha'];
+        const prayerIcons = {
+          fajr: 'fas fa-sun',
+          dhuhr: 'fas fa-sun',
+          asr: 'fas fa-sun',
+          maghrib: 'fas fa-moon',
+          isha: 'fas fa-moon'
+        };
+        
+        prayerNames.forEach(prayer => {
+          if (currentModalPrayers[prayer]) {
+            const prayerDiv = document.createElement('div');
+            prayerDiv.className = 'prayer-item-enhanced';
+            prayerDiv.innerHTML = `
+              <div class="prayer-name-enhanced">
+                <i class="${prayerIcons[prayer]}" style="margin-left: 5px;"></i>
+                ${translations[currentLanguage][prayer]}
+              </div>
+              <div class="prayer-time-enhanced">${currentModalPrayers[prayer]}</div>
+            `;
+            prayerContainer.appendChild(prayerDiv);
+          }
+        });
+        
+        // Update next prayer countdown
+        updateModalPrayerCountdown();
+      }
+    }
+
+    // Load Weather Tab
+    function loadWeatherTab() {
+      const weatherContainer = document.getElementById('modal-weather');
+      
+      if (currentModalWeather) {
+        weatherContainer.innerHTML = `
+          <div class="weather-main">
+            <div class="weather-icon-large">
+              <i class="fas fa-cloud-sun"></i>
+            </div>
+            <div class="weather-details">
+              <div class="weather-temp">${currentModalWeather.temp}</div>
+              <div class="weather-desc">${currentModalWeather.condition}</div>
+              <div class="weather-feels">الرطوبة: ${currentModalWeather.humidity}</div>
+            </div>
+          </div>
+          <div class="weather-additional">
+            <div class="weather-item">
+              <i class="fas fa-wind" style="color: #87CEEB; margin-left: 8px;"></i>
+              <span>الرياح: ${currentModalWeather.wind}</span>
+            </div>
+          </div>
+        `;
+        
+        // Load weather forecast (mock data for now)
+        loadWeatherForecast();
+      }
+    }
+
+    // Load Weather Forecast
+    function loadWeatherForecast() {
+      const forecastContainer = document.getElementById('weather-forecast');
+      const days = ['الأحد', 'الاثنين', 'الثلاثاء', 'الأربعاء', 'الخميس'];
+      
+      forecastContainer.innerHTML = '';
+      
+      days.forEach((day, index) => {
+        const forecastDiv = document.createElement('div');
+        forecastDiv.className = 'forecast-item';
+        forecastDiv.innerHTML = `
+          <div class="forecast-day">${day}</div>
+          <div class="forecast-icon">
+            <i class="fas fa-${index % 2 === 0 ? 'sun' : 'cloud'}"></i>
+          </div>
+          <div class="forecast-temp">${25 + Math.floor(Math.random() * 10)}°</div>
+        `;
+        forecastContainer.appendChild(forecastDiv);
+      });
+    }
+
+    // Start Modal Updates
+    function startModalUpdates() {
+      // Update time every second
+      setInterval(() => {
+        if (document.getElementById('country-modal').style.display === 'flex') {
+          updateModalTime();
+          updateModalPrayerCountdown();
+        }
+      }, 1000);
+    }
+
+    // Update Modal Time
+    function updateModalTime() {
+      if (!currentModalCountry) return;
+      
+      const now = DateTime.now().setZone(currentModalCountry.zone);
+      const hijriDate = getHijriDate(now.toJSDate());
+      
+      document.getElementById('modal-local-time').textContent = now.toFormat('HH:mm:ss');
+      document.getElementById('modal-hijri-date').textContent = hijriDate;
+      document.getElementById('modal-timezone').textContent = now.toFormat('ZZZZZ');
+    }
+
+    // Update Modal Prayer Countdown
+    function updateModalPrayerCountdown() {
+      if (!currentModalPrayers) return;
+      
+      const nextPrayer = getNextPrayerFromTimes(currentModalPrayers);
+      if (nextPrayer) {
+        document.getElementById('modal-next-prayer').textContent = 
+          translations[currentLanguage][nextPrayer.name];
+        
+        const timeLeft = getTimeUntilPrayer(nextPrayer.time);
+        document.getElementById('modal-countdown').textContent = timeLeft;
+        
+        // Update progress bar
+        const progress = getPrayerProgress(currentModalPrayers, nextPrayer.name);
+        document.getElementById('modal-progress-bar').style.width = progress + '%';
+      }
+    }
+
+    // Quick Action Functions
+    function showQiblaDirection() {
+      showTab('qibla');
+    }
+
+    function showPrayerTimes() {
+      showTab('prayers');
+    }
+
+    function showWeatherDetails() {
+      showTab('weather');
     }
 
     // Close modal
