@@ -1363,6 +1363,41 @@
     .about-content h2 {
       color: #FFA500;
       margin-top: 30px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 15px;
+      background: linear-gradient(135deg, rgba(255,165,0,0.1), rgba(255,215,0,0.05));
+      border-radius: 12px;
+      border-left: 4px solid #FFA500;
+      box-shadow: 0 4px 12px rgba(255,165,0,0.2);
+      transition: all 0.3s ease;
+    }
+
+    [lang="en"] .about-content h2 {
+      border-left: none;
+      border-right: 4px solid #FFA500;
+    }
+
+    .about-content h2:hover {
+      background: linear-gradient(135deg, rgba(255,165,0,0.2), rgba(255,215,0,0.1));
+      transform: translateX(-5px);
+      box-shadow: 0 6px 18px rgba(255,165,0,0.3);
+    }
+
+    [lang="en"] .about-content h2:hover {
+      transform: translateX(5px);
+    }
+
+    .about-content h2 i {
+      font-size: 1.2rem;
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+      animation: headerIconGlow 3s ease-in-out infinite;
+    }
+
+    @keyframes headerIconGlow {
+      0%, 100% { filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3)); }
+      50% { filter: drop-shadow(0 3px 8px rgba(255,165,0,0.5)); }
     }
 
     .about-content p, .about-content ul {
@@ -1388,6 +1423,345 @@
 
     .about-content a:hover {
       text-decoration: underline;
+    }
+
+    /* Enhanced Icon Styles for About Content */
+    .about-content ul li {
+      display: flex;
+      align-items: center;
+      margin-bottom: 12px;
+      padding: 8px 12px;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+      background: rgba(255,255,255,0.02);
+      border-left: 3px solid transparent;
+    }
+
+    [lang="en"] .about-content ul li {
+      border-left: none;
+      border-right: 3px solid transparent;
+    }
+
+    .about-content ul li:hover {
+      background: rgba(255,255,255,0.05);
+      border-left-color: rgba(255,215,0,0.5);
+      transform: translateX(-5px);
+    }
+
+    [lang="en"] .about-content ul li:hover {
+      border-right-color: rgba(255,215,0,0.5);
+      transform: translateX(5px);
+    }
+
+    .about-content ul li i {
+      font-size: 1.1rem;
+      filter: drop-shadow(0 1px 2px rgba(0,0,0,0.5));
+      transition: all 0.3s ease;
+      flex-shrink: 0;
+    }
+
+    .about-content ul li:hover i {
+      transform: scale(1.2);
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.7));
+    }
+
+    /* Animated icons for specific features */
+    .about-content ul li i.fa-sync-alt {
+      animation: iconRotate 2s linear infinite;
+    }
+
+    .about-content ul li i.fa-moon {
+      animation: moonPulse 3s ease-in-out infinite;
+    }
+
+    .about-content ul li i.fa-clock {
+      animation: clockTick 1.5s ease-in-out infinite;
+    }
+
+    .about-content ul li i.fa-globe {
+      animation: globeRotate 4s linear infinite;
+    }
+
+    @keyframes iconRotate {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    @keyframes moonPulse {
+      0%, 100% { opacity: 0.8; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.1); }
+    }
+
+    @keyframes clockTick {
+      0%, 50% { transform: scale(1); }
+      25% { transform: scale(1.1); }
+      75% { transform: scale(0.95); }
+      100% { transform: scale(1); }
+    }
+
+    /* Developer profile styles */
+    .developer-profile {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      background: linear-gradient(135deg, rgba(255,215,0,0.15), rgba(255,165,0,0.1));
+      padding: 25px;
+      border-radius: 20px;
+      margin: 25px 0;
+      border: 2px solid rgba(255,215,0,0.3);
+      box-shadow: 0 8px 32px rgba(255,215,0,0.2);
+      transition: all 0.4s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .developer-profile::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+      transition: left 0.8s ease;
+    }
+
+    .developer-profile:hover::before {
+      left: 100%;
+    }
+
+    .developer-profile:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 45px rgba(255,215,0,0.3);
+      border-color: rgba(255,215,0,0.5);
+    }
+
+    .developer-avatar {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      border: 4px solid rgba(255,215,0,0.8);
+      box-shadow: 
+        0 8px 25px rgba(0,0,0,0.3),
+        inset 0 2px 10px rgba(255,215,0,0.2);
+      transition: all 0.4s ease;
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(135deg, #1a1a2e, #16213e);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+      color: #FFD700;
+    }
+
+    .developer-avatar:hover {
+      transform: scale(1.1) rotate(5deg);
+      border-color: #FFD700;
+      box-shadow: 
+        0 12px 35px rgba(255,215,0,0.4),
+        inset 0 2px 15px rgba(255,215,0,0.3);
+    }
+
+    .developer-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 50%;
+      transition: all 0.4s ease;
+    }
+
+    .developer-avatar:hover img {
+      transform: scale(1.05);
+    }
+
+    .developer-info {
+      flex: 1;
+      text-align: right;
+    }
+
+    [lang="en"] .developer-info {
+      text-align: left;
+    }
+
+    .developer-name {
+      font-size: 1.8rem;
+      font-weight: 800;
+      color: #FFD700;
+      margin-bottom: 8px;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+      background: linear-gradient(135deg, #FFD700, #FFA500);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .developer-title {
+      font-size: 1.1rem;
+      color: #00BFFF;
+      margin-bottom: 12px;
+      font-weight: 600;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+    }
+
+    .developer-education {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 15px;
+    }
+
+    .education-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.95rem;
+      color: #e0e0e0;
+      background: rgba(0,0,0,0.2);
+      padding: 8px 12px;
+      border-radius: 10px;
+      border-left: 3px solid #FFD700;
+      transition: all 0.3s ease;
+    }
+
+    [lang="en"] .education-item {
+      border-left: none;
+      border-right: 3px solid #FFD700;
+    }
+
+    .education-item:hover {
+      background: rgba(255,215,0,0.1);
+      transform: translateX(-5px);
+    }
+
+    [lang="en"] .education-item:hover {
+      transform: translateX(5px);
+    }
+
+    .education-item i {
+      color: #FFD700;
+      font-size: 1rem;
+    }
+
+    .developer-social {
+      display: flex;
+      gap: 15px;
+      margin-top: 15px;
+      justify-content: flex-end;
+    }
+
+    [lang="en"] .developer-social {
+      justify-content: flex-start;
+    }
+
+    .social-link {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 45px;
+      height: 45px;
+      background: linear-gradient(135deg, rgba(255,215,0,0.2), rgba(255,165,0,0.1));
+      border-radius: 50%;
+      color: #FFD700;
+      text-decoration: none;
+      transition: all 0.4s ease;
+      border: 2px solid rgba(255,215,0,0.3);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    }
+
+    .social-link:hover {
+      background: linear-gradient(135deg, rgba(255,215,0,0.4), rgba(255,165,0,0.2));
+      transform: translateY(-3px) scale(1.1);
+      box-shadow: 0 8px 25px rgba(255,215,0,0.3);
+      border-color: #FFD700;
+      color: #fff;
+    }
+
+    .social-link i {
+      font-size: 1.2rem;
+      transition: all 0.3s ease;
+    }
+
+    .social-link:hover i {
+      transform: scale(1.2);
+      filter: drop-shadow(0 0 8px #FFD700);
+    }
+
+    @keyframes developerGlow {
+      0%, 100% { box-shadow: 0 0 20px rgba(255,215,0,0.3); }
+      50% { box-shadow: 0 0 35px rgba(255,215,0,0.5); }
+    }
+
+    .developer-profile.featured {
+      animation: developerGlow 3s infinite;
+    }
+
+    @media (max-width: 768px) {
+      .developer-profile {
+        flex-direction: column;
+        text-align: center;
+        gap: 15px;
+      }
+
+      .developer-info {
+        text-align: center;
+      }
+
+      .developer-social {
+        justify-content: center;
+      }
+
+      .education-item:hover {
+        transform: translateY(-2px);
+      }
+    }
+
+    .project-links {
+      background: linear-gradient(135deg, rgba(0,191,255,0.15), rgba(30,144,255,0.1));
+      padding: 20px;
+      border-radius: 15px;
+      margin: 25px 0;
+      border: 2px solid rgba(0,191,255,0.3);
+      box-shadow: 0 8px 32px rgba(0,191,255,0.2);
+      transition: all 0.4s ease;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .project-links:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 40px rgba(0,191,255,0.3);
+      border-color: rgba(0,191,255,0.5);
+    }
+
+    .project-links i {
+      font-size: 1.5rem;
+      color: #00BFFF;
+      animation: pulse 2s infinite;
+    }
+
+    .project-links a {
+      color: #00BFFF;
+      text-decoration: none;
+      font-weight: 700;
+      transition: all 0.3s ease;
+      border-bottom: 2px solid transparent;
+    }
+
+    .project-links a:hover {
+      color: #FFD700;
+      border-bottom-color: #FFD700;
+      text-shadow: 0 0 10px rgba(255,215,0,0.5);
+    }
+
+    @media (max-width: 768px) {
+      .project-links {
+        flex-direction: column;
+        gap: 10px;
+      }
     }
 
     .lang-switch {
@@ -1620,77 +1994,177 @@
         <h2 class="modal-title"> نبذة عن المشروع</h2>
       </div>
       <div class="about-content" id="about-content-ar">
+        
+        <!-- Developer Profile Section -->
+        <div class="developer-profile featured">
+          <div class="developer-avatar">
+            <img src="images/developer.jpg" alt="عبد الصمد بوركيبات" onerror="this.style.display='none'; this.parentNode.innerHTML='<i class=\'fas fa-user-graduate\'></i>';">
+          </div>
+          <div class="developer-info">
+            <h3 class="developer-name">عبد الصمد بوركيبات</h3>
+            <p class="developer-title">باحث في فقه الأمن السيبراني الأسري</p>
+            <div class="developer-education">
+              <div class="education-item">
+                <i class="fas fa-graduation-cap"></i>
+                <span>بكالوريوس علوم الحاسوب – جامعة الشعب الأمريكية</span>
+              </div>
+              <div class="education-item">
+                <i class="fas fa-mosque"></i>
+                <span>بكالوريوس علوم القرآن الكريم – جامعة المدينة العالمية بماليزيا</span>
+              </div>
+            </div>
+            <div class="developer-social">
+              <a href="https://github.com/ABDESSAMAD-BOURKIBATE" class="social-link" target="_blank" title="GitHub">
+                <i class="fab fa-github"></i>
+              </a>
+              <a href="https://www.linkedin.com/in/abdessamad-bourkibate-b17717350/" class="social-link" target="_blank" title="LinkedIn">
+                <i class="fab fa-linkedin"></i>
+              </a>
+              <a href="mailto:bourkibate.abdessamad@gmail.com" class="social-link" title="البريد الإلكتروني">
+                <i class="fas fa-envelope"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <h2><i class="fas fa-lightbulb" style="color: #FFD700; margin-left: 8px;"></i> فكرة المشروع:</h2>
         <p>
-          هذا المشروع هو مبادرة تقنية إبداعية من تطوير <strong>عبد الصمد بوركيبات</strong>، باحث في <strong>فقه الأمن السيبراني الأسري</strong>، وطالب في:
+          <strong>ساعة العالم الرقمية</strong> هي مبادرة تقنية رائدة تهدف إلى ربط العالم الإسلامي بالتقنية الحديثة. يعرض المشروع التوقيت الحقيقي لأكثر من <strong>42 دولة آسيوية</strong> مع دعم كامل للتقويمين <strong>الميلادي والهجري</strong>، وعرض أوقات الصلاة بدقة متناهية، وحالات الليل والنهار الديناميكية، في واجهة مرئية متطورة تحترم الهوية الإسلامية.
         </p>
+        
+        <h2><i class="fas fa-bullseye" style="color: #FF6347; margin-left: 8px;"></i> أهداف المشروع:</h2>
         <ul>
-          <li>🎓 بكالوريوس علوم الحاسوب – <strong>جامعة الشعب الأمريكية</strong></li>
-          <li>🕋 بكالوريوس علوم القرآن الكريم – <strong>جامعة المدينة العالمية بماليزيا</strong></li>
+          <li><i class="fas fa-clock" style="color: #FFD700; margin-left: 8px;"></i> <strong>التوعية الزمنية:</strong> ترسيخ احترام الوقت وأهميته في الحياة المعاصرة</li>
+          <li><i class="fas fa-star-and-crescent" style="color: #00BFFF; margin-left: 8px;"></i> <strong>الهوية الإسلامية:</strong> دمج القيم الإسلامية في التصميمات الرقمية العصرية</li>
+          <li><i class="fas fa-users" style="color: #32CD32; margin-left: 8px;"></i> <strong>الأمن الأسري:</strong> نشر وعي الأسرة بأهمية الزمن في السياق السيبراني</li>
+          <li><i class="fas fa-globe" style="color: #FF6347; margin-left: 8px;"></i> <strong>التواصل العالمي:</strong> ربط المسلمين حول العالم بأوقات صلاتهم المشتركة</li>
+          <li><i class="fas fa-laptop-code" style="color: #9370DB; margin-left: 8px;"></i> <strong>التقنية الحديثة:</strong> استخدام أحدث التقنيات لخدمة المجتمع الإسلامي</li>
         </ul>
-        <h2> فكرة المشروع:</h2>
+
+        <h2><i class="fas fa-cogs" style="color: #32CD32; margin-left: 8px;"></i> المميزات التقنية:</h2>
+        <ul>
+          <li><i class="fas fa-sync-alt" style="color: #00ff88; margin-left: 8px;"></i> <strong>التحديث الفوري:</strong> عرض الوقت الحقيقي لكل دولة بتحديث تلقائي</li>
+          <li><i class="fas fa-calendar-alt" style="color: #FFD700; margin-left: 8px;"></i> <strong>التقويم المزدوج:</strong> دمج التقويمين الميلادي والهجري في واجهة موحدة</li>
+          <li><i class="fas fa-mosque" style="color: #00BFFF; margin-left: 8px;"></i> <strong>أوقات الصلاة:</strong> استخدام Aladhan API للحصول على أوقات صلاة دقيقة</li>
+          <li><i class="fas fa-hourglass-half" style="color: #FFA500; margin-left: 8px;"></i> <strong>العد التنازلي:</strong> مؤشر زمني للوقت المتبقي حتى الصلاة القادمة</li>
+          <li><i class="fas fa-moon" style="color: #9370DB; margin-left: 8px;"></i> <strong>حالات الوقت:</strong> تمييز تلقائي بين الفجر والشروق والظهر والغروب والليل</li>
+          <li><i class="fas fa-cloud-sun" style="color: #87CEEB; margin-left: 8px;"></i> <strong>معلومات الطقس:</strong> بيانات الطقس الحية من OpenWeatherMap API</li>
+          <li><i class="fas fa-mobile-alt" style="color: #32CD32; margin-left: 8px;"></i> <strong>التصميم المتجاوب:</strong> واجهة مرنة تتكيف مع جميع الأجهزة والشاشات</li>
+          <li><i class="fas fa-palette" style="color: #FF69B4; margin-left: 8px;"></i> <strong>الواجهة المتقدمة:</strong> تأثيرات بصرية احترافية وأنيميشن سلس</li>
+          <li><i class="fas fa-search" style="color: #20B2AA; margin-left: 8px;"></i> <strong>البحث والتصفية:</strong> إمكانية البحث والتصفية حسب القارات</li>
+          <li><i class="fas fa-chart-bar" style="color: #DC143C; margin-left: 8px;"></i> <strong>الإحصائيات:</strong> عرض إحصائيات شاملة للدول والأوقات</li>
+        </ul>
+
+        <h2><i class="fas fa-tools" style="color: #FF9800; margin-left: 8px;"></i> التقنيات المستخدمة:</h2>
+        <ul>
+          <li><i class="fab fa-html5" style="color: #E34F26; margin-left: 8px;"></i> <strong>HTML5 & CSS3:</strong> هيكل متقدم مع تأثيرات بصرية حديثة</li>
+          <li><i class="fab fa-js-square" style="color: #F7DF1E; margin-left: 8px;"></i> <strong>JavaScript ES6+:</strong> برمجة تفاعلية متطورة</li>
+          <li><i class="fas fa-clock" style="color: #4CAF50; margin-left: 8px;"></i> <strong>Luxon.js:</strong> مكتبة متقدمة لإدارة التوقيت والمناطق الزمنية</li>
+          <li><i class="fab fa-font-awesome" style="color: #339AF0; margin-left: 8px;"></i> <strong>Font Awesome:</strong> نظام أيقونات احترافي</li>
+          <li><i class="fas fa-plug" style="color: #FF9800; margin-left: 8px;"></i> <strong>API Integration:</strong> تكامل مع خدمات خارجية متعددة</li>
+        </ul>
+
+        <h2><i class="fas fa-star" style="color: #9370DB; margin-left: 8px;"></i> الرؤية المستقبلية:</h2>
         <p>
-          تم تطوير هذا المشروع لعرض التوقيت العالمي الحقيقي لأكثر من 40 دولة، مع دعم كامل للتقويمين <strong>الميلادي والهجري</strong>، وتحديد حالة <strong>الليل والنهار</strong>، وأوقات الصلاة لكل دولة بدقة، في واجهة مرئية متقدمة وسهلة الاستخدام.
+          نسعى لتطوير هذا المشروع ليصبح منصة شاملة للمسلمين حول العالم، تضم المزيد من الخدمات الإسلامية الرقمية مثل القبلة، والأدعية، والتذكيرات الإسلامية، مع الحفاظ على الهوية التقنية الإسلامية الأصيلة.
         </p>
-        <h2>أهداف المشروع:</h2>
-        <ul>
-          <li>التوعية بالزمن العالمي وترسيخ احترام الوقت.</li>
-          <li>تعزيز الهوية السيبرانية الثقافية والأخلاقية.</li>
-          <li>دمج القيم الإسلامية في تصميمات رقمية عصرية.</li>
-          <li>نشر وعي الأسرة بأهمية الزمن في السياق السيبراني.</li>
-        </ul>
-        <h2>⚙️ مميزات تقنية:</h2>
-        <ul>
-          <li>يعرض الوقت الحقيقي لكل دولة بتنسيق سهل القراءة.</li>
-          <li>يدمج التقويم الميلادي والهجري في كل بطاقة زمنية.</li>
-          <li>يعرض أوقات الصلاة باستخدام Aladhan API.</li>
-          <li>تمييز تلقائي بين الليل والنهار حسب التوقيت المحلي للدولة.</li>
-          <li>تصميم متجاوب، مرن، ومناسب لجميع الأجهزة.</li>
-          <li>معلومات الطقس في الوقت الحقيقي باستخدام OpenWeatherMap API.</li>
-        </ul>
-        <p>
+
+        <p class="project-links">
+          <i class="fab fa-github"></i>
           يمكن الوصول إلى الكود المصدري للمشروع على منصة GitHub:
           <a href="https://github.com/ABDESSAMAD-BOURKIBATE/DigitalWorldClock" target="_blank">
-            DigitalWorldClock على GitHub
+            <strong>DigitalWorldClock على GitHub</strong>
           </a>
         </p>
+        
         <div class="lang-switch">
           <button onclick="toggleAboutLang('en')">🌐 English Version</button>
         </div>
       </div>
       <div class="about-content" id="about-content-en" style="display: none;">
+        
+        <!-- Developer Profile Section -->
+        <div class="developer-profile featured">
+          <div class="developer-avatar">
+            <img src="images/developer.jpg" alt="Abdessamad Bourkibate" onerror="this.style.display='none'; this.parentNode.innerHTML='<i class=\'fas fa-user-graduate\'></i>';">
+          </div>
+          <div class="developer-info">
+            <h3 class="developer-name">Abdessamad Bourkibate</h3>
+            <p class="developer-title">Researcher in Family Cybersecurity Jurisprudence</p>
+            <div class="developer-education">
+              <div class="education-item">
+                <i class="fas fa-graduation-cap"></i>
+                <span>Bachelor in Computer Science – University of the People (USA)</span>
+              </div>
+              <div class="education-item">
+                <i class="fas fa-mosque"></i>
+                <span>Bachelor in Quranic Sciences – Al-Madinah International University (Malaysia)</span>
+              </div>
+            </div>
+            <div class="developer-social">
+              <a href="https://github.com/ABDESSAMAD-BOURKIBATE" class="social-link" target="_blank" title="GitHub">
+                <i class="fab fa-github"></i>
+              </a>
+              <a href="https://www.linkedin.com/in/abdessamad-bourkibate-b17717350/" class="social-link" target="_blank" title="LinkedIn">
+                <i class="fab fa-linkedin"></i>
+              </a>
+              <a href="mailto:bourkibate.abdessamad@gmail.com" class="social-link" title="Email">
+                <i class="fas fa-envelope"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <h2><i class="fas fa-lightbulb" style="color: #FFD700; margin-right: 8px;"></i> Project Concept:</h2>
         <p>
-          This project is a creative and technical initiative developed by <strong>Abdessamad Bourkibate</strong>, a researcher in <strong>Family Cybersecurity Jurisprudence</strong>, and a student of:
+          <strong>Digital World Clock</strong> is a pioneering technical initiative that aims to bridge the Islamic world with modern technology. The project displays real-time clocks for over <strong>42 Asian countries</strong> with full support for both <strong>Gregorian and Hijri calendars</strong>, precise prayer times display, dynamic day and night states, all within an advanced visual interface that respects Islamic identity.
         </p>
+        
+        <h2><i class="fas fa-bullseye" style="color: #FF6347; margin-right: 8px;"></i> Project Goals:</h2>
         <ul>
-          <li>🎓 Bachelor in Computer Science – <strong>University of the People (USA)</strong></li>
-          <li>🕋 Bachelor in Quranic Sciences – <strong>Al-Madinah International University (Malaysia)</strong></li>
+          <li><i class="fas fa-clock" style="color: #FFD700; margin-right: 8px;"></i> <strong>Time Awareness:</strong> Promoting respect for time and its importance in contemporary life</li>
+          <li><i class="fas fa-star-and-crescent" style="color: #00BFFF; margin-right: 8px;"></i> <strong>Islamic Identity:</strong> Integrating Islamic values into modern digital designs</li>
+          <li><i class="fas fa-users" style="color: #32CD32; margin-right: 8px;"></i> <strong>Family Security:</strong> Spreading family awareness about the importance of time in cyberspace</li>
+          <li><i class="fas fa-globe" style="color: #FF6347; margin-right: 8px;"></i> <strong>Global Connection:</strong> Connecting Muslims worldwide through their shared prayer times</li>
+          <li><i class="fas fa-laptop-code" style="color: #9370DB; margin-right: 8px;"></i> <strong>Modern Technology:</strong> Using cutting-edge technology to serve the Islamic community</li>
         </ul>
-        <h2> Project Concept:</h2>
+
+        <h2><i class="fas fa-cogs" style="color: #32CD32; margin-right: 8px;"></i> Technical Features:</h2>
+        <ul>
+          <li><i class="fas fa-sync-alt" style="color: #00ff88; margin-right: 8px;"></i> <strong>Real-time Updates:</strong> Live time display for each country with automatic refresh</li>
+          <li><i class="fas fa-calendar-alt" style="color: #FFD700; margin-right: 8px;"></i> <strong>Dual Calendar:</strong> Integration of Gregorian and Hijri calendars in unified interface</li>
+          <li><i class="fas fa-mosque" style="color: #00BFFF; margin-right: 8px;"></i> <strong>Prayer Times:</strong> Using Aladhan API for accurate prayer time calculations</li>
+          <li><i class="fas fa-hourglass-half" style="color: #FFA500; margin-right: 8px;"></i> <strong>Countdown Timer:</strong> Time indicator showing remaining time until next prayer</li>
+          <li><i class="fas fa-moon" style="color: #9370DB; margin-right: 8px;"></i> <strong>Time States:</strong> Automatic distinction between dawn, sunrise, noon, sunset, and night</li>
+          <li><i class="fas fa-cloud-sun" style="color: #87CEEB; margin-right: 8px;"></i> <strong>Weather Information:</strong> Live weather data from OpenWeatherMap API</li>
+          <li><i class="fas fa-mobile-alt" style="color: #32CD32; margin-right: 8px;"></i> <strong>Responsive Design:</strong> Flexible interface that adapts to all devices and screens</li>
+          <li><i class="fas fa-palette" style="color: #FF69B4; margin-right: 8px;"></i> <strong>Advanced Interface:</strong> Professional visual effects and smooth animations</li>
+          <li><i class="fas fa-search" style="color: #20B2AA; margin-right: 8px;"></i> <strong>Search & Filter:</strong> Ability to search and filter by continents</li>
+          <li><i class="fas fa-chart-bar" style="color: #DC143C; margin-right: 8px;"></i> <strong>Statistics:</strong> Comprehensive statistics display for countries and times</li>
+        </ul>
+
+        <h2><i class="fas fa-tools" style="color: #FF9800; margin-right: 8px;"></i> Technologies Used:</h2>
+        <ul>
+          <li><i class="fab fa-html5" style="color: #E34F26; margin-right: 8px;"></i> <strong>HTML5 & CSS3:</strong> Advanced structure with modern visual effects</li>
+          <li><i class="fab fa-js-square" style="color: #F7DF1E; margin-right: 8px;"></i> <strong>JavaScript ES6+:</strong> Advanced interactive programming</li>
+          <li><i class="fas fa-clock" style="color: #4CAF50; margin-right: 8px;"></i> <strong>Luxon.js:</strong> Advanced library for time and timezone management</li>
+          <li><i class="fab fa-font-awesome" style="color: #339AF0; margin-right: 8px;"></i> <strong>Font Awesome:</strong> Professional icon system</li>
+          <li><i class="fas fa-plug" style="color: #FF9800; margin-right: 8px;"></i> <strong>API Integration:</strong> Integration with multiple external services</li>
+        </ul>
+
+        <h2><i class="fas fa-star" style="color: #9370DB; margin-right: 8px;"></i> Future Vision:</h2>
         <p>
-          A visual web application that displays the real-time clocks of over 40 countries, with integrated <strong>Gregorian and Hijri calendars</strong>, a dynamic indicator of <strong>day or night</strong>, and prayer times for each country.
+          We aim to develop this project into a comprehensive platform for Muslims worldwide, including more Islamic digital services such as Qibla direction, Islamic supplications, and Islamic reminders, while maintaining authentic Islamic technical identity.
         </p>
-        <h2> Project Goals:</h2>
-        <ul>
-          <li>Promote awareness of global time and its ethical significance.</li>
-          <li>Bridge Islamic values with digital design practices.</li>
-          <li>Promote family-based time mindfulness in cyberspace.</li>
-          <li>Reinforce ethical cyber identity in a modern interface.</li>
-        </ul>
-        <h2>⚙️ Technical Features:</h2>
-        <ul>
-          <li>Real-time display for each selected country.</li>
-          <li>Dual calendar support (Gregorian and Hijri).</li>
-          <li>Prayer times integration using Aladhan API.</li>
-          <li>Visual differentiation between day and night per timezone.</li>
-          <li>Responsive and user-friendly interface.</li>
-          <li>Real-time weather information using OpenWeatherMap API.</li>
-        </ul>
-        <p>
+
+        <p class="project-links">
+          <i class="fab fa-github"></i>
           Source code available on GitHub:
           <a href="https://github.com/ABDESSAMAD-BOURKIBATE/DigitalWorldClock" target="_blank">
-            DigitalWorldClock on GitHub
+            <strong>DigitalWorldClock on GitHub</strong>
           </a>
         </p>
+        
         <div class="lang-switch">
           <button onclick="toggleAboutLang('ar')">🌐 النسخة العربية</button>
         </div>

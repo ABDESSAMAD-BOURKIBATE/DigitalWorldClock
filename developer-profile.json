@@ -1,0 +1,159 @@
+{
+  "developer": {
+    "name": {
+      "ar": "عبد الصمد بوركيبات",
+      "en": "Abdessamad Bourkibate"
+    },
+    "title": {
+      "ar": "باحث في فقه الأمن السيبراني الأسري",
+      "en": "Researcher in Family Cybersecurity Jurisprudence"
+    },
+    "bio": {
+      "ar": "مطور وباحث متخصص في دمج القيم الإسلامية مع التقنيات الحديثة، ويهدف إلى تطوير حلول تقنية تخدم المجتمع الإسلامي مع الحفاظ على الهوية الثقافية والأخلاقية.",
+      "en": "Developer and researcher specialized in integrating Islamic values with modern technologies, aiming to develop technical solutions that serve the Islamic community while preserving cultural and moral identity."
+    },
+    "education": [
+      {
+        "degree": {
+          "ar": "بكالوريوس علوم الحاسوب",
+          "en": "Bachelor in Computer Science"
+        },
+        "institution": {
+          "ar": "جامعة الشعب الأمريكية",
+          "en": "University of the People (USA)"
+        },
+        "icon": "fas fa-graduation-cap",
+        "status": "ongoing"
+      },
+      {
+        "degree": {
+          "ar": "بكالوريوس علوم القرآن الكريم",
+          "en": "Bachelor in Quranic Sciences"
+        },
+        "institution": {
+          "ar": "جامعة المدينة العالمية بماليزيا",
+          "en": "Al-Madinah International University (Malaysia)"
+        },
+        "icon": "fas fa-mosque",
+        "status": "ongoing"
+      }
+    ],
+    "specializations": [
+      {
+        "ar": "تطوير تطبيقات الويب",
+        "en": "Web Application Development"
+      },
+      {
+        "ar": "الأمن السيبراني الأسري",
+        "en": "Family Cybersecurity"
+      },
+      {
+        "ar": "التصميم الرقمي الإسلامي",
+        "en": "Islamic Digital Design"
+      },
+      {
+        "ar": "تطوير الواجهات التفاعلية",
+        "en": "Interactive Interface Development"
+      }
+    ],
+    "skills": {
+      "programming": [
+        "JavaScript ES6+",
+        "HTML5 & CSS3",
+        "Python",
+        "Node.js",
+        "React.js"
+      ],
+      "technologies": [
+        "API Integration",
+        "Responsive Design",
+        "Progressive Web Apps",
+        "Database Management",
+        "Version Control (Git)"
+      ],
+      "design": [
+        "UI/UX Design",
+        "CSS Animations",
+        "Graphic Design",
+        "Islamic Calligraphy Integration",
+        "Accessibility Design"
+      ]
+    },
+    "contact": {
+      "email": "bourkibate.abdessamad@gmail.com",
+      "github": "https://github.com/ABDESSAMAD-BOURKIBATE",
+      "linkedin": "https://www.linkedin.com/in/abdessamad-bourkibate-b17717350/"
+    },
+    "projects": {
+      "digital_world_clock": {
+        "name": {
+          "ar": "ساعة العالم الرقمية",
+          "en": "Digital World Clock"
+        },
+        "description": {
+          "ar": "تطبيق ويب متقدم لعرض أوقات العالم مع دعم كامل للتقويم الهجري وأوقات الصلاة",
+          "en": "Advanced web application for displaying world times with full support for Hijri calendar and prayer times"
+        },
+        "technologies": ["HTML5", "CSS3", "JavaScript", "Luxon.js", "Font Awesome", "APIs"],
+        "features": [
+          {
+            "ar": "عرض أوقات 42 دولة آسيوية",
+            "en": "Display times for 42 Asian countries"
+          },
+          {
+            "ar": "أوقات الصلاة مع العد التنازلي",
+            "en": "Prayer times with countdown"
+          },
+          {
+            "ar": "التقويم الهجري والميلادي",
+            "en": "Hijri and Gregorian calendars"
+          },
+          {
+            "ar": "معلومات الطقس الحية",
+            "en": "Live weather information"
+          }
+        ],
+        "github": "https://github.com/ABDESSAMAD-BOURKIBATE/DigitalWorldClock",
+        "status": "active"
+      }
+    },
+    "philosophy": {
+      "ar": "التقنية في خدمة الإنسان والقيم، وليس العكس",
+      "en": "Technology serves humanity and values, not the other way around"
+    },
+    "languages": [
+      {
+        "language": "العربية",
+        "level": "Native"
+      },
+      {
+        "language": "English",
+        "level": "Fluent"
+      },
+      {
+        "language": "Français",
+        "level": "Intermediate"
+      }
+    ],
+    "interests": [
+      {
+        "ar": "تطوير التقنيات الإسلامية",
+        "en": "Islamic Technology Development"
+      },
+      {
+        "ar": "الأمن السيبراني الأسري",
+        "en": "Family Cybersecurity"
+      },
+      {
+        "ar": "التصميم الرقمي المعاصر",
+        "en": "Contemporary Digital Design"
+      },
+      {
+        "ar": "علوم القرآن والحاسوب",
+        "en": "Quranic and Computer Sciences"
+      }
+    ]
+  },
+  "last_updated": "2025-01-23",
+  "version": "1.0"
+}

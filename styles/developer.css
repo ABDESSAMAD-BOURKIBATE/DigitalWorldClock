@@ -1,0 +1,281 @@
+/* =================================
+   Developer Profile Styles
+   Digital World Clock Project
+   Developer: Abdessamad Bourkibate
+   ================================= */
+
+/* Developer Profile Container */
+.developer-profile {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  background: linear-gradient(135deg, rgba(255,215,0,0.15), rgba(255,165,0,0.1));
+  padding: 25px;
+  border-radius: 20px;
+  margin: 25px 0;
+  border: 2px solid rgba(255,215,0,0.3);
+  box-shadow: 0 8px 32px rgba(255,215,0,0.2);
+  transition: all 0.4s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Hover Effects */
+.developer-profile::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+  transition: left 0.8s ease;
+}
+
+.developer-profile:hover::before {
+  left: 100%;
+}
+
+.developer-profile:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 45px rgba(255,215,0,0.3);
+  border-color: rgba(255,215,0,0.5);
+}
+
+/* Avatar Styles */
+.developer-avatar {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  border: 4px solid rgba(255,215,0,0.8);
+  box-shadow: 
+    0 8px 25px rgba(0,0,0,0.3),
+    inset 0 2px 10px rgba(255,215,0,0.2);
+  transition: all 0.4s ease;
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(135deg, #1a1a2e, #16213e);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3rem;
+  color: #FFD700;
+}
+
+.developer-avatar:hover {
+  transform: scale(1.1) rotate(5deg);
+  border-color: #FFD700;
+  box-shadow: 
+    0 12px 35px rgba(255,215,0,0.4),
+    inset 0 2px 15px rgba(255,215,0,0.3);
+}
+
+.developer-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  transition: all 0.4s ease;
+}
+
+.developer-avatar:hover img {
+  transform: scale(1.05);
+}
+
+/* Developer Information */
+.developer-info {
+  flex: 1;
+  text-align: right;
+}
+
+[lang="en"] .developer-info {
+  text-align: left;
+}
+
+.developer-name {
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: #FFD700;
+  margin-bottom: 8px;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+  background: linear-gradient(135deg, #FFD700, #FFA500);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.developer-title {
+  font-size: 1.1rem;
+  color: #00BFFF;
+  margin-bottom: 12px;
+  font-weight: 600;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+}
+
+/* Education Section */
+.developer-education {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 15px;
+}
+
+.education-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.95rem;
+  color: #e0e0e0;
+  background: rgba(0,0,0,0.2);
+  padding: 8px 12px;
+  border-radius: 10px;
+  border-left: 3px solid #FFD700;
+  transition: all 0.3s ease;
+}
+
+[lang="en"] .education-item {
+  border-left: none;
+  border-right: 3px solid #FFD700;
+}
+
+.education-item:hover {
+  background: rgba(255,215,0,0.1);
+  transform: translateX(-5px);
+}
+
+[lang="en"] .education-item:hover {
+  transform: translateX(5px);
+}
+
+.education-item i {
+  color: #FFD700;
+  font-size: 1rem;
+}
+
+/* Social Links */
+.developer-social {
+  display: flex;
+  gap: 15px;
+  margin-top: 15px;
+  justify-content: flex-end;
+}
+
+[lang="en"] .developer-social {
+  justify-content: flex-start;
+}
+
+.social-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 45px;
+  height: 45px;
+  background: linear-gradient(135deg, rgba(255,215,0,0.2), rgba(255,165,0,0.1));
+  border-radius: 50%;
+  color: #FFD700;
+  text-decoration: none;
+  transition: all 0.4s ease;
+  border: 2px solid rgba(255,215,0,0.3);
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+.social-link:hover {
+  background: linear-gradient(135deg, rgba(255,215,0,0.4), rgba(255,165,0,0.2));
+  transform: translateY(-3px) scale(1.1);
+  box-shadow: 0 8px 25px rgba(255,215,0,0.3);
+  border-color: #FFD700;
+  color: #fff;
+}
+
+.social-link i {
+  font-size: 1.2rem;
+  transition: all 0.3s ease;
+}
+
+.social-link:hover i {
+  transform: scale(1.2);
+  filter: drop-shadow(0 0 8px #FFD700);
+}
+
+/* Animation Effects */
+@keyframes developerGlow {
+  0%, 100% { box-shadow: 0 0 20px rgba(255,215,0,0.3); }
+  50% { box-shadow: 0 0 35px rgba(255,215,0,0.5); }
+}
+
+.developer-profile.featured {
+  animation: developerGlow 3s infinite;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .developer-profile {
+    flex-direction: column;
+    text-align: center;
+    gap: 15px;
+  }
+
+  .developer-info {
+    text-align: center;
+  }
+
+  .developer-social {
+    justify-content: center;
+  }
+
+  .education-item:hover {
+    transform: translateY(-2px);
+  }
+
+  .developer-avatar {
+    width: 100px;
+    height: 100px;
+    font-size: 2.5rem;
+  }
+
+  .developer-name {
+    font-size: 1.5rem;
+  }
+}
+
+/* Project Links Enhancement */
+.project-links {
+  background: linear-gradient(135deg, rgba(0,191,255,0.15), rgba(30,144,255,0.1));
+  padding: 20px;
+  border-radius: 15px;
+  margin: 25px 0;
+  border: 2px solid rgba(0,191,255,0.3);
+  box-shadow: 0 8px 32px rgba(0,191,255,0.2);
+  transition: all 0.4s ease;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  justify-content: center;
+  text-align: center;
+}
+
+.project-links:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 40px rgba(0,191,255,0.3);
+  border-color: rgba(0,191,255,0.5);
+}
+
+.project-links i {
+  font-size: 1.5rem;
+  color: #00BFFF;
+  animation: pulse 2s infinite;
+}
+
+.project-links a {
+  color: #00BFFF;
+  text-decoration: none;
+  font-weight: 700;
+  transition: all 0.3s ease;
+  border-bottom: 2px solid transparent;
+}
+
+.project-links a:hover {
+  color: #FFD700;
+  border-bottom-color: #FFD700;
+  text-shadow: 0 0 10px rgba(255,215,0,0.5);
+}
