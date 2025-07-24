@@ -11477,7 +11477,15 @@ function getFlagCode(countryName) {
       const countryName = currentLanguage === 'ar' ? country.name : country.nameEn;
       document.getElementById('modal-country-name').textContent = countryName;
       // Remove text from flag element to avoid duplication
-      document.getElementById('modal-country-flag').textContent = '🏴';
+      // عرض علم الدولة الحقيقي باستخدام flag-icons
+      const flagDiv = document.getElementById('modal-country-flag');
+      flagDiv.textContent = '';
+      let flagCode = country.flagCode || (typeof getFlagCode === 'function' ? getFlagCode(country.nameEn) : '');
+      if (flagCode) {
+        flagDiv.innerHTML = `<span class="fi fi-${flagCode.toLowerCase()}" style="font-size:2em;"></span>`;
+      } else {
+        flagDiv.innerHTML = '';
+      }
       
       // Populate general details
       populateGeneralTab();
