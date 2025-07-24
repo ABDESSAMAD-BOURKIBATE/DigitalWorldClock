@@ -3482,10 +3482,6 @@
         <i class="fas fa-expand"></i>
         <span class="btn-text"> ملء الشاشة</span>
       </button>
-      <button class="btn" onclick="exportData()">
-        <i class="fas fa-download"></i>
-        <span class="btn-text"> تصدير البيانات</span>
-      </button>
       <button class="btn" onclick="refreshClocks()">
         <i class="fas fa-sync-alt"></i>
         <span class="btn-text"> تحديث</span>
@@ -3874,7 +3870,7 @@
 
         <h2><i class="fas fa-lightbulb" style="color: #FFD700; margin-left: 8px;"></i> فكرة المشروع:</h2>
         <p>
-          <strong>ساعة العالم الرقمية</strong> هي مبادرة تقنية رائدة تهدف إلى ربط العالم الإسلامي بالتقنية الحديثة. يعرض المشروع التوقيت الحقيقي لأكثر من <strong>42 دولة آسيوية</strong> مع دعم كامل للتقويمين <strong>الميلادي والهجري</strong>، وعرض أوقات الصلاة بدقة متناهية، وحالات الليل والنهار الديناميكية، في واجهة مرئية متطورة تحترم الهوية الإسلامية.
+          <strong>رحلة الروح | RoohVerse</strong> هي منصة عالمية متقدمة تجمع بين التقنية والروح، تعرض التوقيت الحقيقي، أوقات الصلاة الدقيقة، التقويمين الميلادي والهجري، وحالات الليل والنهار لأكثر من <strong>180 دولة</strong> في <strong>5 قارات</strong>، مع دعم الطقس، الإحصائيات، البحث الذكي، اتجاه القبلة، الثقافة، التراث، والمزيد من الخدمات الإسلامية الرقمية، في واجهة مرئية متطورة تحترم الهوية الإسلامية وتستخدم أحدث التقنيات.
         </p>
         
         <h2><i class="fas fa-bullseye" style="color: #FF6347; margin-left: 8px;"></i> أهداف المشروع:</h2>
@@ -4107,7 +4103,6 @@
         localClock: ' التوقيت المحلي',
         aboutBtn: '<i class="fas fa-info-circle"></i> نبذة عن المشروع',
         fullscreenBtn: '<i class="fas fa-expand"></i> ملء الشاشة',
-        exportBtn: '<i class="fas fa-download"></i> تصدير البيانات',
         refreshBtn: '<i class="fas fa-sync-alt"></i> تحديث',
         langBtn: '<i class="fas fa-language"></i> تغيير اللغة',
         searchPlaceholder: ' البحث عن دولة...',
@@ -4194,7 +4189,6 @@
           fullscreenOn: 'تم تفعيل وضع ملء الشاشة',
           fullscreenOff: 'تم الخروج من وضع ملء الشاشة',
           fullscreenError: 'فشل تفعيل وضع ملء الشاشة',
-          dataExported: 'تم تصدير البيانات بنجاح',
           clocksRefreshed: 'تم تحديث الساعات',
           langChanged: 'تم تغيير اللغة',
           weatherError: 'فشل تحميل بيانات الطقس: تحقق من مفتاح API أو الاتصال بالإنترنت',
@@ -16090,6 +16084,61 @@ O Allah, we ask You for righteousness and piety in this journey of ours, and for
       </div>
 
       <div class="traveler-body">
+        <!-- تبويب أذكار الصباح والمساء -->
+        <div class="traveler-tab-content" id="adhkar-content">
+          <div class="traveler-section">
+            <h3><i class="fas fa-sun"></i> <span>أذكار الصباح والمساء</span></h3>
+            <div class="adhkar-card">
+              <h4><i class="fas fa-sun"></i> أذكار الصباح:</h4>
+              <ul class="adhkar-list">
+                <li><strong>آية الكرسي:</strong> <span>اللّهُ لاَ إِلَهَ إِلاَّ هُوَ الْحَيُّ الْقَيُّومُ ...</span></li>
+                <li><strong>سورة الإخلاص والمعوذتين:</strong> <span>قُلْ هُوَ اللَّهُ أَحَدٌ ... قُلْ أَعُوذُ بِرَبِّ الْفَلَقِ ... قُلْ أَعُوذُ بِرَبِّ النَّاسِ</span></li>
+                <li><strong>اللهم بك أصبحنا ...</strong></li>
+                <li><strong>اللهم إني أسألك خير هذا اليوم ...</strong></li>
+              </ul>
+            </div>
+            <div class="adhkar-card">
+              <h4><i class="fas fa-moon"></i> أذكار المساء:</h4>
+              <ul class="adhkar-list">
+                <li><strong>آية الكرسي</strong></li>
+                <li><strong>سورة الإخلاص والمعوذتين</strong></li>
+                <li><strong>أمسينا وأمسى الملك لله ...</strong></li>
+                <li><strong>اللهم إني أسألك خير هذه الليلة ...</strong></li>
+              </ul>
+            </div>
+            <div class="adhkar-card">
+              <h4><i class="fas fa-hands"></i> أدعية عامة:</h4>
+              <ul class="adhkar-list">
+                <li>اللهم إني أعوذ بك من الهم والحزن ...</li>
+                <li>اللهم إني أسألك العفو والعافية ...</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- تبويب آيات وأحاديث قصيرة -->
+        <div class="traveler-tab-content" id="quran-content">
+          <div class="traveler-section">
+            <h3><i class="fas fa-book-open"></i> <span>آيات قرآنية وأحاديث نبوية قصيرة</span></h3>
+            <div class="quran-card">
+              <h4><i class="fas fa-quran"></i> آيات قرآنية:</h4>
+              <ul class="quran-list">
+                <li>﴿وَعِبَادُ الرَّحْمَٰنِ الَّذِينَ يَمْشُونَ عَلَى الْأَرْضِ هَوْنًا ...﴾ (الفرقان: 63)</li>
+                <li>﴿وَقُل رَّبِّ أَدْخِلْنِي مُدْخَلَ صِدْقٍ ...﴾ (الإسراء: 80)</li>
+                <li>﴿إِنَّ مَعَ الْعُسْرِ يُسْرًا﴾ (الشرح: 6)</li>
+                <li>﴿فَسِيرُوا فِي الْأَرْضِ فَانظُرُوا ...﴾ (آل عمران: 137)</li>
+              </ul>
+            </div>
+            <div class="quran-card">
+              <h4><i class="fas fa-book"></i> أحاديث نبوية قصيرة:</h4>
+              <ul class="quran-list">
+                <li>"من سلك طريقًا يلتمس فيه علمًا سهل الله له به طريقًا إلى الجنة"</li>
+                <li>"السفر قطعة من العذاب ..."</li>
+                <li>"ثلاث دعوات مستجابات: دعوة المظلوم، ودعوة المسافر ..."</li>
+              </ul>
+            </div>
+          </div>
+        </div>
         <!-- تبويب التعريف -->
         <div class="traveler-tab-content active" id="definition-content">
           <div class="traveler-section">
@@ -16214,78 +16263,84 @@ O Allah, we ask You for righteousness and piety in this journey of ours, and for
             
             <div class="prayer-guide">
               <h4>دليل الصلاة للمسافر:</h4>
-              <div class="prayer-table">
-                <div class="prayer-row header">
-                  <div>الصلاة</div>
-                  <div>في الحضر</div>
-                  <div>في السفر</div>
-                  <div>ملاحظات</div>
+              <div class="prayer-table-advanced">
+                <div class="prayer-table-header">
+                  <span>الصلاة</span>
+                  <span>في الحضر</span>
+                  <span>في السفر</span>
+                  <span>ملاحظات</span>
                 </div>
-                <div class="prayer-row">
-                  <div><i class="fas fa-sun"></i> الفجر</div>
-                  <div>ركعتان</div>
-                  <div>ركعتان</div>
-                  <div>لا تُقصر</div>
+                <div class="prayer-table-row">
+                  <span><i class="fas fa-sun"></i> الفجر</span>
+                  <span>ركعتان</span>
+                  <span>ركعتان</span>
+                  <span>لا تُقصر</span>
                 </div>
-                <div class="prayer-row">
-                  <div><i class="fas fa-sun"></i> الظهر</div>
-                  <div>4 ركعات</div>
-                  <div>ركعتان</div>
-                  <div>تُقصر وتُجمع مع العصر</div>
+                <div class="prayer-table-row">
+                  <span><i class="fas fa-sun"></i> الظهر</span>
+                  <span>4 ركعات</span>
+                  <span>ركعتان</span>
+                  <span>تُقصر وتُجمع مع العصر</span>
                 </div>
-                <div class="prayer-row">
-                  <div><i class="fas fa-sun"></i> العصر</div>
-                  <div>4 ركعات</div>
-                  <div>ركعتان</div>
-                  <div>تُقصر وتُجمع مع الظهر</div>
+                <div class="prayer-table-row">
+                  <span><i class="fas fa-sun"></i> العصر</span>
+                  <span>4 ركعات</span>
+                  <span>ركعتان</span>
+                  <span>تُقصر وتُجمع مع الظهر</span>
                 </div>
-                <div class="prayer-row">
-                  <div><i class="fas fa-moon"></i> المغرب</div>
-                  <div>3 ركعات</div>
-                  <div>3 ركعات</div>
-                  <div>لا تُقصر، تُجمع مع العشاء</div>
+                <div class="prayer-table-row">
+                  <span><i class="fas fa-moon"></i> المغرب</span>
+                  <span>3 ركعات</span>
+                  <span>3 ركعات</span>
+                  <span>لا تُقصر، تُجمع مع العشاء</span>
                 </div>
-                <div class="prayer-row">
-                  <div><i class="fas fa-moon"></i> العشاء</div>
-                  <div>4 ركعات</div>
-                  <div>ركعتان</div>
-                  <div>تُقصر وتُجمع مع المغرب</div>
+                <div class="prayer-table-row">
+                  <span><i class="fas fa-moon"></i> العشاء</span>
+                  <span>4 ركعات</span>
+                  <span>ركعتان</span>
+                  <span>تُقصر وتُجمع مع المغرب</span>
                 </div>
               </div>
             </div>
 
             <div class="prayer-guide">
-              <h4> أوقات الجمع:</h4>
-              <div class="combining-options">
-                <div class="combine-card">
+              <h4>أوقات الجمع:</h4>
+              <div class="combining-options-advanced">
+                <div class="combine-card-advanced">
                   <i class="fas fa-forward"></i>
-                  <h5>جمع التقديم</h5>
-                  <p>صلاة الصلاتين في وقت الأولى</p>
-                  <ul>
-                    <li>الظهر + العصر في وقت الظهر</li>
-                    <li>المغرب + العشاء في وقت المغرب</li>
-                  </ul>
+                  <div>
+                    <h5>جمع التقديم</h5>
+                    <p>صلاة الصلاتين في وقت الأولى</p>
+                    <ul>
+                      <li>الظهر + العصر في وقت الظهر</li>
+                      <li>المغرب + العشاء في وقت المغرب</li>
+                    </ul>
+                  </div>
                 </div>
-                <div class="combine-card">
+                <div class="combine-card-advanced">
                   <i class="fas fa-backward"></i>
-                  <h5>جمع التأخير</h5>
-                  <p>صلاة الصلاتين في وقت الثانية</p>
-                  <ul>
-                    <li>الظهر + العصر في وقت العصر</li>
-                    <li>المغرب + العشاء في وقت العشاء</li>
-                  </ul>
+                  <div>
+                    <h5>جمع التأخير</h5>
+                    <p>صلاة الصلاتين في وقت الثانية</p>
+                    <ul>
+                      <li>الظهر + العصر في وقت العصر</li>
+                      <li>المغرب + العشاء في وقت العشاء</li>
+                    </ul>
+                  </div>
                 </div>
               </div>
             </div>
 
             <div class="prayer-guide">
-              <h4> شروط صحة الجمع:</h4>
-              <ul class="traveler-list">
-                <li>النية قبل الشروع في الصلاة الأولى</li>
-                <li>ترتيب الصلاتين (الأولى ثم الثانية)</li>
-                <li>الموالاة بين الصلاتين (عدم الفصل بينهما بوقت طويل)</li>
-                <li>أن يكون في سفر يبيح القصر</li>
-              </ul>
+              <h4>شروط صحة الجمع:</h4>
+              <div class="combine-conditions-advanced">
+                <ul>
+                  <li>النية قبل الشروع في الصلاة الأولى</li>
+                  <li>ترتيب الصلاتين (الأولى ثم الثانية)</li>
+                  <li>الموالاة بين الصلاتين (عدم الفصل بينهما بوقت طويل)</li>
+                  <li>أن يكون في سفر يبيح القصر</li>
+                </ul>
+              </div>
             </div>
           </div>
         </div>
@@ -16293,73 +16348,88 @@ O Allah, we ask You for righteousness and piety in this journey of ours, and for
         <!-- تبويب جديد: الصيام -->
         <div class="traveler-tab-content" id="fasting-content">
           <div class="traveler-section">
+
             <h3><i class="fas fa-moon"></i> <span>أحكام الصيام في السفر</span></h3>
-            
-            <div class="fasting-guide">
-              <h4>🌙 رمضان والسفر:</h4>
-              <div class="fasting-scenarios">
-                <div class="scenario-card">
+            <div class="fasting-section-grid">
+              <!-- رمضان والسفر -->
+              <div class="fasting-card">
+                <div class="fasting-card-header">
                   <i class="fas fa-plane-departure"></i>
-                  <h5>السفر في رمضان</h5>
-                  <p><strong>الحكم:</strong> يجوز الفطر والأفضل الصوم إن لم يشق</p>
-                  <ul>
-                    <li>إذا أفطر فعليه القضاء</li>
-                    <li>لا كفارة عليه</li>
-                    <li>يجوز الأكل والشرب علناً</li>
-                  </ul>
+                  <span class="fasting-card-title">🌙 رمضان والسفر</span>
                 </div>
-                <div class="scenario-card">
-                  <i class="fas fa-home"></i>
-                  <h5>نوى الإقامة</h5>
-                  <p><strong>الحكم:</strong> وجوب الصوم من حين النية</p>
-                  <ul>
-                    <li>إذا نوى الإقامة أكثر من 4 أيام</li>
-                    <li>يصبح حكمه حكم المقيم</li>
-                    <li>لا يجوز له الفطر</li>
-                  </ul>
-                </div>
-                <div class="scenario-card">
-                  <i class="fas fa-calendar-check"></i>
-                  <h5>القضاء</h5>
-                  <p><strong>الحكم:</strong> وجوب قضاء الأيام التي أفطرها</p>
-                  <ul>
-                    <li>يقضي بعد رمضان</li>
-                    <li>يجوز التفريق أو التتابع</li>
-                    <li>الأفضل المبادرة بالقضاء</li>
-                  </ul>
+                <div class="fasting-card-body">
+                  <div class="fasting-row">
+                    <div class="fasting-label"><i class="fas fa-plane"></i> السفر في رمضان</div>
+                    <div class="fasting-details">
+                      <span class="fasting-rule"><strong>الحكم:</strong> يجوز الفطر والأفضل الصوم إن لم يشق</span>
+                      <ul>
+                        <li>إذا أفطر فعليه القضاء</li>
+                        <li>لا كفارة عليه</li>
+                        <li>يجوز الأكل والشرب علناً</li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div class="fasting-row">
+                    <div class="fasting-label"><i class="fas fa-home"></i> نوى الإقامة</div>
+                    <div class="fasting-details">
+                      <span class="fasting-rule"><strong>الحكم:</strong> وجوب الصوم من حين النية</span>
+                      <ul>
+                        <li>إذا نوى الإقامة أكثر من 4 أيام</li>
+                        <li>يصبح حكمه حكم المقيم</li>
+                        <li>لا يجوز له الفطر</li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div class="fasting-row">
+                    <div class="fasting-label"><i class="fas fa-calendar-check"></i> القضاء</div>
+                    <div class="fasting-details">
+                      <span class="fasting-rule"><strong>الحكم:</strong> وجوب قضاء الأيام التي أفطرها</span>
+                      <ul>
+                        <li>يقضي بعد رمضان</li>
+                        <li>يجوز التفريق أو التتابع</li>
+                        <li>الأفضل المبادرة بالقضاء</li>
+                      </ul>
+                    </div>
+                  </div>
                 </div>
               </div>
-            </div>
-
-            <div class="fasting-guide">
-              <h4>🤱 حالات خاصة:</h4>
-              <div class="special-cases">
-                <div class="case-card">
+              <!-- حالات خاصة -->
+              <div class="fasting-card">
+                <div class="fasting-card-header">
                   <i class="fas fa-baby"></i>
-                  <h5>المرأة الحامل المسافرة</h5>
-                  <ul>
-                    <li>لها أن تفطر للسفر أو للحمل</li>
-                    <li>عليها القضاء فقط</li>
-                    <li>لا فدية عليها</li>
-                  </ul>
+                  <span class="fasting-card-title">حالات خاصة</span>
                 </div>
-                <div class="case-card">
-                  <i class="fas fa-user-nurse"></i>
-                  <h5>المرضع المسافرة</h5>
-                  <ul>
-                    <li>لها أن تفطر للسفر أو للإرضاع</li>
-                    <li>عليها القضاء فقط</li>
-                    <li>لا فدية عليها</li>
-                  </ul>
-                </div>
-                <div class="case-card">
-                  <i class="fas fa-user-injured"></i>
-                  <h5>المريض المسافر</h5>
-                  <ul>
-                    <li>الفطر أولى إذا كان المرض يشق معه الصوم</li>
-                    <li>عليه القضاء عند الشفاء</li>
-                    <li>إذا كان مرضاً مزمناً فعليه الفدية</li>
-                  </ul>
+                <div class="fasting-card-body">
+                  <div class="fasting-row">
+                    <div class="fasting-label"><i class="fas fa-baby"></i> المرأة الحامل المسافرة</div>
+                    <div class="fasting-details">
+                      <ul>
+                        <li>لها أن تفطر للسفر أو للحمل</li>
+                        <li>عليها القضاء فقط</li>
+                        <li>لا فدية عليها</li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div class="fasting-row">
+                    <div class="fasting-label"><i class="fas fa-user-nurse"></i> المرضع المسافرة</div>
+                    <div class="fasting-details">
+                      <ul>
+                        <li>لها أن تفطر للسفر أو للإرضاع</li>
+                        <li>عليها القضاء فقط</li>
+                        <li>لا فدية عليها</li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div class="fasting-row">
+                    <div class="fasting-label"><i class="fas fa-user-injured"></i> المريض المسافر</div>
+                    <div class="fasting-details">
+                      <ul>
+                        <li>الفطر أولى إذا كان المرض يشق معه الصوم</li>
+                        <li>عليه القضاء عند الشفاء</li>
+                        <li>إذا كان مرضاً مزمناً فعليه الفدية</li>
+                      </ul>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -16373,6 +16443,71 @@ O Allah, we ask You for righteousness and piety in this journey of ours, and for
                 <li><strong>السحور في الطائرة:</strong> يتبع توقيت مكان الإقلاع حتى الوصول</li>
               </ul>
             </div>
+
+<style>
+.fasting-section-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  margin-top: 18px;
+  margin-bottom: 10px;
+  justify-content: center;
+}
+.fasting-card {
+  background: rgba(255,255,255,0.08);
+  border-radius: 18px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+  border: 1px solid rgba(255,215,0,0.09);
+  min-width: 320px;
+  max-width: 420px;
+  flex: 1 1 340px;
+  padding: 0 0 10px 0;
+  display: flex;
+  flex-direction: column;
+}
+.fasting-card-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: linear-gradient(90deg, #FFD70022 0%, #FFA50011 100%);
+  border-radius: 18px 18px 0 0;
+  padding: 12px 18px;
+  font-size: 1.15rem;
+  color: #FFD700;
+  font-weight: bold;
+}
+.fasting-card-title { font-size: 1.1rem; }
+.fasting-card-body { padding: 10px 18px 0 18px; }
+.fasting-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 12px;
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+  padding-bottom: 8px;
+}
+.fasting-row:last-child { border-bottom: none; }
+.fasting-label {
+  min-width: 120px;
+  font-weight: 600;
+  color: #FFD700;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.fasting-details ul {
+  margin: 0 0 0 18px;
+  padding: 0;
+  list-style: disc inside;
+  color: #fff;
+  font-size: 1.01rem;
+}
+.fasting-rule { display: block; margin-bottom: 4px; color: #FFA500; font-weight: 500; }
+@media (max-width: 900px) {
+  .fasting-section-grid { flex-direction: column; gap: 14px; }
+  .fasting-card { min-width: 0; max-width: 100%; }
+}
+</style>
           </div>
         </div>
 
@@ -16939,3 +17074,147 @@ O Allah, we ask You for righteousness and piety in this journey of ours, and for
   </div>
 </body>
 </html>
+
+<script>
+// دعم التبويبات الجديدة (أذكار الصباح والمساء، آيات وأحاديث)
+function switchTravelerTab(tab) {
+  document.querySelectorAll('.traveler-tab').forEach(btn => btn.classList.remove('active'));
+  document.querySelectorAll('.traveler-tab-content').forEach(c => c.classList.remove('active'));
+  document.getElementById(tab + '-tab').classList.add('active');
+  document.getElementById(tab + '-content').classList.add('active');
+}
+</script>
+
+<style>
+/* تحسين بطاقات أذكار الصباح والمساء وآيات وأحاديث */
+.adhkar-card, .quran-card {
+  background: rgba(255,255,255,0.07);
+  border-radius: 18px;
+  margin-bottom: 18px;
+  padding: 18px 16px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.07);
+  border: 1px solid rgba(255,215,0,0.08);
+}
+.adhkar-list, .quran-list {
+  list-style: disc inside;
+  margin: 10px 0 0 0;
+  padding: 0 10px;
+  color: #fff;
+  font-size: 1.05rem;
+}
+.adhkar-card h4, .quran-card h4 {
+  color: #FFD700;
+  margin-bottom: 8px;
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+@media (max-width: 700px) {
+  .adhkar-card, .quran-card {
+    padding: 10px 5px;
+    font-size: 0.98rem;
+  }
+  .adhkar-list, .quran-list {
+    font-size: 0.95rem;
+  }
+}
+</style>
+
+<style>
+.prayer-table-advanced {
+  width: 100%;
+  border-radius: 16px;
+  overflow: hidden;
+  background: rgba(255,255,255,0.07);
+  margin-bottom: 18px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.07);
+  border: 1px solid rgba(255,215,0,0.08);
+}
+.prayer-table-header {
+  display: flex;
+  background: linear-gradient(90deg, #FFD70022 0%, #FFA50011 100%);
+  color: #FFD700;
+  font-weight: bold;
+  font-size: 1.08rem;
+  padding: 10px 0;
+  text-align: center;
+  gap: 0;
+}
+.prayer-table-header span {
+  flex: 1;
+}
+.prayer-table-row {
+  display: flex;
+  background: rgba(255,255,255,0.03);
+  color: #fff;
+  font-size: 1.04rem;
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+  padding: 8px 0;
+  text-align: center;
+}
+.prayer-table-row span {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.prayer-table-row:last-child {
+  border-bottom: none;
+}
+.combining-options-advanced {
+  display: flex;
+  gap: 18px;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+}
+.combine-card-advanced {
+  background: rgba(255,255,255,0.08);
+  border-radius: 14px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  border: 1px solid rgba(255,215,0,0.09);
+  min-width: 220px;
+  flex: 1 1 220px;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 12px 16px;
+}
+.combine-card-advanced i {
+  font-size: 1.5rem;
+  color: #FFD700;
+  margin-top: 4px;
+}
+.combine-card-advanced h5 {
+  margin: 0 0 4px 0;
+  color: #FFA500;
+  font-size: 1.08rem;
+}
+.combine-card-advanced ul {
+  margin: 0 0 0 18px;
+  padding: 0;
+  list-style: disc inside;
+  color: #fff;
+  font-size: 0.98rem;
+}
+.combine-conditions-advanced {
+  background: rgba(255,255,255,0.06);
+  border-radius: 12px;
+  padding: 10px 16px;
+  margin-bottom: 10px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+  border: 1px solid rgba(255,215,0,0.07);
+}
+.combine-conditions-advanced ul {
+  margin: 0;
+  padding: 0 0 0 18px;
+  list-style: disc inside;
+  color: #fff;
+  font-size: 1.01rem;
+}
+@media (max-width: 700px) {
+  .prayer-table-header, .prayer-table-row { font-size: 0.97rem; }
+  .combine-card-advanced { min-width: 0; padding: 10px 6px; font-size: 0.97rem; }
+  .combine-conditions-advanced { padding: 7px 4px; font-size: 0.97rem; }
+}
+</style>
