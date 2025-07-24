@@ -4126,7 +4126,7 @@
         dayCountries: 'دول في النهار',
         nightCountries: 'دول في الليل',
         timezones: 'المناطق الزمنية',
-        loading: ' جاري تحديث البيانات...',
+        loading: '⏳ جاري تحديث البيانات...',
         aboutTitle: ' نبذة عن المشروع',
         copyright: 'حقوق النشر © عبد الصمد بوركيبات - 2025',
         capital: 'العاصمة',
@@ -4701,9 +4701,9 @@
         zone: 'Asia/Damascus',
         coordinates: '33.5138,36.2765',
         color: '#FF0000',
-        continent: 'Asia',
-        leader: 'أحمد شرع',
-        leaderEn: 'Ahmed Shar3',
+        continent: 'asia',
+        leader: 'بشار الأسد',
+        leaderEn: 'Bashar al-Assad',
         population: '18 مليون نسمة',
         populationEn: '18 million',
         area: '185,180 كم²',
@@ -6826,8 +6826,7 @@
      festivals: ['مهرجان ويندهوك', 'أوكتوبرفيست']
    }
  },
-
- {
+  {
    name: 'ليسوتو',
    nameEn: 'Lesotho',
    capital: 'ماسيرو',
@@ -7415,7 +7414,7 @@
      festivals: ['عيد الاستقلال', 'مهرجان الثقافة']
    }
  },
-{
+ {
    name: 'الغابون',
    nameEn: 'Gabon',
    capital: 'ليبرفيل',
@@ -7920,7 +7919,7 @@
    }
  },
 
-   {
+      {
         name: 'أستراليا',
         nameEn: 'Australia',
         capital: 'كانبيرا',
@@ -9235,8 +9234,7 @@ function getFlagCode(countryName) {
 
     function filterByContinent(continent) {
       currentContinent = continent;
-      currentSearch = '';
-      document.getElementById('search-input').value = '';
+      // لا تمسح البحث عند اختيار قارة
       
       // Update active button with smooth animation
       const buttons = document.querySelectorAll('.continent-btn');
@@ -9330,16 +9328,14 @@ function getFlagCode(countryName) {
       let filteredCountries = countries;
 
       if (currentContinent !== 'all') {
-        const validContinents = ['asia', 'africa', 'europe', 'america', 'americas', 'oceania'];
         filteredCountries = countries.filter(country => {
-          if (!country.continent) return false;
-          const continentValue = country.continent.trim().toLowerCase();
-          if (!validContinents.includes(continentValue)) return false;
+          let continentMatch = false;
           if (currentContinent === 'america') {
-            return continentValue === 'america' || continentValue === 'americas';
+            continentMatch = (country.continent === 'america' || country.continent === 'americas');
           } else {
-            return continentValue === currentContinent;
+            continentMatch = country.continent.toLowerCase() === currentContinent.toLowerCase();
           }
+          return continentMatch;
         });
       }
 
