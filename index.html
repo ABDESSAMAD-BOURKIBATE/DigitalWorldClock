@@ -14187,6 +14187,16 @@ function getFlagCode(countryName) {
     // Populate General Tab
     function populateGeneralTab() {
       const details = document.getElementById('country-details');
+      // معالجة البرلمان/المجلس التشريعي
+      let parliamentLabel = currentLanguage === 'ar' ? 'البرلمان/المجلس التشريعي' : 'Parliament/Legislative Council';
+      let parliamentValue = '';
+      if (currentModalCountry.government) {
+        parliamentValue = currentModalCountry.government.parliament || currentModalCountry.government.consultativeCouncil;
+      }
+      if (!parliamentValue || parliamentValue === 'undefined') {
+        parliamentValue = currentLanguage === 'ar' ? 'غير متوفر' : 'Not available';
+      }
+
       details.innerHTML = `
         <div class="detail-item">
           <div class="detail-label">
@@ -14215,6 +14225,13 @@ function getFlagCode(countryName) {
             ${translations[currentLanguage].capital}
           </div>
           <div class="detail-value">${currentLanguage === 'ar' ? currentModalCountry.capital : currentModalCountry.capitalEn}</div>
+        </div>
+        <div class="detail-item">
+          <div class="detail-label">
+            <i class="fas fa-balance-scale" style="color: #8B4513; margin-left: 8px;"></i>
+            ${parliamentLabel}
+          </div>
+          <div class="detail-value">${parliamentValue}</div>
         </div>
         <div class="detail-item">
           <div class="detail-label">
