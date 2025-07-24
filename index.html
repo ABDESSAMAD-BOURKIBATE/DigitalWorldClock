@@ -3497,7 +3497,7 @@
     </div>
 
     <div class="search-container">
-      <input type="text" class="search-input" id="search-input" placeholder=" البحث عن دولة..." oninput="filterCountries()">
+      <input type="text" class="search-input" id="search-input" placeholder=" البحث عن دولة...">
     </div>
 
     <div class="continent-filter" id="continent-filter">
@@ -13565,10 +13565,24 @@ function getFlagCode(countryName) {
     let currentContinent = 'all';
     let currentSearch = '';
 
+
+    // Debounce for fast search
+    let searchDebounceTimeout = null;
     function filterCountries() {
-      currentSearch = document.getElementById('search-input').value.trim().toLowerCase();
-      renderClocks();
+      if (searchDebounceTimeout) clearTimeout(searchDebounceTimeout);
+      searchDebounceTimeout = setTimeout(() => {
+        currentSearch = document.getElementById('search-input').value.trim().toLowerCase();
+        renderClocks();
+      }, 80); // Fast debounce for instant feedback
     }
+
+    // Attach event for fast search as you type
+    document.addEventListener('DOMContentLoaded', function() {
+      const searchInput = document.getElementById('search-input');
+      if (searchInput) {
+        searchInput.addEventListener('input', filterCountries);
+      }
+    });
 
     function filterByContinent(continent) {
       currentContinent = continent;
@@ -13668,16 +13682,24 @@ function getFlagCode(countryName) {
       let filteredCountries = countries;
       if (currentContinent !== 'all') {
         filteredCountries = countries.filter(country => {
-          if (currentContinent === 'america') {
-            return country.continent === 'america' || country.continent === 'americas';
-          } else {
-            return country.continent.toLowerCase() === currentContinent.toLowerCase();
-          }
+          // دعم جميع صيغ القارات (معالجة بعض البيانات التي قد تكون غير موحدة)
+          const continent = (country.continent || '').toLowerCase();
+          const continentMap = {
+            'americas': 'america',
+            'america': 'america',
+            'asia': 'asia',
+            'africa': 'africa',
+            'europe': 'europe',
+            'oceania': 'oceania',
+            'australia': 'oceania'
+          };
+          return continentMap[continent] === currentContinent;
         });
       }
 
       // Now apply search only within the continent-filtered list
       if (currentSearch) {
+        const search = currentSearch;
         filteredCountries = filteredCountries.filter(country => {
           const searchFields = [
             currentLanguage === 'ar' ? country.name : country.nameEn,
@@ -13685,8 +13707,8 @@ function getFlagCode(countryName) {
             currentLanguage === 'ar' ? country.currency : country.currencyEn,
             currentLanguage === 'ar' ? country.language : country.languageEn,
             currentLanguage === 'ar' ? country.description : country.descriptionEn
-          ].map(field => field.toLowerCase());
-          return searchFields.some(field => field.includes(currentSearch));
+          ].map(field => (field || '').toLowerCase());
+          return searchFields.some(field => field.includes(search));
         });
       }
 
