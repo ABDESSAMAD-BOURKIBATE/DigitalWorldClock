@@ -3590,7 +3590,7 @@
   </header>
 
   <main>
-    <div class="loading" id="loading">⏳ جاري تحديث البيانات...</div>
+    <div class="loading" id="loading"> جاري تحديث البيانات...</div>
     <div class="clock-container" id="clocks"></div>
   </main>
 
@@ -4126,7 +4126,7 @@
         dayCountries: 'دول في النهار',
         nightCountries: 'دول في الليل',
         timezones: 'المناطق الزمنية',
-        loading: '⏳ جاري تحديث البيانات...',
+        loading: ' جاري تحديث البيانات...',
         aboutTitle: ' نبذة عن المشروع',
         copyright: 'حقوق النشر © عبد الصمد بوركيبات - 2025',
         capital: 'العاصمة',
@@ -5777,47 +5777,231 @@
    }
  },
  {
-   name: 'المغرب',
-   nameEn: 'Morocco',
-   capital: 'الرباط',
-   capitalEn: 'Rabat',
-   zone: 'Africa/Casablanca',
-   coordinates: '34.0209,-6.8416',
-   color: '#C1272D',
-   continent: 'africa',
-   leader: 'محمد السادس',
-   leaderEn: 'Mohammed VI',
-   population: '37 مليون نسمة',
-   populationEn: '37 million',
-   area: '710,850 كم²',
-   areaEn: '710,850 km²',
-   currency: 'الدرهم المغربي',
-   currencyEn: 'Moroccan Dirham',
-   language: 'العربية والأمازيغية',
-   languageEn: 'Arabic and Berber',
-   description: 'المغرب، بلد التاريخ والقصور والصحراء',
-   descriptionEn: 'Morocco, land of history, palaces, and desert',
-   flagCode: 'ma',
-   majorCities: [
-     { name: 'الدار البيضاء', type: 'أكبر مدينة' },
-     { name: 'مراكش', type: 'مدينة سياحية' }
-   ],
-   religion: {
-     main: 'الإسلام',
-     denomination: 'سني',
-     details: 'أغلبية مسلمة'
-   },
-   government: {
-     system: 'ملكية دستورية',
-     king: 'محمد السادس',
-     parliament: 'البرلمان المغربي'
-   },
-   culture: {
-     traditions: ['الطاجين', 'الجلابة', 'الموسيقى الأندلسية'],
-     landmarks: ['جامع الفنا', 'قصبة أيت بن حدو'],
-     festivals: ['مهرجان موازين', 'مهرجان كناوة']
-   }
- },
+  name: 'المملكة المغربية',
+  nameEn: 'Kingdom of Morocco',
+  capital: 'الرباط',
+  capitalEn: 'Rabat',
+  zone: 'Africa/Casablanca',
+  coordinates: '31.7917,-7.0926',
+  color: '#C1272D',
+  continent: 'africa',
+  leader: 'الملك محمد السادس',
+  leaderEn: 'Mohammed VI',
+  population: '37.5 مليون نسمة',
+  populationEn: '37.5 million',
+  area: '710,850 كم²',
+  areaEn: '710,850 km²',
+  currency: 'الدرهم المغربي',
+  currencyEn: 'Moroccan Dirham',
+  currencyCode: 'MAD',
+  language: 'العربية والأمازيغية',
+  languageEn: 'Arabic and Berber',
+  otherLanguages: ['الفرنسية', 'الإسبانية'],
+  otherLanguagesEn: ['French', 'Spanish'],
+  description: 'المغرب، مملكة الأطلس والصحراء، جسر بين أفريقيا وأوروبا',
+  descriptionEn: 'Morocco, Kingdom of Atlas and Sahara, bridge between Africa and Europe',
+  flagCode: 'ma',
+  iso2: 'MA',
+  iso3: 'MAR',
+  callingCode: '+212',
+  majorCities: [
+    { 
+      name: 'الدار البيضاء', 
+      nameEn: 'Casablanca',
+      type: 'العاصمة الاقتصادية',
+      typeEn: 'Economic Capital',
+      population: '3.7 مليون',
+      coordinates: '33.5731,-7.5898'
+    },
+    { 
+      name: 'مراكش', 
+      nameEn: 'Marrakech',
+      type: 'المدينة الحمراء',
+      typeEn: 'The Red City',
+      population: '1.3 مليون',
+      coordinates: '31.6295,-7.9811'
+    },
+    { 
+      name: 'فاس', 
+      nameEn: 'Fez',
+      type: 'العاصمة الروحية',
+      typeEn: 'Spiritual Capital',
+      population: '1.2 مليون',
+      coordinates: '34.0181,-5.0078'
+    },
+    { 
+      name: 'طنجة', 
+      nameEn: 'Tangier',
+      type: 'عروس الشمال',
+      typeEn: 'Bride of the North',
+      population: '1.1 مليون',
+      coordinates: '35.7595,-5.8340'
+    },
+    { 
+      name: 'أغادير', 
+      nameEn: 'Agadir',
+      type: 'مدينة ساحلية',
+      typeEn: 'Coastal City',
+      population: '600 ألف',
+      coordinates: '30.4278,-9.5981'
+    },
+    { 
+      name: 'مكناس', 
+      nameEn: 'Meknes',
+      type: 'مدينة إمبراطورية',
+      typeEn: 'Imperial City',
+      population: '520 ألف',
+      coordinates: '33.8935,-5.5473'
+    },
+    { 
+      name: 'تطوان', 
+      nameEn: 'Tetouan',
+      type: 'الحمامة البيضاء',
+      typeEn: 'White Dove',
+      population: '380 ألف',
+      coordinates: '35.5889,-5.3626'
+    },
+    { 
+      name: 'وجدة', 
+      nameEn: 'Oujda',
+      type: 'بوابة الشرق',
+      typeEn: 'Eastern Gateway',
+      population: '494 ألف',
+      coordinates: '34.6814,-1.9086'
+    },
+    { 
+      name: 'الجديدة', 
+      nameEn: 'El Jadida',
+      type: 'مدينة البرتغالية',
+      typeEn: 'Portuguese City',
+      population: '200 ألف',
+      coordinates: '33.2316,-8.5007'
+    },
+    { 
+      name: 'الناظور', 
+      nameEn: 'Nador',
+      type: 'مدينة متوسطية',
+      typeEn: 'Mediterranean City',
+      population: '178 ألف',
+      coordinates: '35.1681,-2.9287'
+    }
+  ],
+  religion: {
+    main: 'الإسلام',
+    mainEn: 'Islam',
+    denomination: 'المذهب المالكي السني',
+    denominationEn: 'Maliki Sunni',
+    percentage: '99%',
+    details: 'الإسلام دين الدولة مع ضمان حرية العبادة',
+    detailsEn: 'Islam is the state religion with freedom of worship guaranteed',
+    minorities: ['المسيحية', 'اليهودية']
+  },
+  government: {
+    system: 'ملكية دستورية',
+    systemEn: 'Constitutional Monarchy',
+    king: 'الملك محمد السادس',
+    kingEn: 'Mohammed VI',
+    kingTitle: 'أمير المؤمنين',
+    primeMinister: 'عزيز أخنوش',
+    primeMinisterEn: 'Aziz Akhannouch',
+    parliament: 'البرلمان المغربي',
+    parliamentEn: 'Moroccan Parliament',
+    chambers: ['مجلس النواب', 'مجلس المستشارين'],
+    chambersEn: ['House of Representatives', 'House of Councillors']
+  },
+  culture: {
+    traditions: [
+      'الطاجين والكسكس',
+      'الجلابة والقفطان',
+      'الموسيقى الأندلسية',
+      'الحناء والعرس المغربي',
+      'الضيافة المغربية',
+      'حرفة الجلد والنحاس',
+      'فن الخط العربي',
+      'الطبخ في الفرن التقليدي'
+    ],
+    traditionsEn: [
+      'Tajine and Couscous',
+      'Djellaba and Caftan',
+      'Andalusian Music',
+      'Henna and Moroccan Wedding',
+      'Moroccan Hospitality',
+      'Leather and Copper Crafts',
+      'Arabic Calligraphy',
+      'Traditional Oven Cooking'
+    ],
+    landmarks: [
+      'ساحة جامع الفنا - مراكش',
+      'قصبة أيت بن حدو',
+      'مسجد الحسن الثاني - الدار البيضاء',
+      'صومعة حسان - الرباط',
+      'جامعة القرويين - فاس',
+      'مدينة شفشاون الزرقاء',
+      'كهوف هرقل - طنجة',
+      'واحة مرزوقة',
+      'قصر الباهية - مراكش',
+      'المدينة القديمة لفاس'
+    ],
+    landmarksEn: [
+      'Jemaa el-Fnaa Square - Marrakech',
+      'Ait Benhaddou Kasbah',
+      'Hassan II Mosque - Casablanca',
+      'Hassan Tower - Rabat',
+      'Al Quaraouiyine University - Fez',
+      'Blue City of Chefchaouen',
+      'Caves of Hercules - Tangier',
+      'Merzouga Oasis',
+      'Bahia Palace - Marrakech',
+      'Fez Medina'
+    ],
+    festivals: [
+      'مهرجان موازين الدولي',
+      'مهرجان كناوة وموسيقى العالم',
+      'مهرجان فاس للموسيقى الروحية',
+      'مهرجان الورود - قلعة مكونة',
+      'مهرجان تيميتار - أغادير',
+      'مهرجان الصحراء - مرزوقة',
+      'مهرجان المغرب الدولي للفيلم',
+      'موسم طان طان',
+      'مهرجان الشاي - أبركان'
+    ],
+    festivalsEn: [
+      'Mawazine International Festival',
+      'Gnawa and World Music Festival',
+      'Fes Festival of Spiritual Music',
+      'Rose Festival - Kelaat M\'gouna',
+      'Timitar Festival - Agadir',
+      'Desert Festival - Merzouga',
+      'International Film Festival of Morocco',
+      'Tan-Tan Moussem',
+      'Tea Festival - Aberkane'
+    ],
+    cuisine: [
+      'الطاجين بأنواعه',
+      'الكسكس المغربي',
+      'البسطيلة',
+      'الحريرة',
+      'المشوي المغربي',
+      'الملوي والرغايف',
+      'الشاي المغربي بالنعناع',
+      'الحلويات المغربية',
+      'خبز الفرن التقليدي'
+    ],
+    cuisineEn: [
+      'Various Types of Tajine',
+      'Moroccan Couscous',
+      'Pastilla',
+      'Harira Soup',
+      'Moroccan Grilled Meat',
+      'Meloui and Rghaif',
+      'Moroccan Mint Tea',
+      'Moroccan Sweets',
+      'Traditional Oven Bread'
+    ]
+  
+  },
+  
+},
  {
    name: 'الجزائر',
    nameEn: 'Algeria',
@@ -7919,6 +8103,137 @@
    }
  },
 
+      // دول الأمريكتين
+      {
+        name: 'الولايات المتحدة الأمريكية',
+        nameEn: 'United States',
+        capital: 'واشنطن العاصمة',
+        capitalEn: 'Washington, D.C.',
+        zone: 'America/New_York',
+        coordinates: '38.8951,-77.0364',
+        color: '#3C3B6E',
+        continent: 'america',
+        leader: 'جو بايدن',
+        leaderEn: 'Joe Biden',
+        population: '333 مليون نسمة',
+        populationEn: '333 million',
+        area: '9,833,520 كم²',
+        areaEn: '9,833,520 km²',
+        currency: 'الدولار الأمريكي',
+        currencyEn: 'US Dollar',
+        language: 'الإنجليزية',
+        languageEn: 'English',
+        description: 'الولايات المتحدة، أكبر اقتصاد في العالم وبلد التنوع الثقافي',
+        descriptionEn: 'United States, world’s largest economy and land of diversity',
+        flagCode: 'us',
+        majorCities: [
+          { name: 'نيويورك', type: 'أكبر مدينة' },
+          { name: 'لوس أنجلوس', type: 'مدينة السينما' },
+          { name: 'شيكاغو', type: 'مدينة الرياح' }
+        ],
+        religion: {
+          main: 'المسيحية',
+          denomination: 'متنوعة',
+          details: 'حرية دينية وتنوع عقائدي'
+        },
+        government: {
+          system: 'جمهورية رئاسية فيدرالية',
+          president: 'جو بايدن',
+          parliament: 'الكونغرس الأمريكي'
+        },
+        culture: {
+          traditions: ['عيد الشكر', 'الهالوين', 'البيسبول'],
+          landmarks: ['تمثال الحرية', 'البيت الأبيض', 'جراند كانيون'],
+          festivals: ['عيد الاستقلال', 'مهرجان السينما', 'عيد العمال']
+        }
+      },
+      {
+        name: 'البرازيل',
+        nameEn: 'Brazil',
+        capital: 'برازيليا',
+        capitalEn: 'Brasília',
+        zone: 'America/Sao_Paulo',
+        coordinates: '-15.7939,-47.8828',
+        color: '#009C3B',
+        continent: 'america',
+        leader: 'لويس إيناسيو لولا دا سيلفا',
+        leaderEn: 'Luiz Inácio Lula da Silva',
+        population: '216 مليون نسمة',
+        populationEn: '216 million',
+        area: '8,515,767 كم²',
+        areaEn: '8,515,767 km²',
+        currency: 'الريال البرازيلي',
+        currencyEn: 'Brazilian Real',
+        language: 'البرتغالية',
+        languageEn: 'Portuguese',
+        description: 'البرازيل، أكبر دول أمريكا الجنوبية وبلد السامبا وكرة القدم',
+        descriptionEn: 'Brazil, largest country in South America, land of samba and football',
+        flagCode: 'br',
+        majorCities: [
+          { name: 'ريو دي جانيرو', type: 'مدينة الكرنفال' },
+          { name: 'ساو باولو', type: 'أكبر مدينة' },
+          { name: 'برازيليا', type: 'العاصمة' }
+        ],
+        religion: {
+          main: 'المسيحية',
+          denomination: 'كاثوليكية وبروتستانتية',
+          details: 'أكبر دولة كاثوليكية في العالم'
+        },
+        government: {
+          system: 'جمهورية رئاسية',
+          president: 'لويس إيناسيو لولا دا سيلفا',
+          parliament: 'الكونغرس الوطني'
+        },
+        culture: {
+          traditions: ['السامبا', 'الكابويرا', 'كرنفال ريو'],
+          landmarks: ['تمثال المسيح الفادي', 'غابات الأمازون'],
+          festivals: ['كرنفال ريو', 'مهرجان يونيو']
+        }
+      },
+      {
+        name: 'كندا',
+        nameEn: 'Canada',
+        capital: 'أوتاوا',
+        capitalEn: 'Ottawa',
+        zone: 'America/Toronto',
+        coordinates: '45.4215,-75.6997',
+        color: '#D52B1E',
+        continent: 'america',
+        leader: 'جاستن ترودو',
+        leaderEn: 'Justin Trudeau',
+        population: '39 مليون نسمة',
+        populationEn: '39 million',
+        area: '9,984,670 كم²',
+        areaEn: '9,984,670 km²',
+        currency: 'الدولار الكندي',
+        currencyEn: 'Canadian Dollar',
+        language: 'الإنجليزية والفرنسية',
+        languageEn: 'English and French',
+        description: 'كندا، ثاني أكبر دولة في العالم وبلد الطبيعة الخلابة',
+        descriptionEn: 'Canada, second largest country and land of natural beauty',
+        flagCode: 'ca',
+        majorCities: [
+          { name: 'تورونتو', type: 'أكبر مدينة' },
+          { name: 'مونتريال', type: 'مدينة الثقافة' },
+          { name: 'فانكوفر', type: 'مدينة الطبيعة' }
+        ],
+        religion: {
+          main: 'المسيحية',
+          denomination: 'كاثوليكية وبروتستانتية',
+          details: 'تعدد ديني وحرية عقائدية'
+        },
+        government: {
+          system: 'ملكية دستورية فيدرالية',
+          primeMinister: 'جاستن ترودو',
+          parliament: 'البرلمان الكندي'
+        },
+        culture: {
+          traditions: ['الهوكي', 'شراب القيقب', 'عيد الشكر الكندي'],
+          landmarks: ['شلالات نياجرا', 'جبال الروكي', 'برج سي إن'],
+          festivals: ['مهرجان مونتريال', 'عيد كندا']
+        }
+      },
+      // نهاية دول الأمريكتين
       {
         name: 'أستراليا',
         nameEn: 'Australia',
