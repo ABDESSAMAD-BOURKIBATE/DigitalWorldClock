@@ -8104,135 +8104,1479 @@
  },
 
       // دول الأمريكتين
-      {
-        name: 'الولايات المتحدة الأمريكية',
-        nameEn: 'United States',
-        capital: 'واشنطن العاصمة',
-        capitalEn: 'Washington, D.C.',
-        zone: 'America/New_York',
-        coordinates: '38.8951,-77.0364',
-        color: '#3C3B6E',
-        continent: 'america',
-        leader: 'جو بايدن',
-        leaderEn: 'Joe Biden',
-        population: '333 مليون نسمة',
-        populationEn: '333 million',
-        area: '9,833,520 كم²',
-        areaEn: '9,833,520 km²',
-        currency: 'الدولار الأمريكي',
-        currencyEn: 'US Dollar',
-        language: 'الإنجليزية',
-        languageEn: 'English',
-        description: 'الولايات المتحدة، أكبر اقتصاد في العالم وبلد التنوع الثقافي',
-        descriptionEn: 'United States, world’s largest economy and land of diversity',
-        flagCode: 'us',
-        majorCities: [
-          { name: 'نيويورك', type: 'أكبر مدينة' },
-          { name: 'لوس أنجلوس', type: 'مدينة السينما' },
-          { name: 'شيكاغو', type: 'مدينة الرياح' }
-        ],
-        religion: {
-          main: 'المسيحية',
-          denomination: 'متنوعة',
-          details: 'حرية دينية وتنوع عقائدي'
-        },
-        government: {
-          system: 'جمهورية رئاسية فيدرالية',
-          president: 'جو بايدن',
-          parliament: 'الكونغرس الأمريكي'
-        },
-        culture: {
-          traditions: ['عيد الشكر', 'الهالوين', 'البيسبول'],
-          landmarks: ['تمثال الحرية', 'البيت الأبيض', 'جراند كانيون'],
-          festivals: ['عيد الاستقلال', 'مهرجان السينما', 'عيد العمال']
-        }
-      },
-      {
-        name: 'البرازيل',
-        nameEn: 'Brazil',
-        capital: 'برازيليا',
-        capitalEn: 'Brasília',
-        zone: 'America/Sao_Paulo',
-        coordinates: '-15.7939,-47.8828',
-        color: '#009C3B',
-        continent: 'america',
-        leader: 'لويس إيناسيو لولا دا سيلفا',
-        leaderEn: 'Luiz Inácio Lula da Silva',
-        population: '216 مليون نسمة',
-        populationEn: '216 million',
-        area: '8,515,767 كم²',
-        areaEn: '8,515,767 km²',
-        currency: 'الريال البرازيلي',
-        currencyEn: 'Brazilian Real',
-        language: 'البرتغالية',
-        languageEn: 'Portuguese',
-        description: 'البرازيل، أكبر دول أمريكا الجنوبية وبلد السامبا وكرة القدم',
-        descriptionEn: 'Brazil, largest country in South America, land of samba and football',
-        flagCode: 'br',
-        majorCities: [
-          { name: 'ريو دي جانيرو', type: 'مدينة الكرنفال' },
-          { name: 'ساو باولو', type: 'أكبر مدينة' },
-          { name: 'برازيليا', type: 'العاصمة' }
-        ],
-        religion: {
-          main: 'المسيحية',
-          denomination: 'كاثوليكية وبروتستانتية',
-          details: 'أكبر دولة كاثوليكية في العالم'
-        },
-        government: {
-          system: 'جمهورية رئاسية',
-          president: 'لويس إيناسيو لولا دا سيلفا',
-          parliament: 'الكونغرس الوطني'
-        },
-        culture: {
-          traditions: ['السامبا', 'الكابويرا', 'كرنفال ريو'],
-          landmarks: ['تمثال المسيح الفادي', 'غابات الأمازون'],
-          festivals: ['كرنفال ريو', 'مهرجان يونيو']
-        }
-      },
-      {
-        name: 'كندا',
-        nameEn: 'Canada',
-        capital: 'أوتاوا',
-        capitalEn: 'Ottawa',
-        zone: 'America/Toronto',
-        coordinates: '45.4215,-75.6997',
-        color: '#D52B1E',
-        continent: 'america',
-        leader: 'جاستن ترودو',
-        leaderEn: 'Justin Trudeau',
-        population: '39 مليون نسمة',
-        populationEn: '39 million',
-        area: '9,984,670 كم²',
-        areaEn: '9,984,670 km²',
-        currency: 'الدولار الكندي',
-        currencyEn: 'Canadian Dollar',
-        language: 'الإنجليزية والفرنسية',
-        languageEn: 'English and French',
-        description: 'كندا، ثاني أكبر دولة في العالم وبلد الطبيعة الخلابة',
-        descriptionEn: 'Canada, second largest country and land of natural beauty',
-        flagCode: 'ca',
-        majorCities: [
-          { name: 'تورونتو', type: 'أكبر مدينة' },
-          { name: 'مونتريال', type: 'مدينة الثقافة' },
-          { name: 'فانكوفر', type: 'مدينة الطبيعة' }
-        ],
-        religion: {
-          main: 'المسيحية',
-          denomination: 'كاثوليكية وبروتستانتية',
-          details: 'تعدد ديني وحرية عقائدية'
-        },
-        government: {
-          system: 'ملكية دستورية فيدرالية',
-          primeMinister: 'جاستن ترودو',
-          parliament: 'البرلمان الكندي'
-        },
-        culture: {
-          traditions: ['الهوكي', 'شراب القيقب', 'عيد الشكر الكندي'],
-          landmarks: ['شلالات نياجرا', 'جبال الروكي', 'برج سي إن'],
-          festivals: ['مهرجان مونتريال', 'عيد كندا']
-        }
-      },
+  {
+    name: 'الولايات المتحدة الأمريكية',
+    nameEn: 'United States of America',
+    capital: 'واشنطن العاصمة',
+    capitalEn: 'Washington D.C.',
+    zone: 'America/New_York',
+    coordinates: '38.9072,-77.0369',
+    color: '#B22234',
+    continent: 'america',
+    leader: 'دونالد ترامب',
+    leaderEn: 'Donald Trump',
+    population: '331 مليون نسمة',
+    populationEn: '331 million',
+    area: '9,833,517 كم²',
+    areaEn: '9,833,517 km²',
+    currency: 'الدولار الأمريكي',
+    currencyEn: 'US Dollar',
+    language: 'الإنجليزية (غير رسمية)',
+    languageEn: 'English (unofficial)',
+    description: 'الولايات المتحدة، أكبر قوة اقتصادية وعسكرية في العالم',
+    descriptionEn: 'United States, world\'s largest economic and military power',
+    flagCode: 'us',
+    majorCities: [
+      { name: 'نيويورك', type: 'أكبر مدينة' },
+      { name: 'لوس أنجلوس', type: 'مدينة الأفلام' }
+    ],
+    religion: {
+      main: 'المسيحية',
+      denomination: 'بروتستانتية وكاثوليكية',
+      details: 'تعدد ديني كبير'
+    },
+    government: {
+      system: 'جمهورية فيدرالية رئاسية',
+      president: 'دونالد ترامب',
+      parliament: 'الكونغرس'
+    },
+    culture: {
+      traditions: ['عيد الشكر', 'الرابع من يوليو'],
+      landmarks: ['تمثال الحرية', 'البيت الأبيض'],
+      festivals: ['يوم الاستقلال', 'عيد الميلاد']
+    }
+  },
+  {
+    name: 'كندا',
+    nameEn: 'Canada',
+    capital: 'أوتاوا',
+    capitalEn: 'Ottawa',
+    zone: 'America/Toronto',
+    coordinates: '45.4215,-75.6997',
+    color: '#D52B1E',
+    continent: 'america',
+    leader: 'جاستن ترودو',
+    leaderEn: 'Justin Trudeau',
+    population: '39 مليون نسمة',
+    populationEn: '39 million',
+    area: '9,984,670 كم²',
+    areaEn: '9,984,670 km²',
+    currency: 'الدولار الكندي',
+    currencyEn: 'Canadian Dollar',
+    language: 'الإنجليزية والفرنسية',
+    languageEn: 'English and French',
+    description: 'كندا، ثاني أكبر دولة في العالم وأرض الطبيعة الخلابة',
+    descriptionEn: 'Canada, second largest country in the world, land of stunning nature',
+    flagCode: 'ca',
+    majorCities: [
+      { name: 'تورونتو', type: 'أكبر مدينة' },
+      { name: 'مونتريال', type: 'مدينة فرنكوفونية' }
+    ],
+    religion: {
+      main: 'المسيحية',
+      denomination: 'كاثوليكية وبروتستانتية',
+      details: 'تعدد ديني'
+    },
+    government: {
+      system: 'ملكية دستورية فيدرالية',
+      primeMinister: 'جاستن ترودو',
+      parliament: 'البرلمان الكندي'
+    },
+    culture: {
+      traditions: ['الهوكي', 'عيد الشكر الكندي'],
+      landmarks: ['شلالات نياجارا', 'جبال روكي'],
+      festivals: ['مهرجان مونتريال', 'عيد كندا']
+    }
+  },
+  {
+    name: 'المكسيك',
+    nameEn: 'Mexico',
+    capital: 'مكسيكو سيتي',
+    capitalEn: 'Mexico City',
+    zone: 'America/Mexico_City',
+    coordinates: '19.4326,-99.1332',
+    color: '#006341',
+    continent: 'america',
+    leader: 'كلاوديا شينباوم',
+    leaderEn: 'Claudia Sheinbaum',
+    population: '128 مليون نسمة',
+    populationEn: '128 million',
+    area: '1,964,375 كم²',
+    areaEn: '1,964,375 km²',
+    currency: 'البيزو المكسيكي',
+    currencyEn: 'Mexican Peso',
+    language: 'الإسبانية',
+    languageEn: 'Spanish',
+    description: 'المكسيك، أرض الحضارات القديمة والثقافة الغنية',
+    descriptionEn: 'Mexico, land of ancient civilizations and rich culture',
+    flagCode: 'mx',
+    majorCities: [
+      { name: 'غوادالاخارا', type: 'ثاني أكبر مدينة' },
+      { name: 'مونتيري', type: 'مركز صناعي' }
+    ],
+    religion: {
+      main: 'المسيحية',
+      denomination: 'كاثوليكية',
+      details: 'أغلبية كاثوليكية'
+    },
+    government: {
+      system: 'جمهورية فيدرالية رئاسية',
+      president: 'كلاوديا شينباوم',
+      parliament: 'الكونغرس المكسيكي'
+    },
+    culture: {
+      traditions: ['يوم الموتى', 'الماريا تشي'],
+      landmarks: ['تشيتشن إيتزا', 'تيوتيهواكان'],
+      festivals: ['عيد الاستقلال', 'عيد الموتى']
+    }
+  },
+
+  {
+    name: 'غواتيمالا',
+    nameEn: 'Guatemala',
+    capital: 'مدينة غواتيمالا',
+    capitalEn: 'Guatemala City',
+    zone: 'America/Guatemala',
+    coordinates: '14.6349,-90.5069',
+    color: '#4997D0',
+    continent: 'america',
+    leader: 'بيرناردو أريفالو',
+    leaderEn: 'Bernardo Arévalo',
+    population: '17.2 مليون نسمة',
+    populationEn: '17.2 million',
+    area: '108,889 كم²',
+    areaEn: '108,889 km²',
+    currency: 'الكتزال الغواتيمالي',
+    currencyEn: 'Guatemalan Quetzal',
+    language: 'الإسبانية',
+    languageEn: 'Spanish',
+    description: 'غواتيمالا، أرض المايا والطبيعة الاستوائية',
+    descriptionEn: 'Guatemala, land of Maya and tropical nature',
+    flagCode: 'gt',
+    majorCities: [
+      { name: 'كيتزالتينانغو', type: 'ثاني أكبر مدينة' },
+      { name: 'أنتيغوا', type: 'مدينة تاريخية' }
+    ],
+    religion: {
+      main: 'المسيحية',
+      denomination: 'كاثوليكية وبروتستانتية',
+      details: 'أغلبية مسيحية'
+    },
+    government: {
+      system: 'جمهورية رئاسية',
+      president: 'بيرناردو أريفالو',
+      parliament: 'الكونغرس'
+    },
+    culture: {
+      traditions: ['ثقافة المايا', 'النسيج التقليدي'],
+      landmarks: ['تيكال', 'بحيرة أتيتلان'],
+      festivals: ['السميانا سانتا', 'مهرجان المايا']
+    }
+  },
+  {
+    name: 'بليز',
+    nameEn: 'Belize',
+    capital: 'بلموبان',
+    capitalEn: 'Belmopan',
+    zone: 'America/Belize',
+    coordinates: '17.2510,-88.7590',
+    color: '#003F87',
+    continent: 'america',
+    leader: 'جوني بريسينيو',
+    leaderEn: 'Johnny Briceño',
+    population: '400 ألف نسمة',
+    populationEn: '400 thousand',
+    area: '22,966 كم²',
+    areaEn: '22,966 km²',
+    currency: 'الدولار البليزي',
+    currencyEn: 'Belize Dollar',
+    language: 'الإنجليزية',
+    languageEn: 'English',
+    description: 'بليز، الدولة الوحيدة الناطقة بالإنجليزية في أمريكا الوسطى',
+    descriptionEn: 'Belize, only English-speaking country in Central America',
+    flagCode: 'bz',
+    majorCities: [
+      { name: 'مدينة بليز', type: 'أكبر مدينة' },
+      { name: 'سان إيغناسيو', type: 'مدينة سياحية' }
+    ],
+    religion: {
+      main: 'المسيحية',
+      denomination: 'كاثوليكية وبروتستانتية',
+      details: 'تعدد ديني'
+    },
+    government: {
+      system: 'ملكية دستورية برلمانية',
+      primeMinister: 'جوني بريسينيو',
+      parliament: 'الجمعية الوطنية'
+    },
+    culture: {
+      traditions: ['ثقافة الغاريفونا', 'الموسيقى الكاريبية'],
+      landmarks: ['الحاجز المرجاني', 'كهوف ATM'],
+      festivals: ['سبتمبر سيليبريشن', 'مهرجان الغاريفونا']
+    }
+  },
+  {
+    name: 'السلفادور',
+    nameEn: 'El Salvador',
+    capital: 'سان سلفادور',
+    capitalEn: 'San Salvador',
+    zone: 'America/El_Salvador',
+    coordinates: '13.6929,-89.2182',
+    color: '#0047AB',
+    continent: 'america',
+    leader: 'نايب بوكيلي',
+    leaderEn: 'Nayib Bukele',
+    population: '6.5 مليون نسمة',
+    populationEn: '6.5 million',
+    area: '21,041 كم²',
+    areaEn: '21,041 km²',
+    currency: 'الدولار الأمريكي',
+    currencyEn: 'US Dollar',
+    language: 'الإسبانية',
+    languageEn: 'Spanish',
+    description: 'السلفادور، أصغر دولة في أمريكا الوسطى وأكثرها كثافة سكانية',
+    descriptionEn: 'El Salvador, smallest and most densely populated Central American country',
+    flagCode: 'sv',
+    majorCities: [
+      { name: 'سانتا آنا', type: 'ثاني أكبر مدينة' },
+      { name: 'سان ميغيل', type: 'مدينة تجارية' }
+    ],
+    religion: {
+      main: 'المسيحية',
+      denomination: 'كاثوليكية',
+      details: 'أغلبية كاثوليكية'
+    },
+    government: {
+      system: 'جمهورية رئاسية',
+      president: 'نايب بوكيلي',
+      parliament: 'الجمعية التشريعية'
+    },
+    culture: {
+      traditions: ['البوبوساس', 'الحرف اليدوية'],
+      landmarks: ['بركان إيزالكو', 'خويا دي سيرين'],
+      festivals: ['عيد الاستقلال', 'أسبوع الأعياد']
+    }
+  },
+  {
+    name: 'هندوراس',
+    nameEn: 'Honduras',
+    capital: 'تيغوسيغالبا',
+    capitalEn: 'Tegucigalpa',
+    zone: 'America/Tegucigalpa',
+    coordinates: '14.0723,-87.1921',
+    color: '#002868',
+    continent: 'america',
+    leader: 'شيومارا كاسترو',
+    leaderEn: 'Xiomara Castro',
+    population: '10.1 مليون نسمة',
+    populationEn: '10.1 million',
+    area: '112,492 كم²',
+    areaEn: '112,492 km²',
+    currency: 'الليمبيرا الهندوراسية',
+    currencyEn: 'Honduran Lempira',
+    language: 'الإسبانية',
+    languageEn: 'Spanish',
+    description: 'هندوراس، أرض الحضارات القديمة والطبيعة المتنوعة',
+    descriptionEn: 'Honduras, land of ancient civilizations and diverse nature',
+    flagCode: 'hn',
+    majorCities: [
+      { name: 'سان بيدرو سولا', type: 'مركز صناعي' },
+      { name: 'لا سيبا', type: 'مدينة ساحلية' }
+    ],
+    religion: {
+      main: 'المسيحية',
+      denomination: 'كاثوليكية',
+      details: 'أغلبية كاثوليكية'
+    },
+    government: {
+      system: 'جمهورية رئاسية',
+      president: 'شيومارا كاسترو',
+      parliament: 'الكونغرس الوطني'
+    },
+    culture: {
+      traditions: ['ثقافة المايا', 'الرقص التقليدي'],
+      landmarks: ['كوبان', 'جزر الخليج'],
+      festivals: ['عيد الاستقلال', 'لا فيريا']
+    }
+  },
+  {
+    name: 'نيكاراغوا',
+    nameEn: 'Nicaragua',
+    capital: 'ماناغوا',
+    capitalEn: 'Managua',
+    zone: 'America/Managua',
+    coordinates: '12.1364,-86.2514',
+    color: '#002B7F',
+    continent: 'america',
+    leader: 'دانييل أورتيغا',
+    leaderEn: 'Daniel Ortega',
+    population: '6.9 مليون نسمة',
+    populationEn: '6.9 million',
+    area: '130,373 كم²',
+    areaEn: '130,373 km²',
+    currency: 'الكوردوبا النيكاراغوية',
+    currencyEn: 'Nicaraguan Córdoba',
+    language: 'الإسبانية',
+    languageEn: 'Spanish',
+    description: 'نيكاراغوا، أرض البحيرات والبراكين',
+    descriptionEn: 'Nicaragua, land of lakes and volcanoes',
+    flagCode: 'ni',
+    majorCities: [
+      { name: 'ليون', type: 'مدينة تاريخية' },
+      { name: 'غرناطة', type: 'مدينة سياحية' }
+    ],
+    religion: {
+      main: 'المسيحية',
+      denomination: 'كاثوليكية',
+      details: 'أغلبية كاثوليكية'
+    },
+    government: {
+      system: 'جمهورية رئاسية',
+      president: 'دانييل أورتيغا',
+      parliament: 'الجمعية الوطنية'
+    },
+    culture: {
+      traditions: ['الشعر', 'الحرف اليدوية'],
+      landmarks: ['بحيرة نيكاراغوا', 'بركان كونسيبسيون'],
+      festivals: ['لا غريتيريا', 'سان خيرونيمو']
+    }
+  },
+  {
+    name: 'كوستاريكا',
+    nameEn: 'Costa Rica',
+    capital: 'سان خوسيه',
+    capitalEn: 'San José',
+    zone: 'America/Costa_Rica',
+    coordinates: '9.9281,-84.0907',
+    color: '#002B7F',
+    continent: 'america',
+    leader: 'رودريغو تشافيس',
+    leaderEn: 'Rodrigo Chaves',
+    population: '5.2 مليون نسمة',
+    populationEn: '5.2 million',
+    area: '51,100 كم²',
+    areaEn: '51,100 km²',
+    currency: 'الكولون الكوستاريكي',
+    currencyEn: 'Costa Rican Colón',
+    language: 'الإسبانية',
+    languageEn: 'Spanish',
+    description: 'كوستاريكا، الجنة الخضراء وأرض السلام',
+    descriptionEn: 'Costa Rica, green paradise and land of peace',
+    flagCode: 'cr',
+    majorCities: [
+      { name: 'كارتاغو', type: 'مدينة تاريخية' },
+      { name: 'بونتاريناس', type: 'مدينة ساحلية' }
+    ],
+    religion: {
+      main: 'المسيحية',
+      denomination: 'كاثوليكية',
+      details: 'أغلبية كاثوليكية'
+    },
+    government: {
+      system: 'جمهورية رئاسية',
+      president: 'رودريغو تشافيس',
+      parliament: 'الجمعية التشريعية'
+    },
+    culture: {
+      traditions: ['الحفاظ على البيئة', 'القهوة'],
+      landmarks: ['متنزه مانويل أنطونيو', 'بركان أرينال'],
+      festivals: ['فيستيفال دي لا لوز', 'احتفالات السنة الجديدة']
+    }
+  },
+  {
+    name: 'بنما',
+    nameEn: 'Panama',
+    capital: 'مدينة بنما',
+    capitalEn: 'Panama City',
+    zone: 'America/Panama',
+    coordinates: '8.9824,-79.5199',
+    color: '#FF0000',
+    continent: 'america',
+    leader: 'خوسيه راؤول مولينو',
+    leaderEn: 'José Raúl Mulino',
+    population: '4.4 مليون نسمة',
+    populationEn: '4.4 million',
+    area: '75,417 كم²',
+    areaEn: '75,417 km²',
+    currency: 'البالبوا البنمي والدولار الأمريكي',
+    currencyEn: 'Panamanian Balboa and US Dollar',
+    language: 'الإسبانية',
+    languageEn: 'Spanish',
+    description: 'بنما، جسر القارات وقناة العالم',
+    descriptionEn: 'Panama, bridge of continents and canal of the world',
+    flagCode: 'pa',
+    majorCities: [
+      { name: 'كولون', type: 'مدينة ساحلية' },
+      { name: 'دافيد', type: 'مركز زراعي' }
+    ],
+    religion: {
+      main: 'المسيحية',
+      denomination: 'كاثوليكية',
+      details: 'أغلبية كاثوليكية'
+    },
+    government: {
+      system: 'جمهورية رئاسية',
+      president: 'خوسيه راؤول مولينو',
+      parliament: 'الجمعية الوطنية'
+    },
+    culture: {
+      traditions: ['الكرنفال', 'الموسيقى التقليدية'],
+      landmarks: ['قناة بنما', 'البلدة القديمة'],
+      festivals: ['كرنفال بنما', 'مهرجان أزويرو']
+    }
+  },
+
+  {
+    name: 'كوبا',
+    nameEn: 'Cuba',
+    capital: 'هافانا',
+    capitalEn: 'Havana',
+    zone: 'America/Havana',
+    coordinates: '23.1136,-82.3666',
+    color: '#CC0000',
+    continent: 'america',
+    leader: 'ميغيل دياز كانيل',
+    leaderEn: 'Miguel Díaz-Canel',
+    population: '11.3 مليون نسمة',
+    populationEn: '11.3 million',
+    area: '109,884 كم²',
+    areaEn: '109,884 km²',
+    currency: 'البيزو الكوبي',
+    currencyEn: 'Cuban Peso',
+    language: 'الإسبانية',
+    languageEn: 'Spanish',
+    description: 'كوبا، لؤلؤة الكاريبي وأرض الثورة والموسيقى',
+    descriptionEn: 'Cuba, Pearl of the Caribbean, land of revolution and music',
+    flagCode: 'cu',
+    majorCities: [
+      { name: 'سانتياغو دي كوبا', type: 'ثاني أكبر مدينة' },
+      { name: 'كاماغوي', type: 'مدينة تاريخية' }
+    ],
+    religion: {
+      main: 'المسيحية',
+      denomination: 'كاثوليكية',
+      details: 'تعدد ديني مع أديان أفريقية'
+    },
+    government: {
+      system: 'جمهورية اشتراكية',
+      president: 'ميغيل دياز كانيل',
+      parliament: 'جمعية السلطة الشعبية الوطنية'
+    },
+    culture: {
+      traditions: ['السالسا', 'السيجار الكوبي'],
+      landmarks: ['هافانا القديمة', 'وادي فينيالس'],
+      festivals: ['كرنفال هافانا', 'مهرجان الجاز']
+    }
+  },
+  {
+    name: 'جمهورية الدومينيكان',
+    nameEn: 'Dominican Republic',
+    capital: 'سانتو دومينغو',
+    capitalEn: 'Santo Domingo',
+    zone: 'America/Santo_Domingo',
+    coordinates: '18.4861,-69.9312',
+    color: '#002D62',
+    continent: 'america',
+    leader: 'لويس أبينادير',
+    leaderEn: 'Luis Abinader',
+    population: '11.1 مليون نسمة',
+    populationEn: '11.1 million',
+    area: '48,671 كم²',
+    areaEn: '48,671 km²',
+    currency: 'البيزو الدومينيكي',
+    currencyEn: 'Dominican Peso',
+    language: 'الإسبانية',
+    languageEn: 'Spanish',
+    description: 'جمهورية الدومينيكان، أرض الشواطئ الذهبية والمرينغي',
+    descriptionEn: 'Dominican Republic, land of golden beaches and merengue',
+    flagCode: 'do',
+    majorCities: [
+      { name: 'سانتياغو', type: 'ثاني أكبر مدينة' },
+      { name: 'بونتا كانا', type: 'مدينة سياحية' }
+    ],
+    religion: {
+      main: 'المسيحية',
+      denomination: 'كاثوليكية',
+      details: 'أغلبية كاثوليكية'
+    },
+    government: {
+      system: 'جمهورية رئاسية',
+      president: 'لويس أبينادير',
+      parliament: 'الكونغرس الوطني'
+    },
+    culture: {
+      traditions: ['المرينغي', 'الباتشاتا'],
+      landmarks: ['الكولونيا الاستعمارية', 'جبل بيكو دوارتي'],
+      festivals: ['كرنفال الدومينيكان', 'عيد المرينغي']
+    }
+  },
+  {
+    name: 'هايتي',
+    nameEn: 'Haiti',
+    capital: 'بورت أو برنس',
+    capitalEn: 'Port-au-Prince',
+    zone: 'America/Port-au-Prince',
+    coordinates: '18.5944,-72.3074',
+    color: '#00209F',
+    continent: 'america',
+    leader: 'فريتز بيلزين',
+    leaderEn: 'Fritz Bélizaire',
+    population: '11.7 مليون نسمة',
+    populationEn: '11.7 million',
+    area: '27,750 كم²',
+    areaEn: '27,750 km²',
+    currency: 'الغورد الهايتي',
+    currencyEn: 'Haitian Gourde',
+    language: 'الفرنسية والكريولية الهايتية',
+    languageEn: 'French and Haitian Creole',
+    description: 'هايتي، أول جمهورية سوداء في العالم',
+    descriptionEn: 'Haiti, world\'s first black republic',
+    flagCode: 'ht',
+    majorCities: [
+      { name: 'كاب هايتيان', type: 'مدينة شمالية' },
+      { name: 'غونايفس', type: 'مدينة الاستقلال' }
+    ],
+    religion: {
+      main: 'المسيحية',
+      denomination: 'كاثوليكية وبروتستانتية',
+      details: 'مع تأثيرات الفودو'
+    },
+    government: {
+      system: 'جمهورية رئاسية',
+      primeMinister: 'فريتز بيلزين',
+      parliament: 'البرلمان الهايتي'
+    },
+    culture: {
+      traditions: ['الفودو', 'الكونبا'],
+      landmarks: ['قلعة لافيرير', 'سان سوسي'],
+      festivals: ['كرنفال هايتي', 'عيد الأسلاف']
+    }
+  },
+  {
+    name: 'جامايكا',
+    nameEn: 'Jamaica',
+    capital: 'كينغستون',
+    capitalEn: 'Kingston',
+    zone: 'America/Jamaica',
+    coordinates: '17.9770,-76.7936',
+    color: '#009639',
+    continent: 'america',
+    leader: 'أندرو هولنيس',
+    leaderEn: 'Andrew Holness',
+    population: '2.8 مليون نسمة',
+    populationEn: '2.8 million',
+    area: '10,991 كم²',
+    areaEn: '10,991 km²',
+    currency: 'الدولار الجامايكي',
+    currencyEn: 'Jamaican Dollar',
+    language: 'الإنجليزية',
+    languageEn: 'English',
+    description: 'جامايكا، أرض الريغي وبوب مارلي',
+    descriptionEn: 'Jamaica, land of reggae and Bob Marley',
+    flagCode: 'jm',
+    majorCities: [
+      { name: 'مونتيغو باي', type: 'مدينة سياحية' },
+      { name: 'سبانيش تاون', type: 'العاصمة السابقة' }
+    ],
+    religion: {
+      main: 'المسيحية',
+      denomination: 'بروتستانتية',
+      details: 'مع تأثيرات الراستافارية'
+    },
+    government: {
+      system: 'ملكية دستورية برلمانية',
+      primeMinister: 'أندرو هولنيس',
+      parliament: 'البرلمان الجامايكي'
+    },
+    culture: {
+      traditions: ['الريغي', 'الراستافارية'],
+      landmarks: ['جبال بلو ماونتين', 'شلالات دانز ريفر'],
+      festivals: ['ريغي سام فست', 'عيد الاستقلال']
+    }
+  },
+  {
+    name: 'ترينيداد وتوباغو',
+    nameEn: 'Trinidad and Tobago',
+    capital: 'بورت أوف سبين',
+    capitalEn: 'Port of Spain',
+    zone: 'America/Port_of_Spain',
+    coordinates: '10.6918,-61.2225',
+    color: '#CE1126',
+    continent: 'america',
+    leader: 'كيث رولي',
+    leaderEn: 'Keith Rowley',
+    population: '1.4 مليون نسمة',
+    populationEn: '1.4 million',
+    area: '5,131 كم²',
+    areaEn: '5,131 km²',
+    currency: 'دولار ترينيداد وتوباغو',
+    currencyEn: 'Trinidad and Tobago Dollar',
+    language: 'الإنجليزية',
+    languageEn: 'English',
+    description: 'ترينيداد وتوباغو، أرض الكالبسو والكرنفال',
+    descriptionEn: 'Trinidad and Tobago, land of calypso and carnival',
+    flagCode: 'tt',
+    majorCities: [
+      { name: 'سان فرناندو', type: 'مدينة صناعية' },
+      { name: 'سكاربورو', type: 'عاصمة توباغو' }
+    ],
+    religion: {
+      main: 'المسيحية',
+      denomination: 'كاثوليكية وبروتستانتية',
+      details: 'تعدد ديني مع الهندوسية والإسلام'
+    },
+    government: {
+      system: 'جمهورية برلمانية',
+      primeMinister: 'كيث رولي',
+      parliament: 'البرلمان'
+    },
+    culture: {
+      traditions: ['الكالبسو', 'السوكا'],
+      landmarks: ['شاطئ ماراكاس', 'مستنقع كاروني'],
+      festivals: ['كرنفال ترينيداد', 'ديفالي']
+    }
+  },
+  {
+    name: 'باربادوس',
+    nameEn: 'Barbados',
+    capital: 'بريدج تاون',
+    capitalEn: 'Bridgetown',
+    zone: 'America/Barbados',
+    coordinates: '13.1939,-59.5432',
+    color: '#FFC726',
+    continent: 'america',
+    leader: 'ميا موتلي',
+    leaderEn: 'Mia Mottley',
+    population: '288 ألف نسمة',
+    populationEn: '288 thousand',
+    area: '430 كم²',
+    areaEn: '430 km²',
+    currency: 'الدولار البربادوسي',
+    currencyEn: 'Barbadian Dollar',
+    language: 'الإنجليزية',
+    languageEn: 'English',
+    description: 'باربادوس، لؤلؤة الكاريبي وموطن الرم',
+    descriptionEn: 'Barbados, pearl of Caribbean and birthplace of rum',
+    flagCode: 'bb',
+    majorCities: [
+      { name: 'سبايتس تاون', type: 'أول مستوطنة' },
+      { name: 'أويستينز', type: 'مدينة صيد' }
+    ],
+    religion: {
+      main: 'المسيحية',
+      denomination: 'أنجليكانية',
+      details: 'أغلبية بروتستانتية'
+    },
+    government: {
+      system: 'جمهورية برلمانية',
+      primeMinister: 'ميا موتلي',
+      parliament: 'البرلمان البربادوسي'
+    },
+    culture: {
+      traditions: ['الكريكت', 'الموسيقى الكاريبية'],
+      landmarks: ['كهوف هاريسون', 'جسر هاريسون'],
+      festivals: ['كروب أوفر', 'مهرجان الرم']
+    }
+  },
+  {
+    name: 'غرينادا',
+    nameEn: 'Grenada',
+    capital: 'سانت جورجز',
+    capitalEn: 'St. George\'s',
+    zone: 'America/Grenada',
+    coordinates: '12.0561,-61.7486',
+    color: '#CE1126',
+    continent: 'america',
+    leader: 'ديكون ميتشل',
+    leaderEn: 'Dickon Mitchell',
+    population: '113 ألف نسمة',
+    populationEn: '113 thousand',
+    area: '344 كم²',
+    areaEn: '344 km²',
+    currency: 'دولار الكاريبي الشرقي',
+    currencyEn: 'East Caribbean Dollar',
+    language: 'الإنجليزية',
+    languageEn: 'English',
+    description: 'غرينادا، جزيرة التوابل في الكاريبي',
+    descriptionEn: 'Grenada, spice island of the Caribbean',
+    flagCode: 'gd',
+    majorCities: [
+      { name: 'غويافا', type: 'ثاني أكبر مدينة' },
+      { name: 'هيلزبورو', type: 'عاصمة كارياكو' }
+    ],
+    religion: {
+      main: 'المسيحية',
+      denomination: 'كاثوليكية',
+      details: 'أغلبية كاثوليكية'
+    },
+    government: {
+      system: 'ملكية دستورية برلمانية',
+      primeMinister: 'ديكون ميتشل',
+      parliament: 'البرلمان'
+    },
+    culture: {
+      traditions: ['زراعة التوابل', 'الكالبسو'],
+      landmarks: ['بحيرة الحفرة الكبرى', 'شلالات أناناديل'],
+      festivals: ['سبايس ماس', 'مهرجان التوابل']
+    }
+  },
+  {
+    name: 'سانت لوسيا',
+    nameEn: 'Saint Lucia',
+    capital: 'كاستريس',
+    capitalEn: 'Castries',
+    zone: 'America/St_Lucia',
+    coordinates: '14.0101,-60.9875',
+    color: '#002B7F',
+    continent: 'america',
+    leader: 'فيليب بيير',
+    leaderEn: 'Philip Pierre',
+    population: '185 ألف نسمة',
+    populationEn: '185 thousand',
+    area: '617 كم²',
+    areaEn: '617 km²',
+    currency: 'دولار الكاريبي الشرقي',
+    currencyEn: 'East Caribbean Dollar',
+    language: 'الإنجليزية',
+    languageEn: 'English',
+    description: 'سانت لوسيا، هيلين البحر الكاريبي',
+    descriptionEn: 'Saint Lucia, Helen of the Caribbean Sea',
+    flagCode: 'lc',
+    majorCities: [
+      { name: 'فيو فورت', type: 'مدينة سياحية' },
+      { name: 'سوفرير', type: 'مدينة تاريخية' }
+    ],
+    religion: {
+      main: 'المسيحية',
+      denomination: 'كاثوليكية',
+      details: 'أغلبية كاثوليكية'
+    },
+    government: {
+      system: 'ملكية دستورية برلمانية',
+      primeMinister: 'فيليب بيير',
+      parliament: 'البرلمان'
+    },
+    culture: {
+      traditions: ['الكريول', 'الموسيقى الكاريبية'],
+      landmarks: ['جبال بيتونز', 'حدائق ديموند النباتية'],
+      festivals: ['سانت لوسيا جاز', 'لا روز']
+    }
+  },
+  {
+    name: 'سانت فنسنت والغرينادين',
+    nameEn: 'Saint Vincent and the Grenadines',
+    capital: 'كينغزتاون',
+    capitalEn: 'Kingstown',
+    zone: 'America/St_Vincent',
+    coordinates: '13.1579,-61.2248',
+    color: '#002B7F',
+    continent: 'america',
+    leader: 'رالف غونزاليس',
+    leaderEn: 'Ralph Gonsalves',
+    population: '111 ألف نسمة',
+    populationEn: '111 thousand',
+    area: '389 كم²',
+    areaEn: '389 km²',
+    currency: 'دولار الكاريبي الشرقي',
+    currencyEn: 'East Caribbean Dollar',
+    language: 'الإنجليزية',
+    languageEn: 'English',
+    description: 'سانت فنسنت والغرينادين، جواهر الكاريبي',
+    descriptionEn: 'Saint Vincent and the Grenadines, gems of the Caribbean',
+    flagCode: 'vc',
+    majorCities: [
+      { name: 'جورجتاون', type: 'مدينة في بيكيا' },
+      { name: 'بورت إليزابيث', type: 'عاصمة بيكيا' }
+    ],
+    religion: {
+      main: 'المسيحية',
+      denomination: 'أنجليكانية وميثودية',
+      details: 'أغلبية بروتستانتية'
+    },
+    government: {
+      system: 'ملكية دستورية برلمانية',
+      primeMinister: 'رالف غونزاليس',
+      parliament: 'مجلس النواب'
+    },
+    culture: {
+      traditions: ['الكريكت', 'الملاحة'],
+      landmarks: ['بركان سوفرير', 'توباغو كايز'],
+      festivals: ['فينسي ماس', 'نوع الموسيقى']
+    }
+  },
+  {
+    name: 'دومينيكا',
+    nameEn: 'Dominica',
+    capital: 'روزو',
+    capitalEn: 'Roseau',
+    zone: 'America/Dominica',
+    coordinates: '15.3017,-61.3870',
+    color: '#006B3C',
+    continent: 'america',
+    leader: 'روزفلت سكيريت',
+    leaderEn: 'Roosevelt Skerrit',
+    population: '72 ألف نسمة',
+    populationEn: '72 thousand',
+    area: '751 كم²',
+    areaEn: '751 km²',
+    currency: 'دولار الكاريبي الشرقي',
+    currencyEn: 'East Caribbean Dollar',
+    language: 'الإنجليزية',
+    languageEn: 'English',
+    description: 'دومينيكا، جزيرة الطبيعة في الكاريبي',
+    descriptionEn: 'Dominica, nature island of the Caribbean',
+    flagCode: 'dm',
+    majorCities: [
+      { name: 'ماريغوت', type: 'مدينة شمالية' },
+      { name: 'بورتسموث', type: 'مدينة ساحلية' }
+    ],
+    religion: {
+      main: 'المسيحية',
+      denomination: 'كاثوليكية',
+      details: 'أغلبية كاثوليكية'
+    },
+    government: {
+      system: 'جمهورية برلمانية',
+      primeMinister: 'روزفلت سكيريت',
+      parliament: 'مجلس النواب'
+    },
+    culture: {
+      traditions: ['الكريول', 'الحرف اليدوية'],
+      landmarks: ['متنزه مورن تروا بيتونز', 'بحيرة بويلينغ'],
+      festivals: ['احتفال الاستقلال', 'وورلد كريول موسيك']
+    }
+  },
+  {
+    name: 'أنتيغوا وباربودا',
+    nameEn: 'Antigua and Barbuda',
+    capital: 'سانت جونز',
+    capitalEn: 'St. John\'s',
+    zone: 'America/Antigua',
+    coordinates: '17.1274,-61.8468',
+    color: '#CE1126',
+    continent: 'america',
+    leader: 'غاستون براون',
+    leaderEn: 'Gaston Browne',
+    population: '99 ألف نسمة',
+    populationEn: '99 thousand',
+    area: '442 كم²',
+    areaEn: '442 km²',
+    currency: 'دولار الكاريبي الشرقي',
+    currencyEn: 'East Caribbean Dollar',
+    language: 'الإنجليزية',
+    languageEn: 'English',
+    description: 'أنتيغوا وباربودا، أرض 365 شاطئاً',
+    descriptionEn: 'Antigua and Barbuda, land of 365 beaches',
+    flagCode: 'ag',
+    majorCities: [
+      { name: 'أول سينتس', type: 'مدينة تاريخية' },
+      { name: 'كودرينغتون', type: 'عاصمة باربودا' }
+    ],
+    religion: {
+      main: 'المسيحية',
+      denomination: 'أنجليكانية',
+      details: 'أغلبية بروتستانتية'
+    },
+    government: {
+      system: 'ملكية دستورية برلمانية',
+      primeMinister: 'غاستون براون',
+      parliament: 'البرلمان'
+    },
+    culture: {
+      traditions: ['الكريكت', 'الكالبسو'],
+      landmarks: ['نيلسون دوكيارد', 'شيرلي هايتس'],
+      festivals: ['كرنفال أنتيغوا', 'مهرجان الإبحار']
+    }
+  },
+  {
+    name: 'سانت كيتس ونيفيس',
+    nameEn: 'Saint Kitts and Nevis',
+    capital: 'باسيتير',
+    capitalEn: 'Basseterre',
+    zone: 'America/St_Kitts',
+    coordinates: '17.3026,-62.7177',
+    color: '#006B3C',
+    continent: 'america',
+    leader: 'تيرانس درو',
+    leaderEn: 'Terrance Drew',
+    population: '54 ألف نسمة',
+    populationEn: '54 thousand',
+    area: '261 كم²',
+    areaEn: '261 km²',
+    currency: 'دولار الكاريبي الشرقي',
+    currencyEn: 'East Caribbean Dollar',
+    language: 'الإنجليزية',
+    languageEn: 'English',
+    description: 'سانت كيتس ونيفيس، أصغر دولة في الأمريكتين',
+    descriptionEn: 'Saint Kitts and Nevis, smallest country in the Americas',
+    flagCode: 'kn',
+    majorCities: [
+      { name: 'تشارلزتاون', type: 'عاصمة نيفيس' },
+      { name: 'ديب باي', type: 'مدينة سياحية' }
+    ],
+    religion: {
+      main: 'المسيحية',
+      denomination: 'أنجليكانية',
+      details: 'أغلبية بروتستانتية'
+    },
+    government: {
+      system: 'ملكية دستورية فيدرالية',
+      primeMinister: 'تيرانس درو',
+      parliament: 'الجمعية الوطنية'
+    },
+    culture: {
+      traditions: ['زراعة قصب السكر', 'الكريكت'],
+      landmarks: ['قلعة بريمستون هيل', 'جبل لياميغا'],
+      festivals: ['شوغر ماس', 'مهرجان الموسيقى']
+    }
+  },
+  {
+    name: 'الباهاما',
+    nameEn: 'Bahamas',
+    capital: 'ناساو',
+    capitalEn: 'Nassau',
+    zone: 'America/Nassau',
+    coordinates: '25.0343,-77.3963',
+    color: '#002B7F',
+    continent: 'america',
+    leader: 'فيليب ديفيس',
+    leaderEn: 'Philip Davis',
+    population: '396 ألف نسمة',
+    populationEn: '396 thousand',
+    area: '13,943 كم²',
+    areaEn: '13,943 km²',
+    currency: 'الدولار البهامي',
+    currencyEn: 'Bahamian Dollar',
+    language: 'الإنجليزية',
+    languageEn: 'English',
+    description: 'الباهاما، جزر الفردوس في المحيط الأطلسي',
+    descriptionEn: 'Bahamas, paradise islands in the Atlantic Ocean',
+    flagCode: 'bs',
+    majorCities: [
+      { name: 'فريبورت', type: 'ثاني أكبر مدينة' },
+      { name: 'مارش هاربور', type: 'مدينة في أباكو' }
+    ],
+    religion: {
+      main: 'المسيحية',
+      denomination: 'بروتستانتية',
+      details: 'أغلبية بروتستانتية'
+    },
+    government: {
+      system: 'ملكية دستورية برلمانية',
+      primeMinister: 'فيليب ديفيس',
+      parliament: 'البرلمان'
+    },
+    culture: {
+      traditions: ['الجونكانو', 'الكونك'],
+      landmarks: ['بيج مايور كاي', 'ثاندربول غروتو'],
+      festivals: ['جونكانو', 'ريغاتا الباهاما']
+    }
+  },
+
+  {
+    name: 'البرازيل',
+    nameEn: 'Brazil',
+    capital: 'برازيليا',
+    capitalEn: 'Brasília',
+    zone: 'America/Sao_Paulo',
+    coordinates: '-15.7939,-47.8828',
+    color: '#009C3B',
+    continent: 'america',
+    leader: 'لويس إيناسيو لولا دا سيلفا',
+    leaderEn: 'Luiz Inácio Lula da Silva',
+    population: '216 مليون نسمة',
+    populationEn: '216 million',
+    area: '8,515,767 كم²',
+    areaEn: '8,515,767 km²',
+    currency: 'الريال البرازيلي',
+    currencyEn: 'Brazilian Real',
+    language: 'البرتغالية',
+    languageEn: 'Portuguese',
+    description: 'البرازيل، أكبر دولة في أمريكا الجنوبية وأرض الأمازون والكرنفال',
+    descriptionEn: 'Brazil, largest country in South America, land of Amazon and Carnival',
+    flagCode: 'br',
+    majorCities: [
+      { name: 'ريو دي جانيرو', type: 'مدينة سياحية' },
+      { name: 'ساو باولو', type: 'أكبر مدينة' }
+    ],
+    religion: {
+      main: 'المسيحية',
+      denomination: 'كاثوليكية وبروتستانتية',
+      details: 'أغلبية مسيحية'
+    },
+    government: {
+      system: 'جمهورية فيدرالية',
+      president: 'لويس إيناسيو لولا دا سيلفا',
+      parliament: 'الكونغرس الوطني'
+    },
+    culture: {
+      traditions: ['السامبا', 'الكرنفال'],
+      landmarks: ['تمثال المسيح الفادي', 'غابات الأمازون'],
+      festivals: ['كرنفال ريو', 'مهرجان يونيو']
+    }
+  },
+  {
+    name: 'الأرجنتين',
+    nameEn: 'Argentina',
+    capital: 'بوينس آيرس',
+    capitalEn: 'Buenos Aires',
+    zone: 'America/Argentina/Buenos_Aires',
+    coordinates: '-34.6118,-58.3960',
+    color: '#74ACDF',
+    continent: 'america',
+    leader: 'خافيير ميلي',
+    leaderEn: 'Javier Milei',
+    population: '45.8 مليون نسمة',
+    populationEn: '45.8 million',
+    area: '2,780,400 كم²',
+    areaEn: '2,780,400 km²',
+    currency: 'البيزو الأرجنتيني',
+    currencyEn: 'Argentine Peso',
+    language: 'الإسبانية',
+    languageEn: 'Spanish',
+    description: 'الأرجنتين، أرض التانغو واللحوم والنبيذ',
+    descriptionEn: 'Argentina, land of tango, beef and wine',
+    flagCode: 'ar',
+    majorCities: [
+      { name: 'قرطبة', type: 'ثاني أكبر مدينة' },
+      { name: 'روساريو', type: 'مدينة صناعية' }
+    ],
+    religion: {
+      main: 'المسيحية',
+      denomination: 'كاثوليكية',
+      details: 'أغلبية كاثوليكية'
+    },
+    government: {
+      system: 'جمهورية فيدرالية رئاسية',
+      president: 'خافيير ميلي',
+      parliament: 'الكونغرس الوطني'
+    },
+    culture: {
+      traditions: ['التانغو', 'الأسادو'],
+      landmarks: ['شلالات إيغوازو', 'أنهار جليدية باتاغونيا'],
+      festivals: ['مهرجان التانغو', 'عيد الاستقلال']
+    }
+  },
+  {
+    name: 'تشيلي',
+    nameEn: 'Chile',
+    capital: 'سانتياغو',
+    capitalEn: 'Santiago',
+    zone: 'America/Santiago',
+    coordinates: '-33.4489,-70.6693',
+    color: '#D52B1E',
+    continent: 'america',
+    leader: 'غابرييل بوريك',
+    leaderEn: 'Gabriel Boric',
+    population: '19.5 مليون نسمة',
+    populationEn: '19.5 million',
+    area: '756,096 كم²',
+    areaEn: '756,096 km²',
+    currency: 'البيزو التشيلي',
+    currencyEn: 'Chilean Peso',
+    language: 'الإسبانية',
+    languageEn: 'Spanish',
+    description: 'تشيلي، أرض التناقضات من الصحراء إلى الأنهار الجليدية',
+    descriptionEn: 'Chile, land of contrasts from desert to glaciers',
+    flagCode: 'cl',
+    majorCities: [
+      { name: 'فالباراييسو', type: 'مدينة ساحلية' },
+      { name: 'كونسيبسيون', type: 'مدينة جنوبية' }
+    ],
+    religion: {
+      main: 'المسيحية',
+      denomination: 'كاثوليكية',
+      details: 'أغلبية كاثوليكية'
+    },
+    government: {
+      system: 'جمهورية رئاسية',
+      president: 'غابرييل بوريك',
+      parliament: 'الكونغرس الوطني'
+    },
+    culture: {
+      traditions: ['الكويكا', 'شرب النبيذ'],
+      landmarks: ['جزيرة الفصح', 'صحراء أتاكاما'],
+      festivals: ['فيستاس باترياس', 'لا تيرانا']
+    }
+  },
+  {
+    name: 'بيرو',
+    nameEn: 'Peru',
+    capital: 'ليما',
+    capitalEn: 'Lima',
+    zone: 'America/Lima',
+    coordinates: '-12.0464,-77.0428',
+    color: '#D91023',
+    continent: 'america',
+    leader: 'دينا بولوارتي',
+    leaderEn: 'Dina Boluarte',
+    population: '33.4 مليون نسمة',
+    populationEn: '33.4 million',
+    area: '1,285,216 كم²',
+    areaEn: '1,285,216 km²',
+    currency: 'السول البيروفي',
+    currencyEn: 'Peruvian Sol',
+    language: 'الإسبانية والكيتشوا',
+    languageEn: 'Spanish and Quechua',
+    description: 'بيرو، أرض الإنكا وماتشو بيتشو',
+    descriptionEn: 'Peru, land of Incas and Machu Picchu',
+    flagCode: 'pe',
+    majorCities: [
+      { name: 'أريكيبا', type: 'ثاني أكبر مدينة' },
+      { name: 'كوزكو', type: 'العاصمة التاريخية' }
+    ],
+    religion: {
+      main: 'المسيحية',
+      denomination: 'كاثوليكية',
+      details: 'أغلبية كاثوليكية'
+    },
+    government: {
+      system: 'جمهورية رئاسية',
+      president: 'دينا بولوارتي',
+      parliament: 'الكونغرس'
+    },
+    culture: {
+      traditions: ['ثقافة الإنكا', 'الطبخ البيروفي'],
+      landmarks: ['ماتشو بيتشو', 'خطوط نازكا'],
+      festivals: ['إنتي رايمي', 'مهرجان فيرجن ديل كارمن']
+    }
+  },
+  {
+    name: 'كولومبيا',
+    nameEn: 'Colombia',
+    capital: 'بوغوتا',
+    capitalEn: 'Bogotá',
+    zone: 'America/Bogota',
+    coordinates: '4.7110,-74.0721',
+    color: '#FCDD09',
+    continent: 'america',
+    leader: 'غوستافو بيترو',
+    leaderEn: 'Gustavo Petro',
+    population: '51.5 مليون نسمة',
+    populationEn: '51.5 million',
+    area: '1,141,748 كم²',
+    areaEn: '1,141,748 km²',
+    currency: 'البيزو الكولومبي',
+    currencyEn: 'Colombian Peso',
+    language: 'الإسبانية',
+    languageEn: 'Spanish',
+    description: 'كولومبيا، أرض القهوة والزمرد والتنوع الطبيعي',
+    descriptionEn: 'Colombia, land of coffee, emeralds and natural diversity',
+    flagCode: 'co',
+    majorCities: [
+      { name: 'ميديين', type: 'مدينة الربيع الأبدي' },
+      { name: 'كالي', type: 'عاصمة السالسا' }
+    ],
+    religion: {
+      main: 'المسيحية',
+      denomination: 'كاثوليكية',
+      details: 'أغلبية كاثوليكية'
+    },
+    government: {
+      system: 'جمهورية رئاسية',
+      president: 'غوستافو بيترو',
+      parliament: 'الكونغرس'
+    },
+    culture: {
+      traditions: ['القهوة الكولومبية', 'السالسا'],
+      landmarks: ['كارتاخينا الاستعمارية', 'المدينة المفقودة'],
+      festivals: ['كرنفال باراكيا', 'مهرجان الزهور']
+    }
+  },
+  {
+    name: 'فنزويلا',
+    nameEn: 'Venezuela',
+    capital: 'كاراكاس',
+    capitalEn: 'Caracas',
+    zone: 'America/Caracas',
+    coordinates: '10.4806,-66.9036',
+    color: '#FCDD09',
+    continent: 'america',
+    leader: 'نيكولاس مادورو',
+    leaderEn: 'Nicolás Maduro',
+    population: '28.2 مليون نسمة',
+    populationEn: '28.2 million',
+    area: '916,445 كم²',
+    areaEn: '916,445 km²',
+    currency: 'البوليفار الفنزويلي',
+    currencyEن: 'Venezuelan Bolívar',
+    language: 'الإسبانية',
+    languageEن: 'Spanish',
+    description: 'فنزويلا، أرض الملائكة وأعلى شلال في العالم',
+    descriptionEن: 'Venezuela, land of angels and world\'s highest waterfall',
+    flagCode: 've',
+    majorCities: [
+      { name: 'ماراكايبو', type: 'مدينة النفط' },
+      { name: 'فالنسيا', type: 'مدينة صناعية' }
+    ],
+    religion: {
+      main: 'المسيحية',
+      denomination: 'كاثوليكية',
+      details: 'أغلبية كاثوليكية'
+    },
+    government: {
+      system: 'جمهورية فيدرالية',
+      president: 'نيكولاس مادورو',
+      parliament: 'الجمعية الوطنية'
+    },
+    culture: {
+      traditions: ['الجورو', 'الهارب'],
+      landmarks: ['شلال أنخيل', 'تيبويس روريما'],
+      festivals: ['كرنفال كاراكاس', 'عيد سان خوان']
+    }
+  },
+  {
+    name: 'الإكوادور',
+    nameEن: 'Ecuador',
+    capital: 'كيتو',
+    capitalEن: 'Quito',
+    zone: 'America/Guayaquil',
+    coordinates: '-0.1807,-78.4678',
+    color: '#FCDD09',
+    continent: 'america',
+    leader: 'دانييل نوبوا',
+    leaderEن: 'Daniel Noboa',
+    population: '18.1 مليون نسمة',
+    populationEن: '18.1 million',
+    area: '283,561 كم²',
+    areaEن: '283,561 km²',
+    currency: 'الدولار الأمريكي',
+    currencyEن: 'US Dollar',
+    language: 'الإسبانية',
+    languageEن: 'Spanish',
+    description: 'الإكوادور، خط الاستواء وجزر غالاباغوس',
+    descriptionEن: 'Ecuador, equator line and Galápagos Islands',
+    flagCode: 'ec',
+    majorCities: [
+      { name: 'غواياكيل', type: 'أكبر مدينة وميناء' },
+      { name: 'كوينكا', type: 'مدينة تراثية' }
+    ],
+    religion: {
+      main: 'المسيحية',
+      denomination: 'كاثوليكية',
+      details: 'أغلبية كاثوليكية'
+    },
+    government: {
+      system: 'جمهورية رئاسية',
+      president: 'دانييل نوبوا',
+      parliament: 'الجمعية الوطنية'
+    },
+    culture: {
+      traditions: ['الكيتشوا', 'نسج بنما هات'],
+      landmarks: ['جزر غالاباغوس', 'مدينة كيتو الاستعمارية'],
+      festivals: ['إنتي رايمي', 'كرنفال غواراندا']
+    }
+  },
+  {
+    name: 'بوليفيا',
+    nameEن: 'Bolivia',
+    capital: 'سوكري (الدستورية) / لاباز (الإدارية)',
+    capitalEن: 'Sucre (Constitutional) / La Paz (Administrative)',
+    zone: 'America/La_Paz',
+    coordinates: '-16.2902,-63.5887',
+    color: '#D52B1E',
+    continent: 'america',
+    leader: 'لويس آرسي',
+    leaderEن: 'Luis Arce',
+    population: '12.0 مليون نسمة',
+    populationEن: '12.0 million',
+    area: '1,098,581 كم²',
+    areaEن: '1,098,581 km²',
+    currency: 'البوليفيانو',
+    currencyEن: 'Boliviano',
+    language: 'الإسبانية والكيتشوا والأيمارا',
+    languageEن: 'Spanish, Quechua and Aymara',
+    description: 'بوليفيا، سقف العالم وأرض التنوع الثقافي',
+    descriptionEن: 'Bolivia, roof of the world and land of cultural diversity',
+    flagCode: 'bo',
+    majorCities: [
+      { name: 'سانتا كروز', type: 'أكبر مدينة' },
+      { name: 'كوتشابامبا', type: 'مدينة الربيع الأبدي' }
+    ],
+    religion: {
+      main: 'المسيحية',
+      denomination: 'كاثوليكية',
+      details: 'مع معتقدات أندية'
+    },
+    government: {
+      system: 'جمهورية رئاسية',
+      president: 'لويس آرسي',
+      parliament: 'الجمعية التشريعية المتعددة القوميات'
+    },
+    culture: {
+      traditions: ['ثقافة الأنديز', 'الكوكا'],
+      landmarks: ['سالار دي أويوني', 'تيواناكو'],
+      festivals: ['كرنفال أورورو', 'ألاسيتاس']
+    }
+  },
+  {
+    name: 'باراغواي',
+    nameEن: 'Paraguay',
+    capital: 'أسونسيون',
+    capitalEن: 'Asunción',
+    zone: 'America/Asuncion',
+    coordinates: '-25.2637,-57.5759',
+    color: '#D52B1E',
+    continent: 'america',
+    leader: 'سانتياغو بينيا',
+    leaderEن: 'Santiago Peña',
+    population: '7.4 مليون نسمة',
+    populationEن: '7.4 million',
+    area: '406,752 كم²',
+    areaEن: '406,752 km²',
+    currency: 'الغواراني الباراغواياني',
+    currencyEن: 'Paraguayan Guaraní',
+    language: 'الإسبانية والغواراني',
+    languageEن: 'Spanish and Guaraní',
+    description: 'باراغواي، قلب أمريكا الجنوبية',
+    descriptionEن: 'Paraguay, heart of South America',
+    flagCode: 'py',
+    majorCities: [
+      { name: 'سيوداد ديل إستي', type: 'مدينة حدودية' },
+      { name: 'إنكارناسيون', type: 'لؤلؤة الجنوب' }
+    ],
+    religion: {
+      main: 'المسيحية',
+      denomination: 'كاثوليكية',
+      details: 'أغلبية كاثوليكية'
+    },
+    government: {
+      system: 'جمهورية رئاسية',
+      president: 'سانتياغو بينيا',
+      parliament: 'الكونغرس الوطني'
+    },
+    culture: {
+      traditions: ['الغواراني', 'الهارب الباراغوايانية'],
+      landmarks: ['سد إيتايبو', 'بانتانال الباراغوايانية'],
+      festivals: ['عيد سان خوان', 'مهرجان الفولكلور']
+    }
+  },
+  {
+    name: 'أوروغواي',
+    nameEن: 'Uruguay',
+    capital: 'مونتيفيديو',
+    capitalEن: 'Montevideo',
+    zone: 'America/Montevideo',
+    coordinates: '-34.9011,-56.1645',
+    color: '#0038A8',
+    continent: 'america',
+    leader: 'لويس لاكالي بو',
+    leaderEن: 'Luis Lacalle Pou',
+    population: '3.5 مليون نسمة',
+    populationEن: '3.5 million',
+    area: '176,215 كم²',
+    areaEن: '176,215 km²',
+    currency: 'البيزو الأوروغوياني',
+    currencyEن: 'Uruguayan Peso',
+    language: 'الإسبانية',
+    languageEن: 'Spanish',
+    description: 'أوروغواي، سويسرا أمريكا الجنوبية',
+    descriptionEن: 'Uruguay, Switzerland of South America',
+    flagCode: 'uy',
+    majorCities: [
+      { name: 'سالتو', type: 'ثاني أكبر مدينة' },
+      { name: 'بونتا ديل إستي', type: 'منتجع سياحي' }
+    ],
+    religion: {
+      main: 'المسيحية',
+      denomination: 'كاثوليكية',
+      details: 'مجتمع علماني'
+    },
+    government: {
+      system: 'جمهورية رئاسية',
+      president: 'لويس لاكالي بو',
+      parliament: 'الجمعية العامة'
+    },
+    culture: {
+      traditions: ['المتيه', 'التانغو'],
+      landmarks: ['كولونيا ديل ساكرامنتو', 'كابو بولونيو'],
+      festivals: ['كرنفال مونتيفيديو', 'عيد الاستقلال']
+    }
+  },
+  {
+    name: 'غيانا',
+    nameEn: 'Guyana',
+    capital: 'جورج تاون',
+    capitalEn: 'Georgetown',
+    zone: 'America/Guyana',
+    coordinates: '6.8013,-58.1551',
+    color: '#009E49',
+    continent: 'america',
+    leader: 'إيرفان علي',
+    leaderEn: 'Irfaan Ali',
+    population: '787 ألف نسمة',
+    populationEn: '787 thousand',
+    area: '214,969 كم²',
+    areaEn: '214,969 km²',
+    currency: 'الدولار الغياني',
+    currencyEn: 'Guyanese Dollar',
+    language: 'الإنجليزية',
+    languageEn: 'English',
+    description: 'غيانا، أرض المياه الكثيرة والتنوع العرقي',
+    descriptionEn: 'Guyana, land of many waters and ethnic diversity',
+    flagCode: 'gy',
+    majorCities: [
+      { name: 'ليندن', type: 'مدينة التعدين' },
+      { name: 'نيو أمستردام', type: 'مدينة تاريخية' }
+    ],
+    religion: {
+      main: 'المسيحية',
+      denomination: 'متنوعة',
+      details: 'تعدد ديني كبير مع الهندوسية والإسلام'
+    },
+    government: {
+      system: 'جمهورية رئاسية',
+      president: 'إيرفان علي',
+      parliament: 'الجمعية الوطنية'
+    },
+    culture: {
+      traditions: ['الكاريبية والهندية والأفريقية', 'الكريكت'],
+      landmarks: ['شلالات كايتور', 'جبل روريما'],
+      festivals: ['ماشرامني', 'ديوالي']
+    }
+  },
+  {
+    name: 'سورينام',
+    nameEn: 'Suriname',
+    capital: 'باراماريبو',
+    capitalEn: 'Paramaribo',
+    zone: 'America/Paramaribo',
+    coordinates: '5.8520,-55.2038',
+    color: '#377E3F',
+    continent: 'america',
+    leader: 'تشان سانتوخي',
+    leaderEn: 'Chan Santokhi',
+    population: '591 ألف نسمة',
+    populationEn: '591 thousand',
+    area: '163,820 كم²',
+    areaEn: '163,820 km²',
+    currency: 'الدولار السوريناني',
+    currencyEn: 'Surinamese Dollar',
+    language: 'الهولندية',
+    languageEn: 'Dutch',
+    description: 'سورينام، أصغر دولة في أمريكا الجنوبية',
+    descriptionEn: 'Suriname, smallest country in South America',
+    flagCode: 'sr',
+    majorCities: [
+      { name: 'نيو نيكيري', type: 'مدينة غربية' },
+      { name: 'مونغو', type: 'مدينة نهرية' }
+    ],
+    religion: {
+      main: 'تعدد ديني',
+      denomination: 'مسيحية وهندوسية وإسلام',
+      details: 'تنوع ديني كبير'
+    },
+    government: {
+      system: 'جمهورية رئاسية',
+      president: 'تشان سانتوخي',
+      parliament: 'الجمعية الوطنية'
+    },
+    culture: {
+      traditions: ['ثقافة متعددة الأعراق', 'الكاسيكو'],
+      landmarks: ['محمية سورينام الطبيعية الوسطى', 'باراماريبو التاريخية'],
+      festivals: ['هولي فاغو', 'إيد الفطر']
+    }
+  },
       // نهاية دول الأمريكتين
       {
         name: 'أستراليا',
