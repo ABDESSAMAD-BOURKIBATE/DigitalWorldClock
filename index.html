@@ -9234,7 +9234,8 @@ function getFlagCode(countryName) {
 
     function filterByContinent(continent) {
       currentContinent = continent;
-      // لا تمسح البحث عند اختيار قارة
+      currentSearch = '';
+      document.getElementById('search-input').value = '';
       
       // Update active button with smooth animation
       const buttons = document.querySelectorAll('.continent-btn');
@@ -9351,6 +9352,16 @@ function getFlagCode(countryName) {
           return searchFields.some(field => field.includes(currentSearch));
         });
       }
+
+
+      // إزالة التكرار حسب nameEn بعد التصفية والبحث
+      const uniqueMap = new Map();
+      for (const country of filteredCountries) {
+        if (!uniqueMap.has(country.nameEn)) {
+          uniqueMap.set(country.nameEn, country);
+        }
+      }
+      filteredCountries = Array.from(uniqueMap.values());
 
       updateStats(filteredCountries);
 
@@ -11834,7 +11845,7 @@ O Allah, we ask You for righteousness and piety in this journey of ours, and for
             <h3><i class="fas fa-pray"></i> <span>أحكام الصلاة في السفر</span></h3>
             
             <div class="prayer-guide">
-              <h4>📋 دليل الصلاة للمسافر:</h4>
+              <h4>دليل الصلاة للمسافر:</h4>
               <div class="prayer-table">
                 <div class="prayer-row header">
                   <div>الصلاة</div>
@@ -11876,7 +11887,7 @@ O Allah, we ask You for righteousness and piety in this journey of ours, and for
             </div>
 
             <div class="prayer-guide">
-              <h4>🕐 أوقات الجمع:</h4>
+              <h4> أوقات الجمع:</h4>
               <div class="combining-options">
                 <div class="combine-card">
                   <i class="fas fa-forward"></i>
@@ -11900,7 +11911,7 @@ O Allah, we ask You for righteousness and piety in this journey of ours, and for
             </div>
 
             <div class="prayer-guide">
-              <h4>📝 شروط صحة الجمع:</h4>
+              <h4> شروط صحة الجمع:</h4>
               <ul class="traveler-list">
                 <li>النية قبل الشروع في الصلاة الأولى</li>
                 <li>ترتيب الصلاتين (الأولى ثم الثانية)</li>
@@ -11986,7 +11997,7 @@ O Allah, we ask You for righteousness and piety in this journey of ours, and for
             </div>
 
             <div class="fasting-guide">
-              <h4>⏰ مسائل في التوقيت:</h4>
+              <h4>مسائل في التوقيت:</h4>
               <ul class="traveler-list">
                 <li><strong>اختلاف المطالع:</strong> يتبع توقيت البلد الذي هو فيه</li>
                 <li><strong>السفر أثناء النهار:</strong> إذا سافر نهار رمضان فعليه الإمساك حتى المغرب</li>
@@ -12008,7 +12019,7 @@ O Allah, we ask You for righteousness and piety in this journey of ours, and for
                 <h5>🤲 دعاء السفر الكامل:</h5>
                 <p class="dua-text">اللَّهُمَّ إِنَّا نَسْأَلُكَ فِي سَفَرِنَا هَذَا الْبِرَّ وَالتَّقْوَى، وَمِنَ الْعَمَلِ مَا تَرْضَى، اللَّهُمَّ هَوِّنْ عَلَيْنَا سَفَرَنَا هَذَا وَاطْوِ عَنَّا بُعْدَهُ، اللَّهُمَّ أَنْتَ الصَّاحِبُ فِي السَّفَرِ، وَالْخَلِيفَةُ فِي الْأَهْلِ، اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنْ وَعْثَاءِ السَّفَرِ، وَكَآبَةِ الْمَنْظَرِ، وَسُوءِ الْمُنْقَلَبِ فِي الْمَالِ وَالْأَهْلِ</p>
                 <div class="translation-box">
-                  <h6>🌐 English Translation:</h6>
+                  <h6> English Translation:</h6>
                   <p class="translation-text">"O Allah, we ask You in this journey of ours for righteousness and piety, and for such deeds as are pleasing to You. O Allah, make this journey easy for us and make its distance short for us. O Allah, You are the Companion in the journey and the Guardian of the family. O Allah, I seek refuge in You from the hardships of travel, from having a change of heart and from being in a bad predicament, and from the supplication of the oppressed against us."</p>
                 </div>
                 <p class="dua-source">صحيح مسلم - Sahih Muslim</p>
@@ -12024,7 +12035,7 @@ O Allah, we ask You for righteousness and piety in this journey of ours, and for
                 <h5>🚗 دعاء الركوب:</h5>
                 <p class="dua-text">بِسْمِ اللَّهِ، وَالْحَمْدُ لِلَّهِ، ﴿سُبْحَانَ الَّذِي سَخَّرَ لَنَا هَذَا وَمَا كُنَّا لَهُ مُقْرِنِينَ * وَإِنَّا إِلَى رَبِّنَا لَمُنْقَلِبُونَ﴾ الْحَمْدُ لِلَّهِ، الْحَمْدُ لِلَّهِ، الْحَمْدُ لِلَّهِ، اللَّهُ أَكْبَرُ، اللَّهُ أَكْبَرُ، اللَّهُ أَكْبَرُ، سُبْحَانَكَ اللَّهُمَّ إِنِّي ظَلَمْتُ نَفْسِي فَاغْفِرْ لِي فَإِنَّهُ لاَ يَغْفِرُ الذُّنُوبَ إِلاَّ أَنْتَ</p>
                 <div class="translation-box">
-                  <h6>🌐 English Translation:</h6>
+                  <h6> English Translation:</h6>
                   <p class="translation-text">"In the name of Allah, and praise be to Allah. ﴿Glory be to Him Who has subjected this to us, and we were not able to do it, and surely to our Lord we shall return.﴾ Praise be to Allah, praise be to Allah, praise be to Allah. Allah is the Greatest, Allah is the Greatest, Allah is the Greatest. Glory be to You, O Allah, I have wronged myself, so forgive me, for none forgives sins except You."</p>
                 </div>
                 <p class="dua-source">أبو داود والترمذي - Abu Dawood and At-Tirmidhi</p>
@@ -12040,7 +12051,7 @@ O Allah, we ask You for righteousness and piety in this journey of ours, and for
                 <h5>🏨 دعاء النزول:</h5>
                 <p class="dua-text">أَعُوذُ بِكَلِمَاتِ اللَّهِ التَّامَّاتِ مِنْ شَرِّ مَا خَلَقَ</p>
                 <div class="translation-box">
-                  <h6>🌐 English Translation:</h6>
+                  <h6> English Translation:</h6>
                   <p class="translation-text">"I seek refuge in the perfect words of Allah from the evil of what He has created."</p>
                 </div>
                 <p class="dua-source">صحيح مسلم - Sahih Muslim</p>
@@ -12065,7 +12076,7 @@ O Allah, we ask You for righteousness and piety in this journey of ours, and for
                 <h5>🏠 دعاء الرجوع:</h5>
                 <p class="dua-text">آيِبُونَ تَائِبُونَ عَابِدُونَ لِرَبِّنَا حَامِدُونَ</p>
                 <div class="translation-box">
-                  <h6>🌐 English Translation:</h6>
+                  <h6> English Translation:</h6>
                   <p class="translation-text">"We are returning, repenting, worshipping, and praising our Lord."</p>
                 </div>
                 <p class="dua-source">متفق عليه - Agreed upon (Bukhari & Muslim)</p>
@@ -12123,7 +12134,7 @@ O Allah, we ask You for righteousness and piety in this journey of ours, and for
                 <p class="hadith-text">عن أبي هريرة رضي الله عنه قال: قال رسول الله صلى الله عليه وسلم: "ثَلاَثُ دَعَوَاتٍ مُسْتَجَابَاتٌ لاَ شَكَّ فِيهِنَّ: دَعْوَةُ الْمَظْلُومِ، وَدَعْوَةُ الْمُسَافِرِ، وَدَعْوَةُ الْوَالِدِ عَلَى وَلَدِهِ"</p>
                 <p class="hadith-source">أبو داود والترمذي - حسن</p>
                 <div class="hadith-benefits">
-                  <h6>🎯 الفوائد:</h6>
+                  <h6> الفوائد:</h6>
                   <ul>
                     <li>دعاء المسافر مستجاب بإذن الله</li>
                     <li>ينبغي للمسافر الإكثار من الدعاء</li>
@@ -12139,7 +12150,7 @@ O Allah, we ask You for righteousness and piety in this journey of ours, and for
                 <p class="hadith-text">عن عبد الله بن عباس رضي الله عنهما قال: "فَرَضَ اللَّهُ الصَّلاَةَ عَلَى لِسَانِ نَبِيِّكُمْ فِي الْحَضَرِ أَرْبَعًا، وَفِي السَّفَرِ رَكْعَتَيْنِ، وَفِي الْخَوْفِ رَكْعَةً"</p>
                 <p class="hadith-source">صحيح مسلم</p>
                 <div class="hadith-benefits">
-                  <h6>🎯 الفوائد:</h6>
+                  <h6> الفوائد:</h6>
                   <ul>
                     <li>القصر فريضة وليس رخصة عند ابن عباس</li>
                     <li>الصلاة في السفر ركعتان للرباعية</li>
@@ -12155,7 +12166,7 @@ O Allah, we ask You for righteousness and piety in this journey of ours, and for
                 <p class="hadith-text">عن أبي هريرة رضي الله عنه قال: قال رسول الله صلى الله عليه وسلم: "السَّفَرُ قِطْعَةٌ مِنَ الْعَذَابِ، يَمْنَعُ أَحَدَكُمْ طَعَامَهُ وَشَرَابَهُ وَنَوْمَهُ، فَإِذَا قَضَى نَهْمَتَهُ فَلْيُعَجِّلْ إِلَى أَهْلِهِ"</p>
                 <p class="hadith-source">متفق عليه</p>
                 <div class="hadith-benefits">
-                  <h6>🎯 الفوائد:</h6>
+                  <h6> الفوائد:</h6>
                   <ul>
                     <li>السفر فيه مشقة وتعب</li>
                     <li>ينبغي عدم الإطالة في السفر بلا حاجة</li>
@@ -12171,7 +12182,7 @@ O Allah, we ask You for righteousness and piety in this journey of ours, and for
                 <p class="hadith-text">عن أبي سعيد الخدري رضي الله عنه قال: قال رسول الله صلى الله عليه وسلم: "إِذَا خَرَجَ ثَلاَثَةٌ فِي سَفَرٍ فَلْيُؤَمِّرُوا أَحَدَهُمْ"</p>
                 <p class="hadith-source">أبو داود - حسن</p>
                 <div class="hadith-benefits">
-                  <h6>🎯 الفوائد:</h6>
+                  <h6> الفوائد:</h6>
                   <ul>
                     <li>أهمية تنظيم الجماعة في السفر</li>
                     <li>وجوب طاعة الأمير في المباح</li>
@@ -12187,7 +12198,7 @@ O Allah, we ask You for righteousness and piety in this journey of ours, and for
                 <p class="hadith-text">عن أبي هريرة رضي الله عنه قال: قال رسول الله صلى الله عليه وسلم: "إِذَا سَافَرْتُمْ فِي الْخِصْبِ فَأَعْطُوا الإِبِلَ حَظَّهَا مِنَ الأَرْضِ، وَإِذَا سَافَرْتُمْ فِي السَّنَةِ فَأَسْرِعُوا عَلَيْهَا السَّيْرَ، وَإِذَا عَرَّسْتُمْ فَاجْتَنِبُوا الطَّرِيقَ، فَإِنَّهَا طُرُقُ الدَّوَابِّ وَمَأْوَى الْهَوَامِّ بِاللَّيْلِ"</p>
                 <p class="hadith-source">صحيح مسلم</p>
                 <div class="hadith-benefits">
-                  <h6>🎯 الفوائد:</h6>
+                  <h6> الفوائد:</h6>
                   <ul>
                     <li>مراعاة الظروف في السفر</li>
                     <li>عدم النوم في الطرق ليلاً</li>
