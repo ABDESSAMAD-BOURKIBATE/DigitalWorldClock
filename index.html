@@ -4381,7 +4381,7 @@
     };
 
     // Countries array with weather coordinates
-    const countries = [
+    let countries = [
       // Asian Countries
       {
         name: 'المملكة العربية السعودية',
@@ -12928,6 +12928,11 @@ leaderEn: 'Ahmed Shar3',
         }
       }
     ];
+    // توحيد خاصية continent لكل دولة بعد التحميل
+    countries = countries.map(c => ({
+      ...c,
+      continent: (c.continent || '').toLowerCase()
+    }));
 
 // Function to get flag code from country name
 function getFlagCode(countryName) {
@@ -13757,12 +13762,10 @@ function getFlagCode(countryName) {
       loading.style.display = 'block';
       loading.textContent = translations[currentLanguage].loading;
 
-      // Always filter by continent first (unless 'all'), then apply search only within that continent
+      // تصفية الدول حسب القارة بدقة
       let filteredCountries = countries;
       if (currentContinent !== 'all') {
         filteredCountries = countries.filter(country => {
-          // دعم جميع صيغ القارات (معالجة بعض البيانات التي قد تكون غير موحدة)
-          const continent = (country.continent || '').toLowerCase();
           const continentMap = {
             'americas': 'america',
             'america': 'america',
@@ -13772,22 +13775,54 @@ function getFlagCode(countryName) {
             'oceania': 'oceania',
             'australia': 'oceania'
           };
-          return continentMap[continent] === currentContinent;
+          return continentMap[country.continent] === currentContinent;
         });
       }
 
-      // Now apply search only within the continent-filtered list
+      // دالة مساعدة لتطبيع النص (إزالة التشكيل والمسافات الزائدة وحالة الأحرف)
+      function normalize(str) {
+        return (str || '')
+          .toString()
+          .replace(/[\u064B-\u0652]/g, '') // إزالة التشكيل العربي
+          .replace(/\s+/g, ' ')
+          .trim()
+          .toLowerCase();
+      }
+
+      // دالة تشابه بسيطة (Levenshtein Distance)
+      function isSimilar(a, b) {
+        a = normalize(a);
+        b = normalize(b);
+        if (a === b) return true;
+        if (a.includes(b) || b.includes(a)) return true;
+        // مسافة Levenshtein بسيطة (فرق <= 2)
+        function lev(s, t) {
+          const dp = Array(s.length + 1).fill(null).map(() => Array(t.length + 1).fill(0));
+          for (let i = 0; i <= s.length; i++) dp[i][0] = i;
+          for (let j = 0; j <= t.length; j++) dp[0][j] = j;
+          for (let i = 1; i <= s.length; i++) {
+            for (let j = 1; j <= t.length; j++) {
+              if (s[i - 1] === t[j - 1]) dp[i][j] = dp[i - 1][j - 1];
+              else dp[i][j] = 1 + Math.min(dp[i - 1][j], dp[i][j - 1], dp[i - 1][j - 1]);
+            }
+          }
+          return dp[s.length][t.length];
+        }
+        return lev(a, b) <= 2;
+      }
+
+      // البحث الذكي: يشمل العربية والإنجليزية ويقبل التشابه البسيط
       if (currentSearch) {
-        const search = currentSearch;
+        const search = normalize(currentSearch);
         filteredCountries = filteredCountries.filter(country => {
-          const searchFields = [
-            currentLanguage === 'ar' ? country.name : country.nameEn,
-            currentLanguage === 'ar' ? country.capital : country.capitalEn,
-            currentLanguage === 'ar' ? country.currency : country.currencyEn,
-            currentLanguage === 'ar' ? country.language : country.languageEn,
-            currentLanguage === 'ar' ? country.description : country.descriptionEn
-          ].map(field => (field || '').toLowerCase());
-          return searchFields.some(field => field.includes(search));
+          const fields = [
+            country.name, country.nameEn,
+            country.capital, country.capitalEn,
+            country.currency, country.currencyEn,
+            country.language, country.languageEn,
+            country.description, country.descriptionEn
+          ];
+          return fields.some(field => isSimilar(field, search));
         });
       }
 
