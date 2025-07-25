@@ -14379,7 +14379,51 @@ function getFlagCode(countryName) {
         if ((country.flagCode && country.flagCode.toLowerCase() === 'sa') || (country.nameEn && country.nameEn.toLowerCase().includes('saudi'))) {
           let colorObj = safetyColors[1];
           scoreDiv.innerHTML = `<span style="display:inline-block; min-width:60px; padding:8px 18px; border-radius:18px; font-size:1.3rem; font-weight:700; background:${colorObj.bg}; color:${colorObj.color}; border:2px solid ${colorObj.border}; box-shadow:0 2px 8px ${colorObj.bg};"><i class=\"fas fa-shield-alt\" style=\"margin-left:7px;\"></i> 1</span>`;
-          msgDiv.textContent = 'آمن: المملكة العربية السعودية من أكثر الدول استقرارًا أمنيًا في المنطقة. يُنصح بالالتزام بالتعليمات المحلية.';
+          msgDiv.innerHTML = `
+            <div style="font-size:1.08rem; margin-bottom:10px;">آمن: المملكة العربية السعودية من أكثر الدول استقرارًا أمنيًا في المنطقة. يُنصح بالالتزام بالتعليمات المحلية.</div>
+            <div style="margin-top:10px;">
+              <div class="safety-risk-row" style="display:flex;align-items:center;margin-bottom:7px;">
+                <i class="fas fa-user-secret" style="color:#388e3c;width:28px;text-align:center;"></i>
+                <span style="flex:1;margin-right:8px;">اختطاف:</span>
+                <span style="color:#388e3c;font-weight:700;">منخفض جدًا</span>
+              </div>
+              <div class="safety-risk-row" style="display:flex;align-items:center;margin-bottom:7px;">
+                <i class="fas fa-flag" style="color:#388e3c;width:28px;text-align:center;"></i>
+                <span style="flex:1;margin-right:8px;">اضطرابات سياسية:</span>
+                <span style="color:#388e3c;font-weight:700;">نادر جدًا</span>
+              </div>
+              <div class="safety-risk-row" style="display:flex;align-items:center;margin-bottom:7px;">
+                <i class="fas fa-virus" style="color:#fbc02d;width:28px;text-align:center;"></i>
+                <span style="flex:1;margin-right:8px;">الأمراض:</span>
+                <span style="color:#fbc02d;font-weight:700;">معتدل (حسب الموسم)</span>
+              </div>
+              <div class="safety-risk-row" style="display:flex;align-items:center;margin-bottom:7px;">
+                <i class="fas fa-gavel" style="color:#388e3c;width:28px;text-align:center;"></i>
+                <span style="flex:1;margin-right:8px;">الجريمة:</span>
+                <span style="color:#388e3c;font-weight:700;">منخفضة جدًا</span>
+              </div>
+              <div class="safety-risk-row" style="display:flex;align-items:center;margin-bottom:7px;">
+                <i class="fas fa-walking" style="color:#388e3c;width:28px;text-align:center;"></i>
+                <span style="flex:1;margin-right:8px;">الأمان أثناء المشي:</span>
+                <span style="color:#388e3c;font-weight:700;">مرتفع جدًا</span>
+              </div>
+              <div class="safety-risk-row" style="display:flex;align-items:center;margin-bottom:7px;">
+                <i class="fas fa-user-lock" style="color:#388e3c;width:28px;text-align:center;"></i>
+                <span style="flex:1;margin-right:8px;">السرقة:</span>
+                <span style="color:#388e3c;font-weight:700;">نادرة جدًا</span>
+              </div>
+              <div class="safety-risk-row" style="display:flex;align-items:center;margin-bottom:7px;">
+                <i class="fas fa-exclamation-triangle" style="color:#fbc02d;width:28px;text-align:center;"></i>
+                <span style="flex:1;margin-right:8px;">التحرش:</span>
+                <span style="color:#fbc02d;font-weight:700;">منخفض (مع وجود قوانين صارمة)</span>
+              </div>
+              <div class="safety-risk-row" style="display:flex;align-items:center;margin-bottom:7px;">
+                <i class="fas fa-capsules" style="color:#d32f2f;width:28px;text-align:center;"></i>
+                <span style="flex:1;margin-right:8px;">المخدرات:</span>
+                <span style="color:#d32f2f;font-weight:700;">محظورة تمامًا (عقوبات شديدة)</span>
+              </div>
+            </div>
+          `;
           updatedDiv.textContent = '2025-07-25';
           sourceA.href = 'https://www.moi.gov.sa/wps/portal/Home/sectors/publicsecurity';
           sourceA.textContent = 'وزارة الداخلية السعودية';
