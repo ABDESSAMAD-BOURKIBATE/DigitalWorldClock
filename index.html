@@ -188,9 +188,6 @@
       transform: scale(1.2) translateY(-2px);
     }
 
-    .btn:hover .fa-language {
-      transform: scale(1.2) rotateY(180deg);
-    }
 
     .btn:hover .fa-info-circle {
       transform: scale(1.2);
@@ -3528,10 +3525,6 @@
         <i class="fas fa-sync-alt"></i>
         <span class="btn-text"> تحديث</span>
       </button>
-      <button class="btn" onclick="toggleLanguage()">
-        <i class="fas fa-language"></i>
-        <span class="btn-text"> تغيير اللغة</span>
-      </button>
       <button class="btn" onclick="openTravelerMode()">
         <i class="fas fa-plane"></i>
         <span class="btn-text"> وضعية المسافر</span>
@@ -4190,7 +4183,6 @@
         aboutBtn: '<i class="fas fa-info-circle"></i> نبذة عن المشروع',
         fullscreenBtn: '<i class="fas fa-expand"></i> ملء الشاشة',
         refreshBtn: '<i class="fas fa-sync-alt"></i> تحديث',
-        langBtn: '<i class="fas fa-language"></i> تغيير اللغة',
         searchPlaceholder: ' البحث عن دولة...',
         noResults: 'لم يتم العثور على دول تطابق البحث',
         allContinents: 'الكل',
@@ -4276,7 +4268,6 @@
           fullscreenOff: 'تم الخروج من وضع ملء الشاشة',
           fullscreenError: 'فشل تفعيل وضع ملء الشاشة',
           clocksRefreshed: 'تم تحديث الساعات',
-          langChanged: 'تم تغيير اللغة',
           weatherError: 'فشل تحميل بيانات الطقس: تحقق من مفتاح API أو الاتصال بالإنترنت',
           invalidApiKey: 'مفتاح API غير صالح، يرجى التسجيل في OpenWeatherMap',
           noResults: 'لم يتم العثور على نتائج',
@@ -4291,7 +4282,6 @@
         fullscreenBtn: '<i class="fas fa-expand"></i> Fullscreen',
         exportBtn: '<i class="fas fa-download"></i> Export Data',
         refreshBtn: '<i class="fas fa-sync-alt"></i> Refresh',
-        langBtn: '<i class="fas fa-language"></i> Change Language',
         searchPlaceholder: ' Search for a country...',
         noResults: 'No countries found matching the search',
         allContinents: 'All',
@@ -14393,7 +14383,6 @@ function getFlagCode(countryName) {
         </div>
         <div class="detail-item">
           <div class="detail-label">
-            <i class="fas fa-language" style="color: #FF69B4; margin-left: 8px;"></i>
             ${translations[currentLanguage].language}
           </div>
           <div class="detail-value">${currentLanguage === 'ar' ? currentModalCountry.language : currentModalCountry.languageEn}</div>
@@ -16249,7 +16238,6 @@ O Allah, we ask You for righteousness and piety in this journey of ours, and for
                   <span><strong>Religious Observances:</strong> Be aware of local religious holidays</span>
                 </div>
                 <div class="culture-item">
-                  <i class="fas fa-language"></i>
                   <span><strong>Basic Phrases:</strong> Learn essential phrases in local language</span>
                 </div>
               </div>
@@ -16405,41 +16393,6 @@ O Allah, we ask You for righteousness and piety in this journey of ours, and for
       showNotification(translations[currentLanguage].notifications.clocksRefreshed);
     }
 
-    // Toggle language
-    function toggleLanguage() {
-      currentLanguage = currentLanguage === 'ar' ? 'en' : 'ar';
-      document.documentElement.lang = currentLanguage;
-      document.documentElement.dir = currentLanguage === 'ar' ? 'rtl' : 'ltr';
-      document.querySelector('.project-title').innerHTML = `
-        <i class="fas fa-globe-americas project-icon"></i>
-        ${translations[currentLanguage].title}
-      `;
-      document.querySelector('.subtitle').textContent = translations[currentLanguage].subtitle;
-      document.querySelector('.search-input').placeholder = translations[currentLanguage].searchPlaceholder;
-      document.querySelector('.copyright p').textContent = translations[currentLanguage].copyright;
-      
-      // Update continent buttons with new structure
-      document.querySelectorAll('.continent-btn').forEach((btn, index) => {
-        const continents = ['all', 'asia', 'africa', 'europe', 'america', 'oceania'];
-        const continentNameElement = btn.querySelector('.continent-name');
-        if (continentNameElement) {
-          continentNameElement.textContent = translations[currentLanguage][continents[index]];
-        }
-      });
-      
-      document.querySelectorAll('.btn').forEach((btn, index) => {
-        const btnKeys = ['aboutBtn', 'fullscreenBtn', 'exportBtn', 'refreshBtn', 'langBtn'];
-        btn.innerHTML = translations[currentLanguage][btnKeys[index]];
-      });
-      
-      renderClocks();
-      updateLocalClock();
-      if (document.getElementById('about-modal').style.display === 'flex') {
-        toggleAboutLang(currentLanguage);
-        document.querySelector('#about-modal .modal-title').textContent = translations[currentLanguage].aboutTitle;
-      }
-      showNotification(translations[currentLanguage].notifications.langChanged);
-    }
 
     // Function to add missing flag codes to countries
     function addMissingFlagCodes() {
