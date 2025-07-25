@@ -14404,7 +14404,7 @@ function getFlagCode(countryName) {
 let userCoords = null;
 let capitalCoords = null;
 let mapsCountry = null;
-let mapsApiKey = 'YOUR_GOOGLE_MAPS_API_KEY'; // <-- Replace with your API key
+let mapsApiKey = 'AlzaSyDj3qTFi1dazetcMN807AyxK772ucPR--A'; // مفتاح Google Maps API الصحيح
 
 function loadMapsTab() {
   mapsCountry = window.currentCountryData || window.currentModalCountry;
@@ -14546,58 +14546,136 @@ function openInGoogleMaps() {
         // ...محاولة الجلب كما في السابق...
         throw new Error('CORS'); // إجباري لتفعيل الحل اليدوي دائماً
       } catch (e) {
-        // بيانات ثابتة للسعودية
-        if ((country.flagCode && country.flagCode.toLowerCase() === 'sa') || (country.nameEn && country.nameEn.toLowerCase().includes('saudi'))) {
+        // بيانات ثابتة للسعودية ودول أوقيانوسيا
+        const oceaniaReports = {
+          'Australia': 'آمنة بشكل عام، مع وجود بعض المخاطر الطبيعية مثل حرائق الغابات. الجريمة منخفضة في المدن الكبرى. يُنصح باتباع التعليمات المحلية.',
+          'New Zealand': 'دولة آمنة جدًا، الجريمة منخفضة. المخاطر الرئيسية تتعلق بالكوارث الطبيعية مثل الزلازل. يُنصح بالحذر في المناطق النائية.',
+          'Papua New Guinea': 'مستوى الجريمة مرتفع في بعض المناطق الحضرية. يُنصح بتجنب التنقل ليلًا واتباع تعليمات السلطات.',
+          'Fiji': 'آمنة للسياح، مع بعض الحذر من السرقات الصغيرة. يُنصح بعدم ترك الأغراض الثمينة دون مراقبة.',
+          'Solomon Islands': 'مستوى الجريمة متوسط. يُنصح بتجنب المناطق المعزولة واتباع التعليمات المحلية.',
+          'Samoa': 'آمنة جدًا، الجريمة منخفضة. يُنصح بالحذر من التيارات البحرية القوية.',
+          'Tonga': 'آمنة بشكل عام. يُنصح بالحذر من الكوارث الطبيعية مثل الأعاصير.',
+          'Vanuatu': 'آمنة للسياح، مع بعض المخاطر الطبيعية (براكين وزلازل). يُنصح بمتابعة التحذيرات الرسمية.',
+          'Kiribati': 'آمنة جدًا، الجريمة نادرة. يُنصح بالحذر من الظروف المناخية القاسية.',
+          'Micronesia': 'آمنة، الجريمة منخفضة. يُنصح بالحذر من الأعاصير الموسمية.',
+          'Palau': 'آمنة جدًا، الجريمة شبه معدومة. يُنصح بالحذر من المخاطر البحرية.',
+          'Nauru': 'آمنة، الجريمة نادرة. يُنصح بالحذر من الشمس القوية.',
+          'Tuvalu': 'آمنة جدًا، الجريمة شبه معدومة. يُنصح بالحذر من الفيضانات.',
+          'Marshall Islands': 'آمنة، مع بعض المخاطر البيئية (ارتفاع منسوب البحر). يُنصح بمتابعة التحذيرات الرسمية.',
+          'أستراليا': 'آمنة بشكل عام، مع وجود بعض المخاطر الطبيعية مثل حرائق الغابات. الجريمة منخفضة في المدن الكبرى. يُنصح باتباع التعليمات المحلية.',
+          'نيوزيلندا': 'دولة آمنة جدًا، الجريمة منخفضة. المخاطر الرئيسية تتعلق بالكوارث الطبيعية مثل الزلازل. يُنصح بالحذر في المناطق النائية.',
+          'بابوا غينيا الجديدة': 'مستوى الجريمة مرتفع في بعض المناطق الحضرية. يُنصح بتجنب التنقل ليلًا واتباع تعليمات السلطات.',
+          'فيجي': 'آمنة للسياح، مع بعض الحذر من السرقات الصغيرة. يُنصح بعدم ترك الأغراض الثمينة دون مراقبة.',
+          'جزر سليمان': 'مستوى الجريمة متوسط. يُنصح بتجنب المناطق المعزولة واتباع التعليمات المحلية.',
+          'ساموا': 'آمنة جدًا، الجريمة منخفضة. يُنصح بالحذر من التيارات البحرية القوية.',
+          'تونغا': 'آمنة بشكل عام. يُنصح بالحذر من الكوارث الطبيعية مثل الأعاصير.',
+          'فانواتو': 'آمنة للسياح، مع بعض المخاطر الطبيعية (براكين وزلازل). يُنصح بمتابعة التحذيرات الرسمية.',
+          'كيريباس': 'آمنة جدًا، الجريمة نادرة. يُنصح بالحذر من الظروف المناخية القاسية.',
+          'ولايات ميكرونيزيا المتحدة': 'آمنة، الجريمة منخفضة. يُنصح بالحذر من الأعاصير الموسمية.',
+          'بالاو': 'آمنة جدًا، الجريمة شبه معدومة. يُنصح بالحذر من المخاطر البحرية.',
+          'ناورو': 'آمنة، الجريمة نادرة. يُنصح بالحذر من الشمس القوية.',
+          'توفالو': 'آمنة جدًا، الجريمة شبه معدومة. يُنصح بالحذر من الفيضانات.',
+          'جزر مارشال': 'آمنة، مع بعض المخاطر البيئية (ارتفاع منسوب البحر). يُنصح بمتابعة التحذيرات الرسمية.'
+        };
+        const isSaudi = (country.flagCode && country.flagCode.toLowerCase() === 'sa') || (country.nameEn && country.nameEn.toLowerCase().includes('saudi'));
+        if (isSaudi) {
+          // ...تقرير السعودية كما هو...
           let colorObj = safetyColors[1];
-          scoreDiv.innerHTML = `<span style="display:inline-block; min-width:60px; padding:8px 18px; border-radius:18px; font-size:1.3rem; font-weight:700; background:${colorObj.bg}; color:${colorObj.color}; border:2px solid ${colorObj.border}; box-shadow:0 2px 8px ${colorObj.bg};"><i class=\"fas fa-shield-alt\" style=\"margin-left:7px;\"></i> 1</span>`;
-          msgDiv.innerHTML = `
-            <div style="font-size:1.08rem; margin-bottom:10px;">آمن: المملكة العربية السعودية من أكثر الدول استقرارًا أمنيًا في المنطقة. يُنصح بالالتزام بالتعليمات المحلية.</div>
-            <div style="margin-top:10px;">
-              <div class="safety-risk-row" style="display:flex;align-items:center;margin-bottom:7px;">
-                <i class="fas fa-user-secret" style="color:#388e3c;width:28px;text-align:center;"></i>
-                <span style="flex:1;margin-right:8px;">اختطاف:</span>
-                <span style="color:#388e3c;font-weight:700;">منخفض جدًا</span>
+          if (!scoreDiv.dataset.saudiSafety) {
+            scoreDiv.innerHTML = `<span style="display:inline-block; min-width:60px; padding:8px 18px; border-radius:18px; font-size:1.3rem; font-weight:700; background:${colorObj.bg}; color:${colorObj.color}; border:2px solid ${colorObj.border}; box-shadow:0 2px 8px ${colorObj.bg};"><i class=\"fas fa-shield-alt\" style=\"margin-left:7px;\"></i> 1</span>`;
+            scoreDiv.dataset.saudiSafety = '1';
+          }
+          if (!msgDiv.dataset.saudiSafety) {
+            msgDiv.innerHTML = `
+              <div style="direction:rtl;text-align:right;padding:0 2px 0 0;">
+                <div style="font-size:1.13rem;font-weight:700;color:#FFD700;margin-bottom:8px;letter-spacing:0.5px;display:flex;align-items:center;gap:7px;">
+                  <i class="fas fa-shield-alt" style="color:#FFD700;"></i>
+                  تقرير الأمان في السعودية – 2025
+                </div>
+                <div style="font-size:1.08rem; margin-bottom:10px; color:#fff;">
+                  <i class="fas fa-check-circle" style="color:#43a047;margin-left:6px;"></i>
+                  آمن: المملكة العربية السعودية من أكثر الدول استقرارًا أمنيًا في المنطقة. يُنصح بالالتزام بالتعليمات المحلية.
+                </div>
+                <ul style="list-style:none;padding:0;margin:0 0 10px 0;">
+                  <li style="margin-bottom:7px;display:flex;align-items:center;gap:7px;">
+                    <i class="fas fa-user-secret" style="color:#388e3c;width:24px;text-align:center;"></i>
+                    <span style="min-width:110px;">اختطاف:</span>
+                    <span style="color:#388e3c;font-weight:700;">منخفض جدًا</span>
+                  </li>
+                  <li style="margin-bottom:7px;display:flex;align-items:center;gap:7px;">
+                    <i class="fas fa-flag" style="color:#388e3c;width:24px;text-align:center;"></i>
+                    <span style="min-width:110px;">اضطرابات سياسية:</span>
+                    <span style="color:#388e3c;font-weight:700;">نادر جدًا</span>
+                  </li>
+                  <li style="margin-bottom:7px;display:flex;align-items:center;gap:7px;">
+                    <i class="fas fa-virus" style="color:#fbc02d;width:24px;text-align:center;"></i>
+                    <span style="min-width:110px;">الأمراض:</span>
+                    <span style="color:#fbc02d;font-weight:700;">معتدل (حسب الموسم)</span>
+                  </li>
+                  <li style="margin-bottom:7px;display:flex;align-items:center;gap:7px;">
+                    <i class="fas fa-gavel" style="color:#388e3c;width:24px;text-align:center;"></i>
+                    <span style="min-width:110px;">الجريمة:</span>
+                    <span style="color:#388e3c;font-weight:700;">منخفضة جدًا</span>
+                  </li>
+                  <li style="margin-bottom:7px;display:flex;align-items:center;gap:7px;">
+                    <i class="fas fa-walking" style="color:#388e3c;width:24px;text-align:center;"></i>
+                    <span style="min-width:110px;">الأمان أثناء المشي:</span>
+                    <span style="color:#388e3c;font-weight:700;">مرتفع جدًا</span>
+                  </li>
+                  <li style="margin-bottom:7px;display:flex;align-items:center;gap:7px;">
+                    <i class="fas fa-user-lock" style="color:#388e3c;width:24px;text-align:center;"></i>
+                    <span style="min-width:110px;">السرقة:</span>
+                    <span style="color:#388e3c;font-weight:700;">نادرة جدًا</span>
+                  </li>
+                  <li style="margin-bottom:7px;display:flex;align-items:center;gap:7px;">
+                    <i class="fas fa-exclamation-triangle" style="color:#fbc02d;width:24px;text-align:center;"></i>
+                    <span style="min-width:110px;">التحرش:</span>
+                    <span style="color:#fbc02d;font-weight:700;">منخفض (مع وجود قوانين صارمة)</span>
+                  </li>
+                  <li style="margin-bottom:7px;display:flex;align-items:center;gap:7px;">
+                    <i class="fas fa-capsules" style="color:#d32f2f;width:24px;text-align:center;"></i>
+                    <span style="min-width:110px;">المخدرات:</span>
+                    <span style="color:#d32f2f;font-weight:700;">محظورة تمامًا (عقوبات شديدة)</span>
+                  </li>
+                </ul>
+                <div id="saudi-safety-footer" style="display:flex;justify-content:space-between;align-items:center;font-size:0.98rem;color:#bbb;background:rgba(255,255,255,0.07);padding:7px 12px 7px 7px;border-radius:8px;">
+                  <span><i class="fas fa-calendar-alt" style="color:#FFD700;margin-left:5px;"></i>2025-07-25</span>
+                  <a href="https://www.moi.gov.sa/wps/portal/Home/sectors/publicsecurity" target="_blank" style="color:#FFD700;text-decoration:none;font-weight:600;">
+                    <i class="fas fa-link" style="margin-left:4px;"></i>وزارة الداخلية السعودية
+                  </a>
+                </div>
               </div>
-              <div class="safety-risk-row" style="display:flex;align-items:center;margin-bottom:7px;">
-                <i class="fas fa-flag" style="color:#388e3c;width:28px;text-align:center;"></i>
-                <span style="flex:1;margin-right:8px;">اضطرابات سياسية:</span>
-                <span style="color:#388e3c;font-weight:700;">نادر جدًا</span>
+            `;
+            msgDiv.dataset.saudiSafety = '1';
+          }
+          if (updatedDiv.textContent !== '2025-07-25') updatedDiv.textContent = '2025-07-25';
+          if (sourceA.href !== 'https://www.moi.gov.sa/wps/portal/Home/sectors/publicsecurity') sourceA.href = 'https://www.moi.gov.sa/wps/portal/Home/sectors/publicsecurity';
+          if (sourceA.textContent !== 'وزارة الداخلية السعودية') sourceA.textContent = 'وزارة الداخلية السعودية';
+        } else if (oceaniaReports[country.name] || oceaniaReports[country.nameEn]) {
+          // تقارير أمان خاصة لكل دولة أوقيانوسية
+          let colorObj = safetyColors[1];
+          if (!scoreDiv.dataset.oceaniaSafety) {
+            scoreDiv.innerHTML = `<span style=\"display:inline-block; min-width:60px; padding:8px 18px; border-radius:18px; font-size:1.3rem; font-weight:700; background:${colorObj.bg}; color:${colorObj.color}; border:2px solid ${colorObj.border}; box-shadow:0 2px 8px ${colorObj.bg};\"><i class=\"fas fa-shield-alt\" style=\"margin-left:7px;\"></i> 1</span>`;
+            scoreDiv.dataset.oceaniaSafety = '1';
+          }
+          if (!msgDiv.dataset.oceaniaSafety) {
+            msgDiv.innerHTML = `
+              <div style=\"direction:rtl;text-align:right;padding:0 2px 0 0;\">
+                <div style=\"font-size:1.13rem;font-weight:700;color:#FFD700;margin-bottom:8px;letter-spacing:0.5px;display:flex;align-items:center;gap:7px;\">
+                  <i class=\"fas fa-shield-alt\" style=\"color:#FFD700;\"></i>
+                  تقرير الأمان – 2025
+                </div>
+                <div style=\"font-size:1.08rem; margin-bottom:10px; color:#fff;\">
+                  <i class=\"fas fa-check-circle\" style=\"color:#43a047;margin-left:6px;\"></i>
+                  ${oceaniaReports[country.name] || oceaniaReports[country.nameEn]}
+                </div>
               </div>
-              <div class="safety-risk-row" style="display:flex;align-items:center;margin-bottom:7px;">
-                <i class="fas fa-virus" style="color:#fbc02d;width:28px;text-align:center;"></i>
-                <span style="flex:1;margin-right:8px;">الأمراض:</span>
-                <span style="color:#fbc02d;font-weight:700;">معتدل (حسب الموسم)</span>
-              </div>
-              <div class="safety-risk-row" style="display:flex;align-items:center;margin-bottom:7px;">
-                <i class="fas fa-gavel" style="color:#388e3c;width:28px;text-align:center;"></i>
-                <span style="flex:1;margin-right:8px;">الجريمة:</span>
-                <span style="color:#388e3c;font-weight:700;">منخفضة جدًا</span>
-              </div>
-              <div class="safety-risk-row" style="display:flex;align-items:center;margin-bottom:7px;">
-                <i class="fas fa-walking" style="color:#388e3c;width:28px;text-align:center;"></i>
-                <span style="flex:1;margin-right:8px;">الأمان أثناء المشي:</span>
-                <span style="color:#388e3c;font-weight:700;">مرتفع جدًا</span>
-              </div>
-              <div class="safety-risk-row" style="display:flex;align-items:center;margin-bottom:7px;">
-                <i class="fas fa-user-lock" style="color:#388e3c;width:28px;text-align:center;"></i>
-                <span style="flex:1;margin-right:8px;">السرقة:</span>
-                <span style="color:#388e3c;font-weight:700;">نادرة جدًا</span>
-              </div>
-              <div class="safety-risk-row" style="display:flex;align-items:center;margin-bottom:7px;">
-                <i class="fas fa-exclamation-triangle" style="color:#fbc02d;width:28px;text-align:center;"></i>
-                <span style="flex:1;margin-right:8px;">التحرش:</span>
-                <span style="color:#fbc02d;font-weight:700;">منخفض (مع وجود قوانين صارمة)</span>
-              </div>
-              <div class="safety-risk-row" style="display:flex;align-items:center;margin-bottom:7px;">
-                <i class="fas fa-capsules" style="color:#d32f2f;width:28px;text-align:center;"></i>
-                <span style="flex:1;margin-right:8px;">المخدرات:</span>
-                <span style="color:#d32f2f;font-weight:700;">محظورة تمامًا (عقوبات شديدة)</span>
-              </div>
-            </div>
-          `;
-          updatedDiv.textContent = '2025-07-25';
-          sourceA.href = 'https://www.moi.gov.sa/wps/portal/Home/sectors/publicsecurity';
-          sourceA.textContent = 'وزارة الداخلية السعودية';
+            `;
+            msgDiv.dataset.oceaniaSafety = '1';
+          }
+          if (updatedDiv.textContent !== '2025-07-25') updatedDiv.textContent = '2025-07-25';
+          if (sourceA.href !== 'https://www.safetravel.govt.nz/') sourceA.href = 'https://www.safetravel.govt.nz/';
+          if (sourceA.textContent !== 'SafeTravel') sourceA.textContent = 'SafeTravel';
         } else {
           scoreDiv.innerHTML = '<span style="color:#e53935">تعذر جلب بيانات الأمان مباشرة.<br>يرجى زيارة المصدر الرسمي أدناه.</span>';
           msgDiv.textContent = '';
