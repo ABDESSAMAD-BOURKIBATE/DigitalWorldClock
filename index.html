@@ -3483,6 +3483,81 @@
   </style>
 </head>
 <body>
+  <button id="show-sidebar-btn" style="display:none;position:fixed;top:24px;right:12px;z-index:1100;width:44px;height:44px;border-radius:50%;background:#FFD700;border:none;box-shadow:0 2px 8px rgba(0,0,0,0.12);cursor:pointer;align-items:center;justify-content:center;">
+    <i class="fas fa-bars" style="font-size:1.5em;color:#222;"></i>
+  </button>
+  <nav id="sidebar" class="sidebar-visible">
+    <button id="sidebar-toggle" title="إخفاء القائمة" style="background:none;border:none;outline:none;cursor:pointer;margin-bottom:18px;width:48px;height:48px;display:flex;align-items:center;justify-content:center;">
+      <i class="fas fa-angle-left" id="sidebar-toggle-icon" style="font-size:1.6em;color:#FFD700;"></i>
+    </button>
+    <a href="#" title="الرئيسية"><i class="fas fa-home" style="font-size:1.6em;color:#FFD700;"></i></a>
+    <a href="#main-translatable" title="الترجمة"><i class="fas fa-globe" style="font-size:1.4em;color:#FFA500;"></i></a>
+    <a href="prayer-guide.html" target="_blank" title="تعلم الصلاة"><i class="fas fa-praying-hands" style="font-size:1.4em;color:#4CAF50;"></i></a>
+    <a href="#about-modal" title="حول"><i class="fas fa-info-circle" style="font-size:1.4em;color:#00BCD4;"></i></a>
+    <a href="#" title="إعدادات"><i class="fas fa-cog" style="font-size:1.4em;color:#FF8C00;"></i></a>
+  </nav>
+  <style>
+    #sidebar { position:fixed;top:0;right:0;height:100vh;width:70px;background:rgba(20,20,40,0.97);box-shadow:-2px 0 12px rgba(0,0,0,0.12);z-index:1000;display:flex;flex-direction:column;align-items:center;padding:18px 0;gap:22px;transition:right 0.08s cubic-bezier(.77,0,.18,1),box-shadow 0.08s; }
+    * { transition:all 0.08s cubic-bezier(.77,0,.18,1); }
+    #sidebar.sidebar-hidden { right:-70px; box-shadow:none; }
+    #sidebar.sidebar-visible { right:0; }
+    #sidebar-toggle { margin-bottom:18px; }
+    #sidebar-toggle-icon { transition:transform 0.3s; }
+    #sidebar.sidebar-hidden #sidebar-toggle-icon { transform:rotate(180deg); }
+    #sidebar a { display:flex;align-items:center;justify-content:center;width:48px;height:48px;border-radius:12px;transition:background 0.2s; }
+    #sidebar a:hover { background:rgba(255,255,255,0.08); }
+    #sidebar a[target="_blank"] { border:2px solid #4CAF50; }
+    @media (max-width:600px) { #sidebar { width:54px;padding:8px 0; } #sidebar a, #sidebar-toggle { width:38px;height:38px;font-size:1em; } #sidebar.sidebar-hidden { left:-54px; } }
+    body { padding-right:70px; transition:padding-right 0.3s; }
+    body.sidebar-hidden { padding-right:0; }
+    @media (max-width:600px) { body { padding-right:54px; } body.sidebar-hidden { padding-right:0; } }
+  </style>
+  <script>
+  // تحسين البحث عن الدول ليعرض النتائج فقط ويخفي باقي العناصر
+  document.addEventListener('DOMContentLoaded', function() {
+    const searchInput = document.getElementById('search-input');
+    const clocksContainer = document.getElementById('clocks');
+    if (searchInput && clocksContainer) {
+      searchInput.addEventListener('input', function() {
+        const val = this.value.trim().toLowerCase();
+        const countryCards = clocksContainer.querySelectorAll('.country-card, .clock-box');
+        let found = false;
+        countryCards.forEach(card => {
+          const name = card.textContent.trim().toLowerCase();
+          if (val && name.includes(val)) {
+            card.style.display = '';
+            found = true;
+          } else {
+            card.style.display = val ? 'none' : '';
+          }
+        });
+        // إخفاء باقي العناصر عند البحث
+        document.querySelectorAll('.stats-bar, .continent-filter, .loading').forEach(el => {
+          el.style.display = val ? 'none' : '';
+        });
+      });
+    }
+  });
+  document.addEventListener('DOMContentLoaded', function() {
+    const sidebar = document.getElementById('sidebar');
+    const toggleBtn = document.getElementById('sidebar-toggle');
+    const showSidebarBtn = document.getElementById('show-sidebar-btn');
+    toggleBtn.addEventListener('click', function() {
+      const isVisible = sidebar.classList.contains('sidebar-visible');
+      sidebar.classList.toggle('sidebar-visible', !isVisible);
+      sidebar.classList.toggle('sidebar-hidden', isVisible);
+      document.body.classList.toggle('sidebar-hidden', isVisible);
+      toggleBtn.title = isVisible ? 'إظهار القائمة' : 'إخفاء القائمة';
+      showSidebarBtn.style.display = isVisible ? 'flex' : 'none';
+    });
+    showSidebarBtn.addEventListener('click', function() {
+      sidebar.classList.add('sidebar-visible');
+      sidebar.classList.remove('sidebar-hidden');
+      document.body.classList.remove('sidebar-hidden');
+      showSidebarBtn.style.display = 'none';
+    });
+  });
+  </script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/luxon/3.4.4/luxon.min.js"></script>
 
   <div class="floating-clock" id="local-clock">

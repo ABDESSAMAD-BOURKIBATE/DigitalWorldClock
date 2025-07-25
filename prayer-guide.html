@@ -1,0 +1,1691 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>دليل الصلاة التفاعلي</title>
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <style>
+    :root {
+      --primary-gold: linear-gradient(135deg, #ffd700 0%, #ffb347 100%);
+      --secondary-gold: linear-gradient(135deg, #ffb347 0%, #ffa500 100%);
+      --dark-gold: linear-gradient(135deg, #daa520 0%, #b8860b 100%);
+      --light-gold: linear-gradient(135deg, #fff8dc 0%, #fffacd 100%);
+      --dark-bg: #1a1a1a;
+      --darker-bg: #0f0f0f;
+      --card-bg: rgba(255, 215, 0, 0.1);
+      --text-light: #ffffff;
+      --text-gold: #ffd700;
+      --accent: #ff6b35;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    body {
+      font-family: 'Cairo', sans-serif;
+      background: var(--darker-bg);
+      background-image: 
+        radial-gradient(circle at 20% 50%, rgba(255, 215, 0, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(255, 179, 71, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 40% 80%, rgba(218, 165, 32, 0.1) 0%, transparent 50%);
+      color: var(--text-light);
+      overflow-x: hidden;
+      min-height: 100vh;
+    }
+
+    .header {
+      background: rgba(26, 26, 26, 0.95);
+      backdrop-filter: blur(20px);
+      padding: 15px 0;
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 8px 32px rgba(255, 215, 0, 0.2);
+      border-bottom: 2px solid rgba(255, 215, 0, 0.3);
+    }
+
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 20px;
+    }
+
+    .logo {
+      font-family: 'Amiri', serif;
+      font-size: 28px;
+      font-weight: 700;
+      background: var(--primary-gold);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+    }
+
+    .nav-tabs {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .nav-tab {
+      padding: 12px 18px;
+      background: rgba(255, 215, 0, 0.1);
+      border: 2px solid rgba(255, 215, 0, 0.3);
+      border-radius: 25px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-family: 'Cairo', sans-serif;
+      font-weight: 600;
+      color: var(--text-gold);
+      backdrop-filter: blur(10px);
+      font-size: 14px;
+    }
+
+    .nav-tab:hover, .nav-tab.active {
+      background: var(--primary-gold);
+      color: var(--darker-bg);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(255, 215, 0, 0.4);
+      border-color: #ffd700;
+    }
+
+    .sidebar {
+      position: fixed;
+      top: 80px;
+      right: 20px;
+      width: 80px;
+      background: rgba(26, 26, 26, 0.95);
+      backdrop-filter: blur(20px);
+      border-radius: 20px;
+      padding: 20px 0;
+      box-shadow: 0 10px 40px rgba(255, 215, 0, 0.2);
+      border: 2px solid rgba(255, 215, 0, 0.3);
+      z-index: 999;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      align-items: center;
+    }
+
+    .sidebar-btn {
+      width: 50px;
+      height: 50px;
+      border-radius: 15px;
+      background: rgba(255, 215, 0, 0.1);
+      border: 2px solid rgba(255, 215, 0, 0.3);
+      color: var(--text-gold);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+      font-size: 18px;
+    }
+
+    .sidebar-btn:hover, .sidebar-btn.active {
+      background: var(--primary-gold);
+      color: var(--darker-bg);
+      transform: scale(1.1);
+      box-shadow: 0 5px 20px rgba(255, 215, 0, 0.4);
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 100px auto 60px;
+      padding: 0 20px;
+    }
+
+    .tab-content {
+      display: none;
+      animation: fadeInUp 0.6s ease;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero-card {
+      background: rgba(26, 26, 26, 0.8);
+      backdrop-filter: blur(20px);
+      border-radius: 25px;
+      padding: 40px;
+      margin-bottom: 30px;
+      box-shadow: 0 20px 60px rgba(255, 215, 0, 0.1);
+      border: 2px solid rgba(255, 215, 0, 0.3);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: var(--primary-gold);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 25px;
+      margin-bottom: 30px;
+    }
+
+    .card {
+      background: rgba(26, 26, 26, 0.8);
+      backdrop-filter: blur(20px);
+      border-radius: 20px;
+      padding: 30px;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+      transition: all 0.3s ease;
+      border: 2px solid rgba(255, 215, 0, 0.3);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 25px 50px rgba(255, 215, 0, 0.2);
+      border-color: #ffd700;
+    }
+
+    .card-icon {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: var(--primary-gold);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+      color: var(--darker-bg);
+      font-size: 24px;
+      box-shadow: 0 10px 30px rgba(255, 215, 0, 0.3);
+    }
+
+    .card-title {
+      font-size: 22px;
+      font-weight: 700;
+      margin-bottom: 15px;
+      color: var(--text-gold);
+    }
+
+    .step-list {
+      list-style: none;
+      padding: 0;
+    }
+
+    .step-item {
+      display: flex;
+      align-items: center;
+      padding: 15px;
+      margin-bottom: 10px;
+      background: rgba(255, 215, 0, 0.1);
+      border-radius: 15px;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      border-right: 4px solid #ffd700;
+    }
+
+    .step-item:hover, .step-item.active {
+      background: rgba(255, 215, 0, 0.2);
+      transform: translateX(-10px);
+      box-shadow: 0 5px 20px rgba(255, 215, 0, 0.2);
+    }
+
+    .step-number {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background: var(--primary-gold);
+      color: var(--darker-bg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-left: 15px;
+      font-weight: 700;
+    }
+
+    .prayer-times {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 15px;
+      margin-bottom: 30px;
+    }
+
+    .prayer-time {
+      background: rgba(26, 26, 26, 0.8);
+      backdrop-filter: blur(15px);
+      padding: 20px;
+      border-radius: 15px;
+      text-align: center;
+      transition: all 0.3s ease;
+      border: 2px solid rgba(255, 215, 0, 0.3);
+    }
+
+    .prayer-time:hover, .prayer-time.current {
+      border-color: #ffd700;
+      transform: scale(1.05);
+      box-shadow: 0 10px 30px rgba(255, 215, 0, 0.3);
+    }
+
+    .prayer-time.current {
+      background: var(--primary-gold);
+      color: var(--darker-bg);
+    }
+
+    .prayer-name {
+      font-weight: 700;
+      font-size: 18px;
+      margin-bottom: 10px;
+    }
+
+    .prayer-time-value {
+      font-size: 22px;
+      font-weight: 700;
+      font-family: 'Amiri', serif;
+    }
+
+    .qibla-compass {
+      width: 250px;
+      height: 250px;
+      margin: 30px auto;
+      position: relative;
+      background: conic-gradient(from 0deg, #ffd700, #ffb347, #ffd700);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      animation: rotate 20s linear infinite;
+      box-shadow: 0 0 50px rgba(255, 215, 0, 0.3);
+    }
+
+    @keyframes rotate {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    .compass-inner {
+      width: 200px;
+      height: 200px;
+      background: var(--darker-bg);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      box-shadow: inset 0 0 30px rgba(255, 215, 0, 0.2);
+      border: 2px solid rgba(255, 215, 0, 0.5);
+    }
+
+    .compass-needle {
+      width: 4px;
+      height: 80px;
+      background: linear-gradient(to top, #ff6b35, #ffd700);
+      border-radius: 2px;
+      position: absolute;
+      top: 60px;
+      transform-origin: bottom center;
+    }
+
+    .dua-card {
+      background: rgba(26, 26, 26, 0.8);
+      border: 2px solid rgba(255, 215, 0, 0.5);
+      border-radius: 20px;
+      padding: 25px;
+      margin-bottom: 20px;
+      position: relative;
+      transition: all 0.3s ease;
+    }
+
+    .dua-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 40px rgba(255, 215, 0, 0.2);
+      border-color: #ffd700;
+    }
+
+    .dua-text {
+      font-family: 'Amiri', serif;
+      font-size: 20px;
+      line-height: 1.8;
+      text-align: center;
+      margin-bottom: 15px;
+      color: var(--text-light);
+    }
+
+    .audio-controls {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-top: 20px;
+      flex-wrap: wrap;
+    }
+
+    .audio-btn {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: var(--primary-gold);
+      border: none;
+      color: var(--darker-bg);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+      font-size: 18px;
+      position: relative;
+    }
+
+    .audio-btn:hover {
+      transform: scale(1.1);
+      box-shadow: 0 8px 25px rgba(255, 215, 0, 0.4);
+    }
+
+    .progress-circle {
+      width: 100px;
+      height: 100px;
+      margin: 20px auto;
+      position: relative;
+    }
+
+    .progress-ring {
+      transform: rotate(-90deg);
+    }
+
+    .progress-ring-circle {
+      stroke: rgba(255, 215, 0, 0.3);
+      stroke-width: 8;
+      fill: transparent;
+      r: 40;
+      cx: 50;
+      cy: 50;
+    }
+
+    .progress-ring-fill {
+      stroke: #ffd700;
+      stroke-width: 8;
+      fill: transparent;
+      r: 40;
+      cx: 50;
+      cy: 50;
+      stroke-dasharray: 251.2;
+      stroke-dashoffset: 251.2;
+      transition: stroke-dashoffset 0.5s ease;
+    }
+
+    .floating-action {
+      position: fixed;
+      bottom: 30px;
+      left: 30px;
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      background: var(--primary-gold);
+      border: none;
+      color: var(--darker-bg);
+      font-size: 24px;
+      cursor: pointer;
+      box-shadow: 0 8px 25px rgba(255, 215, 0, 0.4);
+      transition: all 0.3s ease;
+      z-index: 1000;
+    }
+
+    .floating-action:hover {
+      transform: scale(1.1) rotate(15deg);
+      box-shadow: 0 12px 35px rgba(255, 215, 0, 0.6);
+    }
+
+    .notification {
+      position: fixed;
+      top: 100px;
+      left: 20px;
+      background: rgba(26, 26, 26, 0.95);
+      backdrop-filter: blur(20px);
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+      border-right: 4px solid #ffd700;
+      transform: translateX(-400px);
+      transition: all 0.3s ease;
+      z-index: 1001;
+      max-width: 300px;
+      border: 2px solid rgba(255, 215, 0, 0.3);
+    }
+
+    .notification.show {
+      transform: translateX(0);
+    }
+
+    .counter-badge {
+      position: absolute;
+      top: -10px;
+      right: -10px;
+      background: #ff6b35;
+      color: white;
+      border-radius: 50%;
+      width: 25px;
+      height: 25px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .adhan-section {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      margin-bottom: 30px;
+    }
+
+    .sheikh-card {
+      background: rgba(26, 26, 26, 0.8);
+      border: 2px solid rgba(255, 215, 0, 0.3);
+      border-radius: 20px;
+      padding: 25px;
+      text-align: center;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    .sheikh-card:hover {
+      transform: translateY(-5px);
+      border-color: #ffd700;
+      box-shadow: 0 15px 40px rgba(255, 215, 0, 0.2);
+    }
+
+    .sheikh-image {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: var(--primary-gold);
+      margin: 0 auto 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 30px;
+      color: var(--darker-bg);
+    }
+
+    .sheikh-name {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--text-gold);
+      margin-bottom: 10px;
+    }
+
+    .sheikh-description {
+      font-size: 14px;
+      color: var(--text-light);
+      opacity: 0.8;
+      margin-bottom: 15px;
+    }
+
+    .language-toggle {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .lang-btn {
+      padding: 8px 16px;
+      background: rgba(255, 215, 0, 0.1);
+      border: 2px solid rgba(255, 215, 0, 0.3);
+      border-radius: 20px;
+      color: var(--text-gold);
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .lang-btn.active, .lang-btn:hover {
+      background: var(--primary-gold);
+      color: var(--darker-bg);
+      border-color: #ffd700;
+    }
+
+    .footer {
+      background: rgba(26, 26, 26, 0.95);
+      backdrop-filter: blur(20px);
+      padding: 30px 0;
+      text-align: center;
+      border-top: 2px solid rgba(255, 215, 0, 0.3);
+      margin-top: 50px;
+    }
+
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    .developer-info {
+      color: var(--text-gold);
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+
+    .copyright {
+      color: var(--text-light);
+      opacity: 0.8;
+      font-size: 14px;
+    }
+
+    @media (max-width: 768px) {
+      .nav-tabs { 
+        gap: 5px;
+        justify-content: center;
+      }
+      .nav-tab { 
+        padding: 8px 12px; 
+        font-size: 12px; 
+      }
+      .hero-card { padding: 25px; }
+      .grid { grid-template-columns: 1fr; }
+      .qibla-compass { width: 200px; height: 200px; }
+      .compass-inner { width: 160px; height: 160px; }
+      .sidebar {
+        position: relative;
+        top: 0;
+        right: 0;
+        width: 100%;
+        flex-direction: row;
+        justify-content: center;
+        margin-bottom: 20px;
+      }
+      .container {
+        margin-top: 120px;
+      }
+    }
+
+    .floating-shape {
+      position: absolute;
+      background: rgba(255, 215, 0, 0.1);
+      border-radius: 50%;
+      animation: float 15s ease-in-out infinite;
+    }
+
+    .floating-shape:nth-child(1) { width: 80px; height: 80px; top: 20%; right: 10%; animation-delay: 0s; }
+    .floating-shape:nth-child(2) { width: 60px; height: 60px; top: 60%; right: 80%; animation-delay: 3s; }
+    .floating-shape:nth-child(3) { width: 100px; height: 100px; top: 80%; right: 20%; animation-delay: 6s; }
+
+    @keyframes float {
+      0%, 100% { transform: translate(0, 0) rotate(0deg); }
+      33% { transform: translate(30px, -30px) rotate(120deg); }
+      66% { transform: translate(-20px, 20px) rotate(240deg); }
+    }
+
+    .active-playing {
+      animation: pulse 1s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="floating-shape"></div>
+  <div class="floating-shape"></div>
+  <div class="floating-shape"></div>
+
+  <header class="header">
+    <div class="nav-container">
+      <div class="logo">
+        <i class="fas fa-mosque"></i>
+        دليل الصلاة التفاعلي
+      </div>
+      <div class="nav-tabs">
+        <button class="nav-tab active" onclick="showTab('home')">
+          <i class="fas fa-home"></i> الرئيسية
+        </button>
+        <button class="nav-tab" onclick="showTab('wudu')">
+          <i class="fas fa-hand-sparkles"></i> الوضوء
+        </button>
+        <button class="nav-tab" onclick="showTab('prayer')">
+          <i class="fas fa-praying-hands"></i> الصلاة
+        </button>
+        <button class="nav-tab" onclick="showTab('adhan')">
+          <i class="fas fa-volume-up"></i> الأذان
+        </button>
+        <button class="nav-tab" onclick="showTab('qibla')">
+          <i class="fas fa-compass"></i> القبلة
+        </button>
+        <button class="nav-tab" onclick="showTab('duas')">
+          <i class="fas fa-book-open"></i> الأذكار
+        </button>
+        <button class="nav-tab" onclick="showTab('times')">
+          <i class="fas fa-clock"></i> المواقيت
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <div class="sidebar">
+    <button class="sidebar-btn active" onclick="showTab('home')" title="الرئيسية">
+      <i class="fas fa-home"></i>
+    </button>
+    <button class="sidebar-btn" onclick="showTab('wudu')" title="الوضوء">
+      <i class="fas fa-hand-sparkles"></i>
+    </button>
+    <button class="sidebar-btn" onclick="showTab('prayer')" title="الصلاة">
+      <i class="fas fa-praying-hands"></i>
+    </button>
+    <button class="sidebar-btn" onclick="showTab('adhan')" title="الأذان">
+      <i class="fas fa-volume-up"></i>
+    </button>
+    <button class="sidebar-btn" onclick="showTab('qibla')" title="القبلة">
+      <i class="fas fa-compass"></i>
+    </button>
+    <button class="sidebar-btn" onclick="showTab('duas')" title="الأذكار">
+      <i class="fas fa-book-open"></i>
+    </button>
+    <button class="sidebar-btn" onclick="showTab('times')" title="المواقيت">
+      <i class="fas fa-clock"></i>
+    </button>
+  </div>
+
+  <div class="container">
+    <!-- الصفحة الرئيسية -->
+    <div id="home" class="tab-content active">
+      <div class="hero-card">
+        <h1 style="text-align: center; font-size: 36px; margin-bottom: 20px; background: var(--primary-gold); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">
+          <i class="fas fa-mosque"></i>
+          مرحباً بك في دليل الصلاة التفاعلي
+        </h1>
+        <p style="text-align: center; font-size: 18px; line-height: 1.8; color: var(--text-light); margin-bottom: 30px; opacity: 0.9;">
+          دليلك الشامل لتعلم الصلاة والوضوء مع ميزات تفاعلية متطورة وأذان الشيوخ المميزين
+        </p>
+        <div class="audio-controls">
+          <button class="audio-btn" onclick="playWelcomeAudio()">
+            <i class="fas fa-play"></i>
+          </button>
+        </div>
+      </div>
+
+      <div class="grid">
+        <div class="card" onclick="showTab('wudu')">
+          <div class="card-icon">
+            <i class="fas fa-hand-sparkles"></i>
+          </div>
+          <h3 class="card-title">تعلم الوضوء</h3>
+          <p>خطوات الوضوء الصحيح مع الإرشادات الصوتية والمرئية</p>
+        </div>
+
+        <div class="card" onclick="showTab('prayer')">
+          <div class="card-icon">
+            <i class="fas fa-praying-hands"></i>
+          </div>
+          <h3 class="card-title">أداء الصلاة</h3>
+          <p>دليل شامل لأداء الصلاة مع التوجيه خطوة بخطوة</p>
+        </div>
+
+        <div class="card" onclick="showTab('adhan')">
+          <div class="card-icon">
+            <i class="fas fa-volume-up"></i>
+          </div>
+          <h3 class="card-title">أذان الشيوخ</h3>
+          <p>استمع لأذان أشهر المؤذنين والشيوخ حول العالم</p>
+        </div>
+
+        <div class="card" onclick="showTab('qibla')">
+          <div class="card-icon">
+            <i class="fas fa-compass"></i>
+          </div>
+          <h3 class="card-title">اتجاه القبلة</h3>
+          <p>بوصلة ذكية لتحديد اتجاه القبلة بدقة</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- قسم الوضوء -->
+    <div id="wudu" class="tab-content">
+      <div class="hero-card">
+        <h2 style="text-align: center; margin-bottom: 30px; color: var(--text-gold);">
+          <i class="fas fa-hand-sparkles"></i>
+          دليل الوضوء التفاعلي
+        </h2>
+        
+        <div class="progress-circle">
+          <svg class="progress-ring" width="100" height="100">
+            <circle class="progress-ring-circle"></circle>
+            <circle class="progress-ring-fill" id="wudu-progress"></circle>
+          </svg>
+          <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-weight: 700; color: var(--text-gold);">
+            <span id="wudu-step-number">1</span>/7
+          </div>
+        </div>
+
+        <ul class="step-list" id="wudu-steps">
+          <li class="step-item active" onclick="selectWuduStep(1)">
+            <div class="step-number">1</div>
+            <div>النية للوضوء في القلب</div>
+          </li>
+          <li class="step-item" onclick="selectWuduStep(2)">
+            <div class="step-number">2</div>
+            <div>غسل الكفين ثلاث مرات</div>
+          </li>
+          <li class="step-item" onclick="selectWuduStep(3)">
+            <div class="step-number">3</div>
+            <div>المضمضة والاستنشاق ثلاث مرات</div>
+          </li>
+          <li class="step-item" onclick="selectWuduStep(4)">
+            <div class="step-number">4</div>
+            <div>غسل الوجه ثلاث مرات من الأذن إلى الأذن</div>
+          </li>
+          <li class="step-item" onclick="selectWuduStep(5)">
+            <div class="step-number">5</div>
+            <div>غسل اليدين إلى المرفقين ثلاث مرات</div>
+          </li>
+          <li class="step-item" onclick="selectWuduStep(6)">
+            <div class="step-number">6</div>
+            <div>مسح الرأس والأذنين مرة واحدة</div>
+          </li>
+          <li class="step-item" onclick="selectWuduStep(7)">
+            <div class="step-number">7</div>
+            <div>غسل الرجلين إلى الكعبين ثلاث مرات</div>
+          </li>
+        </ul>
+
+        <div class="audio-controls">
+          <button class="audio-btn" onclick="playStepAudio()">
+            <i class="fas fa-play"></i>
+          </button>
+          <button class="audio-btn" onclick="pauseAudio()">
+            <i class="fas fa-pause"></i>
+          </button>
+          <button class="audio-btn" onclick="resetWudu()">
+            <i class="fas fa-redo"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- قسم الصلاة -->
+    <div id="prayer" class="tab-content">
+      <div class="hero-card">
+        <h2 style="text-align: center; margin-bottom: 30px; color: var(--text-gold);">
+          <i class="fas fa-praying-hands"></i>
+          دليل الصلاة التفاعلي
+        </h2>
+
+        <div class="grid">
+          <div class="card">
+            <h3 class="card-title">أركان الصلاة</h3>
+            <ul class="step-list">
+              <li class="step-item" onclick="playPrayerStep(1)">
+                <div class="step-number">1</div>
+                <div>القيام مع القدرة</div>
+              </li>
+              <li class="step-item" onclick="playPrayerStep(2)">
+                <div class="step-number">2</div>
+                <div>تكبيرة الإحرام</div>
+              </li>
+              <li class="step-item" onclick="playPrayerStep(3)">
+                <div class="step-number">3</div>
+                <div>قراءة الفاتحة</div>
+              </li>
+              <li class="step-item" onclick="playPrayerStep(4)">
+                <div class="step-number">4</div>
+                <div>الركوع والرفع منه</div>
+              </li>
+              <li class="step-item" onclick="playPrayerStep(5)">
+                <div class="step-number">5</div>
+                <div>السجود والجلوس بين السجدتين</div>
+              </li>
+              <li class="step-item" onclick="playPrayerStep(6)">
+                <div class="step-number">6</div>
+                <div>الجلوس للتشهد الأخير</div>
+              </li>
+              <li class="step-item" onclick="playPrayerStep(7)">
+                <div class="step-number">7</div>
+                <div>السلام</div>
+              </li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <h3 class="card-title">خطوات الصلاة</h3>
+            <ul class="step-list">
+              <li class="step-item" onclick="playDetailedPrayerStep(1)">
+                <div class="step-number">1</div>
+                <div>استقبال القبلة والنية</div>
+              </li>
+              <li class="step-item" onclick="playDetailedPrayerStep(2)">
+                <div class="step-number">2</div>
+                <div>تكبيرة الإحرام "الله أكبر"</div>
+              </li>
+              <li class="step-item" onclick="playDetailedPrayerStep(3)">
+                <div class="step-number">3</div>
+                <div>دعاء الاستفتاح</div>
+              </li>
+              <li class="step-item" onclick="playDetailedPrayerStep(4)">
+                <div class="step-number">4</div>
+                <div>قراءة الفاتحة وسورة</div>
+              </li>
+              <li class="step-item" onclick="playDetailedPrayerStep(5)">
+                <div class="step-number">5</div>
+                <div>الركوع مع التسبيح</div>
+              </li>
+              <li class="step-item" onclick="playDetailedPrayerStep(6)">
+                <div class="step-number">6</div>
+                <div>الرفع من الركوع</div>
+              </li>
+              <li class="step-item" onclick="playDetailedPrayerStep(7)">
+                <div class="step-number">7</div>
+                <div>السجود مرتين</div>
+              </li>
+              <li class="step-item" onclick="playDetailedPrayerStep(8)">
+                <div class="step-number">8</div>
+                <div>التشهد والسلام</div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- قسم الأذان -->
+    <div id="adhan" class="tab-content">
+      <div class="hero-card">
+        <h2 style="text-align: center; margin-bottom: 30px; color: var(--text-gold);">
+          <i class="fas fa-volume-up"></i>
+          أذان الشيوخ المميزين
+        </h2>
+
+        <div class="language-toggle">
+          <button class="lang-btn active" onclick="setLanguage('ar')">العربية</button>
+          <button class="lang-btn" onclick="setLanguage('en')">English</button>
+        </div>
+
+        <div class="adhan-section">
+          <div class="sheikh-card" onclick="playAdhanSheikh('mishary')">
+            <div class="sheikh-image">
+              <i class="fas fa-mosque"></i>
+            </div>
+            <div class="sheikh-name">الشيخ مشاري العفاسي</div>
+            <div class="sheikh-description">صوت جميل ومؤثر من الكويت</div>
+            <div class="audio-controls">
+              <button class="audio-btn">
+                <i class="fas fa-play"></i>
+              </button>
+            </div>
+          </div>
+
+          <div class="sheikh-card" onclick="playAdhanSheikh('maher')">
+            <div class="sheikh-image">
+              <i class="fas fa-star-and-crescent"></i>
+            </div>
+            <div class="sheikh-name">الشيخ ماهر المعيقلي</div>
+            <div class="sheikh-description">إمام المسجد الحرام بمكة المكرمة</div>
+            <div class="audio-controls">
+              <button class="audio-btn">
+                <i class="fas fa-play"></i>
+              </button>
+            </div>
+          </div>
+
+          <div class="sheikh-card" onclick="playAdhanSheikh('sudais')">
+            <div class="sheikh-image">
+              <i class="fas fa-kaaba"></i>
+            </div>
+            <div class="sheikh-name">الشيخ عبد الرحمن السديس</div>
+            <div class="sheikh-description">إمام المسجد الحرام السابق</div>
+            <div class="audio-controls">
+              <button class="audio-btn">
+                <i class="fas fa-play"></i>
+              </button>
+            </div>
+          </div>
+
+          <div class="sheikh-card" onclick="playAdhanSheikh('ghamdi')">
+            <div class="sheikh-image">
+              <i class="fas fa-moon"></i>
+            </div>
+            <div class="sheikh-name">الشيخ سعد الغامدي</div>
+            <div class="sheikh-description">قارئ مميز من المملكة العربية السعودية</div>
+            <div class="audio-controls">
+              <button class="audio-btn">
+                <i class="fas fa-play"></i>
+              </button>
+            </div>
+          </div>
+
+          <div class="sheikh-card" onclick="playAdhanSheikh('tablawi')">
+            <div class="sheikh-image">
+              <i class="fas fa-minaret"></i>
+            </div>
+            <div class="sheikh-name">الشيخ محمد الطبلاوي</div>
+            <div class="sheikh-description">مؤذن الأزهر الشريف</div>
+            <div class="audio-controls">
+              <button class="audio-btn">
+                <i class="fas fa-play"></i>
+              </button>
+            </div>
+          </div>
+
+          <div class="sheikh-card" onclick="playAdhanSheikh('rifai')">
+            <div class="sheikh-image">
+              <i class="fas fa-star"></i>
+            </div>
+            <div class="sheikh-name">الشيخ محمد رفعت</div>
+            <div class="sheikh-description">أسطورة الأذان المصري</div>
+            <div class="audio-controls">
+              <button class="audio-btn">
+                <i class="fas fa-play"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- قسم القبلة -->
+    <div id="qibla" class="tab-content">
+      <div class="hero-card" style="text-align: center;">
+        <h2 style="margin-bottom: 30px; color: var(--text-gold);">
+          <i class="fas fa-compass"></i>
+          بوصلة القبلة الذكية
+        </h2>
+        
+        <div class="qibla-compass">
+          <div class="compass-inner">
+            <div class="compass-needle"></div>
+            <div style="position: absolute; top: 10px; font-weight: 700; color: #ff6b35;">N</div>
+            <div style="position: absolute; bottom: 10px; font-weight: 700; color: var(--text-light);">S</div>
+            <div style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); font-weight: 700; color: var(--text-light);">W</div>
+            <div style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); font-weight: 700; color: var(--text-light);">E</div>
+            <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-weight: 700; color: var(--text-gold);">
+              <i class="fas fa-kaaba"></i>
+            </div>
+          </div>
+        </div>
+
+        <p style="font-size: 18px; margin: 20px 0; color: var(--text-light);">
+          اتجاه القبلة: <span style="font-weight: 700; color: var(--text-gold);">شمال شرق</span>
+        </p>
+        
+        <div class="audio-controls">
+          <button class="audio-btn" onclick="findQibla()">
+            <i class="fas fa-location-arrow"></i>
+          </button>
+          <button class="audio-btn" onclick="calibrateCompass()">
+            <i class="fas fa-sync-alt"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- قسم الأذكار -->
+    <div id="duas" class="tab-content">
+      <div class="hero-card">
+        <h2 style="text-align: center; margin-bottom: 30px; color: var(--text-gold);">
+          <i class="fas fa-book-open"></i>
+          الأذكار والأدعية
+        </h2>
+
+        <div class="dua-card">
+          <div class="dua-text">
+            أَشْهَدُ أَنْ لاَ إِلَهَ إِلاَّ اللَّهُ وَحْدَهُ لاَ شَرِيكَ لَهُ، وَأَشْهَدُ أَنَّ مُحَمَّدًا عَبْدُهُ وَرَسُولُهُ
+          </div>
+          <div class="audio-controls">
+            <button class="audio-btn" onclick="playDua('shahada')">
+              <i class="fas fa-play"></i>
+            </button>
+            <button class="audio-btn" onclick="repeatDua('shahada')">
+              <i class="fas fa-repeat"></i>
+            </button>
+          </div>
+        </div>
+
+        <div class="dua-card">
+          <div class="dua-text">
+            سُبْحَانَ اللَّهِ وَالْحَمْدُ لِلَّهِ وَلاَ إِلَهَ إِلاَّ اللَّهُ وَاللَّهُ أَكْبَرُ
+          </div>
+          <div class="audio-controls">
+            <button class="audio-btn" onclick="playDua('tasbih')">
+              <i class="fas fa-play"></i>
+            </button>
+            <button class="audio-btn" onclick="startCounter()">
+              <i class="fas fa-calculator"></i>
+              <span class="counter-badge" id="counter">0</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="dua-card">
+          <div class="dua-text">
+            اللَّهُمَّ أَنْتَ السَّلاَمُ وَمِنْكَ السَّلاَمُ، تَبَارَكْتَ يَا ذَا الْجَلاَلِ وَالإِكْرَامِ
+          </div>
+          <div class="audio-controls">
+            <button class="audio-btn" onclick="playDua('after_prayer')">
+              <i class="fas fa-play"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- قسم المواقيت -->
+    <div id="times" class="tab-content">
+      <div class="hero-card">
+        <h2 style="text-align: center; margin-bottom: 30px; color: var(--text-gold);">
+          <i class="fas fa-clock"></i>
+          مواقيت الصلاة
+        </h2>
+        
+        <div class="prayer-times">
+          <div class="prayer-time">
+            <div class="prayer-name">الفجر</div>
+            <div class="prayer-time-value" id="fajr-time">05:30</div>
+          </div>
+          <div class="prayer-time">
+            <div class="prayer-name">الشروق</div>
+            <div class="prayer-time-value" id="sunrise-time">07:00</div>
+          </div>
+          <div class="prayer-time current">
+            <div class="prayer-name">الظهر</div>
+            <div class="prayer-time-value" id="dhuhr-time">12:45</div>
+          </div>
+          <div class="prayer-time">
+            <div class="prayer-name">العصر</div>
+            <div class="prayer-time-value" id="asr-time">16:15</div>
+          </div>
+          <div class="prayer-time">
+            <div class="prayer-name">المغرب</div>
+            <div class="prayer-time-value" id="maghrib-time">19:30</div>
+          </div>
+          <div class="prayer-time">
+            <div class="prayer-name">العشاء</div>
+            <div class="prayer-time-value" id="isha-time">21:00</div>
+          </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 30px;">
+          <button class="audio-btn" onclick="playGeneralAdhan()" style="width: 80px; height: 80px; font-size: 24px;">
+            <i class="fas fa-mosque"></i>
+          </button>
+          <p style="margin-top: 15px; color: var(--text-light); opacity: 0.8;">استماع للأذان</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <button class="floating-action" onclick="showNotification()">
+    <i class="fas fa-bell"></i>
+  </button>
+
+  <div class="notification" id="notification">
+    <h4 style="margin-bottom: 10px; color: var(--text-gold);">
+      <i class="fas fa-mosque"></i>
+      تذكير الصلاة
+    </h4>
+    <p>حان وقت صلاة الظهر</p>
+  </div>
+
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="developer-info">
+        <i class="fas fa-code"></i>
+        تطوير وتصميم: عبد الصمد بوركيبات
+      </div>
+      <div class="copyright">
+        <i class="fas fa-copyright"></i>
+        جميع الحقوق محفوظة © 2025
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // متغيرات الصوت المحدثة
+    let currentAudio = null;
+    let wuduCurrentStep = 1;
+    let prayerCurrentStep = 1;
+    let duaCounter = 0;
+    let currentLanguage = 'ar';
+
+    // الأصوات المحاكاة مع دعم اللغتين
+    const audioSources = {
+      ar: {
+        welcome: 'بسم الله الرحمن الرحيم، مرحباً بك في دليل الصلاة التفاعلي المطور من قبل عبد الصمد بوركيبات',
+        wudu_steps: [
+          'النية للوضوء في القلب',
+          'اغسل كفيك ثلاث مرات بالماء الطاهر',
+          'تمضمض ثلاث مرات واستنشق الماء ثم انثره',
+          'اغسل وجهك ثلاث مرات من الأذن إلى الأذن', 
+          'اغسل يديك إلى المرفقين ثلاث مرات، ابدأ بالعضو الأيمن',
+          'امسح رأسك وأذنيك مرة واحدة بيدين مبلولتين',
+          'اغسل قدميك إلى الكعبين ثلاث مرات، ابدأ بالقدم اليمنى'
+        ],
+        prayer_steps: [
+          'قف مستقبلاً القبلة مع وضع النية الخالصة لله',
+          'ارفع يديك وقل بصوت مسموع: الله أكبر',
+          'اقرأ سورة الفاتحة أولاً',
+          'اركع واجعل ظهرك مستقيماً وقل: سبحان ربي العظيم',
+          'اسجد على سبعة أعضاء وقل: سبحان ربي الأعلى',
+          'اجلس للتشهد الأخير',
+          'سلم عن اليمين والشمال'
+        ],
+        detailed_prayer_steps: [
+          'استقبل القبلة واجعل النية خالصة لله تعالى',
+          'ارفع يديك حذو منكبيك وقل: الله أكبر',
+          'ضع يدك اليمنى على اليسرى واقرأ دعاء الاستفتاح',
+          'اقرأ سورة الفاتحة بتدبر ثم سورة قصيرة',
+          'اركع واجعل ظهرك مستقيماً وقل: سبحان ربي العظيم ثلاث مرات',
+          'ارفع من الركوع وقل: سمع الله لمن حمده، ربنا ولك الحمد',
+          'اسجد على سبعة أعضاء وقل: سبحان ربي الأعلى ثلاث مرات، ثم اجلس ثم اسجد مرة أخرى',
+          'اجلس للتشهد الأخير وقل السلام عن اليمين والشمال'
+        ],
+        duas: {
+          shahada: 'أشهد أن لا إله إلا الله وحده لا شريك له، وأشهد أن محمداً عبده ورسوله',
+          tasbih: 'سبحان الله والحمد لله ولا إله إلا الله والله أكبر',
+          after_prayer: 'اللهم أنت السلام ومنك السلام، تباركت يا ذا الجلال والإكرام'
+        },
+        adhan: {
+          general: 'الله أكبر الله أكبر، أشهد أن لا إله إلا الله، أشهد أن محمداً رسول الله، حي على الصلاة، حي على الفلاح',
+          mishary: 'أذان بصوت الشيخ مشاري العفاسي الرائع من الكويت',
+          maher: 'أذان بصوت الشيخ ماهر المعيقلي إمام المسجد الحرام',
+          sudais: 'أذان بصوت الشيخ عبد الرحمن السديس',
+          ghamdi: 'أذان بصوت الشيخ سعد الغامدي',
+          tablawi: 'أذان بصوت الشيخ محمد الطبلاوي مؤذن الأزهر',
+          rifai: 'أذان بصوت أسطورة الأذان الشيخ محمد رفعت'
+        }
+      },
+      en: {
+        welcome: 'In the name of Allah, the Most Gracious, the Most Merciful. Welcome to the Interactive Prayer Guide developed by Abdessamed Bourkibat',
+        wudu_steps: [
+          'Intention for ablution in the heart',
+          'Wash your palms three times with clean water',
+          'Rinse your mouth and nose three times',
+          'Wash your face three times from ear to ear',
+          'Wash your arms up to the elbows three times, starting with the right',
+          'Wipe your head and ears once with wet hands',
+          'Wash your feet up to the ankles three times, starting with the right foot'
+        ],
+        prayer_steps: [
+          'Stand facing the Qibla with sincere intention for Allah',
+          'Raise your hands and say audibly: Allahu Akbar',
+          'Recite Surah Al-Fatiha first',
+          'Bow with your back straight and say: Subhana Rabbiyal Azeem',
+          'Prostrate on seven limbs and say: Subhana Rabbiyal A\'la',
+          'Sit for the final Tashahhud',
+          'Give salutation to the right and left'
+        ]
+      }
+    };
+
+    // وظيفة تحويل النص إلى كلام محسنة
+    function speakText(text, lang = null) {
+      if ('speechSynthesis' in window) {
+        if (currentAudio) {
+          speechSynthesis.cancel();
+        }
+        
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.lang = lang || (currentLanguage === 'ar' ? 'ar-SA' : 'en-US');
+        utterance.rate = currentLanguage === 'ar' ? 0.7 : 0.8;
+        utterance.pitch = 1.1;
+        utterance.volume = 1;
+        
+        // تأثير بصري أثناء التشغيل
+        document.body.style.filter = 'brightness(1.15) saturate(1.2)';
+        
+        // إضافة تأثير النبض للزر النشط
+        const activeBtn = document.querySelector('.audio-btn:hover, .audio-btn:focus');
+        if (activeBtn) {
+          activeBtn.classList.add('active-playing');
+        }
+        
+        utterance.onend = function() {
+          document.body.style.filter = 'brightness(1)';
+          if (activeBtn) {
+            activeBtn.classList.remove('active-playing');
+          }
+          currentAudio = null;
+        };
+        
+        utterance.onerror = function() {
+          document.body.style.filter = 'brightness(1)';
+          showNotification('حدث خطأ في تشغيل الصوت');
+        };
+        
+        speechSynthesis.speak(utterance);
+        currentAudio = utterance;
+      } else {
+        showNotification('المتصفح لا يدعم تشغيل الصوت');
+      }
+    }
+
+    // وظائف التنقل بين التبويبات محسنة
+    function showTab(tabName) {
+      // إخفاء جميع التبويبات
+      const tabs = document.querySelectorAll('.tab-content');
+      tabs.forEach(tab => tab.classList.remove('active'));
+      
+      // إزالة التفعيل من جميع الأزرار
+      const navTabs = document.querySelectorAll('.nav-tab, .sidebar-btn');
+      navTabs.forEach(nav => nav.classList.remove('active'));
+      
+      // إظهار التبويب المحدد
+      document.getElementById(tabName).classList.add('active');
+      
+      // تفعيل الأزرار المناسبة
+      const activeNavTab = document.querySelector(`.nav-tab[onclick="showTab('${tabName}')"], .sidebar-btn[onclick="showTab('${tabName}')"]`);
+      if (activeNavTab) activeNavTab.classList.add('active');
+      
+      // الأزرار الجانبية
+      const activeSidebarBtn = document.querySelector(`.sidebar-btn[onclick="showTab('${tabName}')"]`);
+      if (activeSidebarBtn) activeSidebarBtn.classList.add('active');
+      
+      // تشغيل صوت التنقل
+      const currentLang = audioSources[currentLanguage];
+      if (tabName === 'home') {
+        speakText(currentLanguage === 'ar' ? 'مرحباً بك في الصفحة الرئيسية' : 'Welcome to the home page');
+      } else if (tabName === 'wudu') {
+        speakText(currentLanguage === 'ar' ? 'مرحباً بك في قسم تعلم الوضوء' : 'Welcome to the ablution learning section');
+      } else if (tabName === 'prayer') {
+        speakText(currentLanguage === 'ar' ? 'مرحباً بك في قسم تعلم الصلاة' : 'Welcome to the prayer learning section');
+      } else if (tabName === 'adhan') {
+        speakText(currentLanguage === 'ar' ? 'مرحباً بك في قسم أذان الشيوخ المميزين' : 'Welcome to the distinguished scholars Adhan section');
+      } else if (tabName === 'qibla') {
+        speakText(currentLanguage === 'ar' ? 'مرحباً بك في قسم تحديد اتجاه القبلة' : 'Welcome to the Qibla direction section');
+      } else if (tabName === 'duas') {
+        speakText(currentLanguage === 'ar' ? 'مرحباً بك في قسم الأذكار والأدعية' : 'Welcome to the prayers and supplications section');
+      } else if (tabName === 'times') {
+        speakText(currentLanguage === 'ar' ? 'مرحباً بك في قسم مواقيت الصلاة' : 'Welcome to the prayer times section');
+      }
+    }
+
+    // وظائف الصوت للترحيب
+    function playWelcomeAudio() {
+      speakText(audioSources[currentLanguage].welcome);
+    }
+
+    // وظائف الوضوء محسنة
+    function selectWuduStep(step) {
+      const steps = document.querySelectorAll('#wudu-steps .step-item');
+      steps.forEach(s => s.classList.remove('active'));
+      
+      steps[step - 1].classList.add('active');
+      wuduCurrentStep = step;
+      
+      updateWuduProgress();
+      speakText(audioSources[currentLanguage].wudu_steps[step - 1]);
+    }
+
+    function updateWuduProgress() {
+      const circle = document.getElementById('wudu-progress');
+      const stepNumber = document.getElementById('wudu-step-number');
+      const circumference = 2 * Math.PI * 40;
+      const progress = (wuduCurrentStep / 7) * circumference;
+      
+      circle.style.strokeDashoffset = circumference - progress;
+      stepNumber.textContent = wuduCurrentStep;
+    }
+
+    function playStepAudio() {
+      speakText(audioSources[currentLanguage].wudu_steps[wuduCurrentStep - 1]);
+    }
+
+    function pauseAudio() {
+      if (currentAudio && speechSynthesis.speaking) {
+        speechSynthesis.cancel();
+        document.body.style.filter = 'brightness(1)';
+        document.querySelectorAll('.active-playing').forEach(btn => {
+          btn.classList.remove('active-playing');
+        });
+      }
+    }
+
+    function resetWudu() {
+      wuduCurrentStep = 1;
+      selectWuduStep(1);
+      speakText(currentLanguage === 'ar' ? 'تم إعادة تعيين خطوات الوضوء' : 'Ablution steps have been reset');
+    }
+
+    // وظائف الصلاة محسنة
+    function playPrayerStep(step) {
+      if (step >= 1 && step <= audioSources[currentLanguage].prayer_steps.length) {
+        // تفعيل العنصر بصرياً
+        const prayerSteps = document.querySelectorAll('#prayer .step-item');
+        prayerSteps.forEach(s => s.classList.remove('active'));
+        prayerSteps[step - 1].classList.add('active');
+        
+        speakText(audioSources[currentLanguage].prayer_steps[step - 1]);
+      }
+    }
+
+    function playDetailedPrayerStep(step) {
+      if (step >= 1 && step <= audioSources[currentLanguage].detailed_prayer_steps.length) {
+        // تفعيل العنصر بصرياً
+        const detailedSteps = document.querySelectorAll('#prayer .card:last-child .step-item');
+        detailedSteps.forEach(s => s.classList.remove('active'));
+        detailedSteps[step - 1].classList.add('active');
+        
+        speakText(audioSources[currentLanguage].detailed_prayer_steps[step - 1]);
+      }
+    }
+
+    // وظائف الأذان الجديدة
+    function setLanguage(lang) {
+      currentLanguage = lang;
+      
+      // تحديث أزرار اللغة
+      document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+      event.target.classList.add('active');
+      
+      speakText(lang === 'ar' ? 'تم تغيير اللغة إلى العربية' : 'Language changed to English');
+    }
+
+    function playAdhanSheikh(sheikhName) {
+      const currentLang = audioSources[currentLanguage];
+      
+      // تأثير بصري للشيخ المحدد
+      document.querySelectorAll('.sheikh-card').forEach(card => card.classList.remove('active'));
+      event.currentTarget.classList.add('active');
+      
+      // تشغيل صوت الأذان
+      if (currentLang.adhan && currentLang.adhan[sheikhName]) {
+        speakText(currentLang.adhan[sheikhName]);
+      } else {
+        // تشغيل الأذان العام إذا لم يتوفر صوت محدد
+        speakText(currentLang.adhan.general);
+      }
+      
+      // تأثير بصري متقدم
+      const sheikhCard = event.currentTarget;
+      sheikhCard.style.transform = 'scale(1.05)';
+      sheikhCard.style.boxShadow = '0 20px 60px rgba(255, 215, 0, 0.4)';
+      
+      setTimeout(() => {
+        sheikhCard.style.transform = 'translateY(-5px)';
+        sheikhCard.style.boxShadow = '0 15px 40px rgba(255, 215, 0, 0.2)';
+      }, 3000);
+    }
+
+    // وظائف الأذكار محسنة
+    function playDua(duaType) {
+      if (audioSources[currentLanguage].duas[duaType]) {
+        speakText(audioSources[currentLanguage].duas[duaType]);
+      }
+    }
+
+    function repeatDua(duaType) {
+      if (audioSources[currentLanguage].duas[duaType]) {
+        const repeatMsg = currentLanguage === 'ar' ? 'سيتم تكرار الذكر ثلاث مرات' : 'The dhikr will be repeated three times';
+        speakText(repeatMsg);
+        
+        setTimeout(() => speakText(audioSources[currentLanguage].duas[duaType]), 2000);
+        setTimeout(() => speakText(audioSources[currentLanguage].duas[duaType]), 4000);
+        setTimeout(() => speakText(audioSources[currentLanguage].duas[duaType]), 6000);
+      }
+    }
+
+    function startCounter() {
+      duaCounter++;
+      document.getElementById('counter').textContent = duaCounter;
+      
+      // تأثير بصري محسن
+      const counter = document.getElementById('counter');
+      counter.style.transform = 'scale(1.4)';
+      counter.style.background = 'linear-gradient(135deg, #ffd700, #ffb347)';
+      
+      setTimeout(() => {
+        counter.style.transform = 'scale(1)';
+        counter.style.background = '#ff6b35';
+      }, 300);
+      
+      // تنبيهات صوتية للإنجازات
+      if (duaCounter === 33) {
+        const msg = currentLanguage === 'ar' ? 'سبحان الله! أتممت ثلاثة وثلاثين تسبيحة' : 'Subhan Allah! You completed thirty-three praises';
+        speakText(msg);
+      } else if (duaCounter === 66) {
+        const msg = currentLanguage === 'ar' ? 'الحمد لله! أتممت ستة وستين تسبيحة' : 'Alhamdulillah! You completed sixty-six praises';
+        speakText(msg);
+      } else if (duaCounter === 99) {
+        const msg = currentLanguage === 'ar' ? 'الله أكبر! أتممت تسعة وتسعين تسبيحة' : 'Allahu Akbar! You completed ninety-nine praises';
+        speakText(msg);
+      } else if (duaCounter % 100 === 0) {
+        const msg = currentLanguage === 'ar' ? `مبارك! وصلت إلى ${duaCounter} تسبيحة` : `Congratulations! You reached ${duaCounter} praises`;
+        speakText(msg);
+      }
+    }
+
+    // وظائف القبلة محسنة
+    function findQibla() {
+      const msg = currentLanguage === 'ar' ? 'جاري تحديد اتجاه القبلة باستخدام موقعك الحالي' : 'Finding Qibla direction using your current location';
+      speakText(msg);
+      
+      if ('geolocation' in navigator) {
+        navigator.geolocation.getCurrentPosition(function(position) {
+          const successMsg = currentLanguage === 'ar' ? 'تم تحديد موقعك بنجاح. اتجاه القبلة محدد الآن' : 'Your location has been determined successfully. Qibla direction is now set';
+          speakText(successMsg);
+          
+          // تأثير بصري للبوصلة
+          const compass = document.querySelector('.qibla-compass');
+          compass.style.boxShadow = '0 0 80px rgba(255, 215, 0, 0.6)';
+          setTimeout(() => {
+            compass.style.boxShadow = '0 0 50px rgba(255, 215, 0, 0.3)';
+          }, 2000);
+        }, function() {
+          const errorMsg = currentLanguage === 'ar' ? 'تعذر تحديد موقعك. يرجى السماح بالوصول للموقع' : 'Could not determine your location. Please allow location access';
+          speakText(errorMsg);
+        });
+      } else {
+        const notSupportedMsg = currentLanguage === 'ar' ? 'المتصفح لا يدعم تحديد الموقع' : 'Browser does not support location services';
+        speakText(notSupportedMsg);
+      }
+    }
+
+    function calibrateCompass() {
+      const msg = currentLanguage === 'ar' ? 'جاري معايرة البوصلة. يرجى تحريك الجهاز في شكل رقم ثمانية' : 'Calibrating compass. Please move your device in a figure-eight pattern';
+      speakText(msg);
+      
+      // تأثير بصري للمعايرة
+      const compass = document.querySelector('.qibla-compass');
+      compass.style.animation = 'none';
+      compass.style.transform = 'scale(1.1)';
+      
+      setTimeout(() => {
+        compass.style.animation = 'rotate 20s linear infinite';
+        compass.style.transform = 'scale(1)';
+        const completeMsg = currentLanguage === 'ar' ? 'تم الانتهاء من معايرة البوصلة بنجاح' : 'Compass calibration completed successfully';
+        speakText(completeMsg);
+      }, 4000);
+    }
+
+    // وظائف المواقيت محسنة
+    function playGeneralAdhan() {
+      speakText(audioSources[currentLanguage].adhan.general);
+      
+      // تأثير بصري للأذان
+      const prayerTimes = document.querySelectorAll('.prayer-time');
+      let currentIndex = 0;
+      
+      const interval = setInterval(() => {
+        prayerTimes.forEach(pt => pt.classList.remove('current'));
+        prayerTimes[currentIndex].classList.add('current');
+        currentIndex = (currentIndex + 1) % prayerTimes.length;
+      }, 1000);
+      
+      setTimeout(() => {
+        clearInterval(interval);
+        const endMsg = currentLanguage === 'ar' ? 'انتهى الأذان. حان وقت الصلاة' : 'Adhan finished. It is time for prayer';
+        speakText(endMsg);
+      }, 15000);
+    }
+
+    // وظائف الإشعارات محسنة
+    function showNotification(message = null) {
+      const notification = document.getElementById('notification');
+      
+      if (message) {
+        notification.innerHTML = `
+          <h4 style="margin-bottom: 10px; color: var(--text-gold);">
+            <i class="fas fa-info-circle"></i>
+            ${currentLanguage === 'ar' ? 'تنبيه' : 'Notification'}
+          </h4>
+          <p>${message}</p>
+        `;
+      } else {
+        const defaultMsg = currentLanguage === 'ar' ? 'حان وقت صلاة الظهر' : 'It is time for Dhuhr prayer';
+        notification.innerHTML = `
+          <h4 style="margin-bottom: 10px; color: var(--text-gold);">
+            <i class="fas fa-mosque"></i>
+            ${currentLanguage === 'ar' ? 'تذكير الصلاة' : 'Prayer Reminder'}
+          </h4>
+          <p>${defaultMsg}</p>
+        `;
+      }
+      
+      notification.classList.add('show');
+      
+      setTimeout(() => {
+        notification.classList.remove('show');
+      }, 5000);
+    }
+
+    // تحديث الوقت محسن
+    function updateTime() {
+      const now = new Date();
+      const timeString = now.toLocaleTimeString('ar-SA', {
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: false
+      });
+      
+      // التحقق من أوقات الصلاة
+      document.querySelectorAll('.prayer-time-value').forEach(time => {
+        if (time.textContent === timeString) {
+          time.parentElement.classList.add('current');
+          if (!document.querySelector('.notification.show')) {
+            const prayerName = time.parentElement.querySelector('.prayer-name').textContent;
+            const msg = currentLanguage === 'ar' ? `حان وقت صلاة ${prayerName}` : `It is time for ${prayerName} prayer`;
+            speakText(msg);
+            showNotification();
+          }
+        }
+      });
+    }
+
+    // تهيئة الواجهة محسنة
+    document.addEventListener('DOMContentLoaded', function() {
+      updateWuduProgress();
+      
+      // إضافة أصوات تفاعلية للعناصر
+      const interactiveElements = document.querySelectorAll('.card, .nav-tab, .sidebar-btn');
+      interactiveElements.forEach(element => {
+        element.addEventListener('mouseenter', function() {
+          // تأثير صوتي خفيف للتفاعل
+          if (currentAudio === null) {
+            const hoverSound = new Audio('data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmI=');
+            hoverSound.volume = 0.1;
+            hoverSound.play().catch(() => {});
+          }
+        });
+      });
+
+      // رسالة ترحيب محسنة
+      setTimeout(() => {
+        const welcomeMsg = currentLanguage === 'ar' ? 
+          'أهلاً وسهلاً بك في دليل الصلاة التفاعلي من تطوير عبد الصمد بوركيبات. يمكنك الآن الاستفادة من جميع الميزات الصوتية والتفاعلية المتطورة' :
+          'Welcome to the Interactive Prayer Guide developed by Abdessamed Bourkibat. You can now benefit from all the advanced audio and interactive features';
+        speakText(welcomeMsg);
+      }, 2000);
+    });
+
+    // حفظ واسترجاع التقدم محسن
+    function saveProgress() {
+      const progress = {
+        wuduStep: wuduCurrentStep,
+        prayerStep: prayerCurrentStep,
+        duaCounter: duaCounter,
+        language: currentLanguage,
+        lastVisit: new Date().toISOString()
+      };
+      localStorage.setItem('prayerGuideProgress', JSON.stringify(progress));
+    }
+
+    function loadProgress() {
+      const saved = localStorage.getItem('prayerGuideProgress');
+      if (saved) {
+        const progress = JSON.parse(saved);
+        wuduCurrentStep = progress.wuduStep || 1;
+        prayerCurrentStep = progress.prayerStep || 1;
+        duaCounter = progress.duaCounter || 0;
+        currentLanguage = progress.language || 'ar';
+        
+        document.getElementById('counter').textContent = duaCounter;
+        updateWuduProgress();
+        
+        // تحديث أزرار اللغة
+        document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+        document.querySelector(`[onclick="setLanguage('${currentLanguage}')"]`).classList.add('active');
+      }
+    }
+
+    // حفظ التقدم عند الخروج
+    window.addEventListener('beforeunload', saveProgress);
+    
+    // استرجاع التقدم عند التحميل
+    window.addEventListener('load', loadProgress);
+    
+    // تشغيل تحديث الوقت
+    setInterval(updateTime, 60000); // كل دقيقة
+
+    // إضافة وظائف تفاعلية إضافية
+    function toggleFullscreen() {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen();
+      } else {
+        document.exitFullscreen();
+      }
+    }
+
+    // اختصارات لوحة المفاتيح
+    document.addEventListener('keydown', function(e) {
+      if (e.ctrlKey) {
+        switch(e.key) {
+          case '1':
+            e.preventDefault();
+            showTab('home');
+            break;
+          case '2':
+            e.preventDefault();
+            showTab('wudu');
+            break;
+          case '3':
+            e.preventDefault();
+            showTab('prayer');
+            break;
+          case '4':
+            e.preventDefault();
+            showTab('adhan');
+            break;
+          case 's':
+            e.preventDefault();
+            pauseAudio();
+            break;
+        }
+      }
+    });
+  </script>
+</body>
+</html>
