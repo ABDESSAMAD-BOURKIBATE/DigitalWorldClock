@@ -1360,12 +1360,24 @@
         <div style="text-align: center; margin-bottom: 30px;">
           <h3 style="color: var(--text-gold); margin-bottom: 20px;">
             <i class="fas fa-volume-up"></i>
-            إعدادات الصوت
+            إعدادات الصوت (Text-to-Speech)
           </h3>
-          <div class="audio-controls">
-            <button class="audio-btn" onclick="testAudio()">
-              <i class="fas fa-volume-high"></i>
-            </button>
+          <div style="display: flex; flex-wrap: wrap; gap: 15px; align-items: center; justify-content: center; margin-bottom: 10px;">
+            <label>الصوت:
+              <select id="tts-voice-select" style="padding: 5px 10px; border-radius: 8px;"></select>
+            </label>
+            <label>السرعة:
+              <input type="range" id="tts-rate" min="0.5" max="1.5" step="0.05" value="1" style="vertical-align: middle;">
+              <span id="tts-rate-value">1</span>
+            </label>
+            <label>النبرة:
+              <input type="range" id="tts-pitch" min="0.5" max="2" step="0.05" value="1" style="vertical-align: middle;">
+              <span id="tts-pitch-value">1</span>
+            </label>
+            <button class="audio-btn" onclick="testTTS()" style="margin-right: 10px;"><i class="fas fa-play"></i> اختبار الصوت</button>
+          </div>
+          <div id="tts-support-msg" style="color: #ff6b35; margin-top: 10px;"></div>
+          <div class="audio-controls" style="margin-top: 10px;">
             <button class="audio-btn" onclick="toggleMute()">
               <i class="fas fa-volume-mute"></i>
             </button>
@@ -1416,6 +1428,97 @@
   </footer>
 
   <script>
+    // تم إزالة الصوت التفاعلي الخفيف عند النقر أو المرور بناءً على طلب المستخدم
+    // إعدادات TTS
+    let ttsVoice = null;
+    let ttsRate = 1;
+    let ttsPitch = 1;
+
+    function populateTTSVoices() {
+      const voiceSelect = document.getElementById('tts-voice-select');
+      if (!('speechSynthesis' in window)) {
+        document.getElementById('tts-support-msg').textContent = 'متصفحك لا يدعم ميزة تحويل النص إلى كلام (Text-to-Speech)';
+        voiceSelect.disabled = true;
+        return;
+      }
+      const voices = speechSynthesis.getVoices();
+      voiceSelect.innerHTML = '';
+      voices.forEach((voice, i) => {
+        const option = document.createElement('option');
+        option.value = voice.name;
+        option.textContent = `${voice.name} (${voice.lang})${voice.default ? ' - افتراضي' : ''}`;
+        if ((currentLanguage === 'ar' && voice.lang.startsWith('ar')) || (currentLanguage === 'en' && voice.lang.startsWith('en'))) {
+          option.selected = true;
+          ttsVoice = voice;
+        }
+        voiceSelect.appendChild(option);
+      });
+      if (!ttsVoice && voices.length > 0) {
+        ttsVoice = voices[0];
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      if ('speechSynthesis' in window) {
+        populateTTSVoices();
+        speechSynthesis.onvoiceschanged = populateTTSVoices;
+      } else {
+        document.getElementById('tts-support-msg').textContent = 'متصفحك لا يدعم ميزة تحويل النص إلى كلام (Text-to-Speech)';
+      }
+      document.getElementById('tts-rate').addEventListener('input', function() {
+        ttsRate = parseFloat(this.value);
+        document.getElementById('tts-rate-value').textContent = ttsRate;
+      });
+      document.getElementById('tts-pitch').addEventListener('input', function() {
+        ttsPitch = parseFloat(this.value);
+        document.getElementById('tts-pitch-value').textContent = ttsPitch;
+      });
+      document.getElementById('tts-voice-select').addEventListener('change', function() {
+        const voices = speechSynthesis.getVoices();
+        ttsVoice = voices.find(v => v.name === this.value);
+      });
+    });
+
+    function testTTS() {
+      speakText(currentLanguage === 'ar' ? 'هذا مثال لاختبار الصوت' : 'This is a sample for testing the voice');
+    }
+
+    // دالة Text-to-Speech الرئيسية
+    function speakText(text, lang = null) {
+      if ('speechSynthesis' in window) {
+        if (currentAudio) {
+          speechSynthesis.cancel();
+        }
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.lang = lang || (currentLanguage === 'ar' ? 'ar-SA' : 'en-US');
+        utterance.rate = ttsRate;
+        utterance.pitch = ttsPitch;
+        utterance.volume = 1;
+        if (ttsVoice) utterance.voice = ttsVoice;
+        // تأثير بصري أثناء التشغيل
+        document.body.style.filter = 'brightness(1.15) saturate(1.2)';
+        // إضافة تأثير النبض للزر النشط
+        const activeBtn = document.querySelector('.audio-btn:hover, .audio-btn:focus');
+        if (activeBtn) {
+          activeBtn.classList.add('active-playing');
+        }
+        utterance.onend = function() {
+          document.body.style.filter = 'brightness(1)';
+          if (activeBtn) {
+            activeBtn.classList.remove('active-playing');
+          }
+          currentAudio = null;
+        };
+        utterance.onerror = function() {
+          document.body.style.filter = 'brightness(1)';
+          showNotification('حدث خطأ في تشغيل الصوت');
+        };
+        speechSynthesis.speak(utterance);
+        currentAudio = utterance;
+      } else {
+        showNotification('المتصفح لا يدعم تشغيل الصوت');
+      }
+    }
     // متغيرات عامة
     let currentWuduStep = 1;
     let currentAudio = null;
