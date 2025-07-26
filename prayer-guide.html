@@ -949,6 +949,7 @@
         <i class="fas fa-bars"></i>
       </button>
       <div class="nav-tabs" id="nav-tabs">
+        <!-- ...باقي أزرار التبويب... -->
         <button class="nav-tab active" onclick="showTab('home')">
           <i class="fas fa-home"></i> الرئيسية
         </button>
@@ -970,6 +971,9 @@
         <button class="nav-tab" onclick="showTab('settings')">
           <i class="fas fa-cog"></i> الإعدادات
         </button>
+        <a class="nav-tab" href="index.html" style="text-decoration:none;">
+          <i class="fas fa-arrow-right"></i> العودة
+        </a>
       </div>
     </div>
   </header>
@@ -1095,6 +1099,15 @@
             <i class="fas fa-redo"></i>
           </button>
         </div>
+
+        <!-- فيديو تعليمي للوضوء في الأسفل -->
+        <div style="display: flex; justify-content: center; margin-top: 40px;">
+          <div style="max-width: 600px; width: 100%; box-shadow: 0 8px 32px #ffd70055, 0 2px 16px #0002; border-radius: 18px; overflow: hidden; border: 3px solid #ffd700; background: #222;">
+            <div style="position: relative; padding-bottom: 56.25%; height: 0;">
+              <iframe src="https://www.youtube.com/embed/ww7fulDUUNk?si=1puiF3C7TJ5Sz1Cs" title="فيديو تعليم الوضوء" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;"></iframe>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -1179,6 +1192,15 @@
             </ul>
           </div>
         </div>
+
+        <!-- فيديو تعليمي للصلاة في الأسفل -->
+        <div style="display: flex; justify-content: center; margin-top: 40px;">
+          <div style="max-width: 600px; width: 100%; box-shadow: 0 8px 32px #ffd70055, 0 2px 16px #0002; border-radius: 18px; overflow: hidden; border: 3px solid #ffd700; background: #222;">
+            <div style="position: relative; padding-bottom: 56.25%; height: 0;">
+              <iframe src="https://www.youtube.com/embed/RFDdPpChgH8?si=DGDWmBOpjrbpQ1bp" title="فيديو تعليم الصلاة" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;"></iframe>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -1192,16 +1214,25 @@
         </h2>
         
         <div class="qibla-compass">
-          <div class="compass-inner">
-            <div class="compass-needle"></div>
-            <div style="position: absolute; top: 10px; font-weight: 700; color: #ff6b35;">N</div>
-            <div style="position: absolute; bottom: 10px; font-weight: 700; color: var(--text-light);">S</div>
-            <div style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); font-weight: 700; color: var(--text-light);">W</div>
-            <div style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); font-weight: 700; color: var(--text-light);">E</div>
-            <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-weight: 700; color: var(--text-gold);">
-              <i class="fas fa-kaaba"></i>
+            <div class="compass-inner">
+              <!-- دائرة مركزية ذهبية -->
+              <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:32px;height:32px;background:var(--primary-gold);border-radius:50%;box-shadow:0 0 12px #ffd70055;"></div>
+              <!-- إبرة البوصلة (سهم القبلة) -->
+              <div class="compass-needle" style="z-index:2;"></div>
+              <!-- رأس السهم للقبلة -->
+              <div style="position:absolute;top:38px;left:50%;transform:translateX(-50%);z-index:3;">
+                <svg width="18" height="24" viewBox="0 0 18 24"><polygon points="9,0 18,24 9,18 0,24" fill="#ff6b35" stroke="#ffd700" stroke-width="1.5"/></svg>
+              </div>
+              <!-- رموز الاتجاهات -->
+              <div style="position: absolute; top: 10px; left: 50%; transform: translateX(-50%); font-weight: 700; color: #ff6b35; font-size: 1.2em;">N</div>
+              <div style="position: absolute; bottom: 10px; left: 50%; transform: translateX(-50%); font-weight: 700; color: var(--text-light); font-size: 1.1em;">S</div>
+              <div style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); font-weight: 700; color: var(--text-light); font-size: 1.1em;">W</div>
+              <div style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); font-weight: 700; color: var(--text-light); font-size: 1.1em;">E</div>
+              <!-- الكعبة في المركز -->
+              <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-weight: 700; color: var(--darker-bg); font-size: 1.5em; z-index:4;">
+                <i class="fas fa-kaaba"></i>
+              </div>
             </div>
-          </div>
         </div>
 
         <p style="font-size: 18px; margin: 20px 0; color: var(--text-light);">
@@ -1356,6 +1387,24 @@
         <button class="audio-btn" onclick="repeatDua('istikharah')">
           <i class="fas fa-repeat"></i>
         </button>
+      </div>
+    </div>
+
+    <!-- فيديو أذكار المساء -->
+    <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 24px; margin-top: 40px;">
+      <!-- فيديو أذكار المساء -->
+      <div style="flex: 1 1 320px; max-width: 600px; min-width: 280px; box-shadow: 0 8px 32px #ffd70055, 0 2px 16px #0002; border-radius: 18px; overflow: hidden; border: 3px solid #ffd700; background: #222;">
+        <div style="position: relative; padding-bottom: 56.25%; height: 0;">
+          <iframe src="https://www.youtube.com/embed/Gc7xzVqjv0Q?si=Jkm6UE4SU-XvodcB" title="فيديو أذكار المساء" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;"></iframe>
+        </div>
+        <div style="text-align:center; color:var(--text-gold); font-weight:700; padding:8px 0 4px; font-size:1.1em;">أذكار المساء</div>
+      </div>
+      <!-- فيديو أذكار الصباح -->
+      <div style="flex: 1 1 320px; max-width: 600px; min-width: 280px; box-shadow: 0 8px 32px #ffd70055, 0 2px 16px #0002; border-radius: 18px; overflow: hidden; border: 3px solid #ffd700; background: #222;">
+        <div style="position: relative; padding-bottom: 56.25%; height: 0;">
+          <iframe src="https://www.youtube.com/embed/EDD4A9HzHfs?si=xlKXa_CpIdWkSxTM" title="فيديو أذكار الصباح" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;"></iframe>
+        </div>
+        <div style="text-align:center; color:var(--text-gold); font-weight:700; padding:8px 0 4px; font-size:1.1em;">أذكار الصباح</div>
       </div>
     </div>
   </div>
@@ -2223,6 +2272,8 @@ function updateQiblaDirection() {
         showNotification(currentLanguage === 'ar' ? 'متصفحك لا يدعم تحديد الموقع' : 'Your browser does not support geolocation');
         return;
       }
+      // طلب تفعيل GPS من المستخدم برسالة واضحة
+      showNotification(currentLanguage === 'ar' ? 'يرجى تفعيل GPS والموافقة على تحديد الموقع للحصول على مواقيت الصلاة بدقة' : 'Please enable GPS and allow location access for accurate prayer times');
       navigator.geolocation.getCurrentPosition(
         position => {
           const lat = position.coords.latitude;
@@ -2249,8 +2300,16 @@ function updateQiblaDirection() {
               showNotification(currentLanguage === 'ar' ? 'تعذر جلب مواقيت الصلاة' : 'Could not fetch prayer times');
             });
         },
-        () => {
-          showNotification(currentLanguage === 'ar' ? 'تعذر تحديد موقعك' : 'Could not determine your location');
+        error => {
+          if (error.code === error.PERMISSION_DENIED) {
+            showNotification(currentLanguage === 'ar' ? 'يرجى السماح بالوصول إلى الموقع من إعدادات المتصفح أو النظام' : 'Please allow location access from your browser or system settings');
+          } else if (error.code === error.POSITION_UNAVAILABLE) {
+            showNotification(currentLanguage === 'ar' ? 'تعذر تحديد موقعك. تأكد من تفعيل GPS.' : 'Location unavailable. Please enable GPS.');
+          } else if (error.code === error.TIMEOUT) {
+            showNotification(currentLanguage === 'ar' ? 'انتهت مهلة تحديد الموقع. حاول مجدداً.' : 'Location request timed out. Please try again.');
+          } else {
+            showNotification(currentLanguage === 'ar' ? 'تعذر تحديد موقعك' : 'Could not determine your location');
+          }
         }
       );
     }
@@ -2331,6 +2390,8 @@ function updateQiblaDirection() {
       }
       const needle = document.querySelector('.compass-needle');
       if (!needle || qiblaAngle === null) return;
+
+      let orientationSupported = false;
       // مستمع جديد
       deviceOrientationListener = function(event) {
         let heading = null;
@@ -2343,6 +2404,7 @@ function updateQiblaDirection() {
           heading = 360 - event.alpha;
         }
         if (heading === null || isNaN(heading)) return;
+        orientationSupported = true;
         // الزاوية المطلوبة: الفرق بين زاوية القبلة وheading (الشمال)
         let rotation = qiblaAngle - heading;
         // تصحيح الدوران ليبقى بين 0 و 360
@@ -2352,9 +2414,16 @@ function updateQiblaDirection() {
       // دعم الأحداث المختلفة حسب المتصفح
       if ('ondeviceorientationabsolute' in window) {
         window.addEventListener('deviceorientationabsolute', deviceOrientationListener, true);
-      } else {
+      } else if ('ondeviceorientation' in window) {
         window.addEventListener('deviceorientation', deviceOrientationListener, true);
       }
+
+      // إذا لم يتم دعم المستشعر، تدوير الإبرة مباشرة إلى زاوية القبلة
+      setTimeout(function() {
+        if (!orientationSupported) {
+          needle.style.transform = `rotate(${qiblaAngle}deg)`;
+        }
+      }, 1500); // انتظر قليلاً للتأكد من عدم وجود مستشعر
     }
 
     // معالجة أحداث التحكم في TTS
