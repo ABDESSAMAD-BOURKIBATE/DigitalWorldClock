@@ -3784,8 +3784,8 @@
                 <span class="timezone-value" id="modal-local-time">--:--</span>
               </div>
               <div class="timezone-item">
-                <span class="timezone-label">التاريخ الهجري:</span>
-                <span class="timezone-value" id="modal-hijri-date">----/--/--</span>
+                <span class="timezone-label">التاريخ الميلادي:</span>
+                <span class="timezone-value" id="modal-gregorian-date">----/--/--</span>
               </div>
               <div class="timezone-item">
                 <span class="timezone-label">المنطقة الزمنية:</span>
@@ -13331,80 +13331,75 @@ function getFlagCode(countryName) {
     }
 
     // Calculate next prayer and remaining time
-    function getNextPrayer(prayerData, currentTime) {
-      if (!prayerData || !prayerData.timings) return null;
-      
-      const prayers = [
-        { name: 'الفجر', nameEn: 'Fajr', time: prayerData.timings.Fajr, icon: 'fas fa-sunrise' },
-        { name: 'الظهر', nameEn: 'Dhuhr', time: prayerData.timings.Dhuhr, icon: 'fas fa-sun' },
-        { name: 'العصر', nameEn: 'Asr', time: prayerData.timings.Asr, icon: 'fas fa-cloud-sun' },
-        { name: 'المغرب', nameEn: 'Maghrib', time: prayerData.timings.Maghrib, icon: 'fas fa-sunset' },
-        { name: 'العشاء', nameEn: 'Isha', time: prayerData.timings.Isha, icon: 'fas fa-moon' }
-      ];
-      
-      const now = new Date(currentTime);
-      const today = now.toDateString();
-      
-      for (let prayer of prayers) {
-        const [hours, minutes] = prayer.time.split(':');
-        const prayerTime = new Date(today);
-        prayerTime.setHours(parseInt(hours), parseInt(minutes), 0, 0);
-        
-        if (prayerTime > now) {
-          const timeDiff = prayerTime - now;
-          const hoursLeft = Math.floor(timeDiff / (1000 * 60 * 60));
-          const minutesLeft = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
-          const secondsLeft = Math.floor((timeDiff % (1000 * 60)) / 1000);
-          
-          return {
-            ...prayer,
-            timeRemaining: { hours: hoursLeft, minutes: minutesLeft, seconds: secondsLeft },
-            totalMinutesLeft: Math.floor(timeDiff / (1000 * 60)),
-            progress: calculatePrayerProgress(prayers, prayer, now)
-          };
-        }
-      }
-      
-      // If no prayer left today, return tomorrow's Fajr
-      const tomorrowFajr = new Date(today);
-      tomorrowFajr.setDate(tomorrowFajr.getDate() + 1);
-      const [hours, minutes] = prayers[0].time.split(':');
-      tomorrowFajr.setHours(parseInt(hours), parseInt(minutes), 0, 0);
-      
-      const timeDiff = tomorrowFajr - now;
-      const hoursLeft = Math.floor(timeDiff / (1000 * 60 * 60));
-      const minutesLeft = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
-      const secondsLeft = Math.floor((timeDiff % (1000 * 60)) / 1000);
-      
+
+// نسخة تعتمد على Luxon DateTime مع المنطقة الزمنية الصحيحة
+function getNextPrayer(prayerData, currentTime, zone) {
+  if (!prayerData || !prayerData.timings) return null;
+
+  const prayers = [
+    { name: 'الفجر', nameEn: 'Fajr', time: prayerData.timings.Fajr, icon: 'fas fa-sunrise' },
+    { name: 'الظهر', nameEn: 'Dhuhr', time: prayerData.timings.Dhuhr, icon: 'fas fa-sun' },
+    { name: 'العصر', nameEn: 'Asr', time: prayerData.timings.Asr, icon: 'fas fa-cloud-sun' },
+    { name: 'المغرب', nameEn: 'Maghrib', time: prayerData.timings.Maghrib, icon: 'fas fa-sunset' },
+    { name: 'العشاء', nameEn: 'Isha', time: prayerData.timings.Isha, icon: 'fas fa-moon' }
+  ];
+
+  const now = DateTime.fromJSDate(currentTime).setZone(zone);
+  const today = now.toFormat('yyyy-MM-dd');
+
+  for (let i = 0; i < prayers.length; i++) {
+    const prayer = prayers[i];
+    const [hours, minutes] = prayer.time.split(':');
+    const prayerTime = DateTime.fromFormat(`${today} ${hours}:${minutes}`, 'yyyy-MM-dd HH:mm', { zone });
+
+    if (prayerTime > now) {
+      const timeDiff = prayerTime.diff(now, ['hours', 'minutes', 'seconds']).toObject();
       return {
-        ...prayers[0],
-        timeRemaining: { hours: hoursLeft, minutes: minutesLeft, seconds: secondsLeft },
-        totalMinutesLeft: Math.floor(timeDiff / (1000 * 60)),
-        progress: 0
+        ...prayer,
+        timeRemaining: {
+          hours: Math.floor(timeDiff.hours || 0),
+          minutes: Math.floor(timeDiff.minutes || 0),
+          seconds: Math.floor(timeDiff.seconds || 0)
+        },
+        totalMinutesLeft: Math.floor(prayerTime.diff(now, 'minutes').minutes),
+        progress: calculatePrayerProgress(prayers, prayer, now, zone)
       };
     }
+  }
 
-    // Calculate prayer progress throughout the day
-    function calculatePrayerProgress(prayers, currentPrayer, now) {
-      const currentIndex = prayers.findIndex(p => p.name === currentPrayer.name);
-      if (currentIndex === 0) return 0;
-      
-      const previousPrayer = prayers[currentIndex - 1];
-      const [prevHours, prevMinutes] = previousPrayer.time.split(':');
-      const [currHours, currMinutes] = currentPrayer.time.split(':');
-      
-      const today = now.toDateString();
-      const prevTime = new Date(today);
-      prevTime.setHours(parseInt(prevHours), parseInt(prevMinutes), 0, 0);
-      
-      const currTime = new Date(today);
-      currTime.setHours(parseInt(currHours), parseInt(currMinutes), 0, 0);
-      
-      const totalPeriod = currTime - prevTime;
-      const elapsed = now - prevTime;
-      
-      return Math.max(0, Math.min(100, (elapsed / totalPeriod) * 100));
-    }
+  // If no prayer left today, return tomorrow's Fajr
+  const [hours, minutes] = prayers[0].time.split(':');
+  const tomorrowFajr = DateTime.fromFormat(`${today} ${hours}:${minutes}`, 'yyyy-MM-dd HH:mm', { zone }).plus({ days: 1 });
+  const timeDiff = tomorrowFajr.diff(now, ['hours', 'minutes', 'seconds']).toObject();
+  return {
+    ...prayers[0],
+    timeRemaining: {
+      hours: Math.floor(timeDiff.hours || 0),
+      minutes: Math.floor(timeDiff.minutes || 0),
+      seconds: Math.floor(timeDiff.seconds || 0)
+    },
+    totalMinutesLeft: Math.floor(tomorrowFajr.diff(now, 'minutes').minutes),
+    progress: 0
+  };
+}
+
+function calculatePrayerProgress(prayers, currentPrayer, now, zone) {
+  const currentIndex = prayers.findIndex(p => p.name === currentPrayer.name);
+  if (currentIndex === 0) return 0;
+
+  const today = now.toFormat('yyyy-MM-dd');
+  const previousPrayer = prayers[currentIndex - 1];
+  const [prevHours, prevMinutes] = previousPrayer.time.split(':');
+  const [currHours, currMinutes] = currentPrayer.time.split(':');
+
+  const prevTime = DateTime.fromFormat(`${today} ${prevHours}:${prevMinutes}`, 'yyyy-MM-dd HH:mm', { zone });
+  const currTime = DateTime.fromFormat(`${today} ${currHours}:${currMinutes}`, 'yyyy-MM-dd HH:mm', { zone });
+
+  const totalPeriod = currTime.diff(prevTime).as('seconds');
+  const elapsed = now.diff(prevTime).as('seconds');
+
+  return Math.max(0, Math.min(100, (elapsed / totalPeriod) * 100));
+}
 
     // Open prayer details modal
     function openPrayerModal(country, prayerData, weatherData) {
@@ -13422,14 +13417,34 @@ function getFlagCode(countryName) {
       document.getElementById('prayer-country').textContent = currentLanguage === 'ar' ? country.name : country.nameEn;
       document.getElementById('prayer-full-date').textContent = currentTime.toFormat('yyyy/MM/dd - EEEE');
       
-      const hijriDate = new Intl.DateTimeFormat(currentLanguage === 'ar' ? 'ar-SA' : 'en-US', {
-        calendar: 'islamic',
-        day: 'numeric',
-        month: 'long',
-        year: 'numeric',
-        timeZone: country.zone
-      }).format(new Date());
-      document.getElementById('prayer-hijri-date').textContent = hijriDate;
+      // جلب التاريخ الهجري الرسمي من Aladhan API
+      (async function() {
+        try {
+          const [lat, lon] = country.coordinates.split(',');
+          const today = DateTime.now().setZone(country.zone);
+          const dateStr = today.toFormat('dd-MM-yyyy');
+          const url = `https://api.aladhan.com/v1/gToH?latitude=${lat}&longitude=${lon}&date=${dateStr}`;
+          const response = await fetch(url);
+          if (response.ok) {
+            const data = await response.json();
+            if (data.code === 200 && data.data && data.data.hijri) {
+              const hijri = data.data.hijri;
+              // تنسيق التاريخ الهجري: ٢ صفر ١٤٤٧ هـ
+              const day = hijri.day.replace(/^0/, '');
+              const month = hijri.month.ar;
+              const year = hijri.year;
+              const hijriStr = `${day} ${month} ${year} هـ`;
+              document.getElementById('prayer-hijri-date').textContent = hijriStr;
+            } else {
+              document.getElementById('prayer-hijri-date').textContent = '--';
+            }
+          } else {
+            document.getElementById('prayer-hijri-date').textContent = '--';
+          }
+        } catch (e) {
+          document.getElementById('prayer-hijri-date').textContent = '--';
+        }
+      })();
       
       // Set next prayer info
       const nextPrayer = getNextPrayer(prayerData, currentTime.toJSDate());
@@ -13899,14 +13914,13 @@ function getFlagCode(countryName) {
       }
 
 
-      // إزالة التكرار حسب nameEn بعد التصفية والبحث
-      const uniqueMap = new Map();
-      for (const country of filteredCountries) {
-        if (!uniqueMap.has(country.nameEn)) {
-          uniqueMap.set(country.nameEn, country);
-        }
-      }
-      filteredCountries = Array.from(uniqueMap.values());
+      // إزالة التكرار حسب nameEn بعد التصفية والبحث (فلترة صارمة)
+      const seenNames = new Set();
+      filteredCountries = filteredCountries.filter(country => {
+        if (seenNames.has(country.nameEn)) return false;
+        seenNames.add(country.nameEn);
+        return true;
+      });
 
       updateStats(filteredCountries);
 
@@ -13926,20 +13940,36 @@ function getFlagCode(countryName) {
           continue;
         }
         addedCountries.add(country.nameEn);
-        
+
+        // تحقق إذا كان العنصر موجود مسبقًا في DOM (منع التكرار)
+        if (document.querySelector(`.clock-box[data-country='${country.nameEn}']`)) {
+          continue;
+        }
+
         const now = DateTime.now().setZone(country.zone);
         const offsetHours = now.offset / 60;
         const offsetLabel = `GMT${offsetHours >= 0 ? '+' : ''}${offsetHours}`;
         const hour = now.hour;
         const minute = now.minute;
         const timeStatus = getTimeStatus(hour, minute, currentLanguage);
-        const hijriDate = new Intl.DateTimeFormat(currentLanguage === 'ar' ? 'ar-SA' : 'en-US', {
-          calendar: 'islamic',
-          day: 'numeric',
-          month: 'long',
-          year: 'numeric',
-          timeZone: country.zone
-        }).format(new Date());
+        // جلب التاريخ الهجري الرسمي من Aladhan API
+        let hijriDate = '--';
+        try {
+          const [lat, lon] = country.coordinates.split(',');
+          const dateStr = now.toFormat('dd-MM-yyyy');
+          const url = `https://api.aladhan.com/v1/gToH?latitude=${lat}&longitude=${lon}&date=${dateStr}`;
+          const response = await fetch(url);
+          if (response.ok) {
+            const data = await response.json();
+            if (data.code === 200 && data.data && data.data.hijri) {
+              const hijri = data.data.hijri;
+              const day = hijri.day.replace(/^0/, '');
+              const month = hijri.month.ar;
+              const year = hijri.year;
+              hijriDate = `${day} ${month} ${year} هـ`;
+            }
+          }
+        } catch (e) { hijriDate = '--'; }
         const weatherData = await fetchWeather(country.coordinates);
         const weather = formatWeather(weatherData);
         const prayerDate = now.toFormat('dd-MM-yyyy');
@@ -13996,42 +14026,42 @@ function getFlagCode(countryName) {
               ${translations[currentLanguage].continent}: ${translations[currentLanguage][country.continent] || country.continent}
             </div>
           </div>
-          <div class="prayer-info" onclick="openPrayerModal(country, prayers.fullData, weather); event.stopPropagation();" style="cursor: pointer;">
+          <div class="prayer-info" style="cursor: pointer;">
             <div class="prayer-header">
               <i class="fas fa-mosque"></i>
               ${translations[currentLanguage].prayerTimes}
               <i class="fas fa-external-link-alt" style="font-size: 0.8rem; opacity: 0.7; margin-right: 5px;"></i>
             </div>
             <div class="prayer-times-grid">
-              <div class="prayer-item" onclick="openPrayerModal(country, prayers.fullData, weather); event.stopPropagation();">
+              <div class="prayer-item">
                 <div class="prayer-name">
                   <i class="fas fa-sunrise"></i>
                   ${translations[currentLanguage].fajr}
                 </div>
                 <div class="prayer-time">${prayers.fajr}</div>
               </div>
-              <div class="prayer-item" onclick="openPrayerModal(country, prayers.fullData, weather); event.stopPropagation();">
+              <div class="prayer-item">
                 <div class="prayer-name">
                   <i class="fas fa-sun"></i>
                   ${translations[currentLanguage].dhuhr}
                 </div>
                 <div class="prayer-time">${prayers.dhuhr}</div>
               </div>
-              <div class="prayer-item" onclick="openPrayerModal(country, prayers.fullData, weather); event.stopPropagation();">
+              <div class="prayer-item">
                 <div class="prayer-name">
                   <i class="fas fa-cloud-sun"></i>
                   ${translations[currentLanguage].asr}
                 </div>
                 <div class="prayer-time">${prayers.asr}</div>
               </div>
-              <div class="prayer-item" onclick="openPrayerModal(country, prayers.fullData, weather); event.stopPropagation();">
+              <div class="prayer-item">
                 <div class="prayer-name">
                   <i class="fas fa-sunset"></i>
                   ${translations[currentLanguage].maghrib}
                 </div>
                 <div class="prayer-time">${prayers.maghrib}</div>
               </div>
-              <div class="prayer-item" onclick="openPrayerModal(country, prayers.fullData, weather); event.stopPropagation();">
+              <div class="prayer-item">
                 <div class="prayer-name">
                   <i class="fas fa-moon"></i>
                   ${translations[currentLanguage].isha}
@@ -14053,9 +14083,25 @@ function getFlagCode(countryName) {
           </div>
         `;
 
-        clockBox.addEventListener('click', () => openCountryModal(country, weather, prayers));
+        // منع تكرار فتح نفس الدولة في المودال
+        clockBox.addEventListener('click', () => {
+          if (window.currentModalCountry && window.currentModalCountry.nameEn === country.nameEn && document.getElementById('country-modal').style.display === 'flex') {
+            return;
+          }
+          openCountryModal(country, weather, prayers);
+        });
+        // منع تكرار فتح نفس الدولة من عناصر الصلاة
+        clockBox.querySelectorAll('.prayer-item').forEach(item => {
+          item.addEventListener('click', (e) => {
+            e.stopPropagation();
+            if (window.currentModalCountry && window.currentModalCountry.nameEn === country.nameEn && document.getElementById('country-modal').style.display === 'flex') {
+              return;
+            }
+            openCountryModal(country, weather, prayers);
+          });
+        });
         container.appendChild(clockBox);
-        
+
         // Update countdown for this specific box immediately
         setTimeout(() => {
           const countdownElement = clockBox.querySelector(`#countdown-${country.nameEn.replace(/\s+/g, '')}`);
@@ -14082,7 +14128,7 @@ function getFlagCode(countryName) {
             }
           }
         }, 100);
-        
+
         index++;
       }
 
@@ -14267,7 +14313,7 @@ function getFlagCode(countryName) {
         const cachedPrayer = prayerCache[cacheKey];
         
         if (cachedPrayer && cachedPrayer.data) {
-          const nextPrayer = getNextPrayer(cachedPrayer.data, now.toJSDate());
+          const nextPrayer = getNextPrayer(cachedPrayer.data, now.toJSDate(), country.zone);
           
           if (nextPrayer) {
             // Update next prayer name
@@ -15168,16 +15214,18 @@ function openInGoogleMaps() {
       const now = DateTime.now().setZone(currentModalCountry.zone);
       const hijriDate = getHijriDate(now.toJSDate());
       
+
       // Update local time
       const localTimeElement = document.getElementById('modal-local-time');
       if (localTimeElement) {
         localTimeElement.textContent = now.toFormat('HH:mm:ss');
       }
-      
-      // Update Hijri date
-      const hijriDateElement = document.getElementById('modal-hijri-date');
-      if (hijriDateElement) {
-        hijriDateElement.textContent = hijriDate;
+
+      // Update Gregorian date
+      const gregorianDateElement = document.getElementById('modal-gregorian-date');
+      if (gregorianDateElement) {
+        // Format: yyyy/MM/dd or localized
+        gregorianDateElement.textContent = now.toFormat('yyyy/MM/dd');
       }
       
       // Update timezone with proper UTC format
