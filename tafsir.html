@@ -577,6 +577,17 @@
             outline: 2px solid var(--primary-gold);
             outline-offset: 2px;
         }
+
+        /* تحسين التفاسير */
+        .tafseer-source {
+            background: rgba(191, 161, 74, 0.1);
+            border: 1px solid rgba(191, 161, 74, 0.3);
+            border-radius: 8px;
+            padding: 10px 15px;
+            margin: 10px 0;
+            font-size: 0.9em;
+            color: var(--secondary-gold);
+        }
     </style>
 </head>
 <body>
@@ -591,26 +602,6 @@
     <main class="golden-container">
         <section class="search-section" role="search" aria-label="البحث في القرآن الكريم">
             <form class="search-form" onsubmit="return false;">
-                <div class="form-group">
-                    <label class="form-label" for="searchText">
-                        <i class="fas fa-search" aria-hidden="true"></i> البحث في القرآن الكريم
-                    </label>
-                    <div class="input-group">
-                        <input 
-                            type="text" 
-                            class="form-input" 
-                            id="searchText" 
-                            placeholder="ابحث بكتابة آية أو كلمة..."
-                            aria-describedby="search-help"
-                        >
-                        <button type="button" class="btn btn-primary" onclick="searchQuran()" aria-label="بحث في القرآن">
-                            <i class="fas fa-search" aria-hidden="true"></i> 
-                            <span>بحث</span>
-                        </button>
-                    </div>
-                    <div id="search-help" class="sr-only">أدخل نص للبحث في آيات القرآن الكريم</div>
-                </div>
-
                 <div class="form-group">
                     <label class="form-label">
                         <i class="fas fa-bookmark" aria-hidden="true"></i> البحث بالسورة والآية
@@ -655,6 +646,10 @@
                         <i class="fas fa-books" aria-hidden="true"></i> 
                         <span>قائمة التفاسير</span>
                     </button>
+                    <button type="button" class="btn btn-primary" onclick="getRandomVerse()" aria-label="آية عشوائية">
+                        <i class="fas fa-random" aria-hidden="true"></i> 
+                        <span>آية عشوائية</span>
+                    </button>
                 </div>
             </form>
         </section>
@@ -681,52 +676,25 @@
     </footer>
 
     <script>
-        // API endpoints - استخدام APIs بديلة موثوقة
-        const QURAN_API = 'https://api.alquran.cloud/v1';
-        const QURAN_COM_API = 'https://api.quran.com/api/v4';
-        
-        // بيانات السور
-        const SURAHS = [
-            {number: 1, name: "الفاتحة", englishName: "Al-Fatihah", verses: 7},
-            {number: 2, name: "البقرة", englishName: "Al-Baqarah", verses: 286},
-            {number: 3, name: "آل عمران", englishName: "Aal-e-Imran", verses: 200},
-            {number: 4, name: "النساء", englishName: "An-Nisa", verses: 176},
-            {number: 5, name: "المائدة", englishName: "Al-Maidah", verses: 120},
-            {number: 6, name: "الأنعام", englishName: "Al-An'am", verses: 165},
-            {number: 7, name: "الأعراف", englishName: "Al-A'raf", verses: 206},
-            {number: 8, name: "الأنفال", englishName: "Al-Anfal", verses: 75},
-            {number: 9, name: "التوبة", englishName: "At-Tawbah", verses: 129},
-            {number: 10, name: "يونس", englishName: "Yunus", verses: 109},
-            {number: 11, name: "هود", englishName: "Hud", verses: 123},
-            {number: 12, name: "يوسف", englishName: "Yusuf", verses: 111},
-            {number: 13, name: "الرعد", englishName: "Ar-Ra'd", verses: 43},
-            {number: 14, name: "إبراهيم", englishName: "Ibrahim", verses: 52},
-            {number: 15, name: "الحجر", englishName: "Al-Hijr", verses: 99},
-            {number: 16, name: "النحل", englishName: "An-Nahl", verses: 128},
-            {number: 17, name: "الإسراء", englishName: "Al-Isra", verses: 111},
-            {number: 18, name: "الكهف", englishName: "Al-Kahf", verses: 110},
-            {number: 19, name: "مريم", englishName: "Maryam", verses: 98},
-            {number: 20, name: "طه", englishName: "Taha", verses: 135}
-        ];
+        // APIs الحقيقية المتاحة
+        const QURAN_API_BASE = 'https://api.alquran.cloud/v1';
+        const QURAN_TAFSEER_API = 'http://api.quran-tafseer.com';
+        const BACKUP_API = 'https://quranapi.pages.dev/api';
 
         // متغيرات عامة
         let isLoading = false;
-        let currentSurah = null;
+        let allSurahs = [];
+        let allTafseers = [];
+        let currentTafseer = 1; // التفسير الميسر بشكل افتراضي
 
         // تحميل البيانات عند بدء التشغيل
         window.addEventListener('load', function() {
             showWelcomeMessage();
             setupEventListeners();
+            initializeData();
         });
 
         function setupEventListeners() {
-            // إضافة مستمع الضغط على Enter للبحث
-            document.getElementById('searchText').addEventListener('keypress', function(e) {
-                if (e.key === 'Enter') {
-                    searchQuran();
-                }
-            });
-
             // إضافة مستمعات للحقول الرقمية
             document.getElementById('suraNumber').addEventListener('keypress', function(e) {
                 if (e.key === 'Enter') {
@@ -741,595 +709,650 @@
             });
         }
 
+        async function initializeData() {
+            try {
+                // تحميل قائمة السور
+                await loadSurahsList();
+                // تحميل قائمة التفاسير
+                await loadTafseersList();
+            } catch (error) {
+                console.error('Initialize error:', error);
+            }
+        }
+
+        async function loadSurahsList() {
+            try {
+                const response = await fetch(`${QURAN_API_BASE}/surah`);
+                const data = await response.json();
+                
+                if (data.code === 200) {
+                    allSurahs = data.data;
+                }
+            } catch (error) {
+                console.error('Error loading surahs:', error);
+                // استخدام البيانات الافتراضية في حالة فشل الطلب
+                allSurahs = getDefaultSurahs();
+            }
+        }
+
+        async function loadTafseersList() {
+            try {
+                // محاولة تحميل قائمة التفاسير من API التفسير
+                const response = await fetch(`${QURAN_TAFSEER_API}/tafseer`, {
+                    method: 'GET',
+                    mode: 'cors'
+                });
+                
+                if (response.ok) {
+                    allTafseers = await response.json();
+                } else {
+                    throw new Error('Tafseer API not available');
+                }
+            } catch (error) {
+                console.error('Error loading tafseers:', error);
+                // استخدام قائمة افتراضية للتفاسير
+                allTafseers = getDefaultTafseers();
+            }
+        }
+
+        function getDefaultSurahs() {
+            return [
+                { number: 1, name: "الفاتحة", englishName: "Al-Fatihah", numberOfAyahs: 7 },
+                { number: 2, name: "البقرة", englishName: "Al-Baqarah", numberOfAyahs: 286 },
+                { number: 3, name: "آل عمران", englishName: "Aal-e-Imran", numberOfAyahs: 200 },
+                { number: 4, name: "النساء", englishName: "An-Nisa", numberOfAyahs: 176 },
+                { number: 5, name: "المائدة", englishName: "Al-Maidah", numberOfAyahs: 120 },
+                // يمكن إضافة باقي السور هنا
+            ];
+        }
+
+        function getDefaultTafseers() {
+            return [
+                { id: 1, name: "التفسير الميسر", author: "نخبة من العلماء" },
+                { id: 2, name: "تفسير الجلالين", author: "جلال الدين المحلي والسيوطي" },
+                { id: 3, name: "تفسير ابن كثير", author: "ابن كثير" },
+                { id: 4, name: "تفسير الطبري", author: "الطبري" }
+            ];
+        }
+
         function showWelcomeMessage() {
             const welcomeHtml = `
                 <div style="text-align: center; padding: 20px;">
-                    <div class="typewriter" style="border: none; color: var(--secondary-gold); font-size: clamp(1.1rem, 2.5vw, 1.3rem); margin-bottom: 20px;">
-                        مرحباً بك في موقع تفسير القرآن الكريم
-                    </div>
-                    <p style="color: #ccc; font-size: clamp(1rem, 2.5vw, 1.1rem); margin-bottom: 15px;">
-                        استخدم خيارات البحث أعلاه للحصول على الآيات والتفاسير
-                    </p>
-                    <div style="display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; margin-top: 25px;">
-                        <button class="btn btn-secondary" onclick="loadChapters()" style="min-width: auto;">
-                            <i class="fas fa-list"></i> تصفح السور
-                        </button>
-                        <button class="btn btn-secondary" onclick="getRandomVerse()" style="min-width: auto;">
-                            <i class="fas fa-random"></i> آية عشوائية
-                        </button>
-                    </div>
-                </div>
-            `;
-            document.getElementById('results').innerHTML = welcomeHtml;
-        }
+                    <div class="typewriter" style="border: none; color: var(--secondary-gold); font-size: clamp(1.1rem, 2.5vw, 1.3rem);
+                    margin-bottom: 20px;">
+                       مرحباً بك في موقع تفسير القرآن الكريم
+                   </div>
+                   <p style="color: #ccc; font-size: clamp(1rem, 2.5vw, 1.1rem); margin-bottom: 15px;">
+                       استخدم خيارات البحث أعلاه للحصول على الآيات والتفاسير
+                   </p>
+                   <div style="display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; margin-top: 25px;">
+                       <button class="btn btn-secondary" onclick="loadChapters()" style="min-width: auto;">
+                           <i class="fas fa-list"></i> تصفح السور
+                       </button>
+                       <button class="btn btn-secondary" onclick="getRandomVerse()" style="min-width: auto;">
+                           <i class="fas fa-random"></i> آية عشوائية
+                       </button>
+                   </div>
+               </div>
+           `;
+           document.getElementById('results').innerHTML = welcomeHtml;
+       }
 
-        function showLoading(message = 'جاري التحميل...') {
-            isLoading = true;
-            updateButtonStates();
-            document.getElementById('results').innerHTML = `
-                <div class="loading">
-                    <i class="fas fa-spinner fa-spin"></i>
-                    <div>${message}</div>
-                </div>
-            `;
-        }
+       function showLoading(message = 'جاري التحميل...') {
+           isLoading = true;
+           updateButtonStates();
+           document.getElementById('results').innerHTML = `
+               <div class="loading">
+                   <i class="fas fa-spinner fa-spin"></i>
+                   <div>${message}</div>
+               </div>
+           `;
+       }
 
-        function hideLoading() {
-            isLoading = false;
-            updateButtonStates();
-        }
+       function hideLoading() {
+           isLoading = false;
+           updateButtonStates();
+       }
 
-        function updateButtonStates() {
-            const buttons = document.querySelectorAll('.btn');
-            buttons.forEach(btn => {
-                btn.disabled = isLoading;
-            });
-        }
+       function updateButtonStates() {
+           const buttons = document.querySelectorAll('.btn');
+           buttons.forEach(btn => {
+               btn.disabled = isLoading;
+           });
+       }
 
-        function showError(message) {
-            hideLoading();
-            document.getElementById('results').innerHTML = `
-                <div class="error">
-                    <i class="fas fa-exclamation-triangle"></i> 
-                    ${message}
-                    <br><br>
-                    <button class="btn btn-secondary" onclick="showWelcomeMessage()" style="margin-top: 10px;">
-                        <i class="fas fa-home"></i> العودة للرئيسية
-                    </button>
-                </div>
-            `;
-        }
+       function showError(message) {
+           hideLoading();
+           document.getElementById('results').innerHTML = `
+               <div class="error">
+                   <i class="fas fa-exclamation-triangle"></i> 
+                   ${message}
+                   <br><br>
+                   <button class="btn btn-secondary" onclick="showWelcomeMessage()" style="margin-top: 10px;">
+                       <i class="fas fa-home"></i> العودة للرئيسية
+                   </button>
+               </div>
+           `;
+       }
 
-        function showSuccess(message) {
-            hideLoading();
-            document.getElementById('results').innerHTML = `
-                <div class="success-message">
-                    <i class="fas fa-check-circle"></i> 
-                    ${message}
-                </div>
-            `;
-        }
+       function showSuccess(message) {
+           hideLoading();
+           document.getElementById('results').innerHTML = `
+               <div class="success-message">
+                   <i class="fas fa-check-circle"></i> 
+                   ${message}
+               </div>
+           `;
+       }
 
-        // دالة محاكاة طلب API
-        async function simulateAPIRequest(url, data = null) {
-            return new Promise((resolve, reject) => {
-                setTimeout(() => {
-                    if (Math.random() > 0.1) { // 90% نجاح
-                        resolve(data || { status: 'success' });
-                    } else {
-                        reject(new Error('خطأ في الاتصال'));
-                    }
-                }, 1000 + Math.random() * 2000); // تأخير عشوائي 1-3 ثانية
-            });
-        }
+       // الدوال الرئيسية للحصول على البيانات
+       async function getVerse() {
+           const suraNumber = parseInt(document.getElementById('suraNumber').value);
+           const ayahNumber = parseInt(document.getElementById('ayahNumber').value);
 
-        async function searchQuran() {
-            const searchText = document.getElementById('searchText').value.trim();
-            
-            if (!searchText) {
-                showError('يرجى إدخال نص للبحث');
-                return;
-            }
+           if (!suraNumber || suraNumber < 1 || suraNumber > 114) {
+               showError('يرجى إدخال رقم سورة صحيح (1-114)');
+               return;
+           }
 
-            try {
-                showLoading('جاري البحث في القرآن الكريم...');
-                
-                // محاكاة البحث
-                await simulateAPIRequest('/search', { query: searchText });
-                
-                // نتائج البحث التجريبية
-                const mockResults = [
-                    {
-                        surah: 2,
-                        ayah: 255,
-                        surahName: "البقرة",
-                        text: "اللَّهُ لَا إِلَٰهَ إِلَّا هُوَ الْحَيُّ الْقَيُّومُ ۚ لَا تَأْخُذُهُ سِنَةٌ وَلَا نَوْمٌ ۚ لَّهُ مَا فِي السَّمَاوَاتِ وَمَا فِي الْأَرْضِ",
-                        relevance: 95
-                    },
-                    {
-                        surah: 1,
-                        ayah: 1,
-                        surahName: "الفاتحة",
-                        text: "بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ",
-                        relevance: 80
-                    }
-                ];
+           if (!ayahNumber || ayahNumber < 1) {
+               showError('يرجى إدخال رقم آية صحيح');
+               return;
+           }
 
-                displaySearchResults(mockResults, searchText);
-                
-            } catch (error) {
-                console.error('Search error:', error);
-                showError('حدث خطأ أثناء البحث. يرجى المحاولة مرة أخرى.');
-            }
-        }
+           try {
+               showLoading('جاري تحميل الآية...');
+               
+               // استخدام API الحقيقي
+               const response = await fetch(`${QURAN_API_BASE}/ayah/${suraNumber}:${ayahNumber}`);
+               const data = await response.json();
 
-        function displaySearchResults(results, query) {
-            hideLoading();
-            
-            let html = `
-                <h3 class="results-title">
-                    <i class="fas fa-search"></i> 
-                    نتائج البحث عن: "${query}"
-                </h3>
-            `;
+               if (data.code === 200) {
+                   displayVerse(data.data);
+               } else {
+                   throw new Error(data.data || 'خطأ في تحميل الآية');
+               }
+               
+           } catch (error) {
+               console.error('Get verse error:', error);
+               
+               // محاولة استخدام API بديل
+               try {
+                   const backupResponse = await fetch(`${BACKUP_API}/${suraNumber}/${ayahNumber}`);
+                   const backupData = await backupResponse.json();
+                   
+                   if (backupData.arabic1) {
+                       const verseData = {
+                           text: backupData.arabic1,
+                           surah: {
+                               number: suraNumber,
+                               name: getSurahName(suraNumber)
+                           },
+                           numberInSurah: ayahNumber
+                       };
+                       displayVerse(verseData);
+                   } else {
+                       throw new Error('الآية غير موجودة');
+                   }
+               } catch (backupError) {
+                   showError('حدث خطأ أثناء تحميل الآية. يرجى التأكد من رقم السورة والآية.');
+               }
+           }
+       }
 
-            if (results.length === 0) {
-                html += `
-                    <div style="text-align: center; padding: 40px; color: var(--text-secondary);">
-                        <i class="fas fa-search" style="font-size: 3em; margin-bottom: 20px; opacity: 0.5;"></i>
-                        <p>لم يتم العثور على نتائج مطابقة لبحثك</p>
-                        <button class="btn btn-secondary" onclick="showWelcomeMessage()" style="margin-top: 15px;">
-                            <i class="fas fa-home"></i> العودة للرئيسية
-                        </button>
-                    </div>
-                `;
-            } else {
-                results.forEach(result => {
-                    html += `
-                        <div class="verse-container">
-                            <div class="verse-header">
-                                <div class="verse-info">
-                                    <i class="fas fa-bookmark"></i>
-                                    سورة ${result.surahName} - الآية ${result.ayah}
-                                </div>
-                                <div style="color: var(--secondary-gold); font-size: 0.9em;">
-                                    <i class="fas fa-percentage"></i> مطابقة ${result.relevance}%
-                                </div>
-                            </div>
-                            <div class="verse-text">${result.text}</div>
-                            <div style="text-align: center; margin-top: 15px;">
-                                <button class="btn btn-secondary" onclick="getTafseerForVerse(${result.surah}, ${result.ayah})" style="margin: 5px;">
-                                    <i class="fas fa-book-open"></i> عرض التفسير
-                                </button>
-                                <button class="btn btn-secondary" onclick="getSurahInfo(${result.surah})" style="margin: 5px;">
-                                    <i class="fas fa-info-circle"></i> معلومات السورة
-                                </button>
-                            </div>
-                        </div>
-                    `;
-                });
-            }
+       function getSurahName(number) {
+           const surah = allSurahs.find(s => s.number === number);
+           return surah ? surah.name : `السورة ${number}`;
+       }
 
-            document.getElementById('results').innerHTML = html;
-        }
+       function displayVerse(verse) {
+           hideLoading();
+           
+           const html = `
+               <h3 class="results-title">
+                   <i class="fas fa-quote-right"></i> 
+                   سورة ${verse.surah.name} - الآية ${verse.numberInSurah}
+               </h3>
+               <div class="verse-container">
+                   <div class="verse-header">
+                       <div class="verse-info">
+                           <i class="fas fa-bookmark"></i>
+                           سورة ${verse.surah.name} - الآية ${verse.numberInSurah}
+                       </div>
+                   </div>
+                   <div class="verse-text">${verse.text}</div>
+                   <div style="text-align: center; margin-top: 20px;">
+                       <button class="btn btn-primary" onclick="getTafseerForVerse(${verse.surah.number}, ${verse.numberInSurah})">
+                           <i class="fas fa-book-open"></i> عرض التفسير
+                       </button>
+                       <button class="btn btn-secondary" onclick="getSurahInfo(${verse.surah.number})">
+                           <i class="fas fa-info-circle"></i> معلومات السورة
+                       </button>
+                       <button class="btn btn-secondary" onclick="getNextVerse(${verse.surah.number}, ${verse.numberInSurah})">
+                           <i class="fas fa-arrow-left"></i> الآية التالية
+                       </button>
+                   </div>
+               </div>
+           `;
+           
+           document.getElementById('results').innerHTML = html;
+       }
 
-        async function getVerse() {
-            const suraNumber = parseInt(document.getElementById('suraNumber').value);
-            const ayahNumber = parseInt(document.getElementById('ayahNumber').value);
+       async function getTafseer() {
+           const suraNumber = parseInt(document.getElementById('suraNumber').value);
+           const ayahNumber = parseInt(document.getElementById('ayahNumber').value);
 
-            if (!suraNumber || suraNumber < 1 || suraNumber > 114) {
-                showError('يرجى إدخال رقم سورة صحيح (1-114)');
-                return;
-            }
+           if (!suraNumber || !ayahNumber) {
+               showError('يرجى إدخال رقم السورة والآية أولاً');
+               return;
+           }
 
-            if (!ayahNumber || ayahNumber < 1) {
-                showError('يرجى إدخال رقم آية صحيح');
-                return;
-            }
+           await getTafseerForVerse(suraNumber, ayahNumber);
+       }
 
-            try {
-                showLoading('جاري تحميل الآية...');
-                
-                // محاكاة تحميل الآية
-                await simulateAPIRequest('/verse');
-                
-                const surah = SURAHS.find(s => s.number === suraNumber);
-                if (!surah) {
-                    throw new Error('السورة غير موجودة');
-                }
+       async function getTafseerForVerse(suraNumber, ayahNumber) {
+           try {
+               showLoading('جاري تحميل التفسير...');
+               
+               // محاولة استخدام API التفسير الأول
+               try {
+                   const tafseerResponse = await fetch(`${QURAN_TAFSEER_API}/tafseer/${currentTafseer}/${suraNumber}/${ayahNumber}`, {
+                       method: 'GET',
+                       mode: 'cors'
+                   });
+                   
+                   if (tafseerResponse.ok) {
+                       const tafseerData = await tafseerResponse.json();
+                       
+                       // الحصول على نص الآية
+                       const verseResponse = await fetch(`${QURAN_API_BASE}/ayah/${suraNumber}:${ayahNumber}`);
+                       const verseData = await verseResponse.json();
+                       
+                       const combinedData = {
+                           verse: verseData.code === 200 ? verseData.data : null,
+                           tafseer: tafseerData
+                       };
+                       
+                       displayTafseer(combinedData, suraNumber, ayahNumber);
+                       return;
+                   }
+               } catch (tafseerError) {
+                   console.log('Tafseer API not available, using alternative method');
+               }
+               
+               // في حالة عدم توفر API التفسير، عرض الآية مع تفسير افتراضي
+               const verseResponse = await fetch(`${QURAN_API_BASE}/ayah/${suraNumber}:${ayahNumber}`);
+               const verseData = await verseResponse.json();
+               
+               if (verseData.code === 200) {
+                   const mockTafseer = {
+                       surah: suraNumber,
+                       ayah: ayahNumber,
+                       surahName: verseData.data.surah.name,
+                       verse: verseData.data.text,
+                       tafseer: "التفسير غير متوفر حالياً. يرجى المحاولة لاحقاً أو استخدام مصادر التفسير الخارجية."
+                   };
+                   
+                   displayTafseerFallback(mockTafseer);
+               } else {
+                   throw new Error('خطأ في تحميل الآية');
+               }
+               
+           } catch (error) {
+               console.error('Get tafseer error:', error);
+               showError('حدث خطأ أثناء تحميل التفسير. يرجى المحاولة مرة أخرى.');
+           }
+       }
 
-                if (ayahNumber > surah.verses) {
-                    throw new Error(`السورة تحتوي على ${surah.verses} آية فقط`);
-                }
+       function displayTafseer(data, suraNumber, ayahNumber) {
+           hideLoading();
+           
+           const verse = data.verse;
+           const tafseer = data.tafseer;
+           
+           const html = `
+               <h3 class="results-title">
+                   <i class="fas fa-book-open"></i> 
+                   تفسير سورة ${verse.surah.name} - الآية ${verse.numberInSurah}
+               </h3>
+               <div class="verse-container">
+                   <div class="verse-header">
+                       <div class="verse-info">
+                           <i class="fas fa-bookmark"></i>
+                           سورة ${verse.surah.name} - الآية ${verse.numberInSurah}
+                       </div>
+                   </div>
+                   <div class="verse-text">${verse.text}</div>
+                   <div class="tafseer-title">
+                       <i class="fas fa-scroll"></i> التفسير
+                   </div>
+                   <div class="tafseer-source">
+                       <i class="fas fa-book"></i> ${tafseer.tafseer_name || 'التفسير الميسر'}
+                   </div>
+                   <div class="tafseer-text">${tafseer.text}</div>
+                   <div style="text-align: center; margin-top: 20px;">
+                       <button class="btn btn-secondary" onclick="getVerse()" style="margin: 5px;">
+                           <i class="fas fa-eye"></i> عرض الآية فقط
+                       </button>
+                       <button class="btn btn-secondary" onclick="getSurahInfo(${verse.surah.number})" style="margin: 5px;">
+                           <i class="fas fa-info-circle"></i> معلومات السورة
+                       </button>
+                   </div>
+               </div>
+           `;
+           
+           document.getElementById('results').innerHTML = html;
+       }
 
-                // آية تجريبية
-                const mockVerse = {
-                    surah: suraNumber,
-                    ayah: ayahNumber,
-                    surahName: surah.name,
-                    text: suraNumber === 1 && ayahNumber === 1 ? 
-                        "بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ" :
-                        "هذا نص تجريبي للآية المطلوبة من سورة " + surah.name
-                };
+       function displayTafseerFallback(data) {
+           hideLoading();
+           
+           const html = `
+               <h3 class="results-title">
+                   <i class="fas fa-book-open"></i> 
+                   تفسير سورة ${data.surahName} - الآية ${data.ayah}
+               </h3>
+               <div class="verse-container">
+                   <div class="verse-header">
+                       <div class="verse-info">
+                           <i class="fas fa-bookmark"></i>
+                           سورة ${data.surahName} - الآية ${data.ayah}
+                       </div>
+                   </div>
+                   <div class="verse-text">${data.verse}</div>
+                   <div class="tafseer-title">
+                       <i class="fas fa-scroll"></i> التفسير
+                   </div>
+                   <div class="tafseer-text">${data.tafseer}</div>
+                   <div style="text-align: center; margin-top: 20px;">
+                       <button class="btn btn-secondary" onclick="getVerse()" style="margin: 5px;">
+                           <i class="fas fa-eye"></i> عرض الآية فقط
+                       </button>
+                       <button class="btn btn-secondary" onclick="getSurahInfo(${data.surah})" style="margin: 5px;">
+                           <i class="fas fa-info-circle"></i> معلومات السورة
+                       </button>
+                   </div>
+               </div>
+           `;
+           
+           document.getElementById('results').innerHTML = html;
+       }
 
-                displayVerse(mockVerse);
-                
-            } catch (error) {
-                console.error('Get verse error:', error);
-                showError(error.message || 'حدث خطأ أثناء تحميل الآية');
-            }
-        }
+       async function loadChapters() {
+           try {
+               showLoading('جاري تحميل قائمة السور...');
+               
+               if (allSurahs.length === 0) {
+                   await loadSurahsList();
+               }
+               
+               let html = '<h3 class="results-title"><i class="fas fa-list"></i> قائمة سور القرآن الكريم</h3>';
+               html += '<div class="chapter-grid">';
+               
+               allSurahs.forEach(chapter => {
+                   html += `
+                       <div class="chapter-card" 
+                            onclick="selectChapter(${chapter.number})"
+                            role="button"
+                            tabindex="0"
+                            onkeypress="handleCardKeypress(event, ${chapter.number})"
+                            aria-label="اختيار ${chapter.name}">
+                           <div class="chapter-name">${chapter.name}</div>
+                           <div class="chapter-number">السورة رقم ${chapter.number}</div>
+                           <div style="font-size: 0.9em; color: var(--text-secondary); margin-top: 5px;">
+                               ${chapter.numberOfAyahs} آية
+                           </div>
+                       </div>
+                   `;
+               });
+               
+               html += '</div>';
+               
+               hideLoading();
+               document.getElementById('results').innerHTML = html;
+               
+           } catch (error) {
+               console.error('Load chapters error:', error);
+               showError('حدث خطأ أثناء تحميل قائمة السور');
+           }
+       }
 
-        function displayVerse(verse) {
-            hideLoading();
-            
-            const html = `
-                <h3 class="results-title">
-                    <i class="fas fa-quote-right"></i> 
-                    سورة ${verse.surahName} - الآية ${verse.ayah}
-                </h3>
-                <div class="verse-container">
-                    <div class="verse-header">
-                        <div class="verse-info">
-                            <i class="fas fa-bookmark"></i>
-                            سورة ${verse.surahName} - الآية ${verse.ayah}
-                        </div>
-                    </div>
-                    <div class="verse-text">${verse.text}</div>
-                    <div style="text-align: center; margin-top: 20px;">
-                        <button class="btn btn-primary" onclick="getTafseerForVerse(${verse.surah}, ${verse.ayah})">
-                            <i class="fas fa-book-open"></i> عرض التفسير
-                        </button>
-                        <button class="btn btn-secondary" onclick="getSurahInfo(${verse.surah})">
-                            <i class="fas fa-info-circle"></i> معلومات السورة
-                        </button>
-                        <button class="btn btn-secondary" onclick="getNextVerse(${verse.surah}, ${verse.ayah})">
-                            <i class="fas fa-arrow-left"></i> الآية التالية
-                        </button>
-                    </div>
-                </div>
-            `;
-            
-            document.getElementById('results').innerHTML = html;
-        }
+       function selectChapter(chapterNumber) {
+           document.getElementById('suraNumber').value = chapterNumber;
+           document.getElementById('ayahNumber').value = '1';
+           getSurahInfo(chapterNumber);
+       }
 
-        async function getTafseer() {
-            const suraNumber = parseInt(document.getElementById('suraNumber').value);
-            const ayahNumber = parseInt(document.getElementById('ayahNumber').value);
+       function handleCardKeypress(event, chapterNumber) {
+           if (event.key === 'Enter' || event.key === ' ') {
+               event.preventDefault();
+               selectChapter(chapterNumber);
+           }
+       }
 
-            if (!suraNumber || !ayahNumber) {
-                showError('يرجى إدخال رقم السورة والآية أولاً');
-                return;
-            }
+       async function getSurahInfo(suraNumber) {
+           try {
+               showLoading('جاري تحميل معلومات السورة...');
+               
+               const response = await fetch(`${QURAN_API_BASE}/surah/${suraNumber}`);
+               const data = await response.json();
+               
+               if (data.code === 200) {
+                   const surah = data.data;
+                   
+                   const html = `
+                       <h3 class="results-title">
+                           <i class="fas fa-info-circle"></i> 
+                           معلومات سورة ${surah.name}
+                       </h3>
+                       <div class="verse-container">
+                           <div class="verse-header">
+                               <div class="verse-info">
+                                   <i class="fas fa-book"></i>
+                                   سورة ${surah.name} (${surah.englishName})
+                               </div>
+                           </div>
+                           <div style="text-align: center; padding: 20px;">
+                               <p style="font-size: 1.2em; margin-bottom: 15px; color: var(--primary-gold);">
+                                   <i class="fas fa-star"></i> السورة رقم ${surah.number}
+                               </p>
+                               <p style="margin-bottom: 10px;">
+                                   <i class="fas fa-list-ol"></i> عدد الآيات: ${surah.numberOfAyahs}
+                               </p>
+                               <p style="margin-bottom: 10px;">
+                                   <i class="fas fa-map-marker-alt"></i> نوع السورة: ${surah.revelationType === 'Meccan' ? 'مكية' : 'مدنية'}
+                               </p>
+                               <p style="margin-bottom: 20px; color: var(--text-secondary);">
+                                   الاسم بالإنجليزية: ${surah.englishName}
+                               </p>
+                           </div>
+                           <div style="text-align: center; margin-top: 20px;">
+                               <button class="btn btn-primary" onclick="readFullSurah(${surah.number})">
+                                   <i class="fas fa-book-open"></i> قراءة السورة كاملة
+                               </button>
+                               <button class="btn btn-secondary" onclick="document.getElementById('suraNumber').value=${surah.number}; document.getElementById('ayahNumber').value=1; getVerse()">
+                                   <i class="fas fa-play"></i> الآية الأولى
+                               </button>
+                           </div>
+                       </div>
+                   `;
+                   
+                   hideLoading();
+                   document.getElementById('results').innerHTML = html;
+               } else {
+                   throw new Error('السورة غير موجودة');
+               }
+               
+           } catch (error) {
+               console.error('Get surah info error:', error);
+               showError('حدث خطأ أثناء تحميل معلومات السورة');
+           }
+       }
 
-            await getTafseerForVerse(suraNumber, ayahNumber);
-        }
+       async function readFullSurah(suraNumber) {
+           try {
+               showLoading('جاري تحميل السورة كاملة...');
+               
+               const response = await fetch(`${QURAN_API_BASE}/surah/${suraNumber}`);
+               const data = await response.json();
+               
+               if (data.code === 200) {
+                   const surah = data.data;
+                   
+                   let html = `
+                       <h3 class="results-title">
+                           <i class="fas fa-book-open"></i> 
+                           سورة ${surah.name} كاملة
+                       </h3>
+                   `;
 
-        async function getTafseerForVerse(suraNumber, ayahNumber) {
-            try {
-                showLoading('جاري تحميل التفسير...');
-                
-                await simulateAPIRequest('/tafseer');
-                
-                const surah = SURAHS.find(s => s.number === suraNumber);
-                
-                const mockTafseer = {
-                    surah: suraNumber,
-                    ayah: ayahNumber,
-                    surahName: surah?.name || 'غير معروف',
-                    verse: suraNumber === 1 && ayahNumber === 1 ? 
-                        "بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ" :
-                        "نص الآية التجريبي",
-                    tafseer: "هذا تفسير تجريبي للآية الكريمة. في التطبيق الحقيقي، سيتم عرض التفسير الصحيح من المصادر المعتمدة مثل تفسير ابن كثير أو الطبري أو غيرها من التفاسير المعتمدة."
-                };
+                   // عرض الآيات (محدود بـ 10 آيات للأداء)
+                   const maxAyahs = Math.min(10, surah.ayahs.length);
+                   for (let i = 0; i < maxAyahs; i++) {
+                       const ayah = surah.ayahs[i];
+                       html += `
+                           <div class="verse-container">
+                               <div class="verse-header">
+                                   <div class="verse-info">
+                                       <i class="fas fa-bookmark"></i>
+                                       الآية ${ayah.numberInSurah}
+                                   </div>
+                               </div>
+                               <div class="verse-text">${ayah.text}</div>
+                               <div style="text-align: center; margin-top: 10px;">
+                                   <button class="btn btn-secondary" onclick="getTafseerForVerse(${suraNumber}, ${ayah.numberInSurah})" style="font-size: 0.9em; padding: 8px 15px;">
+                                       <i class="fas fa-book"></i> التفسير
+                                   </button>
+                               </div>
+                           </div>
+                       `;
+                   }
 
-                displayTafseer(mockTafseer);
-                
-            } catch (error) {
-                console.error('Get tafseer error:', error);
-                showError('حدث خطأ أثناء تحميل التفسير');
-            }
-        }
+                   if (surah.ayahs.length > 10) {
+                       html += `
+                           <div style="text-align: center; padding: 20px; color: var(--text-secondary);">
+                               <p>تم عرض أول 10 آيات من السورة (إجمالي ${surah.ayahs.length} آية)</p>
+                               <button class="btn btn-primary" onclick="getSurahInfo(${suraNumber})">
+                                   <i class="fas fa-info-circle"></i> معلومات السورة
+                               </button>
+                           </div>
+                       `;
+                   }
+                   
+                   hideLoading();
+                   document.getElementById('results').innerHTML = html;
+               } else {
+                   throw new Error('خطأ في تحميل السورة');
+               }
+               
+           } catch (error) {
+               console.error('Read full surah error:', error);
+               showError('حدث خطأ أثناء تحميل السورة');
+           }
+       }
 
-        function displayTafseer(data) {
-            hideLoading();
-            
-            const html = `
-                <h3 class="results-title">
-                    <i class="fas fa-book-open"></i> 
-                    تفسير سورة ${data.surahName} - الآية ${data.ayah}
-                </h3>
-                <div class="verse-container">
-                    <div class="verse-header">
-                        <div class="verse-info">
-                            <i class="fas fa-bookmark"></i>
-                            سورة ${data.surahName} - الآية ${data.ayah}
-                        </div>
-                    </div>
-                    <div class="verse-text">${data.verse}</div>
-                    <div class="tafseer-title">
-                        <i class="fas fa-scroll"></i> التفسير
-                    </div>
-                    <div class="tafseer-text">${data.tafseer}</div>
-                    <div style="text-align: center; margin-top: 20px;">
-                        <button class="btn btn-secondary" onclick="getVerse()" style="margin: 5px;">
-                            <i class="fas fa-eye"></i> عرض الآية فقط
-                        </button>
-                        <button class="btn btn-secondary" onclick="getSurahInfo(${data.surah})" style="margin: 5px;">
-                            <i class="fas fa-info-circle"></i> معلومات السورة
-                        </button>
-                    </div>
-                </div>
-            `;
-            
-            document.getElementById('results').innerHTML = html;
-        }
+       async function loadTafseers() {
+           try {
+               showLoading('جاري تحميل قائمة التفاسير...');
+               
+               if (allTafseers.length === 0) {
+                   await loadTafseersList();
+               }
 
-        async function loadChapters() {
-            try {
-                showLoading('جاري تحميل قائمة السور...');
-                
-                await simulateAPIRequest('/chapters');
-                
-                let html = '<h3 class="results-title"><i class="fas fa-list"></i> قائمة سور القرآن الكريم</h3>';
-                html += '<div class="chapter-grid">';
-                
-                SURAHS.forEach(chapter => {
-                    html += `
-                        <div class="chapter-card" 
-                             onclick="selectChapter(${chapter.number})"
-                             role="button"
-                             tabindex="0"
-                             onkeypress="handleCardKeypress(event, ${chapter.number})"
-                             aria-label="اختيار ${chapter.name}">
-                            <div class="chapter-name">${chapter.name}</div>
-                            <div class="chapter-number">السورة رقم ${chapter.number}</div>
-                            <div style="font-size: 0.9em; color: var(--text-secondary); margin-top: 5px;">
-                                ${chapter.verses} آية
-                            </div>
-                        </div>
-                    `;
-                });
-                
-                html += '</div>';
-                
-                hideLoading();
-                document.getElementById('results').innerHTML = html;
-                
-            } catch (error) {
-                console.error('Load chapters error:', error);
-                showError('حدث خطأ أثناء تحميل قائمة السور');
-            }
-        }
+               let html = '<h3 class="results-title"><i class="fas fa-books"></i> قائمة التفاسير المتاحة</h3>';
+               html += '<div class="chapter-grid">';
+               
+               allTafseers.forEach(tafseer => {
+                   html += `
+                       <div class="chapter-card" onclick="selectTafseer(${tafseer.id})">
+                           <div class="chapter-name">${tafseer.name}</div>
+                           <div class="chapter-number">المؤلف: ${tafseer.author}</div>
+                           ${tafseer.id === currentTafseer ? '<div style="color: var(--primary-gold); margin-top: 5px;"><i class="fas fa-check"></i> مُختار حالياً</div>' : ''}
+                       </div>
+                   `;
+               });
+               
+               html += '</div>';
+               
+               hideLoading();
+               document.getElementById('results').innerHTML = html;
+               
+           } catch (error) {
+               console.error('Load tafseers error:', error);
+               showError('حدث خطأ أثناء تحميل قائمة التفاسير');
+           }
+       }
 
-        function selectChapter(chapterNumber) {
-            document.getElementById('suraNumber').value = chapterNumber;
-            document.getElementById('ayahNumber').value = '1';
-            getSurahInfo(chapterNumber);
-        }
+       function selectTafseer(tafseerId) {
+           currentTafseer = tafseerId;
+           const selectedTafseer = allTafseers.find(t => t.id === tafseerId);
+           showSuccess(`تم اختيار تفسير: ${selectedTafseer.name}. الآن يمكنك عرض التفسير بهذا المصدر.`);
+           setTimeout(showWelcomeMessage, 2000);
+       }
 
-        function handleCardKeypress(event, chapterNumber) {
-            if (event.key === 'Enter' || event.key === ' ') {
-                event.preventDefault();
-                selectChapter(chapterNumber);
-            }
-        }
+       async function getRandomVerse() {
+           try {
+               showLoading('جاري اختيار آية عشوائية...');
+               
+               const randomSurahNumber = Math.floor(Math.random() * 114) + 1;
+               const surahInfo = allSurahs.find(s => s.number === randomSurahNumber);
+               const maxAyahs = surahInfo ? surahInfo.numberOfAyahs : 286; // البقرة كحد أقصى افتراضي
+               const randomAyahNumber = Math.floor(Math.random() * maxAyahs) + 1;
+               
+               document.getElementById('suraNumber').value = randomSurahNumber;
+               document.getElementById('ayahNumber').value = randomAyahNumber;
+               
+               await getVerse();
+               
+           } catch (error) {
+               console.error('Random verse error:', error);
+               showError('حدث خطأ أثناء اختيار آية عشوائية');
+           }
+       }
 
-        async function getSurahInfo(suraNumber) {
-            try {
-                showLoading('جاري تحميل معلومات السورة...');
-                
-                await simulateAPIRequest('/surah-info');
-                
-                const surah = SURAHS.find(s => s.number === suraNumber);
-                if (!surah) {
-                    throw new Error('السورة غير موجودة');
-                }
+       async function getNextVerse(currentSurah, currentAyah) {
+           const surah = allSurahs.find(s => s.number === currentSurah);
+           let nextSurah = currentSurah;
+           let nextAyah = currentAyah + 1;
 
-                const html = `
-                    <h3 class="results-title">
-                        <i class="fas fa-info-circle"></i> 
-                        معلومات سورة ${surah.name}
-                    </h3>
-                    <div class="verse-container">
-                        <div class="verse-header">
-                            <div class="verse-info">
-                                <i class="fas fa-book"></i>
-                                سورة ${surah.name} (${surah.englishName})
-                            </div>
-                        </div>
-                        <div style="text-align: center; padding: 20px;">
-                            <p style="font-size: 1.2em; margin-bottom: 15px; color: var(--primary-gold);">
-                                <i class="fas fa-star"></i> السورة رقم ${surah.number}
-                            </p>
-                            <p style="margin-bottom: 10px;">
-                                <i class="fas fa-list-ol"></i> عدد الآيات: ${surah.verses}
-                            </p>
-                            <p style="margin-bottom: 20px; color: var(--text-secondary);">
-                                الاسم بالإنجليزية: ${surah.englishName}
-                            </p>
-                        </div>
-                        <div style="text-align: center; margin-top: 20px;">
-                            <button class="btn btn-primary" onclick="readFullSurah(${surah.number})">
-                                <i class="fas fa-book-open"></i> قراءة السورة كاملة
-                            </button>
-                            <button class="btn btn-secondary" onclick="document.getElementById('suraNumber').value=${surah.number}; document.getElementById('ayahNumber').value=1; getVerse()">
-                                <i class="fas fa-play"></i> الآية الأولى
-                            </button>
-                        </div>
-                    </div>
-                `;
-                
-                hideLoading();
-                document.getElementById('results').innerHTML = html;
-                
-            } catch (error) {
-                console.error('Get surah info error:', error);
-                showError('حدث خطأ أثناء تحميل معلومات السورة');
-            }
-        }
+           if (surah && nextAyah > surah.numberOfAyahs) {
+               nextSurah = currentSurah + 1;
+               nextAyah = 1;
+               
+               if (nextSurah > 114) {
+                   showError('هذه آخر آية في القرآن الكريم');
+                   return;
+               }
+           }
 
-        async function readFullSurah(suraNumber) {
-            try {
-                showLoading('جاري تحميل السورة كاملة...');
-                
-                await simulateAPIRequest('/full-surah');
-                
-                const surah = SURAHS.find(s => s.number === suraNumber);
-                
-                let html = `
-                    <h3 class="results-title">
-                        <i class="fas fa-book-open"></i> 
-                        سورة ${surah.name} كاملة
-                    </h3>
-                `;
+           document.getElementById('suraNumber').value = nextSurah;
+           document.getElementById('ayahNumber').value = nextAyah;
+           
+           await getVerse();
+       }
 
-                // عرض آيات تجريبية
-                for (let i = 1; i <= Math.min(5, surah.verses); i++) {
-                    html += `
-                        <div class="verse-container">
-                            <div class="verse-header">
-                                <div class="verse-info">
-                                    <i class="fas fa-bookmark"></i>
-                                    الآية ${i}
-                                </div>
-                            </div>
-                            <div class="verse-text">
-                                ${i === 1 && suraNumber === 1 ? 
-                                    "بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ" :
-                                    `نص تجريبي للآية رقم ${i} من سورة ${surah.name}`
-                                }
-                            </div>
-                            <div style="text-align: center; margin-top: 10px;">
-                                <button class="btn btn-secondary" onclick="getTafseerForVerse(${suraNumber}, ${i})" style="font-size: 0.9em; padding: 8px 15px;">
-                                    <i class="fas fa-book"></i> التفسير
-                                </button>
-                            </div>
-                        </div>
-                    `;
-                }
+       // إضافة تأثيرات تفاعلية
+       document.addEventListener('DOMContentLoaded', function() {
+           // تأثير النقر على الأزرار
+           document.addEventListener('click', function(e) {
+               if (e.target.classList.contains('btn')) {
+                   e.target.style.transform = 'scale(0.95)';
+                   setTimeout(() => {
+                       e.target.style.transform = '';
+                   }, 150);
+               }
+           });
+       });
 
-                if (surah.verses > 5) {
-                    html += `
-                        <div style="text-align: center; padding: 20px; color: var(--text-secondary);">
-                            <p>وباقي آيات السورة... (${surah.verses - 5} آية أخرى)</p>
-                            <button class="btn btn-primary" onclick="getSurahInfo(${suraNumber})">
-                                <i class="fas fa-info-circle"></i> معلومات السورة
-                            </button>
-                        </div>
-                    `;
-                }
-                
-                hideLoading();
-                document.getElementById('results').innerHTML = html;
-                
-            } catch (error) {
-                console.error('Read full surah error:', error);
-                showError('حدث خطأ أثناء تحميل السورة');
-            }
-        }
+       // معالجة الأخطاء العامة
+       window.addEventListener('error', function(e) {
+           console.error('Global error:', e.error);
+       });
 
-        async function loadTafseers() {
-            try {
-                showLoading('جاري تحميل قائمة التفاسير...');
-                
-                await simulateAPIRequest('/tafseers');
-                
-                const mockTafseers = [
-                    { id: 1, name: "تفسير ابن كثير", author: "ابن كثير" },
-                    { id: 2, name: "تفسير الطبري", author: "الطبري" },
-                    { id: 3, name: "تفسير القرطبي", author: "القرطبي" },
-                    { id: 4, name: "تفسير البغوي", author: "البغوي" }
-                ];
-
-                let html = '<h3 class="results-title"><i class="fas fa-books"></i> قائمة التفاسير المتاحة</h3>';
-                html += '<div class="chapter-grid">';
-                
-                mockTafseers.forEach(tafseer => {
-                    html += `
-                        <div class="chapter-card" onclick="selectTafseer(${tafseer.id})">
-                            <div class="chapter-name">${tafseer.name}</div>
-                            <div class="chapter-number">المؤلف: ${tafseer.author}</div>
-                        </div>
-                    `;
-                });
-                
-                html += '</div>';
-                
-                hideLoading();
-                document.getElementById('results').innerHTML = html;
-                
-            } catch (error) {
-                console.error('Load tafseers error:', error);
-                showError('حدث خطأ أثناء تحميل قائمة التفاسير');
-            }
-        }
-
-        function selectTafseer(tafseerId) {
-            showSuccess(`تم اختيار التفسير. الآن يمكنك البحث أو عرض آية للحصول على التفسير من هذا المصدر.`);
-            setTimeout(showWelcomeMessage, 2000);
-        }
-
-        async function getRandomVerse() {
-            try {
-                showLoading('جاري اختيار آية عشوائية...');
-                
-                await simulateAPIRequest('/random');
-                
-                const randomSurah = SURAHS[Math.floor(Math.random() * SURAHS.length)];
-                const randomAyah = Math.floor(Math.random() * randomSurah.verses) + 1;
-                
-                document.getElementById('suraNumber').value = randomSurah.number;
-                document.getElementById('ayahNumber').value = randomAyah;
-                
-                const mockVerse = {
-                    surah: randomSurah.number,
-                    ayah: randomAyah,
-                    surahName: randomSurah.name,
-                    text: `آية عشوائية تجريبية من سورة ${randomSurah.name} - الآية ${randomAyah}`
-                };
-
-                displayVerse(mockVerse);
-                
-            } catch (error) {
-                console.error('Random verse error:', error);
-                showError('حدث خطأ أثناء اختيار آية عشوائية');
-            }
-        }
-
-        async function getNextVerse(currentSurah, currentAyah) {
-            const surah = SURAHS.find(s => s.number === currentSurah);
-            let nextSurah = currentSurah;
-            let nextAyah = currentAyah + 1;
-
-            if (nextAyah > surah.verses) {
-                nextSurah = currentSurah + 1;
-                nextAyah = 1;
-                
-                if (nextSurah > 114) {
-                    showError('هذه آخر آية في القرآن الكريم');
-                    return;
-                }
-            }
-
-            document.getElementById('suraNumber').value = nextSurah;
-            document.getElementById('ayahNumber').value = nextAyah;
-            
-            await getVerse();
-        }
-
-        // إضافة تأثيرات تفاعلية
-        document.addEventListener('DOMContentLoaded', function() {
-            // تأثير النقر على الأزرار
-            document.addEventListener('click', function(e) {
-                if (e.target.classList.contains('btn')) {
-                    e.target.style.transform = 'scale(0.95)';
-                    setTimeout(() => {
-                        e.target.style.transform = '';
-                    }, 150);
-                }
-            });
-        });
-    </script>
+       // معالجة أخطاء الشبكة
+       window.addEventListener('unhandledrejection', function(e) {
+           console.error('Unhandled promise rejection:', e.reason);
+       });
+   </script>
 </body>
 </html>

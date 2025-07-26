@@ -965,6 +965,9 @@
         <button class="nav-tab" onclick="showTab('duas')">
           <i class="fas fa-book-open"></i> الأذكار
         </button>
+        <button class="nav-tab" onclick="showTab('stories')">
+          <i class="fas fa-book-reader"></i> قصص عن الصلاة
+        </button>
         <button class="nav-tab" onclick="showTab('times')">
           <i class="fas fa-clock"></i> المواقيت
         </button>
@@ -979,6 +982,23 @@
   </header>
 
   <div class="container">
+    <!-- قسم قصص عن الصلاة -->
+    <div id="stories" class="tab-content">
+      <div class="hero-card">
+        <h2 style="text-align: center; margin-bottom: 30px; color: var(--text-gold);">
+          <i class="fas fa-book-reader"></i>
+          قصص عن الصلاة
+        </h2>
+        <div style="display: flex; justify-content: center; margin-top: 24px;">
+          <div style="max-width: 600px; width: 100%; box-shadow: 0 8px 32px #ffd70055, 0 2px 16px #0002; border-radius: 18px; overflow: hidden; border: 3px solid #ffd700; background: #222;">
+            <div style="position: relative; padding-bottom: 56.25%; height: 0;">
+              <iframe src="https://www.youtube.com/embed/e8yeigZCwMw?si=2a0A_qYt6ufvsMjT" title="قصة عن الصلاة" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;"></iframe>
+            </div>
+            <div style="text-align:center; color:var(--text-gold); font-weight:700; padding:8px 0 4px; font-size:1.1em;">قصة مؤثرة عن الصلاة</div>
+          </div>
+        </div>
+      </div>
+    </div>
     <!-- الصفحة الرئيسية -->
     <div id="home" class="tab-content active">
       <div class="hero-card">
