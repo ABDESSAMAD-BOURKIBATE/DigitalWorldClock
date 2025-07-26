@@ -14106,8 +14106,10 @@ function calculatePrayerProgress(prayers, currentPrayer, now, zone) {
       // إزالة التكرار حسب nameEn بعد التصفية والبحث (فلترة صارمة)
       const seenNames = new Set();
       filteredCountries = filteredCountries.filter(country => {
-        if (seenNames.has(country.nameEn)) return false;
-        seenNames.add(country.nameEn);
+        if (!country.nameEn) return false;
+        const key = country.nameEn.trim().toLowerCase();
+        if (seenNames.has(key)) return false;
+        seenNames.add(key);
         return true;
       });
 
@@ -14124,12 +14126,13 @@ function calculatePrayerProgress(prayers, currentPrayer, now, zone) {
       const addedCountries = new Set(); // Track added countries to prevent duplicates
       
       for (const country of filteredCountries) {
-        // Skip if country already added
-        if (addedCountries.has(country.nameEn)) {
+        // Skip if country already added (case-insensitive)
+        if (!country.nameEn) continue;
+        const countryKey = country.nameEn.trim().toLowerCase();
+        if (addedCountries.has(countryKey)) {
           continue;
         }
-        addedCountries.add(country.nameEn);
-
+        addedCountries.add(countryKey);
         // تحقق إذا كان العنصر موجود مسبقًا في DOM (منع التكرار)
         if (document.querySelector(`.clock-box[data-country='${country.nameEn}']`)) {
           continue;
@@ -14330,7 +14333,8 @@ function calculatePrayerProgress(prayers, currentPrayer, now, zone) {
       clockBoxes.forEach(box => {
         if (!isInViewport(box)) return; // Skip non-visible clocks
         const countryName = box.dataset.country;
-        const country = countries.find(c => c.nameEn === countryName);
+        if (!countryName) return;
+        const country = countries.find(c => c.nameEn && c.nameEn.trim().toLowerCase() === countryName.trim().toLowerCase());
         if (!country) return;
         const now = DateTime.now().setZone(country.zone);
         const hour = now.hour;
@@ -14338,8 +14342,10 @@ function calculatePrayerProgress(prayers, currentPrayer, now, zone) {
         const timeStatus = getTimeStatus(hour, minute, currentLanguage);
         const offsetHours = now.offset / 60;
         const offsetLabel = `GMT${offsetHours >= 0 ? '+' : ''}${offsetHours}`;
-        box.querySelector('.clock-display').textContent = now.toFormat('hh:mm:ss a');
-        // Update time status indicator
+        const timeElem = box.querySelector('.clock-display');
+        if (timeElem) {
+          timeElem.innerHTML = `<i class="fas fa-clock time-icon" style="color: ${country.color}; filter: drop-shadow(0 0 10px ${country.color});"></i> ${now.toFormat('hh:mm:ss a')}`;
+        }
         const timeStatusElement = box.querySelector('.time-status-indicator');
         if (timeStatusElement) {
           timeStatusElement.innerHTML = `
@@ -14349,25 +14355,26 @@ function calculatePrayerProgress(prayers, currentPrayer, now, zone) {
         }
         // تحديث معلومات الوقت بدون تكرار التاريخ الهجري القديم
         const timeInfo = box.querySelector('.time-info');
-        // hijriDate متغير موجود مسبقاً من Aladhan API في نفس السياق
-        timeInfo.innerHTML = `
-          <div class="time-item">
-            <i class="fas fa-calendar-day time-icon"></i>
-            ${currentLanguage === 'ar' ? 'الميلادي' : 'Gregorian'}: ${now.toFormat('dd/MM/yyyy')}
-          </div>
-          <div class="time-item">
-            <i class="fas fa-moon time-icon"></i>
-            ${currentLanguage === 'ar' ? 'الهجري' : 'Hijri'}: ${typeof hijriDate !== 'undefined' ? hijriDate : '--'}
-          </div>
-          <div class="time-item">
-            <i class="fas fa-globe time-icon"></i>
-            ${translations[currentLanguage].time}: ${offsetLabel}
-          </div>
-          <div class="time-item">
-            <i class="fas fa-earth-americas time-icon"></i>
-            ${translations[currentLanguage].continent}: ${translations[currentLanguage][country.continent] || country.continent}
-          </div>
-        `;
+        if (timeInfo) {
+          timeInfo.innerHTML = `
+            <div class="time-item">
+              <i class="fas fa-calendar-day time-icon"></i>
+              ${currentLanguage === 'ar' ? 'الميلادي' : 'Gregorian'}: ${now.toFormat('dd/MM/yyyy')}
+            </div>
+            <div class="time-item">
+              <i class="fas fa-moon time-icon"></i>
+              ${currentLanguage === 'ar' ? 'الهجري' : 'Hijri'}: --
+            </div>
+            <div class="time-item">
+              <i class="fas fa-globe time-icon"></i>
+              ${translations[currentLanguage].time}: ${offsetLabel}
+            </div>
+            <div class="time-item">
+              <i class="fas fa-earth-americas time-icon"></i>
+              ${translations[currentLanguage].continent}: ${translations[currentLanguage][country.continent] || country.continent}
+            </div>
+          `;
+        }
       });
     }
 
