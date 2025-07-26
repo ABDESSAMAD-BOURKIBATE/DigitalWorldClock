@@ -608,6 +608,62 @@
       50% { transform: scale(1.1); }
     }
 
+    .settings-section {
+      margin-bottom: 30px;
+      padding: 20px;
+      background: rgba(255, 215, 0, 0.05);
+      border-radius: 15px;
+      border: 1px solid rgba(255, 215, 0, 0.2);
+    }
+
+    .settings-section h3 {
+      color: var(--text-gold);
+      margin-bottom: 15px;
+      font-size: 18px;
+    }
+
+    .control-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 15px;
+    }
+
+    .control-group label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-light);
+      font-size: 14px;
+    }
+
+    .control-group select,
+    .control-group input[type="range"] {
+      padding: 8px 12px;
+      border-radius: 8px;
+      border: 2px solid rgba(255, 215, 0, 0.3);
+      background: rgba(26, 26, 26, 0.8);
+      color: var(--text-light);
+      font-size: 14px;
+    }
+
+    .control-group input[type="range"] {
+      width: 100px;
+    }
+
+    .range-value {
+      background: var(--primary-gold);
+      color: var(--darker-bg);
+      padding: 2px 8px;
+      border-radius: 12px;
+      font-size: 12px;
+      font-weight: 600;
+      min-width: 35px;
+      text-align: center;
+    }
+
     /* تحسينات للأجهزة المحمولة */
     @media (max-width: 768px) {
       .nav-tabs { 
@@ -764,6 +820,15 @@
         width: 50px;
         height: 50px;
         font-size: 20px;
+      }
+
+      .control-group {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .control-group label {
+        justify-content: space-between;
       }
     }
 
@@ -1340,8 +1405,8 @@
           اختر اللغة المفضلة لديك وخصص تجربة الاستخدام
         </p>
         
-        <div style="text-align: center; margin-bottom: 30px;">
-          <h3 style="color: var(--text-gold); margin-bottom: 20px;">
+        <div class="settings-section">
+          <h3>
             <i class="fas fa-language"></i>
             اختيار اللغة / Language Selection
           </h3>
@@ -1357,35 +1422,40 @@
           </div>
         </div>
 
-        <div style="text-align: center; margin-bottom: 30px;">
-          <h3 style="color: var(--text-gold); margin-bottom: 20px;">
+        <div class="settings-section">
+          <h3>
             <i class="fas fa-volume-up"></i>
             إعدادات الصوت (Text-to-Speech)
           </h3>
-          <div style="display: flex; flex-wrap: wrap; gap: 15px; align-items: center; justify-content: center; margin-bottom: 10px;">
-            <label>الصوت:
-              <select id="tts-voice-select" style="padding: 5px 10px; border-radius: 8px;"></select>
+          <div class="control-group">
+            <label>
+              الصوت:
+              <select id="tts-voice-select"></select>
             </label>
-            <label>السرعة:
-              <input type="range" id="tts-rate" min="0.5" max="1.5" step="0.05" value="1" style="vertical-align: middle;">
-              <span id="tts-rate-value">1</span>
+            <label>
+              السرعة:
+              <input type="range" id="tts-rate" min="0.5" max="2" step="0.1" value="1">
+              <span class="range-value" id="tts-rate-value">1</span>
             </label>
-            <label>النبرة:
-              <input type="range" id="tts-pitch" min="0.5" max="2" step="0.05" value="1" style="vertical-align: middle;">
-              <span id="tts-pitch-value">1</span>
+            <label>
+              النبرة:
+              <input type="range" id="tts-pitch" min="0.5" max="2" step="0.1" value="1">
+              <span class="range-value" id="tts-pitch-value">1</span>
             </label>
-            <button class="audio-btn" onclick="testTTS()" style="margin-right: 10px;"><i class="fas fa-play"></i> اختبار الصوت</button>
           </div>
-          <div id="tts-support-msg" style="color: #ff6b35; margin-top: 10px;"></div>
-          <div class="audio-controls" style="margin-top: 10px;">
+          <div id="tts-support-msg" style="color: #ff6b35; margin: 10px 0; text-align: center;"></div>
+          <div class="audio-controls">
+            <button class="audio-btn" onclick="testTTS()">
+              <i class="fas fa-play"></i>
+            </button>
             <button class="audio-btn" onclick="toggleMute()">
-              <i class="fas fa-volume-mute"></i>
+              <i class="fas fa-volume-high" id="mute-icon"></i>
             </button>
           </div>
         </div>
 
-        <div style="text-align: center;">
-          <h3 style="color: var(--text-gold); margin-bottom: 20px;">
+        <div class="settings-section">
+          <h3>
             <i class="fas fa-palette"></i>
             إعدادات المظهر
           </h3>
@@ -1428,126 +1498,252 @@
   </footer>
 
   <script>
-    // تم إزالة الصوت التفاعلي الخفيف عند النقر أو المرور بناءً على طلب المستخدم
-    // إعدادات TTS
-    let ttsVoice = null;
-    let ttsRate = 1;
-    let ttsPitch = 1;
-
-    function populateTTSVoices() {
-      const voiceSelect = document.getElementById('tts-voice-select');
-      if (!('speechSynthesis' in window)) {
-        document.getElementById('tts-support-msg').textContent = 'متصفحك لا يدعم ميزة تحويل النص إلى كلام (Text-to-Speech)';
-        voiceSelect.disabled = true;
-        return;
-      }
-      const voices = speechSynthesis.getVoices();
-      voiceSelect.innerHTML = '';
-      voices.forEach((voice, i) => {
-        const option = document.createElement('option');
-        option.value = voice.name;
-        option.textContent = `${voice.name} (${voice.lang})${voice.default ? ' - افتراضي' : ''}`;
-        if ((currentLanguage === 'ar' && voice.lang.startsWith('ar')) || (currentLanguage === 'en' && voice.lang.startsWith('en'))) {
-          option.selected = true;
-          ttsVoice = voice;
-        }
-        voiceSelect.appendChild(option);
-      });
-      if (!ttsVoice && voices.length > 0) {
-        ttsVoice = voices[0];
-      }
-    }
-
-    document.addEventListener('DOMContentLoaded', () => {
-      if ('speechSynthesis' in window) {
-        populateTTSVoices();
-        speechSynthesis.onvoiceschanged = populateTTSVoices;
-      } else {
-        document.getElementById('tts-support-msg').textContent = 'متصفحك لا يدعم ميزة تحويل النص إلى كلام (Text-to-Speech)';
-      }
-      document.getElementById('tts-rate').addEventListener('input', function() {
-        ttsRate = parseFloat(this.value);
-        document.getElementById('tts-rate-value').textContent = ttsRate;
-      });
-      document.getElementById('tts-pitch').addEventListener('input', function() {
-        ttsPitch = parseFloat(this.value);
-        document.getElementById('tts-pitch-value').textContent = ttsPitch;
-      });
-      document.getElementById('tts-voice-select').addEventListener('change', function() {
-        const voices = speechSynthesis.getVoices();
-        ttsVoice = voices.find(v => v.name === this.value);
-      });
-    });
-
-    function testTTS() {
-      speakText(currentLanguage === 'ar' ? 'هذا مثال لاختبار الصوت' : 'This is a sample for testing the voice');
-    }
-
-    // دالة Text-to-Speech الرئيسية
-    function speakText(text, lang = null) {
-      if ('speechSynthesis' in window) {
-        if (currentAudio) {
-          speechSynthesis.cancel();
-        }
-        const utterance = new SpeechSynthesisUtterance(text);
-        utterance.lang = lang || (currentLanguage === 'ar' ? 'ar-SA' : 'en-US');
-        utterance.rate = ttsRate;
-        utterance.pitch = ttsPitch;
-        utterance.volume = 1;
-        if (ttsVoice) utterance.voice = ttsVoice;
-        // تأثير بصري أثناء التشغيل
-        document.body.style.filter = 'brightness(1.15) saturate(1.2)';
-        // إضافة تأثير النبض للزر النشط
-        const activeBtn = document.querySelector('.audio-btn:hover, .audio-btn:focus');
-        if (activeBtn) {
-          activeBtn.classList.add('active-playing');
-        }
-        utterance.onend = function() {
-          document.body.style.filter = 'brightness(1)';
-          if (activeBtn) {
-            activeBtn.classList.remove('active-playing');
-          }
-          currentAudio = null;
-        };
-        utterance.onerror = function() {
-          document.body.style.filter = 'brightness(1)';
-          showNotification('حدث خطأ في تشغيل الصوت');
-        };
-        speechSynthesis.speak(utterance);
-        currentAudio = utterance;
-      } else {
-        showNotification('المتصفح لا يدعم تشغيل الصوت');
-      }
-    }
     // متغيرات عامة
     let currentWuduStep = 1;
     let currentAudio = null;
     let duaCounter = 0;
     let isMuted = false;
     let currentLanguage = 'ar';
-    let sidebarVisible = true;
     let mobileMenuOpen = false;
 
-    // بيانات خطوات الوضوء
-    const wuduSteps = [
-      "النية للوضوء في القلب",
-      "غسل الكفين ثلاث مرات", 
-      "المضمضة والاستنشاق ثلاث مرات",
-      "غسل الوجه ثلاث مرات من الأذن إلى الأذن",
-      "غسل اليدين إلى المرفقين ثلاث مرات",
-      "مسح الرأس والأذنين مرة واحدة",
-      "غسل الرجلين إلى الكعبين ثلاث مرات"
-    ];
+    // إعدادات TTS
+    let ttsVoice = null;
+    let ttsRate = 1;
+    let ttsPitch = 1;
+    let availableVoices = [];
 
-    // بيانات مواقيت الصلاة
-    const prayerTimes = {
-      fajr: "05:30",
-      sunrise: "07:00", 
-      dhuhr: "12:45",
-      asr: "16:15",
-      maghrib: "19:30",
-      isha: "21:00"
+    // بيانات النصوص للقراءة الصوتية
+    const audioTexts = {
+      ar: {
+        welcome: "مرحباً بك في دليل الصلاة التفاعلي، دليلك الشامل لتعلم الصلاة والوضوء",
+        wudu_steps: [
+          "الخطوة الأولى: النية للوضوء في القلب",
+          "الخطوة الثانية: غسل الكفين ثلاث مرات",
+          "الخطوة الثالثة: المضمضة والاستنشاق ثلاث مرات",
+          "الخطوة الرابعة: غسل الوجه ثلاث مرات من الأذن إلى الأذن",
+          "الخطوة الخامسة: غسل اليدين إلى المرفقين ثلاث مرات",
+          "الخطوة السادسة: مسح الرأس والأذنين مرة واحدة",
+          "الخطوة السابعة: غسل الرجلين إلى الكعبين ثلاث مرات"
+        ],
+        prayer_steps: [
+          "القيام مع القدرة للصلاة",
+          "تكبيرة الإحرام بقول الله أكبر",
+          "قراءة سورة الفاتحة",
+          "الركوع والرفع منه مع التسبيح",
+          "السجود والجلوس بين السجدتين",
+          "الجلوس للتشهد الأخير",
+          "السلام للخروج من الصلاة"
+        ],
+        detailed_prayer_steps: [
+          "استقبال القبلة والنية للصلاة",
+          "تكبيرة الإحرام بقول الله أكبر",
+          "دعاء الاستفتاح",
+          "قراءة الفاتحة وسورة من القرآن",
+          "الركوع مع التسبيح",
+          "الرفع من الركوع",
+          "السجود مرتين مع التسبيح",
+          "التشهد والسلام"
+        ],
+        duas: {
+          shahada: "أشهد أن لا إله إلا الله وحده لا شريك له، وأشهد أن محمداً عبده ورسوله",
+          tasbih: "سبحان الله والحمد لله ولا إله إلا الله والله أكبر",
+          after_prayer: "اللهم أنت السلام ومنك السلام، تباركت يا ذا الجلال والإكرام"
+        }
+      },
+      en: {
+        welcome: "Welcome to the Interactive Prayer Guide, your comprehensive guide to learning prayer and ablution",
+        wudu_steps: [
+          "Step 1: Intention for ablution in the heart",
+          "Step 2: Wash hands three times",
+          "Step 3: Rinse mouth and nose three times",
+          "Step 4: Wash face three times from ear to ear",
+          "Step 5: Wash arms up to elbows three times",
+          "Step 6: Wipe head and ears once",
+          "Step 7: Wash feet up to ankles three times"
+        ],
+        prayer_steps: [
+          "Standing with ability for prayer",
+          "Opening takbir saying Allahu Akbar",
+          "Reciting Surah Al-Fatiha",
+          "Bowing and rising with glorification",
+          "Prostration and sitting between prostrations",
+          "Sitting for final tashahhud",
+          "Salutation to exit prayer"
+        ],
+        detailed_prayer_steps: [
+          "Facing Qibla and intention for prayer",
+          "Opening takbir saying Allahu Akbar",
+          "Opening supplication",
+          "Reciting Al-Fatiha and a Surah from Quran",
+          "Bowing with glorification",
+          "Rising from bowing",
+          "Prostrating twice with glorification",
+          "Tashahhud and salutation"
+        ],
+        duas: {
+          shahada: "I bear witness that there is no god but Allah alone with no partner, and I bear witness that Muhammad is His servant and messenger",
+          tasbih: "Glory be to Allah, praise be to Allah, there is no god but Allah, and Allah is the Greatest",
+          after_prayer: "O Allah, You are peace and from You comes peace, blessed are You, O Possessor of majesty and honor"
+        }
+      }
     };
+
+    // تهيئة TTS
+    function initializeTTS() {
+      if (!('speechSynthesis' in window)) {
+        document.getElementById('tts-support-msg').textContent = 
+          currentLanguage === 'ar' ? 
+          'متصفحك لا يدعم ميزة تحويل النص إلى كلام' :
+          'Your browser does not support text-to-speech';
+        return;
+      }
+
+      // تحديث قائمة الأصوات
+      function loadVoices() {
+        availableVoices = speechSynthesis.getVoices();
+        populateVoiceList();
+      }
+
+      // تحميل الأصوات عند التوفر
+      if (availableVoices.length === 0) {
+        speechSynthesis.onvoiceschanged = loadVoices;
+      } else {
+        loadVoices();
+      }
+    }
+
+    // ملء قائمة الأصوات
+    function populateVoiceList() {
+      const voiceSelect = document.getElementById('tts-voice-select');
+      voiceSelect.innerHTML = '';
+
+      // أصوات مخصصة عالية الجودة
+      const customVoices = [
+        { name: 'Microsoft Naayf - Arabic (Saudi)', lang: 'ar-SA', gender: ' (ذكر)', isCustom: true },
+        { name: 'Microsoft Hoda - Arabic (Egypt)', lang: 'ar-EG', gender: ' (أنثى)', isCustom: true },
+        { name: 'Google français', lang: 'fr-FR', gender: ' (Femme)', isCustom: true },
+        { name: 'Google US English', lang: 'en-US', gender: ' (Female)', isCustom: true }
+      ];
+
+      // دمج أصوات النظام مع الأصوات المخصصة (مع تمييز المخصصة)
+      let voicesToShow = [];
+      if (availableVoices.length > 0) {
+        // فلترة أصوات النظام حسب اللغة
+        const filteredVoices = availableVoices.filter(voice => {
+          if (currentLanguage === 'ar') {
+            return voice.lang.includes('ar') || voice.lang.includes('Arabic');
+          } else if (currentLanguage === 'fr') {
+            return voice.lang.toLowerCase().includes('fr');
+          } else {
+            return voice.lang.includes('en') || voice.lang.includes('English');
+          }
+        });
+        // إذا لم توجد أصوات للغة، أظهر جميع أصوات النظام
+        voicesToShow = filteredVoices.length > 0 ? filteredVoices : availableVoices;
+        // أضف الأصوات المخصصة دائماً في النهاية
+        voicesToShow = voicesToShow.concat(customVoices);
+      } else {
+        // إذا لم تتوفر أصوات النظام، أظهر فقط الأصوات المخصصة
+        voicesToShow = customVoices;
+      }
+
+      voicesToShow.forEach((voice, index) => {
+        const option = document.createElement('option');
+        option.value = voice.name;
+        // تحديد الجنس
+        let gender = '';
+        if (voice.gender) {
+          gender = voice.gender;
+        } else if (voice.name && typeof voice.name === 'string') {
+          const n = voice.name.toLowerCase();
+          if (n.includes('female') || n.includes('femme') || n.includes('woman')) {
+            gender = currentLanguage === 'fr' ? ' (Femme)' : currentLanguage === 'ar' ? ' (أنثى)' : ' (Female)';
+          } else if (n.includes('male') || n.includes('homme') || n.includes('man')) {
+            gender = currentLanguage === 'fr' ? ' (Homme)' : currentLanguage === 'ar' ? ' (ذكر)' : ' (Male)';
+          }
+        }
+        // تمييز الأصوات المخصصة
+        let customLabel = '';
+        if (voice.isCustom) {
+          customLabel = currentLanguage === 'ar' ? ' (صوت مخصص)' : ' (Custom Voice)';
+        }
+        option.textContent = `${voice.name} (${voice.lang})${gender}${voice.default ? ' - الافتراضي' : ''}${customLabel}`;
+        voiceSelect.appendChild(option);
+
+        // تحديد الصوت الافتراضي
+        if ((voice.default && !voice.isCustom) || (index === 0 && !ttsVoice)) {
+          option.selected = true;
+          ttsVoice = voice;
+        }
+      });
+    }
+
+    // دالة تشغيل النص الصوتي المحسّنة
+    function speakText(text, lang = null) {
+      if (!('speechSynthesis' in window)) {
+        showNotification(currentLanguage === 'ar' ? 'المتصفح لا يدعم تشغيل الصوت' : 'Browser does not support audio');
+        return;
+      }
+
+      if (isMuted) {
+        showNotification(currentLanguage === 'ar' ? 'الصوت مكتوم' : 'Audio is muted');
+        return;
+      }
+
+      // إيقاف أي صوت سابق
+      if (speechSynthesis.speaking) {
+        speechSynthesis.cancel();
+      }
+
+      const utterance = new SpeechSynthesisUtterance(text);
+      
+      // تحديد اللغة
+      utterance.lang = lang || (currentLanguage === 'ar' ? 'ar-SA' : 'en-US');
+      
+      // تطبيق الإعدادات
+      utterance.rate = ttsRate;
+      utterance.pitch = ttsPitch;
+      utterance.volume = 1;
+      
+      // تحديد الصوت إذا كان متاحاً
+      if (ttsVoice) {
+        utterance.voice = ttsVoice;
+      }
+
+      // التأثيرات البصرية
+      document.body.style.filter = 'brightness(1.1) saturate(1.1)';
+      
+      // معالجة الأحداث
+      utterance.onstart = function() {
+        currentAudio = utterance;
+        // إضافة تأثير للزر النشط
+        const activeBtn = document.querySelector('.audio-btn:hover, .audio-btn:focus, .audio-btn:active');
+        if (activeBtn) {
+          activeBtn.classList.add('active-playing');
+        }
+      };
+
+      utterance.onend = function() {
+        document.body.style.filter = 'brightness(1)';
+        document.querySelectorAll('.active-playing').forEach(btn => {
+          btn.classList.remove('active-playing');
+        });
+        currentAudio = null;
+      };
+
+      utterance.onerror = function(event) {
+        console.error('TTS Error:', event.error);
+        document.body.style.filter = 'brightness(1)';
+        document.querySelectorAll('.active-playing').forEach(btn => {
+          btn.classList.remove('active-playing');
+        });
+        showNotification(currentLanguage === 'ar' ? 'حدث خطأ في تشغيل الصوت' : 'Error playing audio');
+        currentAudio = null;
+      };
+
+      // تشغيل الصوت
+      speechSynthesis.speak(utterance);
+    }
 
     // تبديل التبويبات
     function showTab(tabName) {
@@ -1556,14 +1752,20 @@
       tabContents.forEach(tab => tab.classList.remove('active'));
       
       // إظهار التبويب المحدد
-      document.getElementById(tabName).classList.add('active');
+      const targetTab = document.getElementById(tabName);
+      if (targetTab) {
+        targetTab.classList.add('active');
+      }
       
       // تحديث أزرار التنقل
       const navTabs = document.querySelectorAll('.nav-tab');
       navTabs.forEach(tab => tab.classList.remove('active'));
       
       // تفعيل الزر الحالي
-      event.target.classList.add('active');
+      const clickedButton = event?.target?.closest('.nav-tab');
+      if (clickedButton) {
+        clickedButton.classList.add('active');
+      }
       
       // إغلاق القائمة المحمولة إذا كانت مفتوحة
       if (mobileMenuOpen) {
@@ -1597,10 +1799,15 @@
       // تحديث العناصر النشطة
       const steps = document.querySelectorAll('#wudu-steps .step-item');
       steps.forEach(step => step.classList.remove('active'));
-      steps[stepNumber - 1].classList.add('active');
+      if (steps[stepNumber - 1]) {
+        steps[stepNumber - 1].classList.add('active');
+      }
       
       // تحديث رقم الخطوة
-      document.getElementById('wudu-step-number').textContent = stepNumber;
+      const stepNumberElement = document.getElementById('wudu-step-number');
+      if (stepNumberElement) {
+        stepNumberElement.textContent = stepNumber;
+      }
       
       // تحديث شريط التقدم
       updateWuduProgress(stepNumber);
@@ -1609,107 +1816,116 @@
     // تحديث شريط التقدم للوضوء
     function updateWuduProgress(step) {
       const progressFill = document.getElementById('wudu-progress');
-      const circumference = 2 * Math.PI * 40; // نصف القطر 40
-      const progress = (step / 7) * circumference;
-      
-      progressFill.style.strokeDashoffset = circumference - progress;
+      if (progressFill) {
+        const circumference = 2 * Math.PI * 40;
+        const progress = (step / 7) * circumference;
+        progressFill.style.strokeDashoffset = circumference - progress;
+      }
     }
 
     // تشغيل الصوت للخطوة الحالية
     function playStepAudio() {
-      speakText(audioSources[currentLanguage].wudu_steps[wuduCurrentStep - 1]);
+      const stepText = audioTexts[currentLanguage].wudu_steps[currentWuduStep - 1];
+      if (stepText) {
+        speakText(stepText);
+      }
     }
 
     // إعادة تعيين الوضوء
     function resetWudu() {
       currentWuduStep = 1;
       selectWuduStep(1);
-      updateWuduProgress(1);
-      showNotification('تم إعادة تعيين دليل الوضوء');
+      showNotification(currentLanguage === 'ar' ? 'تم إعادة تعيين دليل الوضوء' : 'Wudu guide has been reset');
     }
 
-    // إيقاف مؤقت للصوت
+    // إيقاف الصوت
     function pauseAudio() {
-      if (currentAudio && speechSynthesis.speaking) {
+      if (speechSynthesis.speaking) {
         speechSynthesis.cancel();
         document.body.style.filter = 'brightness(1)';
         document.querySelectorAll('.active-playing').forEach(btn => {
           btn.classList.remove('active-playing');
         });
+        currentAudio = null;
+        showNotification(currentLanguage === 'ar' ? 'تم إيقاف الصوت' : 'Audio paused');
       }
     }
 
     // تشغيل خطوات الصلاة
     function playPrayerStep(stepNumber) {
-      if (isMuted) return;
-      
-      const prayerSteps = [
-        "القيام مع القدرة",
-        "تكبيرة الإحرام", 
-        "قراءة الفاتحة",
-        "الركوع والرفع منه",
-        "السجود والجلوس بين السجدتين",
-        "الجلوس للتشهد الأخير",
-        "السلام"
-      ];
-      
-      showNotification(`تشغيل شرح: ${prayerSteps[stepNumber - 1]}`);
-      
-      // تأثير بصري
-      const steps = document.querySelectorAll('.step-item');
-      steps.forEach(step => step.classList.remove('active'));
-      if (steps[stepNumber - 1]) {
-        steps[stepNumber - 1].classList.add('active');
+      const stepText = audioTexts[currentLanguage].prayer_steps[stepNumber - 1];
+      if (stepText) {
+        speakText(stepText);
+        
+        // تحديث العرض البصري
+        const steps = document.querySelectorAll('.step-item');
+        steps.forEach(step => step.classList.remove('active'));
+        
+        // البحث عن الخطوة في القسم الصحيح
+        const prayerSection = document.querySelector('#prayer .card:first-child .step-list');
+        if (prayerSection) {
+          const prayerSteps = prayerSection.querySelectorAll('.step-item');
+          if (prayerSteps[stepNumber - 1]) {
+            prayerSteps[stepNumber - 1].classList.add('active');
+          }
+        }
       }
     }
 
-    // تشغيل خطوات الصلاة المفصلة  
+    // تشغيل خطوات الصلاة المفصلة
     function playDetailedPrayerStep(stepNumber) {
-      if (isMuted) return;
-      
-      const detailedSteps = [
-        "استقبال القبلة والنية",
-        "تكبيرة الإحرام: الله أكبر",
-        "دعاء الاستفتاح",
-        "قراءة الفاتحة وسورة",
-        "الركوع مع التسبيح",
-        "الرفع من الركوع", 
-        "السجود مرتين",
-        "التشهد والسلام"
-      ];
-      
-      showNotification(`تشغيل شرح: ${detailedSteps[stepNumber - 1]}`);
+      const stepText = audioTexts[currentLanguage].detailed_prayer_steps[stepNumber - 1];
+      if (stepText) {
+        speakText(stepText);
+        
+        // تحديث العرض البصري
+        const prayerSection = document.querySelector('#prayer .card:last-child .step-list');
+        if (prayerSection) {
+          const steps = prayerSection.querySelectorAll('.step-item');
+          steps.forEach(step => step.classList.remove('active'));
+          if (steps[stepNumber - 1]) {
+            steps[stepNumber - 1].classList.add('active');
+          }
+        }
+      }
     }
 
     // تشغيل أذان الشيوخ
     function playAdhanSheikh(sheikhName) {
-      if (isMuted) return;
-      
       const sheikhs = {
-        mishary: "الشيخ مشاري العفاسي",
-        maher: "الشيخ ماهر المعيقلي", 
-        sudais: "الشيخ عبد الرحمن السديس",
-        ghamdi: "الشيخ سعد الغامدي",
-        tablawi: "الشيخ محمد الطبلاوي",
-        rifai: "الشيخ محمد رفعت"
+        mishary: currentLanguage === 'ar' ? "الشيخ مشاري العفاسي" : "Sheikh Mishary Al-Afasy",
+        maher: currentLanguage === 'ar' ? "الشيخ ماهر المعيقلي" : "Sheikh Maher Al-Muaiqly",
+        sudais: currentLanguage === 'ar' ? "الشيخ عبد الرحمن السديس" : "Sheikh Abdul Rahman Al-Sudais",
+        ghamdi: currentLanguage === 'ar' ? "الشيخ سعد الغامدي" : "Sheikh Saad Al-Ghamdi",
+        tablawi: currentLanguage === 'ar' ? "الشيخ محمد الطبلاوي" : "Sheikh Mohammed Al-Tablawi",
+        rifai: currentLanguage === 'ar' ? "الشيخ محمد رفعت" : "Sheikh Mohammed Rifat"
       };
       
-      showNotification(`تشغيل أذان: ${sheikhs[sheikhName]}`);
+      const message = currentLanguage === 'ar' ? 
+        `تشغيل أذان: ${sheikhs[sheikhName]}` : 
+        `Playing Adhan: ${sheikhs[sheikhName]}`;
+      
+      showNotification(message);
+      speakText(message);
       
       // تأثير بصري على البطاقة
-      const cards = document.querySelectorAll('.sheikh-card');
-      cards.forEach(card => card.classList.remove('active-playing'));
-      
-      event.target.closest('.sheikh-card').classList.add('active-playing');
-      
-      setTimeout(() => {
-        event.target.closest('.sheikh-card').classList.remove('active-playing');
-      }, 5000);
+      const sheikhCard = event?.target?.closest('.sheikh-card');
+      if (sheikhCard) {
+        sheikhCard.classList.add('active-playing');
+        setTimeout(() => {
+          sheikhCard.classList.remove('active-playing');
+        }, 5000);
+      }
     }
 
     // البحث عن القبلة
     function findQibla() {
-      showNotification('جاري تحديد موقعك وحساب اتجاه القبلة...');
+      const searchingMsg = currentLanguage === 'ar' ? 
+        'جاري تحديد موقعك وحساب اتجاه القبلة...' : 
+        'Finding your location and calculating Qibla direction...';
+      
+      showNotification(searchingMsg);
+      speakText(searchingMsg);
       
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(
@@ -1719,16 +1935,34 @@
             
             // حساب اتجاه القبلة (محاكاة)
             const qiblaDirection = calculateQibla(lat, lng);
-            document.getElementById('qibla-direction').textContent = qiblaDirection;
+            const qiblaElement = document.getElementById('qibla-direction');
+            if (qiblaElement) {
+              qiblaElement.textContent = qiblaDirection;
+            }
             
-            showNotification(`تم تحديد اتجاه القبلة: ${qiblaDirection}`);
+            const successMsg = currentLanguage === 'ar' ? 
+              `تم تحديد اتجاه القبلة: ${qiblaDirection}` : 
+              `Qibla direction determined: ${qiblaDirection}`;
+            
+            showNotification(successMsg);
+            speakText(successMsg);
           },
           error => {
-            showNotification('لم يتمكن من تحديد موقعك. يرجى السماح بالوصول للموقع.');
+            const errorMsg = currentLanguage === 'ar' ? 
+              'لم يتمكن من تحديد موقعك. يرجى السماح بالوصول للموقع.' : 
+              'Could not determine your location. Please allow location access.';
+            
+            showNotification(errorMsg);
+            speakText(errorMsg);
           }
         );
       } else {
-        showNotification('متصفحك لا يدعم تحديد الموقع الجغرافي');
+        const noSupportMsg = currentLanguage === 'ar' ? 
+          'متصفحك لا يدعم تحديد الموقع الجغرافي' : 
+          'Your browser does not support geolocation';
+        
+        showNotification(noSupportMsg);
+        speakText(noSupportMsg);
       }
     }
 
@@ -1741,79 +1975,113 @@
       // حساب الاتجاه (محاكاة مبسطة)
       const deltaLng = meccaLng - lng;
       
-      if (deltaLng > 0 && lat > meccaLat) return "شمال شرق";
-      if (deltaLng > 0 && lat < meccaLat) return "جنوب شرق"; 
-      if (deltaLng < 0 && lat > meccaLat) return "شمال غرب";
-      return "جنوب غرب";
+      if (currentLanguage === 'ar') {
+        if (deltaLng > 0 && lat > meccaLat) return "شمال شرق";
+        if (deltaLng > 0 && lat < meccaLat) return "جنوب شرق"; 
+        if (deltaLng < 0 && lat > meccaLat) return "شمال غرب";
+        return "جنوب غرب";
+      } else {
+        if (deltaLng > 0 && lat > meccaLat) return "Northeast";
+        if (deltaLng > 0 && lat < meccaLat) return "Southeast"; 
+        if (deltaLng < 0 && lat > meccaLat) return "Northwest";
+        return "Southwest";
+      }
     }
 
     // معايرة البوصلة
     function calibrateCompass() {
-      showNotification('جاري معايرة البوصلة...');
+      const calibratingMsg = currentLanguage === 'ar' ? 
+        'جاري معايرة البوصلة...' : 
+        'Calibrating compass...';
+      
+      showNotification(calibratingMsg);
+      speakText(calibratingMsg);
       
       // تأثير بصري للمعايرة
       const compass = document.querySelector('.qibla-compass');
-      compass.style.animation = 'none';
-      
-      setTimeout(() => {
-        compass.style.animation = 'rotate 20s linear infinite';
-        showNotification('تم معايرة البوصلة بنجاح');
-      }, 2000);
+      if (compass) {
+        compass.style.animation = 'none';
+        
+        setTimeout(() => {
+          compass.style.animation = 'rotate 20s linear infinite';
+          const successMsg = currentLanguage === 'ar' ? 
+            'تم معايرة البوصلة بنجاح' : 
+            'Compass calibrated successfully';
+          
+          showNotification(successMsg);
+          speakText(successMsg);
+        }, 2000);
+      }
     }
 
     // تشغيل الأدعية
     function playDua(duaType) {
-      if (isMuted) return;
-      
-      const duas = {
-        shahada: "الشهادة",
-        tasbih: "التسبيح", 
-        after_prayer: "دعاء ما بعد الصلاة"
-      };
-      
-      showNotification(`تشغيل: ${duas[duaType]}`);
-      
-      // تأثير بصري
-      event.target.closest('.dua-card').classList.add('active-playing');
-      setTimeout(() => {
-        event.target.closest('.dua-card').classList.remove('active-playing');
-      }, 3000);
+      const duaText = audioTexts[currentLanguage].duas[duaType];
+      if (duaText) {
+        speakText(duaText);
+        
+        // تأثير بصري
+        const duaCard = event?.target?.closest('.dua-card');
+        if (duaCard) {
+          duaCard.classList.add('active-playing');
+          setTimeout(() => {
+            duaCard.classList.remove('active-playing');
+          }, 3000);
+        }
+      }
     }
 
     // تكرار الدعاء
     function repeatDua(duaType) {
-      showNotification('تم تفعيل وضع التكرار');
+      const repeatMsg = currentLanguage === 'ar' ? 
+        'تم تفعيل وضع التكرار' : 
+        'Repeat mode activated';
+      
+      showNotification(repeatMsg);
+      speakText(repeatMsg);
     }
 
     // بدء العداد
     function startCounter() {
       duaCounter++;
-      document.getElementById('counter').textContent = duaCounter;
-      
-      // تأثير بصري
-      const counterBadge = document.getElementById('counter');
-      counterBadge.style.transform = 'scale(1.2)';
-      setTimeout(() => {
-        counterBadge.style.transform = 'scale(1)';
-      }, 200);
+      const counterElement = document.getElementById('counter');
+      if (counterElement) {
+        counterElement.textContent = duaCounter;
+        
+        // تأثير بصري
+        counterElement.style.transform = 'scale(1.2)';
+        setTimeout(() => {
+          counterElement.style.transform = 'scale(1)';
+        }, 200);
+      }
       
       if (duaCounter % 33 === 0) {
-        showNotification(`مبارك! أكملت ${duaCounter} تسبيحة`);
+        const milestoneMsg = currentLanguage === 'ar' ? 
+          `مبارك! أكملت ${duaCounter} تسبيحة` : 
+          `Congratulations! You completed ${duaCounter} recitations`;
+        
+        showNotification(milestoneMsg);
+        speakText(milestoneMsg);
       }
     }
 
     // تشغيل الأذان العام
     function playGeneralAdhan() {
-      if (isMuted) return;
+      const adhanMsg = currentLanguage === 'ar' ? 
+        'تشغيل الأذان...' : 
+        'Playing Adhan...';
       
-      showNotification('تشغيل الأذان...');
+      showNotification(adhanMsg);
+      speakText(adhanMsg);
       
       // تأثير بصري
-      const btn = event.target;
-      btn.classList.add('active-playing');
-      setTimeout(() => {
-        btn.classList.remove('active-playing');
-      }, 5000);
+      const btn = event?.target;
+      if (btn) {
+        btn.classList.add('active-playing');
+        setTimeout(() => {
+          btn.classList.remove('active-playing');
+        }, 5000);
+      }
     }
 
     // تغيير اللغة
@@ -1824,39 +2092,54 @@
       document.querySelectorAll('.lang-btn').forEach(btn => {
         btn.classList.remove('active');
       });
-      document.getElementById(`lang-${language}`).classList.add('active');
-      
-      if (language === 'en') {
-        showNotification('Language changed to English');
-        // هنا يمكن إضافة ترجمة المحتوى
-      } else {
-        showNotification('تم تغيير اللغة إلى العربية');
+      const langButton = document.getElementById(`lang-${language}`);
+      if (langButton) {
+        langButton.classList.add('active');
       }
+      
+      // تحديث قائمة الأصوات
+      populateVoiceList();
+      
+      const langMsg = language === 'en' ? 
+        'Language changed to English' : 
+        'تم تغيير اللغة إلى العربية';
+      
+      showNotification(langMsg);
+      speakText(langMsg);
     }
 
-    // اختبار الصوت
-    function testAudio() {
-      if (isMuted) return;
-      showNotification('اختبار الصوت - يعمل بشكل طبيعي');
+    // اختبار TTS
+    function testTTS() {
+      const testMsg = currentLanguage === 'ar' ? 
+        'هذا اختبار للصوت - يعمل بشكل طبيعي' : 
+        'This is a voice test - working normally';
+      
+      speakText(testMsg);
     }
 
     // كتم/إلغاء كتم الصوت
     function toggleMute() {
       isMuted = !isMuted;
-      const icon = event.target.querySelector('i');
+      const icon = document.getElementById('mute-icon');
       
       if (isMuted) {
-        icon.className = 'fas fa-volume-mute';
-        showNotification('تم كتم الصوت');
+        if (icon) icon.className = 'fas fa-volume-mute';
+        speechSynthesis.cancel(); // إيقاف أي صوت حالي
+        showNotification(currentLanguage === 'ar' ? 'تم كتم الصوت' : 'Audio muted');
       } else {
-        icon.className = 'fas fa-volume-high';
-        showNotification('تم إلغاء كتم الصوت');
+        if (icon) icon.className = 'fas fa-volume-high';
+        showNotification(currentLanguage === 'ar' ? 'تم إلغاء كتم الصوت' : 'Audio unmuted');
       }
     }
 
     // تبديل المظهر
     function toggleTheme() {
-      showNotification('ميزة تغيير المظهر ستتوفر قريباً');
+      const themeMsg = currentLanguage === 'ar' ? 
+        'ميزة تغيير المظهر ستتوفر قريباً' : 
+        'Theme switching feature coming soon';
+      
+      showNotification(themeMsg);
+      speakText(themeMsg);
     }
 
     // إعادة تعيين الإعدادات
@@ -1864,38 +2147,66 @@
       currentLanguage = 'ar';
       isMuted = false;
       duaCounter = 0;
+      ttsRate = 1;
+      ttsPitch = 1;
       
       // إعادة تعيين واجهة اللغة
       document.querySelectorAll('.lang-btn').forEach(btn => {
         btn.classList.remove('active');
       });
-      document.getElementById('lang-ar').classList.add('active');
+      const arabicBtn = document.getElementById('lang-ar');
+      if (arabicBtn) {
+        arabicBtn.classList.add('active');
+      }
       
       // إعادة تعيين العداد
-      document.getElementById('counter').textContent = '0';
+      const counterElement = document.getElementById('counter');
+      if (counterElement) {
+        counterElement.textContent = '0';
+      }
+      
+      // إعادة تعيين شرائح التحكم
+      const rateSlider = document.getElementById('tts-rate');
+      const pitchSlider = document.getElementById('tts-pitch');
+      const rateValue = document.getElementById('tts-rate-value');
+      const pitchValue = document.getElementById('tts-pitch-value');
+      
+      if (rateSlider) rateSlider.value = 1;
+      if (pitchSlider) pitchSlider.value = 1;
+      if (rateValue) rateValue.textContent = '1';
+      if (pitchValue) pitchValue.textContent = '1';
+      
+      // إعادة تعيين أيقونة الكتم
+      const muteIcon = document.getElementById('mute-icon');
+      if (muteIcon) {
+        muteIcon.className = 'fas fa-volume-high';
+      }
       
       showNotification('تم إعادة تعيين جميع الإعدادات');
+      speakText('تم إعادة تعيين جميع الإعدادات');
     }
 
     // عرض الإشعارات
     function showNotification(message) {
       const notification = document.getElementById('notification');
-      const messageElement = notification.querySelector('p');
+      const messageElement = notification?.querySelector('p');
       
       if (messageElement) {
         messageElement.textContent = message;
       }
       
-      notification.classList.add('show');
-      
-      setTimeout(() => {
-        notification.classList.remove('show');
-      }, 3000);
+      if (notification) {
+        notification.classList.add('show');
+        
+        setTimeout(() => {
+          notification.classList.remove('show');
+        }, 3000);
+      }
     }
 
     // تشغيل الصوت الترحيبي
     function playWelcomeAudio() {
-      speakText(audioSources[currentLanguage].welcome);
+      speakText(audioTexts[currentLanguage].welcome);
     }
 
     // تحديث مواقيت الصلاة
@@ -1917,8 +2228,10 @@
 
     // تحديث اتجاه القبلة
     function updateQiblaDirection() {
-      // محاكاة تحديث اتجاه القبلة
-      const directions = ['شمال شرق', 'شرق', 'جنوب شرق', 'جنوب'];
+      const directions = currentLanguage === 'ar' ? 
+        ['شمال شرق', 'شرق', 'جنوب شرق', 'جنوب'] :
+        ['Northeast', 'East', 'Southeast', 'South'];
+      
       const randomDirection = directions[Math.floor(Math.random() * directions.length)];
       
       const qiblaElement = document.getElementById('qibla-direction');
@@ -1927,8 +2240,46 @@
       }
     }
 
+    // معالجة أحداث التحكم في TTS
+    function setupTTSControls() {
+      const voiceSelect = document.getElementById('tts-voice-select');
+      const rateSlider = document.getElementById('tts-rate');
+      const pitchSlider = document.getElementById('tts-pitch');
+      const rateValue = document.getElementById('tts-rate-value');
+      const pitchValue = document.getElementById('tts-pitch-value');
+
+      if (voiceSelect) {
+        voiceSelect.addEventListener('change', function() {
+          const selectedVoice = availableVoices.find(voice => voice.name === this.value);
+          if (selectedVoice) {
+            ttsVoice = selectedVoice;
+          }
+        });
+      }
+
+      if (rateSlider && rateValue) {
+        rateSlider.addEventListener('input', function() {
+          ttsRate = parseFloat(this.value);
+          rateValue.textContent = ttsRate.toFixed(1);
+        });
+      }
+
+      if (pitchSlider && pitchValue) {
+        pitchSlider.addEventListener('input', function() {
+          ttsPitch = parseFloat(this.value);
+          pitchValue.textContent = ttsPitch.toFixed(1);
+        });
+      }
+    }
+
     // تهيئة التطبيق عند التحميل
     document.addEventListener('DOMContentLoaded', function() {
+      // تهيئة TTS
+      initializeTTS();
+      
+      // إعداد عناصر التحكم
+      setupTTSControls();
+      
       // تحديث مواقيت الصلاة
       updatePrayerTimes();
       
@@ -1940,7 +2291,10 @@
       
       // رسالة ترحيب
       setTimeout(() => {
-        showNotification('مرحباً بك! اختر القسم الذي تريد التعلم منه');
+        const welcomeMsg = currentLanguage === 'ar' ? 
+          'مرحباً بك! اختر القسم الذي تريد التعلم منه' : 
+          'Welcome! Choose the section you want to learn from';
+        showNotification(welcomeMsg);
       }, 1000);
     });
 
@@ -1972,15 +2326,15 @@
       });
     });
 
-    // حفظ التقدم محلياً (بدون localStorage حسب المتطلبات)
-    let appState = {
-      currentStep: 1,
-      counter: 0,
-      language: 'ar',
-      muted: false
-    };
+    // معالجة أخطاء JavaScript
+    window.addEventListener('error', function(e) {
+      console.error('JavaScript Error:', e.error);
+      showNotification(currentLanguage === 'ar' ? 
+        'حدث خطأ في التطبيق' : 
+        'An error occurred in the application');
+    });
 
-    // تصدير دوال للاستخدام العام
+    // تصدير الدوال للاستخدام العام
     window.prayerGuideApp = {
       showTab,
       toggleMobileMenu,
@@ -1998,13 +2352,119 @@
       startCounter,
       playGeneralAdhan,
       setLanguage,
-      testAudio,
+      testTTS,
       toggleMute,
       toggleTheme,
       resetSettings,
       showNotification,
-      playWelcomeAudio
+      playWelcomeAudio,
+      speakText
     };
+
+    // إضافة معالج للتحكم في الأصوات عند إغلاق الصفحة
+    window.addEventListener('beforeunload', function() {
+      if (speechSynthesis.speaking) {
+        speechSynthesis.cancel();
+      }
+    });
+
+    // إضافة معالج لإيقاف الصوت عند تغيير التبويب
+    document.addEventListener('visibilitychange', function() {
+      if (document.hidden && speechSynthesis.speaking) {
+        speechSynthesis.pause();
+      } else if (!document.hidden && speechSynthesis.paused) {
+        speechSynthesis.resume();
+      }
+    });
+
+    // معالج خاص للأجهزة المحمولة
+    if ('ontouchstart' in window) {
+      // إضافة دعم اللمس للعناصر التفاعلية
+      document.querySelectorAll('.audio-btn, .nav-tab, .step-item, .card').forEach(element => {
+        element.addEventListener('touchstart', function() {
+          this.style.transform = 'scale(0.95)';
+        });
+        
+        element.addEventListener('touchend', function() {
+          this.style.transform = 'scale(1)';
+        });
+      });
+    }
+
+    // دالة مساعدة لتحديد ما إذا كان المتصفح يدعم TTS
+    function isTTSSupported() {
+      return 'speechSynthesis' in window && 'SpeechSynthesisUtterance' in window;
+    }
+
+    // دالة مساعدة للحصول على أفضل صوت للغة المحددة
+    function getBestVoiceForLanguage(lang) {
+      if (!isTTSSupported()) return null;
+      
+      const voices = speechSynthesis.getVoices();
+      
+      // البحث عن صوت بنفس اللغة
+      let voice = voices.find(v => v.lang.startsWith(lang));
+      
+      // البحث عن صوت افتراضي إذا لم يوجد
+      if (!voice) {
+        voice = voices.find(v => v.default);
+      }
+      
+      // استخدام أول صوت متاح كحل أخير
+      if (!voice && voices.length > 0) {
+        voice = voices[0];
+      }
+      
+      return voice;
+    }
+
+    // تحسين دالة تهيئة TTS
+    function enhancedInitializeTTS() {
+      if (!isTTSSupported()) {
+        const msg = currentLanguage === 'ar' ? 
+          'متصفحك لا يدعم ميزة تحويل النص إلى كلام' :
+          'Your browser does not support text-to-speech';
+        document.getElementById('tts-support-msg').textContent = msg;
+        return;
+      }
+
+      // تحديث الأصوات مع محاولات متعددة
+      let attempts = 0;
+      const maxAttempts = 3;
+      
+      function tryLoadVoices() {
+        const voices = speechSynthesis.getVoices();
+        
+        if (voices.length > 0) {
+          availableVoices = voices;
+          populateVoiceList();
+          
+          // تحديد أفضل صوت للغة الحالية
+          const bestVoice = getBestVoiceForLanguage(currentLanguage === 'ar' ? 'ar' : 'en');
+          if (bestVoice) {
+            ttsVoice = bestVoice;
+            const voiceSelect = document.getElementById('tts-voice-select');
+            if (voiceSelect) {
+              voiceSelect.value = bestVoice.name;
+            }
+          }
+        } else if (attempts < maxAttempts) {
+          attempts++;
+          setTimeout(tryLoadVoices, 500);
+        }
+      }
+
+      // محاولة تحميل الأصوات
+      if (speechSynthesis.onvoiceschanged !== undefined) {
+        speechSynthesis.onvoiceschanged = tryLoadVoices;
+      }
+      
+      // محاولة فورية أيضاً
+      tryLoadVoices();
+    }
+
+    // استبدال دالة initializeTTS بالنسخة المحسّنة
+    initializeTTS = enhancedInitializeTTS;
   </script>
 </body>
 </html>
