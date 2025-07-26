@@ -13428,7 +13428,6 @@ function calculatePrayerProgress(prayers, currentPrayer, now, zone) {
             const data = await response.json();
             if (data.code === 200 && data.data && data.data.hijri) {
               const hijri = data.data.hijri;
-              // تنسيق التاريخ الهجري: ٢ صفر ١٤٤٧ هـ
               const day = hijri.day.replace(/^0/, '');
               const month = hijri.month.ar;
               const year = hijri.year;
