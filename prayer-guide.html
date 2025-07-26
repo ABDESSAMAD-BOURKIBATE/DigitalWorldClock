@@ -939,9 +939,6 @@
         <button class="nav-tab" onclick="showTab('prayer')">
           <i class="fas fa-praying-hands"></i> الصلاة
         </button>
-        <button class="nav-tab" onclick="showTab('adhan')">
-          <i class="fas fa-volume-up"></i> الأذان
-        </button>
         <button class="nav-tab" onclick="showTab('qibla')">
           <i class="fas fa-compass"></i> القبلة
         </button>
@@ -991,14 +988,6 @@
           </div>
           <h3 class="card-title">أداء الصلاة</h3>
           <p>دليل شامل لأداء الصلاة مع التوجيه خطوة بخطوة</p>
-        </div>
-
-        <div class="card" onclick="showTab('adhan')">
-          <div class="card-icon">
-            <i class="fas fa-volume-up"></i>
-          </div>
-          <h3 class="card-title">أذان الشيوخ</h3>
-          <p>استمع لأذان أشهر المؤذنين والشيوخ حول العالم</p>
         </div>
 
         <div class="card" onclick="showTab('qibla')">
@@ -1174,95 +1163,6 @@
       </div>
     </div>
 
-    <!-- قسم الأذان -->
-    <div id="adhan" class="tab-content">
-      <div class="hero-card">
-        <h2 style="text-align: center; margin-bottom: 30px; color: var(--text-gold);">
-          <i class="fas fa-volume-up"></i>
-          أذان الشيوخ المميزين
-        </h2>
-
-        <div class="adhan-section">
-          <div class="sheikh-card" onclick="playAdhanSheikh('mishary')">
-            <div class="sheikh-image">
-              <i class="fas fa-mosque"></i>
-            </div>
-            <div class="sheikh-name">الشيخ مشاري العفاسي</div>
-            <div class="sheikh-description">صوت جميل ومؤثر من الكويت</div>
-            <div class="audio-controls">
-              <button class="audio-btn">
-                <i class="fas fa-play"></i>
-              </button>
-            </div>
-          </div>
-
-          <div class="sheikh-card" onclick="playAdhanSheikh('maher')">
-            <div class="sheikh-image">
-              <i class="fas fa-star-and-crescent"></i>
-            </div>
-            <div class="sheikh-name">الشيخ ماهر المعيقلي</div>
-            <div class="sheikh-description">إمام المسجد الحرام بمكة المكرمة</div>
-            <div class="audio-controls">
-              <button class="audio-btn">
-                <i class="fas fa-play"></i>
-              </button>
-            </div>
-          </div>
-
-          <div class="sheikh-card" onclick="playAdhanSheikh('sudais')">
-            <div class="sheikh-image">
-              <i class="fas fa-kaaba"></i>
-            </div>
-            <div class="sheikh-name">الشيخ عبد الرحمن السديس</div>
-            <div class="sheikh-description">إمام المسجد الحرام السابق</div>
-            <div class="audio-controls">
-              <button class="audio-btn">
-                <i class="fas fa-play"></i>
-              </button>
-            </div>
-          </div>
-
-          <div class="sheikh-card" onclick="playAdhanSheikh('ghamdi')">
-            <div class="sheikh-image">
-              <i class="fas fa-moon"></i>
-            </div>
-            <div class="sheikh-name">الشيخ سعد الغامدي</div>
-            <div class="sheikh-description">قارئ مميز من المملكة العربية السعودية</div>
-            <div class="audio-controls">
-              <button class="audio-btn">
-                <i class="fas fa-play"></i>
-              </button>
-            </div>
-          </div>
-
-          <div class="sheikh-card" onclick="playAdhanSheikh('tablawi')">
-            <div class="sheikh-image">
-              <i class="fas fa-minaret"></i>
-            </div>
-            <div class="sheikh-name">الشيخ محمد الطبلاوي</div>
-            <div class="sheikh-description">مؤذن الأزهر الشريف</div>
-            <div class="audio-controls">
-              <button class="audio-btn">
-                <i class="fas fa-play"></i>
-              </button>
-            </div>
-          </div>
-
-          <div class="sheikh-card" onclick="playAdhanSheikh('rifai')">
-            <div class="sheikh-image">
-              <i class="fas fa-star"></i>
-            </div>
-            <div class="sheikh-name">الشيخ محمد رفعت</div>
-            <div class="sheikh-description">أسطورة الأذان المصري</div>
-            <div class="audio-controls">
-              <button class="audio-btn">
-                <i class="fas fa-play"></i>
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
 
     <!-- قسم القبلة -->
     <div id="qibla" class="tab-content">
@@ -1890,32 +1790,22 @@
       }
     }
 
-    // تشغيل أذان الشيوخ
-    function playAdhanSheikh(sheikhName) {
-      const sheikhs = {
-        mishary: currentLanguage === 'ar' ? "الشيخ مشاري العفاسي" : "Sheikh Mishary Al-Afasy",
-        maher: currentLanguage === 'ar' ? "الشيخ ماهر المعيقلي" : "Sheikh Maher Al-Muaiqly",
-        sudais: currentLanguage === 'ar' ? "الشيخ عبد الرحمن السديس" : "Sheikh Abdul Rahman Al-Sudais",
-        ghamdi: currentLanguage === 'ar' ? "الشيخ سعد الغامدي" : "Sheikh Saad Al-Ghamdi",
-        tablawi: currentLanguage === 'ar' ? "الشيخ محمد الطبلاوي" : "Sheikh Mohammed Al-Tablawi",
-        rifai: currentLanguage === 'ar' ? "الشيخ محمد رفعت" : "Sheikh Mohammed Rifat"
-      };
-      
-      const message = currentLanguage === 'ar' ? 
-        `تشغيل أذان: ${sheikhs[sheikhName]}` : 
-        `Playing Adhan: ${sheikhs[sheikhName]}`;
-      
-      showNotification(message);
-      speakText(message);
-      
-      // تأثير بصري على البطاقة
-      const sheikhCard = event?.target?.closest('.sheikh-card');
-      if (sheikhCard) {
-        sheikhCard.classList.add('active-playing');
-        setTimeout(() => {
-          sheikhCard.classList.remove('active-playing');
-        }, 5000);
+    // تشغيل الأذان الحقيقي من Adhan API (mp3)
+    async function playGeneralAdhan() {
+      if (!navigator.geolocation) {
+        showNotification('المتصفح لا يدعم تحديد الموقع');
+        return;
       }
+      showNotification('جاري جلب الأذان...');
+      navigator.geolocation.getCurrentPosition(async position => {
+        // يمكنك تخصيص mp3 حسب الوقت أو الاكتفاء بصوت ثابت
+        const adhanMp3 = 'https://cdn.islamic.network/adhan/audio/128/ar.mishary.rashid.mp3';
+        const audio = new Audio(adhanMp3);
+        audio.play();
+        showNotification('تشغيل الأذان الحقيقي');
+      }, () => {
+        showNotification('تعذر تحديد الموقع');
+      });
     }
 
     // البحث عن القبلة
@@ -1964,55 +1854,32 @@
         showNotification(noSupportMsg);
         speakText(noSupportMsg);
       }
-    }
-
-    // حساب اتجاه القبلة
-    function calculateQibla(lat, lng) {
-      // إحداثيات الكعبة المشرفة
-      const meccaLat = 21.4225;
-      const meccaLng = 39.8262;
-      
-      // حساب الاتجاه (محاكاة مبسطة)
-      const deltaLng = meccaLng - lng;
-      
-      if (currentLanguage === 'ar') {
-        if (deltaLng > 0 && lat > meccaLat) return "شمال شرق";
-        if (deltaLng > 0 && lat < meccaLat) return "جنوب شرق"; 
-        if (deltaLng < 0 && lat > meccaLat) return "شمال غرب";
-        return "جنوب غرب";
-      } else {
-        if (deltaLng > 0 && lat > meccaLat) return "Northeast";
-        if (deltaLng > 0 && lat < meccaLat) return "Southeast"; 
-        if (deltaLng < 0 && lat > meccaLat) return "Northwest";
-        return "Southwest";
+    }// تحديث اتجاه القبلة من Adhan API بناءً على GPS
+function updateQiblaDirection() {
+  if (!navigator.geolocation) {
+    showNotification('المتصفح لا يدعم تحديد الموقع');
+    return;
+  }
+  navigator.geolocation.getCurrentPosition(async position => {
+    const lat = position.coords.latitude;
+    const lng = position.coords.longitude;
+    try {
+      const res = await fetch(`https://api.aladhan.com/v1/qibla/${lat}/${lng}`);
+      const data = await res.json();
+      if (data.code === 200) {
+        const direction = Math.round(data.data.direction);
+        const qiblaElement = document.getElementById('qibla-direction');
+        if (qiblaElement) {
+          qiblaElement.textContent = `${direction}°`;
+        }
       }
+    } catch (e) {
+      showNotification('تعذر جلب اتجاه القبلة');
     }
-
-    // معايرة البوصلة
-    function calibrateCompass() {
-      const calibratingMsg = currentLanguage === 'ar' ? 
-        'جاري معايرة البوصلة...' : 
-        'Calibrating compass...';
-      
-      showNotification(calibratingMsg);
-      speakText(calibratingMsg);
-      
-      // تأثير بصري للمعايرة
-      const compass = document.querySelector('.qibla-compass');
-      if (compass) {
-        compass.style.animation = 'none';
-        
-        setTimeout(() => {
-          compass.style.animation = 'rotate 20s linear infinite';
-          const successMsg = currentLanguage === 'ar' ? 
-            'تم معايرة البوصلة بنجاح' : 
-            'Compass calibrated successfully';
-          
-          showNotification(successMsg);
-          speakText(successMsg);
-        }, 2000);
-      }
-    }
+  }, () => {
+    showNotification('تعذر تحديد الموقع');
+  });
+}
 
     // تشغيل الأدعية
     function playDua(duaType) {
@@ -2209,34 +2076,143 @@
       speakText(audioTexts[currentLanguage].welcome);
     }
 
-    // تحديث مواقيت الصلاة
+    // تحديث مواقيت الصلاة باستخدام GPS وAdhan API
     function updatePrayerTimes() {
-      const now = new Date();
-      const currentTime = now.getHours() + ':' + (now.getMinutes() < 10 ? '0' : '') + now.getMinutes();
-      
-      // تحديد الصلاة الحالية (محاكاة)
-      document.querySelectorAll('.prayer-time').forEach(time => {
-        time.classList.remove('current');
-      });
-      
-      // تمييز صلاة الظهر كمثال
-      const dhuhrTime = document.querySelector('.prayer-time:nth-child(3)');
-      if (dhuhrTime) {
-        dhuhrTime.classList.add('current');
+      if (!navigator.geolocation) {
+        showNotification(currentLanguage === 'ar' ? 'متصفحك لا يدعم تحديد الموقع' : 'Your browser does not support geolocation');
+        return;
       }
+      navigator.geolocation.getCurrentPosition(
+        position => {
+          const lat = position.coords.latitude;
+          const lng = position.coords.longitude;
+          const today = new Date();
+          const day = today.getDate();
+          const month = today.getMonth() + 1;
+          const year = today.getFullYear();
+          const url = `https://api.aladhan.com/v1/timings/${day}-${month}-${year}?latitude=${lat}&longitude=${lng}&method=5&school=0&lang=${currentLanguage}`;
+          fetch(url)
+            .then(res => res.json())
+            .then(data => {
+              if (data.code !== 200) throw new Error('API Error');
+              const timings = data.data.timings;
+              document.getElementById('fajr-time').textContent = timings.Fajr;
+              document.getElementById('sunrise-time').textContent = timings.Sunrise;
+              document.getElementById('dhuhr-time').textContent = timings.Dhuhr;
+              document.getElementById('asr-time').textContent = timings.Asr;
+              document.getElementById('maghrib-time').textContent = timings.Maghrib;
+              document.getElementById('isha-time').textContent = timings.Isha;
+              highlightCurrentPrayer(timings);
+            })
+            .catch(() => {
+              showNotification(currentLanguage === 'ar' ? 'تعذر جلب مواقيت الصلاة' : 'Could not fetch prayer times');
+            });
+        },
+        () => {
+          showNotification(currentLanguage === 'ar' ? 'تعذر تحديد موقعك' : 'Could not determine your location');
+        }
+      );
     }
 
-    // تحديث اتجاه القبلة
+    // تمييز الصلاة الحالية بناءً على الوقت
+    function highlightCurrentPrayer(timings) {
+      const now = new Date();
+      const toMinutes = t => {
+        const [h, m] = t.split(':');
+        return parseInt(h) * 60 + parseInt(m);
+      };
+      const currentMins = now.getHours() * 60 + now.getMinutes();
+      const prayerOrder = [
+        { id: 'fajr-time', time: timings.Fajr },
+        { id: 'sunrise-time', time: timings.Sunrise },
+        { id: 'dhuhr-time', time: timings.Dhuhr },
+        { id: 'asr-time', time: timings.Asr },
+        { id: 'maghrib-time', time: timings.Maghrib },
+        { id: 'isha-time', time: timings.Isha }
+      ];
+      let currentIdx = 0;
+      for (let i = 0; i < prayerOrder.length; i++) {
+        if (currentMins >= toMinutes(prayerOrder[i].time)) {
+          currentIdx = i;
+        }
+      }
+      document.querySelectorAll('.prayer-time').forEach((el, idx) => {
+        el.classList.toggle('current', idx === currentIdx);
+      });
+    }
+
+    // تحديث اتجاه القبلة وتحريك الإبرة بدقة حسب مستشعر الهاتف
+    let qiblaAngle = null;
+    let deviceOrientationListener = null;
     function updateQiblaDirection() {
-      const directions = currentLanguage === 'ar' ? 
-        ['شمال شرق', 'شرق', 'جنوب شرق', 'جنوب'] :
-        ['Northeast', 'East', 'Southeast', 'South'];
-      
-      const randomDirection = directions[Math.floor(Math.random() * directions.length)];
-      
-      const qiblaElement = document.getElementById('qibla-direction');
-      if (qiblaElement) {
-        qiblaElement.textContent = randomDirection;
+      if (!navigator.geolocation) {
+        showNotification(currentLanguage === 'ar' ? 'متصفحك لا يدعم تحديد الموقع' : 'Your browser does not support geolocation');
+        return;
+      }
+      showNotification(currentLanguage === 'ar' ? 'يرجى السماح بالوصول إلى الموقع لتحديد اتجاه القبلة' : 'Please allow location access to determine Qibla direction');
+      navigator.geolocation.getCurrentPosition(
+        position => {
+          const lat = position.coords.latitude;
+          const lng = position.coords.longitude;
+          fetch(`https://api.aladhan.com/v1/qibla/${lat}/${lng}`)
+            .then(res => res.json())
+            .then(data => {
+              if (data.code === 200) {
+                qiblaAngle = data.data.direction; // زاوية القبلة الحقيقية
+                const direction = Math.round(qiblaAngle);
+                const qiblaElement = document.getElementById('qibla-direction');
+                if (qiblaElement) {
+                  qiblaElement.textContent = `${direction}°`;
+                }
+                showNotification((currentLanguage === 'ar' ? 'اتجاه القبلة: ' : 'Qibla direction: ') + direction + '°');
+                setupCompassNeedle();
+              } else {
+                showNotification(currentLanguage === 'ar' ? 'تعذر جلب اتجاه القبلة' : 'Could not fetch Qibla direction');
+              }
+            })
+            .catch(() => {
+              showNotification(currentLanguage === 'ar' ? 'تعذر جلب اتجاه القبلة' : 'Could not fetch Qibla direction');
+            });
+        },
+        () => {
+          showNotification(currentLanguage === 'ar' ? 'تعذر تحديد موقعك' : 'Could not determine your location');
+        }
+      );
+    }
+
+    // تحريك إبرة القبلة بدقة: الإبرة تشير دائماً إلى اتجاه القبلة الحقيقي
+    function setupCompassNeedle() {
+      // إزالة أي مستمع سابق
+      if (deviceOrientationListener) {
+        window.removeEventListener('deviceorientationabsolute', deviceOrientationListener);
+        window.removeEventListener('deviceorientation', deviceOrientationListener);
+        deviceOrientationListener = null;
+      }
+      const needle = document.querySelector('.compass-needle');
+      if (!needle || qiblaAngle === null) return;
+      // مستمع جديد
+      deviceOrientationListener = function(event) {
+        let heading = null;
+        // iOS/Safari
+        if (typeof event.webkitCompassHeading !== 'undefined') {
+          heading = event.webkitCompassHeading;
+        } else if (typeof event.alpha !== 'undefined') {
+          // معظم أجهزة أندرويد
+          // alpha: 0 = الشمال الحقيقي
+          heading = 360 - event.alpha;
+        }
+        if (heading === null || isNaN(heading)) return;
+        // الزاوية المطلوبة: الفرق بين زاوية القبلة وheading (الشمال)
+        let rotation = qiblaAngle - heading;
+        // تصحيح الدوران ليبقى بين 0 و 360
+        rotation = ((rotation % 360) + 360) % 360;
+        needle.style.transform = `rotate(${rotation}deg)`;
+      };
+      // دعم الأحداث المختلفة حسب المتصفح
+      if ('ondeviceorientationabsolute' in window) {
+        window.addEventListener('deviceorientationabsolute', deviceOrientationListener, true);
+      } else {
+        window.addEventListener('deviceorientation', deviceOrientationListener, true);
       }
     }
 
@@ -2326,12 +2302,18 @@
       });
     });
 
-    // معالجة أخطاء JavaScript
+    // معالجة أخطاء JavaScript مع عرض تفاصيل الخطأ للمستخدم
     window.addEventListener('error', function(e) {
-      console.error('JavaScript Error:', e.error);
-      showNotification(currentLanguage === 'ar' ? 
-        'حدث خطأ في التطبيق' : 
-        'An error occurred in the application');
+      let msg = '';
+      if (e && e.error && e.error.message) {
+        msg = e.error.message;
+      } else if (e && e.message) {
+        msg = e.message;
+      } else {
+        msg = currentLanguage === 'ar' ? 'حدث خطأ غير معروف في التطبيق' : 'Unknown error occurred in the application';
+      }
+      console.error('JavaScript Error:', e.error || e);
+      showNotification((currentLanguage === 'ar' ? 'خطأ: ' : 'Error: ') + msg);
     });
 
     // تصدير الدوال للاستخدام العام
