@@ -366,6 +366,53 @@
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 15px;
             margin-top: 20px;
+
+        /* تحسين عرض قائمة التفاسير والسور على الجوال والتابلت */
+        @media (max-width: 900px) {
+            .chapter-grid {
+                display: flex;
+                overflow-x: auto;
+                gap: 12px;
+                scroll-snap-type: x mandatory;
+                padding-bottom: 10px;
+            }
+            .chapter-card {
+                min-width: 220px;
+                flex: 0 0 auto;
+                scroll-snap-align: start;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .chapter-grid {
+                display: flex;
+                overflow-x: auto;
+                gap: 10px;
+                scroll-snap-type: x mandatory;
+                padding-bottom: 10px;
+            }
+            .chapter-card {
+                min-width: 180px;
+                flex: 0 0 auto;
+                scroll-snap-align: start;
+            }
+            .results-section, .search-section {
+                padding: 10px 2px;
+            }
+            .verse-container {
+                padding: 10px 2px;
+            }
+            .tafseer-text {
+                font-size: 1.05em;
+                word-break: break-word;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .chapter-card {
+                min-width: 140px;
+            }
+        }
         }
 
         .chapter-card {
