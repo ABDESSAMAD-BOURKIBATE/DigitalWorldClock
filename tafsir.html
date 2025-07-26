@@ -350,6 +350,9 @@
             line-height: 2;
             color: var(--text-secondary);
             text-align: justify;
+            word-break: break-word;
+            overflow-wrap: break-word;
+            white-space: normal;
         }
 
         .tafseer-title {
@@ -538,6 +541,13 @@
 
             .verse-container {
                 padding: 20px 15px;
+            }
+            .tafseer-text {
+                font-size: 1.05rem;
+                word-break: break-word;
+                overflow-wrap: break-word;
+                white-space: normal;
+                max-width: 100vw;
             }
         }
 
@@ -1027,10 +1037,17 @@
 
        function displayTafseer(data, suraNumber, ayahNumber) {
            hideLoading();
-           
            const verse = data.verse;
            const tafseer = data.tafseer;
-           
+           // معالجة حالات عدم وجود نص التفسير أو مشاكل في API
+           let tafseerText = '';
+           if (tafseer && tafseer.text && tafseer.text.trim() !== '') {
+               tafseerText = tafseer.text;
+           } else if (tafseer && tafseer.tafseer_text && tafseer.tafseer_text.trim() !== '') {
+               tafseerText = tafseer.tafseer_text;
+           } else {
+               tafseerText = 'التفسير غير متوفر حالياً. يرجى المحاولة لاحقاً أو استخدام مصادر التفسير الخارجية.';
+           }
            const html = `
                <h3 class="results-title">
                    <i class="fas fa-book-open"></i> 
@@ -1050,7 +1067,7 @@
                    <div class="tafseer-source">
                        <i class="fas fa-book"></i> ${tafseer.tafseer_name || 'التفسير الميسر'}
                    </div>
-                   <div class="tafseer-text">${tafseer.text}</div>
+                   <div class="tafseer-text">${tafseerText}</div>
                    <div style="text-align: center; margin-top: 20px;">
                        <button class="btn btn-secondary" onclick="getVerse()" style="margin: 5px;">
                            <i class="fas fa-eye"></i> عرض الآية فقط
@@ -1061,7 +1078,6 @@
                    </div>
                </div>
            `;
-           
            document.getElementById('results').innerHTML = html;
        }
 
