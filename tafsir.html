@@ -816,9 +816,18 @@
         function getDefaultTafseers() {
             return [
                 { id: 1, name: "التفسير الميسر", author: "نخبة من العلماء" },
-                { id: 2, name: "تفسير الجلالين", author: "جلال الدين المحلي والسيوطي" },
-                { id: 3, name: "تفسير ابن كثير", author: "ابن كثير" },
-                { id: 4, name: "تفسير الطبري", author: "الطبري" }
+                { id: 2, name: "تفسير الجلالين", author: "جلال الدين المحلي و السيوطي" },
+                { id: 3, name: "تفسير السعدي", author: "عبد الرحمن بن ناصر بن عبد الله السعدي التميمي مفسر" },
+                { id: 4, name: "تفسير ابن كثير", author: "عماد الدين أبي الفداء إسماعيل بن كثير القرشي" },
+                { id: 5, name: "تفسير الوسيط لطنطاوي", author: "محمد سيد طنطاوي" },
+                { id: 6, name: "تفسير البغوي", author: "الحسين بن مسعود البغوي أبو محمد" },
+                { id: 7, name: "تفسير القرطبي", author: "أبو عبد الله محمد بن أحمد الأنصاري القرطبي" },
+                { id: 8, name: "تفسير الطبري", author: "الإمام أبو جعفر الطبري" },
+                { id: 9, name: "Arberry", author: "A. J. Arberry" },
+                { id: 10, name: "Yusuf Ali", author: "Abdullah Yusuf Ali" },
+                { id: 11, name: "Keyzer", author: "Salomo Keyzer" },
+                { id: 12, name: "Leemhuis", author: "Fred Leemhuis" },
+                { id: 13, name: "Siregar", author: "Sofian S. Siregar" }
             ];
         }
 
@@ -1093,7 +1102,9 @@
 
        function displayTafseerFallback(data) {
            hideLoading();
-           
+           // جلب اسم التفسير المختار
+           const tafseerObj = allTafseers.find(t => t.id === currentTafseer);
+           const tafseerName = tafseerObj ? tafseerObj.name : 'التفسير الميسر';
            const html = `
                <h3 class="results-title">
                    <i class="fas fa-book-open"></i> 
@@ -1110,7 +1121,10 @@
                    <div class="tafseer-title">
                        <i class="fas fa-scroll"></i> التفسير
                    </div>
-                   <div class="tafseer-text">${data.tafseer}</div>
+                   <div class="tafseer-source">
+                       <i class="fas fa-book"></i> ${tafseerName}
+                   </div>
+                   <div class="tafseer-text" style="color:#ffb300;">${data.tafseer}<br><span style='color:#ff6b6b;font-size:0.95em;'>تعذر جلب التفسير من الإنترنت. قد يكون السبب ضعف الاتصال أو قيود المتصفح/الجهاز. جرب لاحقًا أو اختر تفسيرًا آخر.</span></div>
                    <div style="text-align: center; margin-top: 20px;">
                        <button class="btn btn-secondary" onclick="getVerse()" style="margin: 5px;">
                            <i class="fas fa-eye"></i> عرض الآية فقط
@@ -1121,7 +1135,6 @@
                    </div>
                </div>
            `;
-           
            document.getElementById('results').innerHTML = html;
        }
 
