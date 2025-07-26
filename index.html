@@ -8,6 +8,79 @@
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/flag-icons@6.11.1/css/flag-icons.min.css" rel="stylesheet">
   <style>
+  /* تحسين إضافي لمظهر الهاتف */
+  @media (max-width: 480px) {
+    body {
+      font-size: 0.97rem !important;
+    }
+    .btn {
+      font-size: 0.95rem !important;
+      padding: 9px 4px !important;
+      border-radius: 18px !important;
+      min-width: 0 !important;
+      width: 100% !important;
+      margin-bottom: 8px !important;
+      box-sizing: border-box !important;
+    }
+    .controls, .button-group, .stats-bar {
+      flex-direction: column !important;
+      gap: 6px !important;
+      align-items: stretch !important;
+    }
+    .search-input {
+      font-size: 1rem !important;
+      padding: 10px 8px !important;
+      border-radius: 14px !important;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      font-size: clamp(0.98rem, 5vw, 1.2rem) !important;
+      margin-bottom: 8px !important;
+    }
+    .clock-box, .app-card, .contact-card, .etiquette-card, .protection-card, .chapter-card {
+      padding: 10px 4px !important;
+      border-radius: 12px !important;
+    }
+    .header, .footer {
+      padding: 6px 2px !important;
+      font-size: 0.95rem !important;
+    }
+    .project-title {
+      font-size: 1.05rem !important;
+      gap: 6px !important;
+    }
+    .stat-item {
+      min-width: 0 !important;
+      padding: 10px 6px !important;
+      border-radius: 10px !important;
+      gap: 7px !important;
+    }
+    .stat-icon {
+      width: 36px !important;
+      height: 36px !important;
+      font-size: 1rem !important;
+    }
+    .clock-display {
+      font-size: 1.2rem !important;
+      padding: 10px 4px !important;
+      border-radius: 10px !important;
+    }
+    .country-header {
+      flex-direction: column !important;
+      gap: 6px !important;
+      padding: 8px 2px !important;
+    }
+    .location-info {
+      font-size: 0.85rem !important;
+      padding: 6px 4px !important;
+      border-radius: 12px !important;
+    }
+    .clock-container, .cities-grid, .prayer-times-grid, .apps-grid, .contacts-grid, .protection-grid, .etiquette-grid, .time-management, .checklist, .chapter-grid {
+      gap: 6px !important;
+    }
+    .footer p {
+      margin-bottom: 3px !important;
+    }
+  }
   /* تحسين تجاوب الصور والفيديوهات */
   img, video, iframe {
     max-width: 100%;
