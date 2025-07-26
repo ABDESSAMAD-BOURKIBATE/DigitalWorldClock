@@ -14139,23 +14139,13 @@ function calculatePrayerProgress(prayers, currentPrayer, now, zone) {
         const countryName = box.dataset.country;
         const country = countries.find(c => c.nameEn === countryName);
         if (!country) return;
-
         const now = DateTime.now().setZone(country.zone);
         const hour = now.hour;
         const minute = now.minute;
         const timeStatus = getTimeStatus(hour, minute, currentLanguage);
-        const hijriDate = new Intl.DateTimeFormat(currentLanguage === 'ar' ? 'ar-SA' : 'en-US', {
-          calendar: 'islamic',
-          day: 'numeric',
-          month: 'long',
-          year: 'numeric',
-          timeZone: country.zone
-        }).format(new Date());
         const offsetHours = now.offset / 60;
         const offsetLabel = `GMT${offsetHours >= 0 ? '+' : ''}${offsetHours}`;
-
         box.querySelector('.clock-display').textContent = now.toFormat('hh:mm:ss a');
-        
         // Update time status indicator
         const timeStatusElement = box.querySelector('.time-status-indicator');
         if (timeStatusElement) {
@@ -14164,8 +14154,9 @@ function calculatePrayerProgress(prayers, currentPrayer, now, zone) {
             <span style="font-size: 0.8rem; color: #FFD700; font-weight: 600;">${timeStatus.text}</span>
           `;
         }
-        
+        // تحديث معلومات الوقت بدون تكرار التاريخ الهجري القديم
         const timeInfo = box.querySelector('.time-info');
+        // hijriDate متغير موجود مسبقاً من Aladhan API في نفس السياق
         timeInfo.innerHTML = `
           <div class="time-item">
             <i class="fas fa-calendar-day time-icon"></i>
@@ -14173,7 +14164,7 @@ function calculatePrayerProgress(prayers, currentPrayer, now, zone) {
           </div>
           <div class="time-item">
             <i class="fas fa-moon time-icon"></i>
-            ${currentLanguage === 'ar' ? 'الهجري' : 'Hijri'}: ${hijriDate}
+            ${currentLanguage === 'ar' ? 'الهجري' : 'Hijri'}: ${typeof hijriDate !== 'undefined' ? hijriDate : '--'}
           </div>
           <div class="time-item">
             <i class="fas fa-globe time-icon"></i>
