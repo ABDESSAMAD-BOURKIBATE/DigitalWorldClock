@@ -8,6 +8,81 @@
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/flag-icons@6.11.1/css/flag-icons.min.css" rel="stylesheet">
   <style>
+  /* تحسين تجاوب الصور والفيديوهات */
+  img, video, iframe {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* خطوط مرنة للعناوين والنصوص */
+  h1, h2, h3, h4, h5, h6 {
+    font-size: clamp(1.2rem, 3vw, 2.5rem);
+    word-break: break-word;
+  }
+  p, li, span, label, input, button {
+    font-size: clamp(0.95rem, 2vw, 1.15rem);
+  }
+
+  /* أزرار مرنة */
+  .btn {
+    min-width: 90px;
+    font-size: clamp(0.9rem, 2vw, 1.1rem);
+    padding: clamp(10px, 2vw, 16px) clamp(14px, 4vw, 22px);
+  }
+
+  /* تحسين تجاوب الجداول */
+  table {
+    width: 100%;
+    overflow-x: auto;
+    display: block;
+  }
+
+  /* تحسين تجاوب الحاويات */
+  .container, .golden-container, .main-content, .content-section {
+    max-width: 100vw;
+    padding-left: clamp(8px, 3vw, 24px);
+    padding-right: clamp(8px, 3vw, 24px);
+    box-sizing: border-box;
+  }
+
+  /* ميديا كويري للأجهزة اللوحية والجوال */
+  @media (max-width: 1024px) {
+    .clock-container, .cities-grid, .prayer-times-grid, .apps-grid, .contacts-grid, .protection-grid, .etiquette-grid, .time-management, .checklist, .chapter-grid {
+      grid-template-columns: 1fr !important;
+      gap: 10px !important;
+    }
+    .stats-bar, .controls, .button-group {
+      flex-direction: column !important;
+      gap: 10px !important;
+      align-items: stretch !important;
+    }
+    .clock-box, .app-card, .contact-card, .etiquette-card, .protection-card, .chapter-card {
+      min-width: 0 !important;
+      width: 100% !important;
+    }
+  }
+  @media (max-width: 600px) {
+    .header, .footer {
+      padding: 10px 4px !important;
+    }
+    .project-title {
+      font-size: 1.3rem !important;
+    }
+    .btn {
+      min-width: 70px !important;
+      padding: 10px 8px !important;
+    }
+    .search-input {
+      width: 100% !important;
+      max-width: 100% !important;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      font-size: clamp(1rem, 4vw, 1.5rem) !important;
+    }
+  }
   .maps-tab-container {
     background: linear-gradient(135deg,#e0f7fa 60%,#b2ebf2 100%) !important;
     border-radius: 18px;
