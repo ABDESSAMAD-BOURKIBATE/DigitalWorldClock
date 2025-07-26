@@ -7,6 +7,25 @@
   <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
   <style>
+    /* قواعد responsive أساسية لجميع الأجهزة */
+    html, body {
+      max-width: 100vw;
+      overflow-x: hidden;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 15px;
+      }
+      .container {
+        padding: 5px !important;
+      }
+      .hero-card, .card {
+        padding: 10px !important;
+      }
+      h1, h2, h3 {
+        font-size: 1.2em !important;
+      }
+    }
     :root {
       --primary-gold: linear-gradient(135deg, #ffd700 0%, #ffb347 100%);
       --secondary-gold: linear-gradient(135deg, #ffb347 0%, #ffa500 100%);
@@ -1200,55 +1219,147 @@
       </div>
     </div>
 
-    <!-- قسم الأذكار -->
-    <div id="duas" class="tab-content">
-      <div class="hero-card">
-        <h2 style="text-align: center; margin-bottom: 30px; color: var(--text-gold);">
-          <i class="fas fa-book-open"></i>
-          الأذكار والأدعية
-        </h2>
+  <!-- قسم الأذكار -->
+<div id="duas" class="tab-content">
+  <div class="hero-card">
+    <h2 style="text-align: center; margin-bottom: 30px; color: var(--text-gold);">
+      <i class="fas fa-book-open"></i>
+      الأذكار والأدعية
+    </h2>
 
-        <div class="dua-card">
-          <div class="dua-text">
-            أَشْهَدُ أَنْ لاَ إِلَهَ إِلاَّ اللَّهُ وَحْدَهُ لاَ شَرِيكَ لَهُ، وَأَشْهَدُ أَنَّ مُحَمَّدًا عَبْدُهُ وَرَسُولُهُ
-          </div>
-          <div class="audio-controls">
-            <button class="audio-btn" onclick="playDua('shahada')">
-              <i class="fas fa-play"></i>
-            </button>
-            <button class="audio-btn" onclick="repeatDua('shahada')">
-              <i class="fas fa-repeat"></i>
-            </button>
-          </div>
-        </div>
-
-        <div class="dua-card">
-          <div class="dua-text">
-            سُبْحَانَ اللَّهِ وَالْحَمْدُ لِلَّهِ وَلاَ إِلَهَ إِلاَّ اللَّهُ وَاللَّهُ أَكْبَارُ
-          </div>
-          <div class="audio-controls">
-            <button class="audio-btn" onclick="playDua('tasbih')">
-              <i class="fas fa-play"></i>
-            </button>
-            <button class="audio-btn" onclick="startCounter()">
-              <i class="fas fa-calculator"></i>
-              <span class="counter-badge" id="counter">0</span>
-            </button>
-          </div>
-        </div>
-
-        <div class="dua-card">
-          <div class="dua-text">
-            اللَّهُمَّ أَنْتَ السَّلاَمُ وَمِنْكَ السَّلاَمُ، تَبَارَكْتَ يَا ذَا الْجَلاَلِ وَالإِكْرَامِ
-          </div>
-          <div class="audio-controls">
-            <button class="audio-btn" onclick="playDua('after_prayer')">
-              <i class="fas fa-play"></i>
-            </button>
-          </div>
-        </div>
+    <!-- الشهادة -->
+    <div class="dua-card">
+      <div class="dua-text">
+        <b>الشهادة:</b><br>
+        أَشْهَدُ أَنْ لاَ إِلَهَ إِلاَّ اللَّهُ وَحْدَهُ لاَ شَرِيكَ لَهُ، وَأَشْهَدُ أَنَّ مُحَمَّدًا عَبْدُهُ وَرَسُولُهُ<br>
+        <span style="color: var(--text-gold); font-size: 13px;">
+          معناها: الإقرار بوحدانية الله ونبوة محمد ﷺ.<br>
+          الفضل: أعظم كلمة في الإسلام، من قالها دخل الجنة بإذن الله.
+        </span>
+      </div>
+      <div class="audio-controls">
+        <button class="audio-btn" onclick="playDua('shahada')">
+          <i class="fas fa-volume-up"></i>
+        </button>
+        <button class="audio-btn" onclick="repeatDua('shahada')">
+          <i class="fas fa-repeat"></i>
+        </button>
       </div>
     </div>
+
+    <!-- التسبيح -->
+    <div class="dua-card">
+      <div class="dua-text">
+        <b>التسبيح:</b><br>
+        سُبْحَانَ اللَّهِ وَالْحَمْدُ لِلَّهِ وَلاَ إِلَهَ إِلاَّ اللَّهُ وَاللَّهُ أَكْبَرُ<br>
+        <span style="color: var(--text-gold); font-size: 13px;">
+          معناها: تنزيه الله عن النقص، وحمده، وتوحيده، وتعظيمه.<br>
+          الفضل: أحب الكلام إلى الله، ويقال بعد كل صلاة 33 مرة.
+        </span>
+      </div>
+      <div class="audio-controls">
+        <button class="audio-btn" onclick="playDua('tasbih')">
+          <i class="fas fa-volume-up"></i>
+        </button>
+        <span id="tasbihCounter" class="counter-badge">0</span>
+        <button class="audio-btn" onclick="startCounter('tasbihCounter')">
+          <i class="fas fa-plus"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- دعاء بعد الصلاة -->
+    <div class="dua-card">
+      <div class="dua-text">
+        <b>دعاء بعد الصلاة:</b><br>
+        اللَّهُمَّ أَنْتَ السَّلاَمُ وَمِنْكَ السَّلاَمُ، تَبَارَكْتَ يَا ذَا الْجَلاَلِ وَالإِكْرَامِ<br>
+        <span style="color: var(--text-gold); font-size: 13px;">
+          معناه: الاعتراف بأن السلام من الله وحده، والثناء عليه.<br>
+          الفضل: من أذكار ختم الصلاة، يقال بعد التسليم مباشرة.
+        </span>
+      </div>
+      <div class="audio-controls">
+        <button class="audio-btn" onclick="playDua('after_prayer')">
+          <i class="fas fa-volume-up"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- دعاء الاستفتاح -->
+    <div class="dua-card">
+      <div class="dua-text">
+        <b>دعاء الاستفتاح:</b><br>
+        سُبْحَانَكَ اللَّهُمَّ وَبِحَمْدِكَ، وَتَبَارَكَ اسْمُكَ، وَتَعَالَى جَدُّكَ، وَلاَ إِلَهَ غَيْرُكَ<br>
+        <span style="color: var(--text-gold); font-size: 13px;">
+          معناه: تنزيه الله وتمجيده والثناء عليه.<br>
+          الفضل: يقال في بداية الصلاة بعد تكبيرة الإحرام.
+        </span>
+      </div>
+      <div class="audio-controls">
+        <button class="audio-btn" onclick="playDua('istiftah')">
+          <i class="fas fa-volume-up"></i>
+        </button>
+        <button class="audio-btn" onclick="repeatDua('istiftah')">
+          <i class="fas fa-repeat"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- دعاء الخروج من المنزل -->
+    <div class="dua-card">
+      <div class="dua-text">
+        <b>دعاء الخروج من المنزل:</b><br>
+        بِسْمِ اللَّهِ، تَوَكَّلْتُ عَلَى اللَّهِ، لاَ حَوْلَ وَلاَ قُوَّةَ إِلاَّ بِاللَّهِ<br>
+        <span style="color: var(--text-gold); font-size: 13px;">
+          معناه: التوكل على الله والاعتماد عليه.<br>
+          الفضل: يحمي من الشر ويحفظ المسلم عند خروجه.
+        </span>
+      </div>
+      <div class="audio-controls">
+        <button class="audio-btn" onclick="playDua('leaving_home')">
+          <i class="fas fa-volume-up"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- دعاء دخول المسجد -->
+    <div class="dua-card">
+      <div class="dua-text">
+        <b>دعاء دخول المسجد:</b><br>
+        اللَّهُمَّ افْتَحْ لِي أَبْوَابَ رَحْمَتِكَ<br>
+        <span style="color: var(--text-gold); font-size: 13px;">
+          معناه: طلب فتح أبواب رحمة الله عند دخول المسجد.<br>
+          الفضل: يستحب قوله عند دخول المسجد لنيل الرحمة.
+        </span>
+      </div>
+      <div class="audio-controls">
+        <button class="audio-btn" onclick="playDua('enter_mosque')">
+          <i class="fas fa-volume-up"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- دعاء الاستخارة -->
+    <div class="dua-card">
+      <div class="dua-text">
+        <b>دعاء الاستخارة:</b><br>
+        اللَّهُمَّ إِنِّي أَسْتَخِيرُكَ بِعِلْمِكَ وَأَسْتَقْدِرُكَ بِقُدْرَتِكَ، وَأَسْأَلُكَ مِنْ فَضْلِكَ الْعَظِيمِ...<br>
+        <span style="color: var(--text-gold); font-size: 13px;">
+          معناه: طلب الخيرة من الله في أمر ما.<br>
+          الفضل: يُقال بعد صلاة الاستخارة لتيسير الأمور.
+        </span>
+      </div>
+      <div class="audio-controls">
+        <button class="audio-btn" onclick="playDua('istikharah')">
+          <i class="fas fa-volume-up"></i>
+        </button>
+        <button class="audio-btn" onclick="repeatDua('istikharah')">
+          <i class="fas fa-repeat"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
 
     <!-- قسم المواقيت -->
     <div id="times" class="tab-content">
@@ -1398,6 +1509,36 @@
   </footer>
 
   <script>
+    // مثال عملي: معالجة أخطاء برمجية بشكل احترافي
+    window.addEventListener('error', function(e) {
+      // رسالة ودية للمستخدم فقط
+      const friendlyMsg = currentLanguage === 'ar'
+        ? 'حدث خلل بسيط، يرجى إعادة المحاولة أو تحديث الصفحة.'
+        : 'A minor issue occurred, please try again or refresh the page.';
+      showNotification(friendlyMsg);
+      // سجل الخطأ للمطور فقط
+      if (window.console && window.console.error) {
+        console.error('JavaScript Error:', e.error || e);
+      }
+      // منع ظهور رسالة الخطأ الافتراضية
+      return true;
+    });
+
+    // مثال عملي: استخدام try/catch في دوال تتعامل مع الأجهزة أو الشبكة
+    function safeRun(fn) {
+      try {
+        fn();
+      } catch (err) {
+        const friendlyMsg = currentLanguage === 'ar'
+          ? 'حدث خطأ أثناء تنفيذ العملية، يرجى المحاولة لاحقاً.'
+          : 'An error occurred, please try again later.';
+        showNotification(friendlyMsg);
+        if (window.console && window.console.error) {
+          console.error('SafeRun Error:', err);
+        }
+      }
+    }
+    // استخدم safeRun(() => { ... }) حول أي كود حساس
     // متغيرات عامة
     let currentWuduStep = 1;
     let currentAudio = null;
@@ -2302,18 +2443,19 @@ function updateQiblaDirection() {
       });
     });
 
-    // معالجة أخطاء JavaScript مع عرض تفاصيل الخطأ للمستخدم
+    // معالجة أخطاء JavaScript: إخفاء التفاصيل عن المستخدم وعرض رسالة ودية فقط
     window.addEventListener('error', function(e) {
-      let msg = '';
-      if (e && e.error && e.error.message) {
-        msg = e.error.message;
-      } else if (e && e.message) {
-        msg = e.message;
-      } else {
-        msg = currentLanguage === 'ar' ? 'حدث خطأ غير معروف في التطبيق' : 'Unknown error occurred in the application';
+      // لا تظهر أي تفاصيل تقنية للمستخدم
+      const friendlyMsg = currentLanguage === 'ar'
+        ? 'حدث خلل بسيط، يرجى إعادة المحاولة أو تحديث الصفحة.'
+        : 'A minor issue occurred, please try again or refresh the page.';
+      showNotification(friendlyMsg);
+      // سجل الخطأ للمطور فقط
+      if (window.console && window.console.error) {
+        console.error('JavaScript Error:', e.error || e);
       }
-      console.error('JavaScript Error:', e.error || e);
-      showNotification((currentLanguage === 'ar' ? 'خطأ: ' : 'Error: ') + msg);
+      // منع ظهور رسالة الخطأ الافتراضية
+      return true;
     });
 
     // تصدير الدوال للاستخدام العام
