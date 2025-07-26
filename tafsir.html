@@ -599,6 +599,14 @@
         <p class="subtitle">استكشف معاني وتفسير آيات القرآن الكريم</p>
     </header>
 
+    <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin: 25px auto 10px auto; max-width: 600px;">
+        <a href="index.html" class="btn btn-secondary" style="min-width: 120px; text-decoration: none;">العودة للرئيسية</a>
+        <button class="btn btn-primary" onclick="toggleAboutProject()" style="min-width: 120px;">نبذة عن المشروع</button>
+    </div>
+    <div id="aboutProjectBox" style="display: none; background: rgba(40,40,40,0.95); border: 2px solid var(--secondary-gold); border-radius: 12px; padding: 18px 15px; margin: 0 auto 18px auto; max-width: 500px; color: var(--text-secondary); text-align: center; font-size: 1.05em;">
+        <b style="color: var(--primary-gold);">فرع من منصة رحلة الروح | RoohVerse</b><br>
+        رفيقك الذكي الذي يجمع بين أوقات الصلاة، اتجاه القبلة، حالة الطقس، وغنى الثقافة الإسلامية، ليكون دليلك في رحلتك الروحية أينما كنت.
+    </div>
     <main class="golden-container">
         <section class="search-section" role="search" aria-label="البحث في القرآن الكريم">
             <form class="search-form" onsubmit="return false;">
@@ -670,10 +678,23 @@
         </section>
     </main>
 
+
     <footer class="footer">
         <p><i class="fas fa-heart" style="color: var(--secondary-gold);" aria-hidden="true"></i> تم التطوير بعناية لخدمة القرآن الكريم</p>
+        <p style="margin-bottom: 10px; color: var(--primary-gold); font-weight: bold;">من تطوير عبد الصمد بوركيبات</p>
         <p>جميع الحقوق محفوظة © 2025</p>
     </footer>
+
+    <script>
+    function toggleAboutProject() {
+        var box = document.getElementById('aboutProjectBox');
+        if (box.style.display === 'none' || box.style.display === '') {
+            box.style.display = 'block';
+        } else {
+            box.style.display = 'none';
+        }
+    }
+    </script>
 
     <script>
         // APIs الحقيقية المتاحة
