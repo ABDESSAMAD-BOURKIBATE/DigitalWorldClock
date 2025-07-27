@@ -943,6 +943,9 @@
         <button class="nav-tab" onclick="showTab('duas')">
           <i class="fas fa-book-open"></i> الأذكار
         </button>
+        <button class="nav-tab" onclick="showTab('adhan')">
+          <i class="fas fa-bullhorn"></i> الأذان
+        </button>
         <button class="nav-tab" onclick="showTab('stories')">
           <i class="fas fa-book-reader"></i> قصص عن الصلاة
         </button>
@@ -1230,41 +1233,65 @@
           <i class="fas fa-compass"></i>
           بوصلة القبلة الذكية
         </h2>
-        
-        <div class="qibla-compass">
-            <div class="compass-inner">
-              <!-- دائرة مركزية ذهبية -->
-              <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:32px;height:32px;background:var(--primary-gold);border-radius:50%;box-shadow:0 0 12px #ffd70055;"></div>
-              <!-- إبرة البوصلة (سهم القبلة) -->
-              <div class="compass-needle" style="z-index:2;"></div>
-              <!-- رأس السهم للقبلة -->
-              <div style="position:absolute;top:38px;left:50%;transform:translateX(-50%);z-index:3;">
-                <svg width="18" height="24" viewBox="0 0 18 24"><polygon points="9,0 18,24 9,18 0,24" fill="#ff6b35" stroke="#ffd700" stroke-width="1.5"/></svg>
-              </div>
-              <!-- رموز الاتجاهات -->
-              <div style="position: absolute; top: 10px; left: 50%; transform: translateX(-50%); font-weight: 700; color: #ff6b35; font-size: 1.2em;">N</div>
-              <div style="position: absolute; bottom: 10px; left: 50%; transform: translateX(-50%); font-weight: 700; color: var(--text-light); font-size: 1.1em;">S</div>
-              <div style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); font-weight: 700; color: var(--text-light); font-size: 1.1em;">W</div>
-              <div style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); font-weight: 700; color: var(--text-light); font-size: 1.1em;">E</div>
-              <!-- الكعبة في المركز -->
-              <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-weight: 700; color: var(--darker-bg); font-size: 1.5em; z-index:4;">
-                <i class="fas fa-kaaba"></i>
-              </div>
+        <div class="qibla-compass" style="margin: 0 auto 18px;">
+          <div class="compass-inner">
+            <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:32px;height:32px;background:var(--primary-gold);border-radius:50%;box-shadow:0 0 12px #ffd70055;"></div>
+            <div class="compass-needle" id="qibla-needle" style="z-index:2;"></div>
+            <div style="position:absolute;top:38px;left:50%;transform:translateX(-50%);z-index:3;">
+              <svg width="18" height="24" viewBox="0 0 18 24"><polygon points="9,0 18,24 9,18 0,24" fill="#ff6b35" stroke="#ffd700" stroke-width="1.5"/></svg>
             </div>
+            <div style="position: absolute; top: 10px; left: 50%; transform: translateX(-50%); font-weight: 700; color: #ff6b35; font-size: 1.2em;">N</div>
+            <div style="position: absolute; bottom: 10px; left: 50%; transform: translateX(-50%); font-weight: 700; color: var(--text-light); font-size: 1.1em;">S</div>
+            <div style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); font-weight: 700; color: var(--text-light); font-size: 1.1em;">W</div>
+            <div style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); font-weight: 700; color: var(--text-light); font-size: 1.1em;">E</div>
+            <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-weight: 700; color: var(--darker-bg); font-size: 1.5em; z-index:4;">
+              <i class="fas fa-kaaba"></i>
+            </div>
+          </div>
         </div>
-
-        <p style="font-size: 18px; margin: 20px 0; color: var(--text-light);">
-          اتجاه القبلة: <span style="font-weight: 700; color: var(--text-gold);" id="qibla-direction">شمال شرق</span>
-        </p>
-        
-        <div class="audio-controls">
-          <button class="audio-btn" onclick="findQibla()">
+        <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 18px; margin-bottom: 10px;">
+          <div style="min-width:180px;">
+            <span style="color:var(--text-gold);font-weight:700;">الاتجاه:</span>
+            <span id="qibla-angle">--°</span>
+          </div>
+          <div style="min-width:180px;">
+            <span style="color:var(--text-gold);font-weight:700;">المسافة إلى مكة:</span>
+            <span id="qibla-distance">-- كم</span>
+          </div>
+          <div style="min-width:220px;">
+            <span style="color:var(--text-gold);font-weight:700;">موقعك:</span>
+            <span id="qibla-coords">--</span>
+          </div>
+        </div>
+        <div style="margin-bottom: 10px;">
+          <label style="color:var(--text-gold);font-weight:700;">حسب الدولة المختارة:</label>
+          <select id="country-select" style="padding:4px 10px;border-radius:6px;">
+            <option value="">اختر الدولة (بديل GPS)</option>
+            <option value="MA">المغرب</option>
+            <option value="SA">السعودية</option>
+            <option value="EG">مصر</option>
+            <option value="DZ">الجزائر</option>
+            <option value="AE">الإمارات</option>
+            <option value="TR">تركيا</option>
+            <option value="FR">فرنسا</option>
+            <option value="GB">بريطانيا</option>
+            <option value="US">أمريكا</option>
+            <!-- أضف المزيد حسب الحاجة -->
+          </select>
+        </div>
+        <div class="audio-controls" style="margin-bottom: 10px;">
+          <button class="audio-btn" onclick="findQibla()" title="استخدام GPS">
             <i class="fas fa-location-arrow"></i>
           </button>
-          <button class="audio-btn" onclick="calibrateCompass()">
-            <i class="fas fa-sync-alt"></i>
-          </button>
         </div>
+        <div style="background:#ffd70022;padding:10px 18px;border-radius:10px;margin:0 auto 10px;max-width:500px;text-align:right;">
+          <b>تعليمات الاستخدام:</b><br>
+          - تأكد من السماح للمتصفح بالوصول إلى الموقع<br>
+          - ضع الجهاز في وضع أفقي للحصول على نتائج أكثر دقة<br>
+          - السهم الذهبي يشير إلى اتجاه القبلة الشريفة<br>
+          - يمكنك استخدام موقع الدولة المختارة كبديل
+        </div>
+        <div id="qibla-success-msg" style="color:var(--text-gold);font-weight:700;margin-top:8px;"></div>
       </div>
     </div>
 
@@ -1464,7 +1491,10 @@
         </div>
 
         <div style="text-align: center; margin-top: 30px;">
-          <!-- تمت إزالة زر استماع للأذان بناءً على طلب المستخدم -->
+          <button id="refresh-prayer-times" style="background: #ffd700; color: #222; border: none; border-radius: 8px; padding: 10px 24px; font-size: 1.1em; font-weight: bold; cursor: pointer; box-shadow: 0 2px 8px #0002; transition: background 0.2s;">
+            <i class="fas fa-sync-alt"></i> تحديث المواقيت
+          </button>
+          <div id="prayer-times-msg" style="margin-top: 12px; color: #ff6b35; font-size: 1em;"></div>
         </div>
       </div>
     </div>
@@ -2016,30 +2046,84 @@
         'جاري تحديد موقعك وحساب اتجاه القبلة...' : 
         'Finding your location and calculating Qibla direction...';
       speakText(searchingMsg);
+      const countrySelect = document.getElementById('country-select');
+      let lat = null, lng = null;
+      let usedCountry = false;
+      if (countrySelect && countrySelect.value) {
+        // مواقع تقريبية لعواصم بعض الدول
+        const countryCoords = {
+          MA: {lat: 33.5809, lng: -7.4923}, // المغرب - الدار البيضاء
+          SA: {lat: 24.7136, lng: 46.6753}, // السعودية - الرياض
+          EG: {lat: 30.0444, lng: 31.2357}, // مصر - القاهرة
+          DZ: {lat: 36.7538, lng: 3.0588},  // الجزائر - الجزائر العاصمة
+          AE: {lat: 25.2048, lng: 55.2708}, // الإمارات - دبي
+          TR: {lat: 41.0082, lng: 28.9784}, // تركيا - اسطنبول
+          FR: {lat: 48.8566, lng: 2.3522},  // فرنسا - باريس
+          GB: {lat: 51.5074, lng: -0.1278}, // بريطانيا - لندن
+          US: {lat: 40.7128, lng: -74.0060} // أمريكا - نيويورك
+        };
+        const coords = countryCoords[countrySelect.value];
+        if (coords) {
+          lat = coords.lat;
+          lng = coords.lng;
+          usedCountry = true;
+        }
+      }
+      function afterCoords(lat, lng) {
+        // مكة
+        const makkah = {lat: 21.4225, lng: 39.8262};
+        // حساب زاوية القبلة
+        const d2r = deg => deg * Math.PI / 180;
+        const r2d = rad => rad * 180 / Math.PI;
+        const dLon = d2r(makkah.lng - lng);
+        const lat1 = d2r(lat);
+        const lat2 = d2r(makkah.lat);
+        let y = Math.sin(dLon);
+        let x = Math.cos(lat1) * Math.tan(lat2) - Math.sin(lat1) * Math.cos(dLon);
+        let angle = Math.atan2(y, x);
+        angle = r2d(angle);
+        angle = (angle + 360) % 360;
+        // حساب المسافة
+        const R = 6371; // نصف قطر الأرض كم
+        const dLat = d2r(makkah.lat - lat);
+        const dLng = d2r(makkah.lng - lng);
+        const a = Math.sin(dLat/2) * Math.sin(dLat/2) + Math.cos(lat1) * Math.cos(lat2) * Math.sin(dLng/2) * Math.sin(dLng/2);
+        const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+        const distance = Math.round(R * c);
+        // تحديث الواجهة
+        document.getElementById('qibla-angle').textContent = angle.toFixed(0) + '°';
+        document.getElementById('qibla-distance').textContent = distance + ' كم';
+        document.getElementById('qibla-coords').textContent = lat.toFixed(4) + ', ' + lng.toFixed(4);
+        // تدوير الإبرة
+        const needle = document.getElementById('qibla-needle');
+        if (needle) needle.style.transform = `rotate(${angle}deg)`;
+        // رسالة نجاح
+        document.getElementById('qibla-success-msg').textContent = usedCountry
+          ? (currentLanguage === 'ar' ? 'تم تحديد القبلة حسب الدولة المختارة.' : 'Qibla set by selected country.')
+          : (currentLanguage === 'ar' ? 'تم تحديد موقعك بنجاح.' : 'Location determined successfully.');
+        // تحديث نص القبلة
+        const qiblaDir = document.getElementById('qibla-direction');
+        if (qiblaDir) qiblaDir.textContent = angle.toFixed(0) + '°';
+      }
+      if (lat !== null && lng !== null) {
+        afterCoords(lat, lng);
+        return;
+      }
       if (!navigator.geolocation) {
         showGpsAlert(currentLanguage === 'ar' ? 'متصفحك لا يدعم تحديد الموقع الجغرافي. يرجى تفعيل GPS.' : 'Your browser does not support geolocation. Please enable GPS.');
         return;
       }
       navigator.geolocation.getCurrentPosition(
         position => {
-          const lat = position.coords.latitude;
-          const lng = position.coords.longitude;
-          // حساب اتجاه القبلة (محاكاة)
-          const qiblaDirection = calculateQibla(lat, lng);
-          const qiblaElement = document.getElementById('qibla-direction');
-          if (qiblaElement) {
-            qiblaElement.textContent = qiblaDirection;
-          }
-          const successMsg = currentLanguage === 'ar' ? 
-            `تم تحديد اتجاه القبلة: ${qiblaDirection}` : 
-            `Qibla direction determined: ${qiblaDirection}`;
-          speakText(successMsg);
+          lat = position.coords.latitude;
+          lng = position.coords.longitude;
+          afterCoords(lat, lng);
         },
         error => {
           showGpsAlert(currentLanguage === 'ar' ? 'لم يتمكن من تحديد موقعك. يرجى السماح بالوصول للموقع.' : 'Could not determine your location. Please allow location access.');
         }
       );
-    }// تحديث اتجاه القبلة من Adhan API بناءً على GPS
+    }
 function updateQiblaDirection() {
   if (!navigator.geolocation) {
     showGpsAlert(currentLanguage === 'ar' ? 'متصفحك لا يدعم تحديد الموقع الجغرافي. يرجى تفعيل GPS.' : 'Your browser does not support geolocation. Please enable GPS.');
@@ -2376,13 +2460,19 @@ function updateQiblaDirection() {
           // alpha: 0 = الشمال الحقيقي
           heading = 360 - event.alpha;
         }
-        if (heading === null || isNaN(heading)) return;
+        if (heading === null || isNaN(heading)) {
+          // إذا لم يكن هناك مستشعر أو رفض المستخدم الإذن
+          showGpsAlert(currentLanguage === 'ar' ? 'يرجى تفعيل مستشعر الاتجاه (البوصلة) والسماح بالوصول للموقع من إعدادات الهاتف.' : 'Please enable orientation sensor (compass) and allow location access from your phone settings.');
+          return;
+        }
         orientationSupported = true;
         // الزاوية المطلوبة: الفرق بين زاوية القبلة وheading (الشمال)
         let rotation = qiblaAngle - heading;
         // تصحيح الدوران ليبقى بين 0 و 360
         rotation = ((rotation % 360) + 360) % 360;
         needle.style.transform = `rotate(${rotation}deg)`;
+        // إخفاء التنبيه إذا كان ظاهراً
+        hideGpsAlert();
       };
       // دعم الأحداث المختلفة حسب المتصفح
       if ('ondeviceorientationabsolute' in window) {
@@ -2391,10 +2481,11 @@ function updateQiblaDirection() {
         window.addEventListener('deviceorientation', deviceOrientationListener, true);
       }
 
-      // إذا لم يتم دعم المستشعر، تدوير الإبرة مباشرة إلى زاوية القبلة
+      // إذا لم يتم دعم المستشعر، تدوير الإبرة مباشرة إلى زاوية القبلة مع تنبيه المستخدم
       setTimeout(function() {
         if (!orientationSupported) {
           needle.style.transform = `rotate(${qiblaAngle}deg)`;
+          showGpsAlert(currentLanguage === 'ar' ? 'جهازك لا يدعم مستشعر الاتجاه أو لم يتم تفعيله. ستظهر القبلة بشكل تقريبي فقط.' : 'Your device does not support orientation sensor or it is not enabled. Qibla direction will be approximate only.');
         }
       }, 1500); // انتظر قليلاً للتأكد من عدم وجود مستشعر
     }
@@ -2455,6 +2546,16 @@ function updateQiblaDirection() {
           'Welcome! Choose the section you want to learn from';
         showNotification(welcomeMsg);
       }, 1000);
+
+      // زر تحديث المواقيت اليدوي
+      const refreshBtn = document.getElementById('refresh-prayer-times');
+      if (refreshBtn) {
+        refreshBtn.addEventListener('click', function() {
+          document.getElementById('prayer-times-msg').textContent = currentLanguage === 'ar' ? 'جاري تحديث المواقيت...' : 'Updating prayer times...';
+          updatePrayerTimes();
+          setTimeout(() => { document.getElementById('prayer-times-msg').textContent = ''; }, 4000);
+        });
+      }
     });
 
     // التعامل مع تغيير حجم الشاشة
