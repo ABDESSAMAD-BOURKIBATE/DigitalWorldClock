@@ -1799,6 +1799,21 @@
             <div class="prayer-time-value" id="isha-time">21:00</div>
           </div>
         </div>
+        <!-- معلومات الوقت والتاريخ المحلي -->
+        <div id="local-date-boxes" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 18px; margin-top: 18px;">
+          <div style="background:rgba(255,215,0,0.08);border-radius:12px;padding:12px 22px;min-width:170px;text-align:center;">
+            <div style="color:var(--text-gold);font-weight:700;">التوقيت المحلي</div>
+            <div id="local-time" style="font-size:1.3em;font-family:'Amiri',serif;direction:ltr;">--:--:--</div>
+          </div>
+          <div style="background:rgba(255,215,0,0.08);border-radius:12px;padding:12px 22px;min-width:170px;text-align:center;">
+            <div style="color:var(--text-gold);font-weight:700;">التاريخ الميلادي</div>
+            <div id="gregorian-date" style="font-size:1.1em;font-family:'Cairo',serif;direction:ltr;">--/--/----</div>
+          </div>
+          <div style="background:rgba(255,215,0,0.08);border-radius:12px;padding:12px 22px;min-width:170px;text-align:center;">
+            <div style="color:var(--text-gold);font-weight:700;">التاريخ الهجري</div>
+            <div id="hijri-date" style="font-size:1.1em;font-family:'Cairo',serif;direction:ltr;">--/--/----</div>
+          </div>
+        </div>
 
         <div style="text-align: center; margin-top: 30px;">
           <button id="refresh-prayer-times" style="background: #ffd700; color: #222; border: none; border-radius: 8px; padding: 10px 24px; font-size: 1.1em; font-weight: bold; cursor: pointer; box-shadow: 0 2px 8px #0002; transition: background 0.2s;">
@@ -2678,6 +2693,21 @@ function updateQiblaDirection() {
 
     // تحديث مواقيت الصلاة باستخدام GPS وAdhan API
     function updatePrayerTimes() {
+      // تحديث التوقيت المحلي دائماً
+      function updateLocalTimeBox() {
+        const now = new Date();
+        const pad = n => n.toString().padStart(2, '0');
+        document.getElementById('local-time').textContent = `${pad(now.getHours())}:${pad(now.getMinutes())}:${pad(now.getSeconds())}`;
+        document.getElementById('gregorian-date').textContent = `${pad(now.getDate())}/${pad(now.getMonth()+1)}/${now.getFullYear()}`;
+      }
+      updateLocalTimeBox();
+      if (!window._localTimeInterval) {
+        window._localTimeInterval = setInterval(updateLocalTimeBox, 1000);
+      }
+      // إعادة تعيين التاريخ الهجري افتراضياً
+      var hijriDiv = document.getElementById('hijri-date');
+      if (hijriDiv) hijriDiv.textContent = '...';
+
       if (!navigator.geolocation) {
         showNotification(currentLanguage === 'ar' ? 'متصفحك لا يدعم تحديد الموقع' : 'Your browser does not support geolocation');
         return;
@@ -2692,7 +2722,7 @@ function updateQiblaDirection() {
           const day = today.getDate();
           const month = today.getMonth() + 1;
           const year = today.getFullYear();
-          const url = `https://api.aladhan.com/v1/timings/${day}-${month}-${year}?latitude=${lat}&longitude=${lng}&method=5&school=0&lang=${currentLanguage}`;
+          const url = `https://api.aladhan.com/v1/timings/${day}-${month}/${year}?latitude=${lat}&longitude=${lng}&method=5&school=0&lang=${currentLanguage}`;
           fetch(url)
             .then(res => res.json())
             .then(data => {
@@ -2705,6 +2735,16 @@ function updateQiblaDirection() {
               document.getElementById('maghrib-time').textContent = timings.Maghrib;
               document.getElementById('isha-time').textContent = timings.Isha;
               highlightCurrentPrayer(timings);
+              // التاريخ الهجري
+              var hijriDiv = document.getElementById('hijri-date');
+              if (data.data.date && data.data.date.hijri) {
+                const hijri = data.data.date.hijri;
+                let hijriStr = `${hijri.day}/${hijri.month.number}/${hijri.year}`;
+                if (hijri.month.ar) hijriStr += ` (${hijri.month.ar})`;
+                if (hijriDiv) hijriDiv.textContent = hijriStr;
+              } else {
+                if (hijriDiv) hijriDiv.textContent = 'غير متوفر حالياً';
+              }
             })
             .catch(() => {
               showNotification(currentLanguage === 'ar' ? 'تعذر جلب مواقيت الصلاة' : 'Could not fetch prayer times');
