@@ -638,6 +638,7 @@
     </style>
 </head>
 <body>
+
     <header class="header">
         <h1 class="main-title">
             <i class="fas fa-quran" aria-hidden="true"></i> 
@@ -645,6 +646,20 @@
         </h1>
         <p class="subtitle">استكشف معاني وتفسير آيات القرآن الكريم</p>
     </header>
+
+    <!-- نبذة عن مشروع رحلة الروح مع زرين -->
+    <section id="roohverse-intro" style="background: rgba(191,161,74,0.08); border-bottom: 1.5px solid var(--border-color); padding: 18px 10px 10px 10px; text-align: center; margin-bottom: 18px;">
+        <div style="max-width: 700px; margin: 0 auto;">
+            <div style="font-size: 1.15em; color: var(--primary-gold); font-weight: 600; margin-bottom: 8px;">
+                <i class="fas fa-leaf" style="color: var(--secondary-gold);"></i> رحلة الروح | RoohVerse
+            </div>
+            <div style="display: flex; justify-content: center; gap: 12px; flex-wrap: wrap;">
+                <a href="index.html" class="btn btn-primary" style="min-width: 120px; text-decoration: none;">
+                    <i class="fas fa-home"></i> العودة للرئيسية
+                </a>
+            </div>
+        </div>
+    </section>
 
     <main class="golden-container">
         <section class="search-section" role="search" aria-label="البحث في القرآن الكريم">
@@ -720,9 +735,43 @@
     <footer class="footer">
         <p><i class="fas fa-heart" style="color: var(--secondary-gold);" aria-hidden="true"></i> تم التطوير بعناية لخدمة القرآن الكريم</p>
         <p>جميع الحقوق محفوظة © 2025</p>
+        <p style="margin-top:10px; color:var(--primary-gold); font-size:1.05em; font-weight:600;">
+            تم تطويره من <span style="color:var(--secondary-gold);">عبد الصمد بوركيبات</span>
+        </p>
     </footer>
 
     <script>
+    // عرض نبذة عن مشروع رحلة الروح
+    function showAboutRoohVerse() {
+        hideLoading();
+        // زر العودة للرئيسية العائم
+        if (!document.getElementById('floating-home-btn')) {
+            const btn = document.createElement('a');
+            btn.href = 'index.html';
+            btn.id = 'floating-home-btn';
+            btn.className = 'btn btn-primary';
+            btn.style = 'position:fixed;top:22px;left:22px;z-index:9999;min-width:120px;text-decoration:none;box-shadow:0 4px 18px rgba(191,161,74,0.18);font-size:1.08em;';
+            btn.innerHTML = '<i class="fas fa-home"></i> العودة للرئيسية';
+            document.body.appendChild(btn);
+        }
+        document.getElementById('results').innerHTML = `
+            <div class="verse-container" style="max-width: 700px; margin: 0 auto;">
+                <h3 class="results-title"><i class="fas fa-leaf"></i> عن مشروع رحلة الروح | RoohVerse</h3>
+                <div style="color: var(--primary-gold); font-weight: 600; font-size: 1.1em; margin-bottom: 10px;">رحلة الروح | RoohVerse</div>
+                <div style="color: var(--text-secondary); font-size: 1.05em; margin-bottom: 18px;">
+                    رفيقك الذكي الذي يجمع بين أوقات الصلاة، اتجاه القبلة، حالة الطقس، وغنى الثقافة الإسلامية، ليكون دليلك في رحلتك الروحية أينما كنت.
+                </div>
+            </div>
+        `;
+    // إخفاء زر العودة للرئيسية العائم عند إغلاق نافذة عن المشروع (عند العودة للواجهة الرئيسية)
+    function hideFloatingHomeBtn() {
+        const btn = document.getElementById('floating-home-btn');
+        if (btn) btn.remove();
+    }
+
+    // إخفاء الزر عند العودة للواجهة الرئيسية أو أي عملية أخرى
+    // إضافة استدعاء في showWelcomeMessage وأي مكان مناسب آخر
+    }
         // APIs الحقيقية المتاحة
         const QURAN_API_BASE = 'https://api.alquran.cloud/v1';
         const QURAN_TAFSEER_API = 'http://api.quran-tafseer.com';
@@ -852,6 +901,7 @@
                </div>
            `;
            document.getElementById('results').innerHTML = welcomeHtml;
+           hideFloatingHomeBtn();
        }
 
        function showLoading(message = 'جاري التحميل...') {
@@ -1007,57 +1057,64 @@
        }
 
        async function getTafseerForVerse(suraNumber, ayahNumber) {
-           try {
-               showLoading('جاري تحميل التفسير...');
-               
-               // محاولة استخدام API التفسير الأول
-               try {
-                   const tafseerResponse = await fetch(`${QURAN_TAFSEER_API}/tafseer/${currentTafseer}/${suraNumber}/${ayahNumber}`, {
-                       method: 'GET',
-                       mode: 'cors'
-                   });
-                   
-                   if (tafseerResponse.ok) {
-                       const tafseerData = await tafseerResponse.json();
-                       
-                       // الحصول على نص الآية
-                       const verseResponse = await fetch(`${QURAN_API_BASE}/ayah/${suraNumber}:${ayahNumber}`);
-                       const verseData = await verseResponse.json();
-                       
-                       const combinedData = {
-                           verse: verseData.code === 200 ? verseData.data : null,
-                           tafseer: tafseerData
-                       };
-                       
-                       displayTafseer(combinedData, suraNumber, ayahNumber);
-                       return;
-                   }
-               } catch (tafseerError) {
-                   console.log('Tafseer API not available, using alternative method');
-               }
-               
-               // في حالة عدم توفر API التفسير، عرض الآية مع تفسير افتراضي
-               const verseResponse = await fetch(`${QURAN_API_BASE}/ayah/${suraNumber}:${ayahNumber}`);
-               const verseData = await verseResponse.json();
-               
-               if (verseData.code === 200) {
-                   const mockTafseer = {
-                       surah: suraNumber,
-                       ayah: ayahNumber,
-                       surahName: verseData.data.surah.name,
-                       verse: verseData.data.text,
-                       tafseer: "التفسير غير متوفر حالياً. يرجى المحاولة لاحقاً أو استخدام مصادر التفسير الخارجية."
-                   };
-                   
-                   displayTafseerFallback(mockTafseer);
-               } else {
-                   throw new Error('خطأ في تحميل الآية');
-               }
-               
-           } catch (error) {
-               console.error('Get tafseer error:', error);
-               showError('حدث خطأ أثناء تحميل التفسير. يرجى المحاولة مرة أخرى.');
-           }
+    try {
+        showLoading('جاري تحميل التفسير...');
+        // محاولة استخدام API التفسير الأول
+        let tafseerData = null;
+        let verseData = null;
+        try {
+            const tafseerResponse = await fetch(`${QURAN_TAFSEER_API}/tafseer/${currentTafseer}/${suraNumber}/${ayahNumber}`, {
+                method: 'GET',
+                mode: 'cors'
+            });
+            if (tafseerResponse.ok) {
+                tafseerData = await tafseerResponse.json();
+            }
+        } catch (tafseerError) {
+            tafseerData = null;
+        }
+        // جلب نص الآية
+        try {
+            const verseResponse = await fetch(`${QURAN_API_BASE}/ayah/${suraNumber}:${ayahNumber}`);
+            const vData = await verseResponse.json();
+            if (vData.code === 200) verseData = vData.data;
+        } catch (e) { verseData = null; }
+
+        // إذا نجح جلب التفسير من الإنترنت
+        if (tafseerData && verseData) {
+            const combinedData = {
+                verse: verseData,
+                tafseer: tafseerData
+            };
+            displayTafseer(combinedData, suraNumber, ayahNumber);
+            return;
+        }
+
+        // إذا فشل جلب التفسير من الإنترنت، استخدم تفسير افتراضي حقيقي
+        // قائمة تفاسير افتراضية مختصرة (يمكنك توسيعها)
+        const fallbackTafseerTexts = {
+            1: "سورة الفاتحة: هي السبع المثاني وأم الكتاب، تشتمل على الثناء والدعاء لله وطلب الهداية.",
+            2: "سورة البقرة: أطول سور القرآن، تتناول التشريع وقصص بني إسرائيل وأحكام كثيرة.",
+            3: "سورة آل عمران: تتحدث عن آل عمران، وتؤكد على التوحيد والصبر والثبات.",
+            4: "سورة النساء: تعالج قضايا الأسرة والمرأة والميراث والعدل.",
+            5: "سورة المائدة: تتناول الحلال والحرام وأحكام الذبائح والمواثيق.",
+            // أضف المزيد حسب الحاجة
+        };
+        let tafseerText = fallbackTafseerTexts[suraNumber] || "التفسير غير متوفر حالياً. يرجى المحاولة لاحقاً أو استخدام مصادر التفسير الخارجية.";
+        let surahName = verseData && verseData.surah ? verseData.surah.name : `السورة ${suraNumber}`;
+        let verseText = verseData && verseData.text ? verseData.text : '';
+        const mockTafseer = {
+            surah: suraNumber,
+            ayah: ayahNumber,
+            surahName: surahName,
+            verse: verseText,
+            tafseer: tafseerText
+        };
+        displayTafseerFallback(mockTafseer);
+    } catch (error) {
+        console.error('Get tafseer error:', error);
+        showError('حدث خطأ أثناء تحميل التفسير. يرجى المحاولة مرة أخرى.');
+    }
        }
 
        function displayTafseer(data, suraNumber, ayahNumber) {
