@@ -2094,9 +2094,44 @@
         document.getElementById('qibla-angle').textContent = angle.toFixed(0) + '°';
         document.getElementById('qibla-distance').textContent = distance + ' كم';
         document.getElementById('qibla-coords').textContent = lat.toFixed(4) + ', ' + lng.toFixed(4);
-        // تدوير الإبرة
+        // تدوير الإبرة حسب مستشعر الاتجاه إذا توفر
         const needle = document.getElementById('qibla-needle');
-        if (needle) needle.style.transform = `rotate(${angle}deg)`;
+        if (needle) {
+          // إزالة أي مستمع سابق
+          if (window._qiblaOrientationListener) {
+            window.removeEventListener('deviceorientationabsolute', window._qiblaOrientationListener);
+            window.removeEventListener('deviceorientation', window._qiblaOrientationListener);
+            window._qiblaOrientationListener = null;
+          }
+          let orientationSupported = false;
+          window._qiblaOrientationListener = function(event) {
+            let heading = null;
+            if (typeof event.webkitCompassHeading !== 'undefined') {
+              heading = event.webkitCompassHeading;
+            } else if (typeof event.alpha !== 'undefined') {
+              heading = 360 - event.alpha;
+            }
+            if (heading === null || isNaN(heading)) {
+              needle.style.transform = `rotate(${angle}deg)`;
+              return;
+            }
+            orientationSupported = true;
+            let rotation = angle - heading;
+            rotation = ((rotation % 360) + 360) % 360;
+            needle.style.transform = `rotate(${rotation}deg)`;
+          };
+          if ('ondeviceorientationabsolute' in window) {
+            window.addEventListener('deviceorientationabsolute', window._qiblaOrientationListener, true);
+          } else if ('ondeviceorientation' in window) {
+            window.addEventListener('deviceorientation', window._qiblaOrientationListener, true);
+          }
+          // fallback: إذا لم يدعم المستشعر
+          setTimeout(function() {
+            if (!orientationSupported) {
+              needle.style.transform = `rotate(${angle}deg)`;
+            }
+          }, 1500);
+        }
         // رسالة نجاح
         document.getElementById('qibla-success-msg').textContent = usedCountry
           ? (currentLanguage === 'ar' ? 'تم تحديد القبلة حسب الدولة المختارة.' : 'Qibla set by selected country.')
