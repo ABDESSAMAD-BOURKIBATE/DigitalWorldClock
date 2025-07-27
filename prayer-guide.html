@@ -444,26 +444,6 @@
       box-shadow: 0 12px 35px rgba(255, 215, 0, 0.6);
     }
 
-    .notification {
-      position: fixed;
-      top: 100px;
-      left: 20px;
-      background: rgba(26, 26, 26, 0.95);
-      backdrop-filter: blur(20px);
-      padding: 20px;
-      border-radius: 15px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-      border-right: 4px solid #ffd700;
-      transform: translateX(-400px);
-      transition: all 0.3s ease;
-      z-index: 1001;
-      max-width: 300px;
-      border: 2px solid rgba(255, 215, 0, 0.3);
-    }
-
-    .notification.show {
-      transform: translateX(0);
-    }
 
     .counter-badge {
       position: absolute;
@@ -809,11 +789,6 @@
         font-size: 20px;
       }
       
-      .notification {
-        left: 10px;
-        right: 10px;
-        max-width: none;
-      }
       
       .step-item {
         padding: 12px;
@@ -990,11 +965,31 @@
           قصص عن الصلاة
         </h2>
         <div style="display: flex; justify-content: center; margin-top: 24px;">
-          <div style="max-width: 600px; width: 100%; box-shadow: 0 8px 32px #ffd70055, 0 2px 16px #0002; border-radius: 18px; overflow: hidden; border: 3px solid #ffd700; background: #222;">
-            <div style="position: relative; padding-bottom: 56.25%; height: 0;">
-              <iframe src="https://www.youtube.com/embed/e8yeigZCwMw?si=2a0A_qYt6ufvsMjT" title="قصة عن الصلاة" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;"></iframe>
+          <div style="display: flex; flex-direction: column; gap: 32px; width: 100%; align-items: center;">
+            <div style="max-width: 600px; width: 100%; box-shadow: 0 8px 32px #ffd70055, 0 2px 16px #0002; border-radius: 18px; overflow: hidden; border: 3px solid #ffd700; background: #222;">
+              <div style="position: relative; padding-bottom: 56.25%; height: 0;">
+                <iframe src="https://www.youtube.com/embed/e8yeigZCwMw?si=2a0A_qYt6ufvsMjT" title="قصة عن الصلاة" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;"></iframe>
+              </div>
+              <div style="text-align:center; color:var(--text-gold); font-weight:700; padding:8px 0 4px; font-size:1.1em;">قصة مؤثرة عن الصلاة</div>
             </div>
-            <div style="text-align:center; color:var(--text-gold); font-weight:700; padding:8px 0 4px; font-size:1.1em;">قصة مؤثرة عن الصلاة</div>
+            <div style="max-width: 600px; width: 100%; box-shadow: 0 8px 32px #ffd70055, 0 2px 16px #0002; border-radius: 18px; overflow: hidden; border: 3px solid #ffd700; background: #222;">
+              <div style="position: relative; padding-bottom: 56.25%; height: 0;">
+                <iframe src="https://www.youtube.com/embed/S_o3I0ro6Xk" title="أجمل قصص عن الرسول عليه أفضل الصلاة والسلام - خطب بدر المشاري" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;"></iframe>
+              </div>
+              <div style="text-align:center; color:var(--text-gold); font-weight:700; padding:8px 0 4px; font-size:1.1em;">أجمل قصص عن الرسول عليه أفضل الصلاة والسلام - خطب بدر المشاري</div>
+            </div>
+            <div style="max-width: 600px; width: 100%; box-shadow: 0 8px 32px #ffd70055, 0 2px 16px #0002; border-radius: 18px; overflow: hidden; border: 3px solid #ffd700; background: #222;">
+              <div style="position: relative; padding-bottom: 56.25%; height: 0;">
+                <iframe src="https://www.youtube.com/embed/fOOv4haSBao" title="رحلة الصلاة وروحها | أحمد الرئيسي" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;"></iframe>
+              </div>
+              <div style="text-align:center; color:var(--text-gold); font-weight:700; padding:8px 0 4px; font-size:1.1em;">رحلة الصلاة وروحها | أحمد الرئيسي</div>
+            </div>
+            <div style="max-width: 600px; width: 100%; box-shadow: 0 8px 32px #ffd70055, 0 2px 16px #0002; border-radius: 18px; overflow: hidden; border: 3px solid #ffd700; background: #222;">
+              <div style="position: relative; padding-bottom: 56.25%; height: 0;">
+                <iframe src="https://www.youtube.com/embed/63_AOCldyXo?si=HU1bvP8WM2-VTYlb" title="تذوق العبادات - الصلاة | مع د. أحمد العربي" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;"></iframe>
+              </div>
+              <div style="text-align:center; color:var(--text-gold); font-weight:700; padding:8px 0 4px; font-size:1.1em;">تذوق العبادات - الصلاة | مع د. أحمد العربي</div>
+            </div>
           </div>
         </div>
       </div>
@@ -1552,17 +1547,6 @@
     </div>
   </div>
 
-  <button class="floating-action" onclick="showNotification()">
-    <i class="fas fa-bell"></i>
-  </button>
-
-  <div class="notification" id="notification">
-    <h4 style="margin-bottom: 10px; color: var(--text-gold);">
-      <i class="fas fa-mosque"></i>
-      تذكير الصلاة
-    </h4>
-    <p>حان وقت صلاة الظهر</p>
-  </div>
 
   <footer class="footer">
     <div class="footer-content">
@@ -1584,7 +1568,6 @@
       const friendlyMsg = currentLanguage === 'ar'
         ? 'حدث خلل بسيط، يرجى إعادة المحاولة أو تحديث الصفحة.'
         : 'A minor issue occurred, please try again or refresh the page.';
-      showNotification(friendlyMsg);
       // سجل الخطأ للمطور فقط
       if (window.console && window.console.error) {
         console.error('JavaScript Error:', e.error || e);
@@ -1601,7 +1584,6 @@
         const friendlyMsg = currentLanguage === 'ar'
           ? 'حدث خطأ أثناء تنفيذ العملية، يرجى المحاولة لاحقاً.'
           : 'An error occurred, please try again later.';
-        showNotification(friendlyMsg);
         if (window.console && window.console.error) {
           console.error('SafeRun Error:', err);
         }
@@ -1791,12 +1773,10 @@
     // دالة تشغيل النص الصوتي المحسّنة
     function speakText(text, lang = null) {
       if (!('speechSynthesis' in window)) {
-        showNotification(currentLanguage === 'ar' ? 'المتصفح لا يدعم تشغيل الصوت' : 'Browser does not support audio');
         return;
       }
 
       if (isMuted) {
-        showNotification(currentLanguage === 'ar' ? 'الصوت مكتوم' : 'Audio is muted');
         return;
       }
 
@@ -1847,7 +1827,6 @@
         document.querySelectorAll('.active-playing').forEach(btn => {
           btn.classList.remove('active-playing');
         });
-        showNotification(currentLanguage === 'ar' ? 'حدث خطأ في تشغيل الصوت' : 'Error playing audio');
         currentAudio = null;
       };
 
@@ -1945,7 +1924,6 @@
     function resetWudu() {
       currentWuduStep = 1;
       selectWuduStep(1);
-      showNotification(currentLanguage === 'ar' ? 'تم إعادة تعيين دليل الوضوء' : 'Wudu guide has been reset');
     }
 
     // إيقاف الصوت
@@ -1957,7 +1935,6 @@
           btn.classList.remove('active-playing');
         });
         currentAudio = null;
-        showNotification(currentLanguage === 'ar' ? 'تم إيقاف الصوت' : 'Audio paused');
       }
     }
 
@@ -2003,18 +1980,14 @@
     // تشغيل الأذان الحقيقي من Adhan API (mp3)
     async function playGeneralAdhan() {
       if (!navigator.geolocation) {
-        showNotification('المتصفح لا يدعم تحديد الموقع');
         return;
       }
-      showNotification('جاري جلب الأذان...');
       navigator.geolocation.getCurrentPosition(async position => {
         // يمكنك تخصيص mp3 حسب الوقت أو الاكتفاء بصوت ثابت
         const adhanMp3 = 'https://cdn.islamic.network/adhan/audio/128/ar.mishary.rashid.mp3';
         const audio = new Audio(adhanMp3);
         audio.play();
-        showNotification('تشغيل الأذان الحقيقي');
       }, () => {
-        showNotification('تعذر تحديد الموقع');
       });
     }
 
@@ -2024,7 +1997,6 @@
         'جاري تحديد موقعك وحساب اتجاه القبلة...' : 
         'Finding your location and calculating Qibla direction...';
       
-      showNotification(searchingMsg);
       speakText(searchingMsg);
       
       if (navigator.geolocation) {
@@ -2044,7 +2016,6 @@
               `تم تحديد اتجاه القبلة: ${qiblaDirection}` : 
               `Qibla direction determined: ${qiblaDirection}`;
             
-            showNotification(successMsg);
             speakText(successMsg);
           },
           error => {
@@ -2052,7 +2023,6 @@
               'لم يتمكن من تحديد موقعك. يرجى السماح بالوصول للموقع.' : 
               'Could not determine your location. Please allow location access.';
             
-            showNotification(errorMsg);
             speakText(errorMsg);
           }
         );
@@ -2061,13 +2031,11 @@
           'متصفحك لا يدعم تحديد الموقع الجغرافي' : 
           'Your browser does not support geolocation';
         
-        showNotification(noSupportMsg);
         speakText(noSupportMsg);
       }
     }// تحديث اتجاه القبلة من Adhan API بناءً على GPS
 function updateQiblaDirection() {
   if (!navigator.geolocation) {
-    showNotification('المتصفح لا يدعم تحديد الموقع');
     return;
   }
   navigator.geolocation.getCurrentPosition(async position => {
@@ -2084,10 +2052,8 @@ function updateQiblaDirection() {
         }
       }
     } catch (e) {
-      showNotification('تعذر جلب اتجاه القبلة');
     }
   }, () => {
-    showNotification('تعذر تحديد الموقع');
   });
 }
 
@@ -2114,7 +2080,6 @@ function updateQiblaDirection() {
         'تم تفعيل وضع التكرار' : 
         'Repeat mode activated';
       
-      showNotification(repeatMsg);
       speakText(repeatMsg);
     }
 
@@ -2137,7 +2102,6 @@ function updateQiblaDirection() {
           `مبارك! أكملت ${duaCounter} تسبيحة` : 
           `Congratulations! You completed ${duaCounter} recitations`;
         
-        showNotification(milestoneMsg);
         speakText(milestoneMsg);
       }
     }
@@ -2148,7 +2112,6 @@ function updateQiblaDirection() {
         'تشغيل الأذان...' : 
         'Playing Adhan...';
       
-      showNotification(adhanMsg);
       speakText(adhanMsg);
       
       // تأثير بصري
@@ -2263,23 +2226,6 @@ function updateQiblaDirection() {
       speakText('تم إعادة تعيين جميع الإعدادات');
     }
 
-    // عرض الإشعارات
-    function showNotification(message) {
-      const notification = document.getElementById('notification');
-      const messageElement = notification?.querySelector('p');
-      
-      if (messageElement) {
-        messageElement.textContent = message;
-      }
-      
-      if (notification) {
-        notification.classList.add('show');
-        
-        setTimeout(() => {
-          notification.classList.remove('show');
-        }, 3000);
-      }
-    }
 
     // تشغيل الصوت الترحيبي
     function playWelcomeAudio() {
