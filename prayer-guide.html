@@ -940,6 +940,9 @@
         <button class="nav-tab" onclick="showTab('qibla')">
           <i class="fas fa-compass"></i> القبلة
         </button>
+        <button class="nav-tab" onclick="showTab('madhahib')">
+          <i class="fas fa-balance-scale"></i> المذاهب
+        </button>
         <button class="nav-tab" onclick="showTab('duas')">
           <i class="fas fa-book-open"></i> الأذكار
         </button>
@@ -963,6 +966,97 @@
   </header>
 
   <div class="container">
+    <!-- قسم المذاهب -->
+    <div id="madhahib" class="tab-content">
+      <div class="hero-card">
+        <div id="speakable-madhahib" style="cursor:pointer; background:#000000; padding:10px; border-radius:8px;" title="اضغط للاستماع للنص">
+          <h2 style="color:var(--text-gold);text-align:center;margin-bottom:18px;">الصلاة في المذاهب الأربعة</h2>
+          <p style="font-size:1.1em;line-height:2;text-align:center;max-width:700px;margin:auto;color:#ffd700cc;">
+            الفرق بين الصلاة في المذاهب الأربعة (الحنفي، المالكي، الشافعي، والحنبلي) هو في بعض التفاصيل الفقهية، وليس في أصل الصلاة، فجميع المذاهب تتفق على أركان الصلاة الأساسية (النية، تكبيرة الإحرام، القراءة، الركوع، السجود، إلخ)، وتختلف فقط في بعض الصفات والهيئات.
+          </p>
+        </div>
+        <div style="display: flex; justify-content: center; gap: 16px; margin-top: 12px;">
+          <button id="play-madhahib-btn" style="background: #ffd700; color: #222; border: none; border-radius: 8px; padding: 8px 22px; font-weight: bold; font-size: 1em; cursor: pointer;">تشغيل الصوت</button>
+          <button id="stop-madhahib-btn" style="background: #333; color: #ffd700; border: 1px solid #ffd700; border-radius: 8px; padding: 8px 22px; font-weight: bold; font-size: 1em; cursor: pointer;">إيقاف الصوت</button>
+        </div>
+        <script>
+        var madhahibUtterance;
+        document.getElementById('speakable-madhahib').onclick = function() {
+          var text = this.innerText;
+          madhahibUtterance = new (window.SpeechSynthesisUtterance || window.webkitSpeechSynthesisUtterance)(text);
+          madhahibUtterance.lang = 'ar-SA';
+          window.speechSynthesis.speak(madhahibUtterance);
+        };
+        document.getElementById('play-madhahib-btn').onclick = function() {
+          var text = document.getElementById('speakable-madhahib').innerText;
+          madhahibUtterance = new (window.SpeechSynthesisUtterance || window.webkitSpeechSynthesisUtterance)(text);
+          madhahibUtterance.lang = 'ar-SA';
+          window.speechSynthesis.speak(madhahibUtterance);
+        };
+        document.getElementById('stop-madhahib-btn').onclick = function() {
+          window.speechSynthesis.cancel();
+        };
+        </script>
+      </div>
+      <div style="display: flex; justify-content: center; margin-top: 24px;">
+        <div style="max-width: 600px; width: 100%; box-shadow: 0 8px 32px #ffd70055, 0 2px 16px #0002; border-radius: 18px; overflow: hidden; border: 3px solid #ffd700; background: #222;">
+          <div style="position: relative; padding-bottom: 56.25%; height: 0;">
+            <iframe src="https://www.youtube.com/embed/bhsNo_dgyPM?si=lLWW7VZCbDHOamUR" title="الفرق بين المذاهب الأربعة الشافعي ومالك وأبو حنيفة وبن حنبل" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;"></iframe>
+          </div>
+          <div style="text-align:center; color:var(--text-gold); font-weight:700; padding:8px 0 4px; font-size:1.1em;">الفرق بين المذاهب الأربعة الشافعي ومالك وأبو حنيفة وبن حنبل</div>
+        </div>
+      </div>
+
+      <!-- جدول الفروقات بين المذاهب الأربعة -->
+      <div id="speakable-madhahib-table" style="margin: 32px auto 0; max-width: 800px; background: #222; border-radius: 16px; box-shadow: 0 4px 16px #ffd70033; border: 2px solid #ffd700; padding: 24px 12px; cursor:pointer;" title="اضغط للاستماع للجدول">
+        <h3 style="color: var(--text-gold); text-align: right; margin-bottom: 18px;">إليك أهم الفروقات في الصلاة بين المذاهب الأربعة:</h3>
+        <style>
+          .madhahib-table { width: 100%; border-collapse: collapse; margin-bottom: 18px; direction: rtl; }
+          .madhahib-table th, .madhahib-table td { border: 1px solid #ffd70099; padding: 8px 6px; text-align: center; color: #ffd700; background: #222; font-size: 1em; }
+          .madhahib-table th { background: #333; color: #fffbe6; font-weight: bold; }
+          .madhahib-table tr:nth-child(even) { background: #232323; }
+          .madhahib-table .section-title { background: #ffd70022; color: #ffeb99; font-weight: bold; text-align: right; }
+        </style>
+        <table class="madhahib-table">
+          <tr class="section-title"><td colspan="5"> 1. تكبيرة الإحرام ورفع اليدين</td></tr>
+          <tr><th>المسألة</th><th>الحنفي</th><th>المالكي</th><th>الشافعي</th><th>الحنبلي</th></tr>
+          <tr><td>رفع اليدين</td><td>عند تكبيرة الإحرام فقط</td><td>عند التكبيرة فقط</td><td>عند التكبيرة، والركوع، والرفع منه</td><td>عند التكبيرة، والركوع، والرفع منه</td></tr>
+          <tr><td>موضع اليدين</td><td>تحت السرّة</td><td>لا يُشدّان، ويُرسلهما بعد التكبيرة</td><td>على الصدر</td><td>على الصدر</td></tr>
+          <tr class="section-title"><td colspan="5"> 2. قراءة الفاتحة وما بعدها</td></tr>
+          <tr><th>المسألة</th><th>الحنفي</th><th>المالكي</th><th>الشافعي</th><th>الحنبلي</th></tr>
+          <tr><td>قراءة الفاتحة للمأموم</td><td>لا يقرأ خلف الإمام</td><td>لا يقرأ خلف الإمام في الجهرية</td><td>يقرأ الفاتحة في كل ركعة</td><td>يقرأ الفاتحة في كل ركعة</td></tr>
+          <tr><td>السورة بعد الفاتحة</td><td>في الركعتين الأوليين</td><td>مستحبة في الأوليين</td><td>في الأوليين</td><td>في الأوليين</td></tr>
+          <tr class="section-title"><td colspan="5"> 3. قول "آمين" بعد الفاتحة</td></tr>
+          <tr><th>المسألة</th><th>الحنفي</th><th>المالكي</th><th>الشافعي</th><th>الحنبلي</th></tr>
+          <tr><td>قول "آمين"</td><td>يُستحب سرًّا</td><td>لا تُقال غالبًا</td><td>يُقال جهرًا</td><td>يُقال جهرًا</td></tr>
+          <tr class="section-title"><td colspan="5"> 4. التشهد ووضع الأصبع</td></tr>
+          <tr><th>المسألة</th><th>الحنفي</th><th>المالكي</th><th>الشافعي</th><th>الحنبلي</th></tr>
+          <tr><td>الجلوس للتشهد</td><td>مفروش</td><td>التورك في الأخير</td><td>الافتراش ثم التورك</td><td>الافتراش ثم التورك</td></tr>
+          <tr><td>تحريك السبابة</td><td>عند الشهادة فقط</td><td>تبقى ساكنة</td><td>من "إلا الله" حتى السلام</td><td>يُحركها مع كل دعاء</td></tr>
+          <tr class="section-title"><td colspan="5"> 5. التسليم (السلام)</td></tr>
+          <tr><th>المسألة</th><th>الحنفي</th><th>المالكي</th><th>الشافعي</th><th>الحنبلي</th></tr>
+          <tr><td>عدد التسليمات</td><td>تسليمتان واجبتان</td><td>تسليمة واحدة تكفي</td><td>تسليمتان</td><td>تسليمتان</td></tr>
+          <tr class="section-title"><td colspan="5"> 6. قراءة دعاء الاستفتاح</td></tr>
+          <tr><th>المسألة</th><th>الحنفي</th><th>المالكي</th><th>الشافعي</th><th>الحنبلي</th></tr>
+          <tr><td>الاستفتاح</td><td>مستحب</td><td>لا يُقال</td><td>مستحب</td><td>مستحب</td></tr>
+        </table>
+        <script>
+        document.getElementById('speakable-madhahib-table').addEventListener('click', function(e) {
+          // شغل الصوت فقط إذا كان الضغط على خلية (td أو th)
+          if (e.target.tagName === 'TD' || e.target.tagName === 'TH') {
+            var text = e.target.innerText.trim();
+            if (text) {
+              var utterance = new (window.SpeechSynthesisUtterance || window.webkitSpeechSynthesisUtterance)(text);
+              utterance.lang = 'ar-SA';
+              window.speechSynthesis.speak(utterance);
+            }
+          }
+        });
+        </script>
+      </div>
+        </div>
+      </div>
+    </div>
     <!-- قسم الأذان -->
     <div id="adhan" class="tab-content">
       <div class="hero-card">
