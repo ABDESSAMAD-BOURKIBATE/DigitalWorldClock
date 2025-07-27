@@ -1282,7 +1282,176 @@
           <h3 class="card-title">المصحف الشريف</h3>
           <p>تصفح واستمع للقرآن الكريم كاملاً مع التحكم في الخط والصوت</p>
         </div>
+        <div class="card" onclick="showTab('book-explanation')">
+          <div class="card-icon">
+            <i class="fas fa-book"></i>
+          </div>
+          <h3 class="card-title">شرح كتاب الصلاة</h3>
+          <p>بطاقة تفاعلية لشرح كتاب الصلاة وأهم أحكامه بأسلوب مبسط د.</p>
+        </div>
       </div>
+    </div>
+
+    <!-- قسم شرح كتاب الصلاة -->
+    <div id="book-explanation" class="tab-content">
+      <div class="hero-card">
+        <h2 style="text-align: center; margin-bottom: 30px; color: var(--text-gold);">
+          <i class="fas fa-book-open"></i>
+          شرح كتاب الصلاة
+        </h2>
+        <div style="margin-bottom: 20px;">
+          <b>مدخل إلى كتاب الصلاة</b>
+          <p id="book-intro-text" style="margin-top: 10px; font-size: 1.1em; line-height: 2;">
+            الصلاة في اللغة تعني الدعاء، وهي من الجذر الثلاثي (ص ل و). أما في الاصطلاح الشرعي، فالصلاة عبادة تتضمن أقوالًا وأفعالًا مخصوصة، تبدأ بالتكبير وتنتهي بالتسليم، وتؤدى بشروط وأركان معلومة في أوقات محددة، وهي الركن الثاني من أركان الإسلام بعد الشهادتين.<br><br>
+            تعد الصلاة أعظم العبادات البدنية، وهي الصلة اليومية التي تربط العبد بربه، تربي في النفس الخشوع، وفي القلب الطمأنينة، وفي السلوك الاتزان. كما أنها أول ما يُحاسب عليه العبد يوم القيامة، فإن صلحت صلح سائر العمل، وإن فسدت فسد سائر العمل.<br><br>
+            بعد الإلمام بهذا التعريف، يمكن الانتقال إلى دراسة تبويبات كتاب الصلاة التي تشمل الأذان، شروط الصلاة، صفتها، أركانها، أحكام السهو، النوافل، وصلاة الجماعة والجمعة والعيدين وغيرها، وهي تبويبات تهدف إلى فهم هذه العبادة فهمًا منهجيًا يجمع بين الجانب العلمي والعملي.
+          </p>
+          <div class="audio-controls" style="margin: 10px 0 20px 0; display: flex; gap: 10px;">
+            <button class="audio-btn" onclick="playBookIntroAudio()" title="تشغيل الصوت"><i class="fas fa-play"></i></button>
+            <button class="audio-btn" onclick="pauseBookIntroAudio()" title="إيقاف الصوت"><i class="fas fa-pause"></i></button>
+          </div>
+        </div>
+        <div style="overflow-x:auto;">
+          <table style="width:100%; background:rgba(255,215,0,0.07); border-radius:12px; border:1.5px solid #ffd700; margin-bottom:20px; text-align:center;">
+            <thead>
+              <tr style="background:rgba(255,215,0,0.15); color:#ffd700;">
+                <th>رقم</th>
+                <th>التبويب</th>
+                <th>النبذة المختصرة</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>1</td>
+                <td onclick="speakText('الأذان والإقامة')" style="cursor:pointer;">
+                  الأذان والإقامة
+                </td>
+                <td onclick="speakText('يتناول أحكام الأذان والإقامة، شروطهما وصيغتهما ووقتهما وأفضالهما.')" style="cursor:pointer;">
+                  يتناول أحكام الأذان والإقامة، شروطهما وصيغتهما ووقتهما وأفضالهما.
+                </td>
+              </tr>
+              <tr>
+                <td>2</td>
+                <td onclick="speakText('شرائط الصلاة')" style="cursor:pointer;">
+                  شرائط الصلاة
+                </td>
+                <td onclick="speakText('يوضح الشروط التي لا تصح الصلاة بدونها مثل الطهارة، ستر العورة، استقبال القبلة.')" style="cursor:pointer;">
+                  يوضح الشروط التي لا تصح الصلاة بدونها مثل الطهارة، ستر العورة، استقبال القبلة.
+                </td>
+              </tr>
+              <tr>
+                <td>3</td>
+                <td onclick="speakText('آداب المشي إلى الصلاة')" style="cursor:pointer;">
+                  آداب المشي إلى الصلاة
+                </td>
+                <td onclick="speakText('يستعرض السنن والآداب المتعلقة بالخروج إلى المسجد مثل السكينة والدعاء.')" style="cursor:pointer;">
+                  يستعرض السنن والآداب المتعلقة بالخروج إلى المسجد مثل السكينة والدعاء.
+                </td>
+              </tr>
+              <tr>
+                <td>4</td>
+                <td onclick="speakText('صفة الصلاة')" style="cursor:pointer;">
+                  صفة الصلاة
+                </td>
+                <td onclick="speakText('شرح لأداء الصلاة خطوة بخطوة منذ التكبير وحتى التسليم.')" style="cursor:pointer;">
+                  شرح لأداء الصلاة خطوة بخطوة منذ التكبير وحتى التسليم.
+                </td>
+              </tr>
+              <tr>
+                <td>5</td>
+                <td onclick="speakText('أركان الصلاة وواجباتها')" style="cursor:pointer;">
+                  أركان الصلاة وواجباتها
+                </td>
+                <td onclick="speakText('يفرق بين ما لا تصح الصلاة بدونه (الأركان) وبين ما يجبر بالسهو (الواجبات).')" style="cursor:pointer;">
+                  يفرق بين ما لا تصح الصلاة بدونه (الأركان) وبين ما يجبر بالسهو (الواجبات).
+                </td>
+              </tr>
+              <tr>
+                <td>6</td>
+                <td onclick="speakText('سجدتي السهو')" style="cursor:pointer;">
+                  سجدتي السهو
+                </td>
+                <td onclick="speakText('يبين أسباب سجود السهو، ومواضعه وكيفيته وأحكامه المختلفة.')" style="cursor:pointer;">
+                  يبين أسباب سجود السهو، ومواضعه وكيفيته وأحكامه المختلفة.
+                </td>
+              </tr>
+              <tr>
+                <td>7</td>
+                <td onclick="speakText('الساعات التي نهي عن الصلاة فيها')" style="cursor:pointer;">
+                  الساعات التي نهي عن الصلاة فيها
+                </td>
+                <td onclick="speakText('يوضح الأوقات التي نهى الشرع عن الصلاة فيها وما يستثنى من ذلك.')" style="cursor:pointer;">
+                  يوضح الأوقات التي نهى الشرع عن الصلاة فيها وما يستثنى من ذلك.
+                </td>
+              </tr>
+              <tr>
+                <td>8</td>
+                <td onclick="speakText('صلاة التطوع')" style="cursor:pointer;">
+                  صلاة التطوع
+                </td>
+                <td onclick="speakText('يتناول أنواع النوافل، وأفضل أوقاتها، وفضلها، وسنن الرواتب وغيرها.')" style="cursor:pointer;">
+                  يتناول أنواع النوافل، وأفضل أوقاتها، وفضلها، وسنن الرواتب وغيرها.
+                </td>
+              </tr>
+              <tr>
+                <td>9</td>
+                <td onclick="speakText('الإمامة')" style="cursor:pointer;">
+                  الإمامة
+                </td>
+                <td onclick="speakText('يشرح أحكام إمامة الصلاة، من يصلح لها، ومن يُقدَّم فيها، وأحكام المأموم.')" style="cursor:pointer;">
+                  يشرح أحكام إمامة الصلاة، من يصلح لها، ومن يُقدَّم فيها، وأحكام المأموم.
+                </td>
+              </tr>
+              <tr>
+                <td>10</td>
+                <td onclick="speakText('صلاة المريض')" style="cursor:pointer;">
+                  صلاة المريض
+                </td>
+                <td onclick="speakText('يوضح كيفية أداء المريض للصلاة حسب استطاعته قيامًا أو قعودًا أو على جنب.')" style="cursor:pointer;">
+                  يوضح كيفية أداء المريض للصلاة حسب استطاعته قيامًا أو قعودًا أو على جنب.
+                </td>
+              </tr>
+              <tr>
+                <td>11</td>
+                <td onclick="speakText('صلاة المسافر')" style="cursor:pointer;">
+                  صلاة المسافر
+                </td>
+                <td onclick="speakText('أحكام قصر الصلاة وجمعها في السفر، وشروط ذلك.')" style="cursor:pointer;">
+                  أحكام قصر الصلاة وجمعها في السفر، وشروط ذلك.
+                </td>
+              </tr>
+              <tr>
+                <td>12</td>
+                <td onclick="speakText('صلاة الخوف')" style="cursor:pointer;">
+                  صلاة الخوف
+                </td>
+                <td onclick="speakText('أحكام خاصة بالصلاة في حال الخوف أو الحرب، وصورها المختلفة كما جاءت في السنة.')" style="cursor:pointer;">
+                  أحكام خاصة بالصلاة في حال الخوف أو الحرب، وصورها المختلفة كما جاءت في السنة.
+                </td>
+              </tr>
+              <tr>
+                <td>13</td>
+                <td onclick="speakText('صلاة الجمعة')" style="cursor:pointer;">
+                  صلاة الجمعة
+                </td>
+                <td onclick="speakText('يشرح شروطها، خطبتها، عدد ركعاتها، وأحكام التخلف عنها.')" style="cursor:pointer;">
+                  يشرح شروطها، خطبتها، عدد ركعاتها، وأحكام التخلف عنها.
+                </td>
+              </tr>
+              <tr>
+                <td>14</td>
+                <td onclick="speakText('صلاة العيدين')" style="cursor:pointer;">
+                  صلاة العيدين
+                </td>
+                <td onclick="speakText('يتناول أحكام صلاة عيد الفطر وعيد الأضحى، صفتها ووقتها وخطبتها.')" style="cursor:pointer;">
+                  يتناول أحكام صلاة عيد الفطر وعيد الأضحى، صفتها ووقتها وخطبتها.
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <audio id="book-intro-audio" src="audio/book-intro.mp3"></audio>
     </div>
 
     <!-- قسم الوضوء -->
@@ -3122,5 +3291,30 @@ function updateQiblaDirection() {
     // استبدال دالة initializeTTS بالنسخة المحسّنة
     initializeTTS = enhancedInitializeTTS;
   </script>
-</body>
+  <script>
+    // نص إلى صوت لشرح كتاب الصلاة (تشغيل/إيقاف)
+    function playBookIntroAudio() {
+      var audio = document.getElementById('book-intro-audio');
+      audio.play();
+    }
+    function pauseBookIntroAudio() {
+      var audio = document.getElementById('book-intro-audio');
+      audio.pause();
+    }
+
+    // تحويل نص الجدول إلى صوت باستخدام Web Speech API
+    var synth = window.speechSynthesis;
+    var currentUtterance = null;
+    function speakText(text) {
+      if (synth.speaking) {
+        synth.cancel();
+      }
+      var utter = new SpeechSynthesisUtterance(text);
+      utter.lang = 'ar-SA';
+      utter.rate = 1;
+      currentUtterance = utter;
+      synth.speak(utter);
+    }
+  </script>
+  </body>
 </html>
