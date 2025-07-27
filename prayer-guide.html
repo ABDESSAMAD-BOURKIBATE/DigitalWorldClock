@@ -2704,18 +2704,19 @@ function updateQiblaDirection() {
       if (!window._localTimeInterval) {
         window._localTimeInterval = setInterval(updateLocalTimeBox, 1000);
       }
-      // إعادة تعيين التاريخ الهجري افتراضياً
-      var hijriDiv = document.getElementById('hijri-date');
-      if (hijriDiv) hijriDiv.textContent = '...';
 
+      // إعادة تعيين التاريخ الهجري الافتراضي برسالة واضحة
+      document.getElementById('hijri-date').textContent = currentLanguage === 'ar' ? 'يرجى تفعيل الموقع للحصول على التاريخ الهجري بدقة' : 'Enable location for accurate Hijri date';
+
+      // تحقق من دعم geolocation
       if (!navigator.geolocation) {
-        showNotification(currentLanguage === 'ar' ? 'متصفحك لا يدعم تحديد الموقع' : 'Your browser does not support geolocation');
+        showGpsAlert(currentLanguage === 'ar' ? 'متصفحك لا يدعم تحديد الموقع الجغرافي. يرجى تحديث المتصفح أو استخدام جهاز آخر.' : 'Your browser does not support geolocation. Please update your browser or use another device.');
         return;
       }
-      // طلب تفعيل GPS من المستخدم برسالة واضحة
-      showNotification(currentLanguage === 'ar' ? 'يرجى تفعيل GPS والموافقة على تحديد الموقع للحصول على مواقيت الصلاة بدقة' : 'Please enable GPS and allow location access for accurate prayer times');
+
+      // طلب الموقع من المستخدم بشكل فوري
       navigator.geolocation.getCurrentPosition(
-        position => {
+        function(position) {
           const lat = position.coords.latitude;
           const lng = position.coords.longitude;
           const today = new Date();
@@ -2736,31 +2737,34 @@ function updateQiblaDirection() {
               document.getElementById('isha-time').textContent = timings.Isha;
               highlightCurrentPrayer(timings);
               // التاريخ الهجري
-              var hijriDiv = document.getElementById('hijri-date');
               if (data.data.date && data.data.date.hijri) {
                 const hijri = data.data.date.hijri;
-                let hijriStr = `${hijri.day}/${hijri.month.number}/${hijri.year}`;
-                if (hijri.month.ar) hijriStr += ` (${hijri.month.ar})`;
-                if (hijriDiv) hijriDiv.textContent = hijriStr;
-              } else {
-                if (hijriDiv) hijriDiv.textContent = 'غير متوفر حالياً';
+                // عرض التاريخ الهجري بشكل مختصر: 2 صفر هجري
+                let hijriStr = '';
+                if (hijri.day && hijri.month && hijri.month.ar) {
+                  hijriStr = `${hijri.day} ${hijri.month.ar} هجري`;
+                } else {
+                  hijriStr = `${hijri.day}/${hijri.month.number}/${hijri.year} هـ`;
+                }
+                document.getElementById('hijri-date').textContent = hijriStr;
               }
             })
             .catch(() => {
-              showNotification(currentLanguage === 'ar' ? 'تعذر جلب مواقيت الصلاة' : 'Could not fetch prayer times');
+              showGpsAlert(currentLanguage === 'ar' ? 'تعذر جلب مواقيت الصلاة من الخادم.' : 'Could not fetch prayer times from server.');
             });
         },
-        error => {
+        function(error) {
           if (error.code === error.PERMISSION_DENIED) {
-            showNotification(currentLanguage === 'ar' ? 'يرجى السماح بالوصول إلى الموقع من إعدادات المتصفح أو النظام' : 'Please allow location access from your browser or system settings');
+            showGpsAlert(currentLanguage === 'ar' ? 'يرجى السماح بالوصول إلى الموقع من إعدادات المتصفح أو النظام.' : 'Please allow location access from your browser or system settings.');
           } else if (error.code === error.POSITION_UNAVAILABLE) {
-            showNotification(currentLanguage === 'ar' ? 'تعذر تحديد موقعك. تأكد من تفعيل GPS.' : 'Location unavailable. Please enable GPS.');
+            showGpsAlert(currentLanguage === 'ar' ? 'تعذر تحديد موقعك. تأكد من تفعيل GPS.' : 'Location unavailable. Please enable GPS.');
           } else if (error.code === error.TIMEOUT) {
-            showNotification(currentLanguage === 'ar' ? 'انتهت مهلة تحديد الموقع. حاول مجدداً.' : 'Location request timed out. Please try again.');
+            showGpsAlert(currentLanguage === 'ar' ? 'انتهت مهلة تحديد الموقع. حاول مجدداً.' : 'Location request timed out. Please try again.');
           } else {
-            showNotification(currentLanguage === 'ar' ? 'تعذر تحديد موقعك' : 'Could not determine your location');
+            showGpsAlert(currentLanguage === 'ar' ? 'تعذر تحديد موقعك.' : 'Could not determine your location.');
           }
-        }
+        },
+        { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
       );
     }
 
