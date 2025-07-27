@@ -931,6 +931,9 @@
         <button class="nav-tab active" onclick="showTab('home')">
           <i class="fas fa-home"></i> الرئيسية
         </button>
+        <button class="nav-tab" onclick="toggleFullscreen()" title="ملء الشاشة">
+          <i class="fas fa-expand"></i> ملء الشاشة
+        </button>
         <button class="nav-tab" onclick="showTab('wudu')">
           <i class="fas fa-hand-sparkles"></i> الوضوء
         </button>
@@ -961,6 +964,7 @@
         <a class="nav-tab" href="index.html" style="text-decoration:none;">
           <i class="fas fa-arrow-right"></i> العودة
         </a>
+        <button class="nav-tab" onclick="toggleFullscreen()" title="ملء الشاشة">
       </div>
     </div>
   </header>
@@ -980,6 +984,23 @@
           <button id="stop-madhahib-btn" style="background: #333; color: #ffd700; border: 1px solid #ffd700; border-radius: 8px; padding: 8px 22px; font-weight: bold; font-size: 1em; cursor: pointer;">إيقاف الصوت</button>
         </div>
         <script>
+  // زر ملء الشاشة
+  function toggleFullscreen() {
+    if (!document.fullscreenElement && !document.webkitFullscreenElement) {
+      var docElm = document.documentElement;
+      if (docElm.requestFullscreen) {
+        docElm.requestFullscreen();
+      } else if (docElm.webkitRequestFullscreen) {
+        docElm.webkitRequestFullscreen();
+      }
+    } else {
+      if (document.exitFullscreen) {
+        document.exitFullscreen();
+      } else if (document.webkitExitFullscreen) {
+        document.webkitExitFullscreen();
+      }
+    }
+  }
         var madhahibUtterance;
         document.getElementById('speakable-madhahib').onclick = function() {
           var text = this.innerText;
