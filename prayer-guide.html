@@ -1306,9 +1306,10 @@
             تعد الصلاة أعظم العبادات البدنية، وهي الصلة اليومية التي تربط العبد بربه، تربي في النفس الخشوع، وفي القلب الطمأنينة، وفي السلوك الاتزان. كما أنها أول ما يُحاسب عليه العبد يوم القيامة، فإن صلحت صلح سائر العمل، وإن فسدت فسد سائر العمل.<br><br>
             بعد الإلمام بهذا التعريف، يمكن الانتقال إلى دراسة تبويبات كتاب الصلاة التي تشمل الأذان، شروط الصلاة، صفتها، أركانها، أحكام السهو، النوافل، وصلاة الجماعة والجمعة والعيدين وغيرها، وهي تبويبات تهدف إلى فهم هذه العبادة فهمًا منهجيًا يجمع بين الجانب العلمي والعملي.
           </p>
-          <div class="audio-controls" style="margin: 10px 0 20px 0; display: flex; gap: 10px;">
-            <button class="audio-btn" onclick="playBookIntroAudio()" title="تشغيل الصوت"><i class="fas fa-play"></i></button>
-            <button class="audio-btn" onclick="pauseBookIntroAudio()" title="إيقاف الصوت"><i class="fas fa-pause"></i></button>
+          <div style="margin: 10px 0 20px 0; display: flex; gap: 10px; align-items: center;">
+            <button id="intro-tts-btn" class="audio-btn" onclick="toggleIntroTTS()" title="تشغيل أو إيقاف الصوت" style="font-size:1.5em; background:none; border:none; color:var(--text-gold); cursor:pointer;">
+              <i id="intro-tts-icon" class="fas fa-play-circle"></i>
+            </button>
           </div>
         </div>
         <div style="overflow-x:auto;">
@@ -1452,6 +1453,16 @@
         </div>
       </div>
       <audio id="book-intro-audio" src="audio/book-intro.mp3"></audio>
+
+        <!-- فيديو الدرس 1 - كتاب الصلاة -->
+        <div style="display: flex; justify-content: center; margin-top: 32px;">
+          <div style="max-width: 600px; width: 100%; box-shadow: 0 8px 32px #ffd70055, 0 2px 16px #0002; border-radius: 18px; overflow: hidden; border: 3px solid #ffd700; background: #222;">
+            <div style="position: relative; padding-bottom: 56.25%; height: 0;">
+              <iframe src="https://www.youtube.com/embed/wBzojnXLItM?si=3syLd_UjioNTUM_N" title="الدرس 1 - كتاب الصلاة" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;"></iframe>
+            </div>
+            <div style="text-align:center; color:var(--text-gold); font-weight:700; padding:8px 0 4px; font-size:1.1em;">فيديو الدرس 1 - كتاب الصلاة</div>
+          </div>
+        </div>
     </div>
 
     <!-- قسم الوضوء -->
@@ -3292,14 +3303,32 @@ function updateQiblaDirection() {
     initializeTTS = enhancedInitializeTTS;
   </script>
   <script>
-    // نص إلى صوت لشرح كتاب الصلاة (تشغيل/إيقاف)
-    function playBookIntroAudio() {
-      var audio = document.getElementById('book-intro-audio');
-      audio.play();
-    }
-    function pauseBookIntroAudio() {
-      var audio = document.getElementById('book-intro-audio');
-      audio.pause();
+
+    // نص إلى صوت لشرح كتاب الصلاة (تشغيل/إيقاف) عبر أيقونة واحدة
+    var introTTSPlaying = false;
+    var introTTSUtterance = null;
+    var introText = `الصلاة في اللغة تعني الدعاء، وهي من الجذر الثلاثي (ص ل و). أما في الاصطلاح الشرعي، فالصلاة عبادة تتضمن أقوالًا وأفعالًا مخصوصة، تبدأ بالتكبير وتنتهي بالتسليم، وتؤدى بشروط وأركان معلومة في أوقات محددة، وهي الركن الثاني من أركان الإسلام بعد الشهادتين. تعد الصلاة أعظم العبادات البدنية، وهي الصلة اليومية التي تربط العبد بربه، تربي في النفس الخشوع، وفي القلب الطمأنينة، وفي السلوك الاتزان. كما أنها أول ما يُحاسب عليه العبد يوم القيامة، فإن صلحت صلح سائر العمل، وإن فسدت فسد سائر العمل. بعد الإلمام بهذا التعريف، يمكن الانتقال إلى دراسة تبويبات كتاب الصلاة التي تشمل الأذان، شروط الصلاة، صفتها، أركانها، أحكام السهو، النوافل، وصلاة الجماعة والجمعة والعيدين وغيرها، وهي تبويبات تهدف إلى فهم هذه العبادة فهمًا منهجيًا يجمع بين الجانب العلمي والعملي.`;
+    function toggleIntroTTS() {
+      var synth = window.speechSynthesis;
+      var btn = document.getElementById('intro-tts-btn');
+      var icon = document.getElementById('intro-tts-icon');
+      if (!introTTSPlaying) {
+        if (synth.speaking) synth.cancel();
+        introTTSUtterance = new SpeechSynthesisUtterance(introText);
+        introTTSUtterance.lang = 'ar-SA';
+        introTTSUtterance.rate = 1;
+        introTTSUtterance.onend = function() {
+          introTTSPlaying = false;
+          icon.className = 'fas fa-play-circle';
+        };
+        synth.speak(introTTSUtterance);
+        introTTSPlaying = true;
+        icon.className = 'fas fa-pause-circle';
+      } else {
+        synth.cancel();
+        introTTSPlaying = false;
+        icon.className = 'fas fa-play-circle';
+      }
     }
 
     // تحويل نص الجدول إلى صوت باستخدام Web Speech API
