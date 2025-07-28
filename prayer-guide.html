@@ -3608,6 +3608,7 @@ function updateQiblaDirection() {
     <script>
     // كود الاختبار التفاعلي
     const quizQuestions = [
+      // وضوء وصلاة
       {
         question: "كم عدد ركعات صلاة الفجر؟",
         options: ["ركعتان", "ثلاث ركعات", "أربع ركعات", "خمس ركعات"],
@@ -3632,8 +3633,318 @@ function updateQiblaDirection() {
         question: "ما هو الدعاء بين السجدتين؟",
         options: ["رب اغفر لي وارحمني", "سبحان ربي الأعلى", "اللهم صل على محمد", "لا يوجد دعاء"],
         answer: 0
-      }
-    ];
+      },
+      {
+        question: "ما هو اتجاه القبلة في الصلاة؟",
+        options: ["نحو مكة", "نحو القدس", "نحو الشمس", "نحو الشمال"],
+        answer: 0
+      },
+      {
+        question: "كم عدد الصلوات المفروضة يومياً؟",
+        options: ["ثلاث", "أربع", "خمس", "ست"],
+        answer: 2
+      },
+      {
+        question: "أي من هذه الصلوات تُقرأ فيها الفاتحة وسورة بعدها جهراً؟",
+        options: ["الفجر", "الظهر", "العصر", "جميعها"],
+        answer: 0
+      },
+      {
+        question: "ما هو حكم ترك ركن من أركان الصلاة عمداً؟",
+        options: ["الصلاة صحيحة", "الصلاة باطلة", "يجب سجود السهو", "لا شيء عليه"],
+        answer: 1
+      },
+      {
+        question: "أي من هذه الأذكار يُقال بعد الصلاة مباشرة؟",
+        options: ["اللهم أنت السلام ومنك السلام", "سبحان ربي العظيم", "ربنا آتنا في الدنيا حسنة", "لا إله إلا الله"],
+        answer: 0
+      },
+      {
+        question: "كم عدد ركعات صلاة العصر؟",
+        options: ["ركعتان", "ثلاث ركعات", "أربع ركعات", "خمس ركعات"],
+        answer: 2
+      },
+      {
+        question: "ما هو وقت صلاة المغرب؟",
+        options: ["بعد غروب الشمس", "قبل الفجر", "بعد الظهر", "عند منتصف الليل"],
+        answer: 0
+      },
+      {
+        question: "أي من هذه الأمور يبطل الوضوء؟",
+        options: ["النوم العميق", "غسل اليدين", "قراءة القرآن", "الدعاء"],
+        answer: 0
+      },
+      {
+        question: "ما هو عدد التسبيحات بعد كل صلاة؟",
+        options: ["10", "33", "50", "100"],
+        answer: 1
+      },
+      {
+        question: "أي من هذه الصلوات لها أذان وإقامة؟",
+        options: ["الجمعة", "العيدين", "الوتر", "جميعها"],
+        answer: 0
+      },
+      // أسئلة إضافية عن الوضوء
+      {
+        question: "كم مرة يُغسل الوجه في الوضوء؟",
+        options: ["مرة واحدة", "مرتان", "ثلاث مرات", "أربع مرات"],
+        answer: 2
+      },
+      {
+        question: "هل يجوز المسح على الجوارب في الوضوء؟",
+        options: ["نعم في السفر فقط", "نعم بشروط", "لا يجوز أبداً", "يجوز في جميع الأحوال"],
+        answer: 1
+      },
+      {
+        question: "ما هو ترتيب خطوات الوضوء الصحيح؟",
+        options: ["غسل اليدين ثم الوجه", "النية ثم غسل اليدين ثم المضمضة ثم الوجه", "غسل الرجلين أولاً", "المضمضة ثم غسل اليدين"],
+        answer: 1
+      },
+      // أنواع الصلاة
+      {
+        question: "أي من هذه تعتبر صلاة نافلة؟",
+        options: ["صلاة الضحى", "صلاة العصر", "صلاة الجمعة", "صلاة المغرب"],
+        answer: 0
+      },
+      {
+        question: "ما هي الصلاة التي تُصلى جماعة في يوم الجمعة؟",
+        options: ["صلاة الجمعة", "صلاة العيد", "صلاة الوتر", "صلاة الضحى"],
+        answer: 0
+      },
+      {
+        question: "أي من هذه الصلوات تُجمع وتقصر في السفر؟",
+        options: ["الظهر والعصر", "الفجر والمغرب", "العصر والمغرب", "العشاء والفجر"],
+        answer: 0
+      },
+      {
+        question: "كم عدد ركعات صلاة التراويح غالباً؟",
+        options: ["8 ركعات", "10 ركعات", "20 ركعة", "12 ركعة"],
+        answer: 2
+      },
+      // القرآن في الصلاة
+      {
+        question: "ما هي السورة التي يجب قراءتها في كل ركعة؟",
+        options: ["الفاتحة", "الإخلاص", "البقرة", "الكوثر"],
+        answer: 0
+      },
+      {
+        question: "هل يجوز قراءة القرآن من المصحف في صلاة النافلة؟",
+        options: ["نعم", "لا"],
+        answer: 0
+      },
+      {
+        question: "أي من هذه السور يُستحب قراءتها في صلاة الفجر؟",
+        options: ["السجدة والإنسان", "الإخلاص والفلق", "الكوثر", "العصر"],
+        answer: 0
+      },
+      {
+        question: "هل يجوز قراءة أكثر من سورة بعد الفاتحة في ركعة واحدة؟",
+        options: ["نعم", "لا"],
+        answer: 0
+      },
+        // توسعة فقه الصلاة وأسئلة متنوعة ليصبح المجموع 50 سؤالاً
+        {
+          question: "ما هو حكم الصلاة بدون وضوء؟",
+          options: ["جائزة", "مكروهة", "باطلة", "مستحبة"],
+          answer: 2
+        },
+        {
+          question: "ما هو أقل عدد ركعات لصلاة السنن الرواتب قبل وبعد الفريضة؟",
+          options: ["ركعتان", "أربع ركعات", "ست ركعات", "ثمان ركعات"],
+          answer: 0
+        },
+        {
+          question: "ما هو حكم ترك التشهد الأوسط سهواً؟",
+          options: ["الصلاة باطلة", "يجب سجود السهو", "لا شيء عليه", "يجب إعادة الصلاة"],
+          answer: 1
+        },
+        {
+          question: "أي من هذه الصلوات لا تُقضى إذا فات وقتها؟",
+          options: ["صلاة الجمعة", "صلاة الفجر", "صلاة العصر", "صلاة المغرب"],
+          answer: 0
+        },
+        {
+          question: "ما هو حكم الصلاة في الثوب النجس؟",
+          options: ["جائزة", "مكروهة", "باطلة", "مستحبة"],
+          answer: 2
+        },
+        {
+          question: "ما هو حكم الصلاة في وقت النهي؟",
+          options: ["جائزة مطلقاً", "مكروهة", "جائزة للضرورة فقط", "باطلة"],
+          answer: 2
+        },
+        {
+          question: "ما هو حكم صلاة الجماعة للرجال؟",
+          options: ["سنة مؤكدة", "فرض عين", "فرض كفاية", "مستحب فقط"],
+          answer: 0
+        },
+        {
+          question: "ما هو حكم صلاة المرأة في بيتها؟",
+          options: ["أفضل من المسجد", "مكروهة", "باطلة", "مستحبة فقط"],
+          answer: 0
+        },
+        {
+          question: "ما هو حكم الصلاة خلف إمام يخالف المذهب؟",
+          options: ["جائزة", "باطلة", "مكروهة", "لا تجوز"],
+          answer: 0
+        },
+        {
+          question: "ما هو حكم الصلاة في مكان فيه صور؟",
+          options: ["جائزة مع الكراهة", "باطلة", "مستحبة", "لا تجوز أبداً"],
+          answer: 0
+        },
+        // أسئلة إضافية ليصبح المجموع 50 سؤالاً
+        {
+          question: "كم عدد ركعات صلاة العشاء؟",
+          options: ["ركعتان", "ثلاث ركعات", "أربع ركعات", "خمس ركعات"],
+          answer: 2
+        },
+        {
+          question: "ما هو الدعاء الذي يقال عند السجود؟",
+          options: ["سبحان ربي الأعلى", "ربنا آتنا في الدنيا حسنة", "اللهم صل على محمد", "لا يوجد دعاء"],
+          answer: 0
+        },
+        {
+          question: "ما هو حكم ترك قراءة الفاتحة في الصلاة؟",
+          options: ["الصلاة صحيحة", "الصلاة باطلة", "يجب سجود السهو", "لا شيء عليه"],
+          answer: 1
+        },
+        {
+          question: "كم عدد ركعات صلاة الجمعة؟",
+          options: ["ركعتان", "أربع ركعات", "ثلاث ركعات", "ست ركعات"],
+          answer: 0
+        },
+        {
+          question: "ما هو وقت صلاة الفجر؟",
+          options: ["بعد منتصف الليل", "عند طلوع الفجر الصادق", "بعد شروق الشمس", "قبل المغرب"],
+          answer: 1
+        },
+        {
+          question: "أي من هذه الصلوات تُصلى جهراً؟",
+          options: ["الفجر والمغرب والعشاء", "الظهر والعصر", "جميعها", "لا شيء منها"],
+          answer: 0
+        },
+        {
+          question: "ما هو حكم الصلاة في المسجد الحرام؟",
+          options: ["تضاعف الأجر", "مكروهة", "باطلة", "لا فرق"],
+          answer: 0
+        },
+        {
+          question: "كم عدد ركعات صلاة الوتر؟",
+          options: ["ركعة واحدة", "ثلاث ركعات", "خمس ركعات", "سبع ركعات"],
+          answer: 0
+        },
+        {
+          question: "ما هو حكم الصلاة في اتجاه غير القبلة سهواً؟",
+          options: ["الصلاة باطلة", "الصلاة صحيحة إذا اجتهد", "يجب إعادة الصلاة", "لا شيء عليه"],
+          answer: 1
+        },
+        {
+          question: "ما هو الدعاء الذي يقال عند الركوع؟",
+          options: ["سبحان ربي العظيم", "سبحان ربي الأعلى", "اللهم صل على محمد", "لا يوجد دعاء"],
+          answer: 0
+        },
+        {
+          question: "كم عدد ركعات صلاة التهجد؟",
+          options: ["ركعتان", "أربع ركعات", "ثمان ركعات", "غير محدد"],
+          answer: 3
+        },
+        {
+          question: "ما هو حكم الصلاة في مكان فيه نجاسة؟",
+          options: ["جائزة", "باطلة", "مكروهة", "مستحبة"],
+          answer: 1
+        },
+        {
+          question: "ما هو حكم الصلاة في السفر؟",
+          options: ["تُقصر وتُجمع بشروط", "لا يجوز القصر", "تُصلى كاملة", "مكروهة"],
+          answer: 0
+        },
+        {
+          question: "كم عدد ركعات صلاة الضحى؟",
+          options: ["ركعتان", "أربع ركعات", "ست ركعات", "من ركعتين إلى ثماني ركعات"],
+          answer: 3
+        },
+        {
+          question: "ما هو حكم الصلاة خلف إمام لا يحسن القراءة؟",
+          options: ["جائزة مع الكراهة", "باطلة", "مستحبة", "لا تجوز أبداً"],
+          answer: 0
+        },
+        {
+          question: "ما هو حكم الصلاة في البيت بدون عذر؟",
+          options: ["جائزة مع الكراهة للرجال", "باطلة", "مستحبة", "لا تجوز أبداً"],
+          answer: 0
+        },
+        {
+          question: "كم عدد ركعات صلاة التراويح في رمضان؟",
+          options: ["ثمان ركعات", "عشر ركعات", "عشرون ركعة", "اثنتا عشرة ركعة"],
+          answer: 2
+        },
+        {
+          question: "ما هو حكم الصلاة في وقت الشروق؟",
+          options: ["جائزة", "مكروهة", "باطلة", "مستحبة"],
+          answer: 1
+        },
+        {
+          question: "ما هو حكم الصلاة في المقبرة؟",
+          options: ["جائزة مع الكراهة", "باطلة", "مستحبة", "لا تجوز أبداً"],
+          answer: 0
+        },
+        {
+          question: "ما هو حكم الصلاة في ثوب فيه دم قليل؟",
+          options: ["جائزة مع الكراهة", "باطلة", "مستحبة", "لا تجوز أبداً"],
+          answer: 0
+        },
+        {
+          question: "كم عدد ركعات صلاة العيد؟",
+          options: ["ركعتان", "أربع ركعات", "ثلاث ركعات", "ست ركعات"],
+          answer: 0
+        },
+        {
+          question: "ما هو حكم الصلاة في مكان مرتفع جداً؟",
+          options: ["جائزة", "مكروهة", "باطلة", "مستحبة"],
+          answer: 0
+        },
+        {
+          question: "ما هو حكم الصلاة في مكان مظلم؟",
+          options: ["جائزة", "مكروهة", "باطلة", "مستحبة"],
+          answer: 0
+        },
+        {
+          question: "ما هو حكم الصلاة في مكان شديد الحرارة؟",
+          options: ["جائزة", "مكروهة", "باطلة", "مستحبة"],
+          answer: 0
+        },
+        {
+          question: "ما هو حكم الصلاة في مكان شديد البرودة؟",
+          options: ["جائزة", "مكروهة", "باطلة", "مستحبة"],
+          answer: 0
+        },
+        {
+          question: "ما هو حكم الصلاة في مكان فيه رائحة كريهة؟",
+          options: ["جائزة مع الكراهة", "باطلة", "مستحبة", "لا تجوز أبداً"],
+          answer: 0
+        },
+        {
+          question: "ما هو حكم الصلاة في مكان فيه موسيقى؟",
+          options: ["جائزة مع الكراهة", "باطلة", "مستحبة", "لا تجوز أبداً"],
+          answer: 0
+        },
+        {
+          question: "ما هو حكم الصلاة في مكان فيه ضوضاء؟",
+          options: ["جائزة مع الكراهة", "باطلة", "مستحبة", "لا تجوز أبداً"],
+          answer: 0
+        },
+        {
+          question: "ما هو حكم الصلاة في مكان فيه أطفال يلعبون؟",
+          options: ["جائزة", "مكروهة", "باطلة", "مستحبة"],
+          answer: 0
+        },
+        {
+          question: "ما هو حكم الصلاة في مكان فيه حيوانات؟",
+          options: ["جائزة مع الكراهة", "باطلة", "مستحبة", "لا تجوز أبداً"],
+          answer: 0
+        }
+      ];
 
     let quizIndex = 0;
     let quizScore = 0;
@@ -3641,12 +3952,106 @@ function updateQiblaDirection() {
     function showQuizQuestion() {
       const q = quizQuestions[quizIndex];
       let html = `<div style='font-size:1.1em; margin-bottom:16px;'>${q.question}</div>`;
+      // زر أيقونة الصوت
+      let soundBtn = document.getElementById('quiz-sound-btn');
+      if (!soundBtn) {
+        soundBtn = document.createElement('button');
+        soundBtn.id = 'quiz-sound-btn';
+        soundBtn.title = 'تشغيل/إيقاف الصوت';
+        soundBtn.style.margin = '8px';
+        soundBtn.style.padding = '8px';
+        soundBtn.style.borderRadius = '50%';
+        soundBtn.style.background = '#ffd700';
+        soundBtn.style.color = '#222';
+        soundBtn.style.border = 'none';
+        soundBtn.style.cursor = 'pointer';
+        soundBtn.style.fontSize = '1.3em';
+        soundBtn.style.verticalAlign = 'middle';
+        soundBtn.innerHTML = '<svg id="quiz-sound-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#222" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19 9v6"/><path d="M16 12h6"/></svg>';
+        const container = document.getElementById('quiz-container');
+        container.parentNode.insertBefore(soundBtn, container);
+      }
+      // حالة الصوت
+      window.quizSoundEnabled = (typeof window.quizSoundEnabled === 'undefined') ? true : window.quizSoundEnabled;
+      // تحديث الأيقونة
+      function updateQuizSoundIcon() {
+        soundBtn.innerHTML = window.quizSoundEnabled
+          ? '<svg id="quiz-sound-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#222" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19 9v6"/><path d="M16 12h6"/></svg>'
+          : '<svg id="quiz-sound-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#222" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="1" x2="1" y2="23"/></svg>';
+      }
+      updateQuizSoundIcon();
+      soundBtn.onclick = function() {
+        window.quizSoundEnabled = !window.quizSoundEnabled;
+        updateQuizSoundIcon();
+        if (!window.quizSoundEnabled && window.speechSynthesis && window.speechSynthesis.speaking) {
+          window.speechSynthesis.cancel();
+        }
+      };
+      // تحويل نص السؤال إلى صوت
+      if (window.speakText && window.quizSoundEnabled) {
+        window.speakText(q.question);
+      }
       q.options.forEach((opt, i) => {
         html += `<div style='margin-bottom:10px;'><label style='cursor:pointer;'><input type='radio' name='quizOpt' value='${i}' style='margin-left:8px;'>${opt}</label></div>`;
       });
       document.getElementById('quiz-container').innerHTML = html;
+      // زر السؤال السابق
+      let prevBtn = document.getElementById('quiz-prev-btn');
+      if (!prevBtn) {
+        prevBtn = document.createElement('button');
+        prevBtn.id = 'quiz-prev-btn';
+        prevBtn.textContent = 'السؤال السابق';
+        prevBtn.style.margin = '8px';
+        prevBtn.style.padding = '8px 18px';
+        prevBtn.style.fontSize = '1em';
+        prevBtn.style.borderRadius = '8px';
+        prevBtn.style.background = '#ffd700';
+        prevBtn.style.color = '#222';
+        prevBtn.style.border = 'none';
+        prevBtn.style.cursor = 'pointer';
+        prevBtn.style.fontWeight = 'bold';
+        const nextBtn = document.getElementById('quiz-next-btn');
+        nextBtn.parentNode.insertBefore(prevBtn, nextBtn);
+      }
+      prevBtn.style.display = quizIndex > 0 ? 'inline-block' : 'none';
       document.getElementById('quiz-next-btn').style.display = 'block';
       document.getElementById('quiz-result').innerHTML = '';
+
+      // مستمع زر السابق
+      prevBtn.onclick = function() {
+        if (quizIndex > 0) {
+          quizIndex--;
+          showQuizQuestion();
+        }
+      };
+
+      // إضافة مستمعات لإظهار الإجابة فوراً
+      const radios = document.querySelectorAll('input[name="quizOpt"]');
+      radios.forEach(radio => {
+        radio.addEventListener('change', function() {
+          const selectedValue = parseInt(this.value);
+          const correctValue = quizQuestions[quizIndex].answer;
+          let msg = '';
+          if (selectedValue === correctValue) {
+            msg = `<span style="color:green;display:flex;align-items:center;gap:8px;font-size:1.1em;">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="green" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              إجابة صحيحة
+            </span>`;
+            if (window.speakText && window.quizSoundEnabled) {
+              window.speakText('أحسنت');
+            }
+          } else {
+            msg = `<span style="color:red;display:flex;align-items:center;gap:8px;font-size:1.1em;">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="red" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+              إجابة خاطئة
+            </span>`;
+            if (window.speakText && window.quizSoundEnabled) {
+              window.speakText('أخطأت لا عليك خير إن شاء الله');
+            }
+          }
+          document.getElementById('quiz-result').innerHTML = msg;
+        });
+      });
     }
 
     function showQuizResult() {
