@@ -956,6 +956,51 @@
   </header>
 
   <div class="container">
+    <!-- مواقيت الصلاة حسب موقعك الجغرافي -->
+    <script src="https://cdn.jsdelivr.net/npm/adhan@4.2.0/dist/adhan.js"></script>
+    <div id="prayer-times-container" style="margin: 2em 0; direction: rtl; text-align: right;"></div>
+    <script>
+    function showPrayerTimes(position) {
+        const latitude = position.coords.latitude;
+        const longitude = position.coords.longitude;
+        const date = new Date();
+        // استخدام طريقة الحساب المغربية
+        const params = adhan.CalculationMethod.Morocco();
+        params.madhab = adhan.Madhab.Shafi;
+        // الحصول على المنطقة الزمنية تلقائياً
+        const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+        const prayerTimes = new adhan.PrayerTimes({latitude, longitude}, date, params);
+        const prayers = [
+            { name: 'الفجر', time: prayerTimes.fajr },
+            { name: 'الشروق', time: prayerTimes.sunrise },
+            { name: 'الظهر', time: prayerTimes.dhuhr },
+            { name: 'العصر', time: prayerTimes.asr },
+            { name: 'المغرب', time: prayerTimes.maghrib },
+            { name: 'العشاء', time: prayerTimes.isha }
+        ];
+        let html = '<h3>مواقيت الصلاة اليوم حسب موقعك الجغرافي</h3>';
+        html += '<table style="width:100%; border-collapse:collapse;">';
+        html += '<tr><th style="border:1px solid #ccc; padding:8px;">الصلاة</th><th style="border:1px solid #ccc; padding:8px;">الوقت</th></tr>';
+        prayers.forEach(p => {
+            // ضبط الوقت حسب المنطقة الزمنية
+            const t = new Date(p.time);
+            const timeStr = t.toLocaleTimeString('ar-EG', { hour: '2-digit', minute: '2-digit', timeZone: tz });
+            html += `<tr><td style='border:1px solid #ccc; padding:8px;'>${p.name}</td><td style='border:1px solid #ccc; padding:8px;'>${timeStr}</td></tr>`;
+        });
+        html += '</table>';
+        document.getElementById('prayer-times-container').innerHTML = html;
+    }
+
+    function showError(error) {
+        document.getElementById('prayer-times-container').innerHTML = '<span style="color:red">تعذر الحصول على الموقع الجغرافي. يرجى السماح بالوصول للموقع.</span>';
+    }
+
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPrayerTimes, showError);
+    } else {
+        showError();
+    }
+    </script>
     <!-- قسم المذاهب -->
     <div id="madhahib" class="tab-content">
       <div class="hero-card">
@@ -2146,6 +2191,10 @@
               <div class="prayer-name" style="color:#ffd905;font-weight:bold;">التاريخ الميلادي</div>
               <div class="prayer-time-value" id="gregorian-date" style="font-size:1.1em;color:#ffd207;font-weight:bold;direction:ltr;">--/--/----</div>
             </div>
+            <div style="flex:1; min-width:160px;">
+              <div class="prayer-name" style="color:#ffd905;font-weight:bold;">التاريخ الهجري</div>
+              <div class="prayer-time-value" id="hijri-date" style="font-size:1.1em;color:#ffd207;font-weight:bold;direction:ltr;">--/--/----</div>
+            </div>
           </div>
         </div>
 
@@ -2153,7 +2202,38 @@
           <div id="prayer-times-msg" style="margin-top: 12px; color: #e7be04; font-size: 1em;"></div>
         </div>
         <script>
-        // تحديث التوقيت المحلي والتاريخ الميلادي كل ثانية
+        // تحديث التوقيت المحلي والتاريخ الميلادي والهجري كل ثانية
+        function gregorianToHijri(gDate) {
+          // تحويل تقريبي (للاستخدام السريع، يفضل استخدام مكتبة متخصصة للحسابات الدقيقة)
+          var day = gDate.getDate();
+          var month = gDate.getMonth() + 1;
+          var year = gDate.getFullYear();
+          var m = month;
+          var y = year;
+          if (m < 3) {
+            y -= 1;
+            m += 12;
+          }
+          var a = Math.floor(y / 100);
+          var b = 3 - a + Math.floor(a / 4);
+          var jd = Math.floor(365.25 * (y + 4716)) + Math.floor(30.6001 * (m + 1)) + day + b - 1524.5;
+          var hijri = jd - 1948439.5;
+          var hYear = Math.floor(hijri / 354.36667);
+          var hRem = hijri - hYear * 354.36667;
+          var hMonth = Math.floor(hRem / 29.53059) + 1;
+          var hDay = Math.round(hRem - (hMonth - 1) * 29.53059) + 1;
+          // أسماء الأشهر الهجرية
+          var hijriMonths = [
+            "محرم", "صفر", "ربيع الأول", "ربيع الآخر", "جمادى الأولى", "جمادى الآخرة",
+            "رجب", "شعبان", "رمضان", "شوال", "ذو القعدة", "ذو الحجة"
+          ];
+          return {
+            year: hYear + 1,
+            month: hMonth,
+            monthName: hijriMonths[hMonth - 1],
+            day: hDay
+          };
+        }
         function updateLocalTimeAndDate() {
           var now = new Date();
           var h = now.getHours().toString().padStart(2, '0');
@@ -2169,6 +2249,11 @@
           var dateStr = day + '/' + month + '/' + year;
           var dateEl = document.getElementById('gregorian-date');
           if (dateEl) dateEl.textContent = dateStr;
+          // التاريخ الهجري
+          var hijri = gregorianToHijri(now);
+          var hDateStr = hijri.day + ' ' + hijri.monthName + ', ' + hijri.year + ' هـ';
+          var hijriEl = document.getElementById('hijri-date');
+          if (hijriEl) hijriEl.textContent = hDateStr;
         }
         setInterval(updateLocalTimeAndDate, 1000);
         updateLocalTimeAndDate();
