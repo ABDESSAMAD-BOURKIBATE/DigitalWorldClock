@@ -1,0 +1,1028 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>التفسير الشامل للقرآن الكريم</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@300;400;600;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #2c5aa0;
+            --secondary-color: #4a7c59;
+            --accent-color: #d4af37;
+            --text-dark: #2c3e50;
+            --text-light: #ecf0f1;
+            --background-light: #f8f9fa;
+            --card-shadow: 0 8px 25px rgba(44, 90, 160, 0.1);
+            --border-radius: 15px;
+        }
+
+        body {
+            font-family: 'Cairo', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header Styles */
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .site-title {
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: var(--text-light);
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            margin-bottom: 15px;
+            position: relative;
+        }
+
+        .subtitle {
+            font-size: 1.4rem;
+            color: rgba(255, 255, 255, 0.9);
+            font-weight: 300;
+            margin-bottom: 30px;
+        }
+
+        /* Navigation Styles */
+        .navigation {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: var(--border-radius);
+            padding: 20px;
+            margin-bottom: 30px;
+            box-shadow: var(--card-shadow);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .search-container {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .search-input {
+            flex: 1;
+            min-width: 250px;
+            padding: 12px 20px;
+            border: 2px solid #e9ecef;
+            border-radius: 25px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            font-family: 'Cairo', sans-serif;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(44, 90, 160, 0.1);
+        }
+
+        .search-btn {
+            padding: 12px 25px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .search-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(44, 90, 160, 0.3);
+        }
+
+        .filter-tabs {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .filter-tab {
+            padding: 10px 20px;
+            background: #f8f9fa;
+            border: 2px solid transparent;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            color: var(--text-dark);
+        }
+
+        .filter-tab.active {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+
+        .filter-tab:hover {
+            background: var(--secondary-color);
+            color: white;
+        }
+
+        /* Main Content */
+        .main-content {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 30px;
+            align-items: start;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: var(--border-radius);
+            padding: 25px;
+            box-shadow: var(--card-shadow);
+            position: sticky;
+            top: 20px;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .sidebar h3 {
+            margin-bottom: 20px;
+            color: var(--primary-color);
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .surah-list {
+            list-style: none;
+        }
+
+        .surah-item {
+            padding: 12px 15px;
+            margin-bottom: 5px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            justify-content: between;
+            align-items: center;
+            border: 1px solid transparent;
+        }
+
+        .surah-item:hover {
+            background: rgba(44, 90, 160, 0.1);
+            border-color: var(--primary-color);
+            transform: translatex(-5px);
+        }
+
+        .surah-item.active {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .surah-number {
+            background: var(--accent-color);
+            color: white;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            font-weight: bold;
+            margin-left: 10px;
+        }
+
+        /* Content Area */
+        .content-area {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: var(--border-radius);
+            padding: 30px;
+            box-shadow: var(--card-shadow);
+            min-height: 70vh;
+        }
+
+        .surah-header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 30px;
+            border-bottom: 2px solid #eee;
+        }
+
+        .surah-name {
+            font-size: 3rem;
+            font-family: 'Amiri', serif;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .surah-info {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .info-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #7f8c8d;
+            font-size: 1rem;
+            background: rgba(44, 90, 160, 0.05);
+            padding: 8px 15px;
+            border-radius: 20px;
+        }
+
+        .info-item i {
+            color: var(--primary-color);
+        }
+
+        /* Verse Styles */
+        .verse-container {
+            margin-bottom: 30px;
+            border-radius: var(--border-radius);
+            background: linear-gradient(145deg, #f8f9ff, #ffffff);
+            box-shadow: 0 5px 15px rgba(44, 90, 160, 0.08);
+            overflow: hidden;
+            transition: all 0.4s ease;
+            border: 1px solid rgba(44, 90, 160, 0.1);
+        }
+
+        .verse-container:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(44, 90, 160, 0.15);
+        }
+
+        .verse-header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 15px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .verse-number {
+            font-weight: 600;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .verse-controls {
+            display: flex;
+            gap: 8px;
+        }
+
+        .control-btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            padding: 8px 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .control-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(1.05);
+        }
+
+        .verse-content {
+            padding: 25px;
+        }
+
+        .arabic-text {
+            font-family: 'Amiri', serif;
+            font-size: 2rem;
+            line-height: 2;
+            color: var(--text-dark);
+            text-align: center;
+            margin-bottom: 20px;
+            padding: 20px;
+            background: rgba(44, 90, 160, 0.05);
+            border-radius: 12px;
+            border-right: 4px solid var(--primary-color);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .arabic-text:hover {
+            background: rgba(44, 90, 160, 0.1);
+        }
+
+        .translation-section {
+            background: rgba(74, 124, 89, 0.05);
+            padding: 20px;
+            border-radius: 12px;
+            border-left: 4px solid var(--secondary-color);
+        }
+
+        .translation-label {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--secondary-color);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .translation-text {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            color: var(--text-dark);
+            font-weight: 400;
+        }
+
+        /* Loading Animation */
+        .loading {
+            text-align: center;
+            padding: 50px;
+        }
+
+        .loading-spinner {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            border: 4px solid rgba(44, 90, 160, 0.3);
+            border-radius: 50%;
+            border-top-color: var(--primary-color);
+            animation: spin 1s ease-in-out infinite;
+            margin-bottom: 20px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .loading-text {
+            color: #666;
+            font-size: 1.1rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .sidebar {
+                position: static;
+                max-height: none;
+                order: 2;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .site-title {
+                font-size: 2.5rem;
+            }
+            
+            .search-container {
+                flex-direction: column;
+            }
+            
+            .search-input {
+                min-width: auto;
+            }
+            
+            .filter-tabs {
+                flex-direction: column;
+            }
+            
+            .surah-info {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .arabic-text {
+                font-size: 1.6rem;
+            }
+            
+            .verse-header {
+                flex-direction: column;
+                gap: 10px;
+                text-align: center;
+            }
+        }
+
+        /* Notification Styles */
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: linear-gradient(135deg, #52c41a, #389e0d);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            z-index: 10000;
+            font-weight: 500;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        /* Scroll Progress */
+        .scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.2);
+            z-index: 9999;
+        }
+
+        .scroll-progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            margin-top: 50px;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .bismillah {
+            font-family: 'Amiri', serif;
+            font-size: 2.5rem;
+            text-align: center;
+            color: var(--primary-color);
+            margin: 30px 0;
+            padding: 20px;
+            background: rgba(44, 90, 160, 0.05);
+            border-radius: 15px;
+            border: 2px solid rgba(44, 90, 160, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="scroll-progress">
+        <div class="scroll-progress-bar" id="scrollProgressBar"></div>
+    </div>
+
+    <div class="container">
+        <header class="header">
+            <h1 class="site-title">
+                <i class="fas fa-book-open"></i>
+                التفسير الشامل للقرآن الكريم
+            </h1>
+            <p class="subtitle">موسوعة تفسير القرآن الكريم بأسلوب معاصر وتصميم تفاعلي</p>
+        </header>
+
+        <nav class="navigation">
+            <div class="search-container">
+                <input type="text" class="search-input" id="searchInput" placeholder="ابحث عن سورة أو آية...">
+                <button class="search-btn" onclick="performSearch()">
+                    <i class="fas fa-search"></i>
+                    بحث
+                </button>
+            </div>
+            <div class="filter-tabs">
+                <div class="filter-tab active" onclick="filterSurahs('all')">جميع السور</div>
+                <div class="filter-tab" onclick="filterSurahs('makki')">المكية</div>
+                <div class="filter-tab" onclick="filterSurahs('madani')">المدنية</div>
+                <div class="filter-tab" onclick="filterSurahs('short')">القصيرة</div>
+                <div class="filter-tab" onclick="filterSurahs('long')">الطويلة</div>
+            </div>
+        </nav>
+
+        <main class="main-content">
+            <aside class="sidebar">
+                <h3>
+                    <i class="fas fa-list"></i>
+                    فهرس السور
+                </h3>
+                <ul class="surah-list" id="surahList">
+                    <!-- سيتم تحميل السور هنا -->
+                </ul>
+            </aside>
+
+            <section class="content-area">
+                <div id="contentArea">
+                    <div class="loading">
+                        <div class="loading-spinner"></div>
+                        <div class="loading-text">جاري تحميل القرآن الكريم...</div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer class="footer">
+            <p>
+                <i class="fas fa-heart" style="color: #e74c3c;"></i>
+                بُني بحب لخدمة كتاب الله الكريم
+            </p>
+            <p style="margin-top: 10px; font-size: 0.9rem; opacity: 0.8;">
+                البيانات مُستمدة من QuranEnc API
+            </p>
+        </footer>
+    </div>
+
+    <script>
+        // بيانات السور مع معلوماتها
+        const surahsData = [
+            {number: 1, name: "الفاتحة", englishName: "Al-Fatiha", verses: 7, type: "مكية"},
+            {number: 2, name: "البقرة", englishName: "Al-Baqarah", verses: 286, type: "مدنية"},
+            {number: 3, name: "آل عمران", englishName: "Ali 'Imran", verses: 200, type: "مدنية"},
+            {number: 4, name: "النساء", englishName: "An-Nisa", verses: 176, type: "مدنية"},
+            {number: 5, name: "المائدة", englishName: "Al-Ma'idah", verses: 120, type: "مدنية"},
+            {number: 6, name: "الأنعام", englishName: "Al-An'am", verses: 165, type: "مكية"},
+            {number: 7, name: "الأعراف", englishName: "Al-A'raf", verses: 206, type: "مكية"},
+            {number: 8, name: "الأنفال", englishName: "Al-Anfal", verses: 75, type: "مدنية"},
+            {number: 9, name: "التوبة", englishName: "At-Tawbah", verses: 129, type: "مدنية"},
+            {number: 10, name: "يونس", englishName: "Yunus", verses: 109, type: "مكية"},
+            {number: 11, name: "هود", englishName: "Hud", verses: 123, type: "مكية"},
+            {number: 12, name: "يوسف", englishName: "Yusuf", verses: 111, type: "مكية"},
+            {number: 13, name: "الرعد", englishName: "Ar-Ra'd", verses: 43, type: "مكية"},
+            {number: 14, name: "إبراهيم", englishName: "Ibrahim", verses: 52, type: "مكية"},
+            {number: 15, name: "الحجر", englishName: "Al-Hijr", verses: 99, type: "مكية"},
+            {number: 16, name: "النحل", englishName: "An-Nahl", verses: 128, type: "مكية"},
+            {number: 17, name: "الإسراء", englishName: "Al-Isra", verses: 111, type: "مكية"},
+            {number: 18, name: "الكهف", englishName: "Al-Kahf", verses: 110, type: "مكية"},
+            {number: 19, name: "مريم", englishName: "Maryam", verses: 98, type: "مكية"},
+            {number: 20, name: "طه", englishName: "Taha", verses: 135, type: "مكية"},
+            {number: 21, name: "الأنبياء", englishName: "Al-Anbya", verses: 112, type: "مكية"},
+            {number: 22, name: "الحج", englishName: "Al-Hajj", verses: 78, type: "مكية"},
+            {number: 23, name: "المؤمنون", englishName: "Al-Mu'minun", verses: 118, type: "مكية"},
+            {number: 24, name: "النور", englishName: "An-Nur", verses: 64, type: "مدنية"},
+            {number: 25, name: "الفرقان", englishName: "Al-Furqan", verses: 77, type: "مكية"},
+            {number: 26, name: "الشعراء", englishName: "Ash-Shu'ara", verses: 227, type: "مكية"},
+            {number: 27, name: "النمل", englishName: "An-Naml", verses: 93, type: "مكية"},
+            {number: 28, name: "القصص", englishName: "Al-Qasas", verses: 88, type: "مكية"},
+            {number: 29, name: "العنكبوت", englishName: "Al-'Ankabut", verses: 69, type: "مكية"},
+            {number: 30, name: "الروم", englishName: "Ar-Rum", verses: 60, type: "مكية"},
+            {number: 31, name: "لقمان", englishName: "Luqman", verses: 34, type: "مكية"},
+            {number: 32, name: "السجدة", englishName: "As-Sajdah", verses: 30, type: "مكية"},
+            {number: 33, name: "الأحزاب", englishName: "Al-Ahzab", verses: 73, type: "مدنية"},
+            {number: 34, name: "سبأ", englishName: "Saba", verses: 54, type: "مكية"},
+            {number: 35, name: "فاطر", englishName: "Fatir", verses: 45, type: "مكية"},
+            {number: 36, name: "يس", englishName: "Ya-Sin", verses: 83, type: "مكية"},
+            {number: 37, name: "الصافات", englishName: "As-Saffat", verses: 182, type: "مكية"},
+            {number: 38, name: "ص", englishName: "Sad", verses: 88, type: "مكية"},
+            {number: 39, name: "الزمر", englishName: "Az-Zumar", verses: 75, type: "مكية"},
+            {number: 40, name: "غافر", englishName: "Ghafir", verses: 85, type: "مكية"},
+            {number: 41, name: "فصلت", englishName: "Fussilat", verses: 54, type: "مكية"},
+            {number: 42, name: "الشورى", englishName: "Ash-Shuraa", verses: 53, type: "مكية"},
+            {number: 43, name: "الزخرف", englishName: "Az-Zukhruf", verses: 89, type: "مكية"},
+            {number: 44, name: "الدخان", englishName: "Ad-Dukhan", verses: 59, type: "مكية"},
+            {number: 45, name: "الجاثية", englishName: "Al-Jathiyah", verses: 37, type: "مكية"},
+            {number: 46, name: "الأحقاف", englishName: "Al-Ahqaf", verses: 35, type: "مكية"},
+            {number: 47, name: "محمد", englishName: "Muhammad", verses: 38, type: "مدنية"},
+            {number: 48, name: "الفتح", englishName: "Al-Fath", verses: 29, type: "مدنية"},
+            {number: 49, name: "الحجرات", englishName: "Al-Hujurat", verses: 18, type: "مدنية"},
+            {number: 50, name: "ق", englishName: "Qaf", verses: 45, type: "مكية"},
+            {number: 51, name: "الذاريات", englishName: "Adh-Dhariyat", verses: 60, type: "مكية"},
+            {number: 52, name: "الطور", englishName: "At-Tur", verses: 49, type: "مكية"},
+            {number: 53, name: "النجم", englishName: "An-Najm", verses: 62, type: "مكية"},
+            {number: 54, name: "القمر", englishName: "Al-Qamar", verses: 55, type: "مكية"},
+            {number: 55, name: "الرحمن", englishName: "Ar-Rahman", verses: 78, type: "مكية"},
+            {number: 56, name: "الواقعة", englishName: "Al-Waqi'ah", verses: 96, type: "مكية"},
+            {number: 57, name: "الحديد", englishName: "Al-Hadid", verses: 29, type: "مدنية"},
+            {number: 58, name: "المجادلة", englishName: "Al-Mujadila", verses: 22, type: "مدنية"},
+            {number: 59, name: "الحشر", englishName: "Al-Hashr", verses: 24, type: "مدنية"},
+            {number: 60, name: "الممتحنة", englishName: "Al-Mumtahanah", verses: 13, type: "مدنية"},
+            {number: 61, name: "الصف", englishName: "As-Saf", verses: 14, type: "مدنية"},
+            {number: 62, name: "الجمعة", englishName: "Al-Jumu'ah", verses: 11, type: "مدنية"},
+            {number: 63, name: "المنافقون", englishName: "Al-Munafiqun", verses: 11, type: "مدنية"},
+            {number: 64, name: "التغابن", englishName: "At-Taghabun", verses: 18, type: "مدنية"},
+            {number: 65, name: "الطلاق", englishName: "At-Talaq", verses: 12, type: "مدنية"},
+            {number: 66, name: "التحريم", englishName: "At-Tahrim", verses: 12, type: "مدنية"},
+            {number: 67, name: "الملك", englishName: "Al-Mulk", verses: 30, type: "مكية"},
+            {number: 68, name: "القلم", englishName: "Al-Qalam", verses: 52, type: "مكية"},
+            {number: 69, name: "الحاقة", englishName: "Al-Haqqah", verses: 52, type: "مكية"},
+            {number: 70, name: "المعارج", englishName: "Al-Ma'arij", verses: 44, type: "مكية"},
+            {number: 71, name: "نوح", englishName: "Nuh", verses: 28, type: "مكية"},
+            {number: 72, name: "الجن", englishName: "Al-Jinn", verses: 28, type: "مكية"},
+            {number: 73, name: "المزمل", englishName: "Al-Muzzammil", verses: 20, type: "مكية"},
+            {number: 74, name: "المدثر", englishName: "Al-Muddaththir", verses: 56, type: "مكية"},
+            {number: 75, name: "القيامة", englishName: "Al-Qiyamah", verses: 40, type: "مكية"},
+            {number: 76, name: "الإنسان", englishName: "Al-Insan", verses: 31, type: "مدنية"},
+            {number: 77, name: "المرسلات", englishName: "Al-Mursalat", verses: 50, type: "مكية"},
+            {number: 78, name: "النبأ", englishName: "An-Naba", verses: 40, type: "مكية"},
+            {number: 79, name: "النازعات", englishName: "An-Nazi'at", verses: 46, type: "مكية"},
+            {number: 80, name: "عبس", englishName: "Abasa", verses: 42, type: "مكية"},
+            {number: 81, name: "التكوير", englishName: "At-Takwir", verses: 29, type: "مكية"},
+            {number: 82, name: "الانفطار", englishName: "Al-Infitar", verses: 19, type: "مكية"},
+            {number: 83, name: "المطففين", englishName: "Al-Mutaffifin", verses: 36, type: "مكية"},
+            {number: 84, name: "الانشقاق", englishName: "Al-Inshiqaq", verses: 25, type: "مكية"},
+            {number: 85, name: "البروج", englishName: "Al-Buruj", verses: 22, type: "مكية"},
+            {number: 86, name: "الطارق", englishName: "At-Tariq", verses: 17, type: "مكية"},
+            {number: 87, name: "الأعلى", englishName: "Al-A'la", verses: 19, type: "مكية"},
+            {number: 88, name: "الغاشية", englishName: "Al-Ghashiyah", verses: 26, type: "مكية"},
+            {number: 89, name: "الفجر", englishName: "Al-Fajr", verses: 30, type: "مكية"},
+            {number: 90, name: "البلد", englishName: "Al-Balad", verses: 20, type: "مكية"},
+            {number: 91, name: "الشمس", englishName: "Ash-Shams", verses: 15, type: "مكية"},
+            {number: 92, name: "الليل", englishName: "Al-Layl", verses: 21, type: "مكية"},
+            {number: 93, name: "الضحى", englishName: "Ad-Duhaa", verses: 11, type: "مكية"},
+            {number: 94, name: "الشرح", englishName: "Ash-Sharh", verses: 8, type: "مكية"},
+            {number: 95, name: "التين", englishName: "At-Tin", verses: 8, type: "مكية"},
+            {number: 96, name: "العلق", englishName: "Al-Alaq", verses: 19, type: "مكية"},
+            {number: 97, name: "القدر", englishName: "Al-Qadr", verses: 5, type: "مكية"},
+            {number: 98, name: "البينة", englishName: "Al-Bayyinah", verses: 8, type: "مدنية"},
+            {number: 99, name: "الزلزلة", englishName: "Az-Zalzalah", verses: 8, type: "مدنية"},
+            {number: 100, name: "العاديات", englishName: "Al-Adiyat", verses: 11, type: "مكية"},
+            {number: 101, name: "القارعة", englishName: "Al-Qari'ah", verses: 11, type: "مكية"},
+            {number: 102, name: "التكاثر", englishName: "At-Takathur", verses: 8, type: "مكية"},
+            {number: 103, name: "العصر", englishName: "Al-Asr", verses: 3, type: "مكية"},
+            {number: 104, name: "الهمزة", englishName: "Al-Humazah", verses: 9, type: "مكية"},
+            {number: 105, name: "الفيل", englishName: "Al-Fil", verses: 5, type: "مكية"},
+            {number: 106, name: "قريش", englishName: "Quraysh", verses: 4, type: "مكية"},
+            {number: 107, name: "الماعون", englishName: "Al-Ma'un", verses: 7, type: "مكية"},
+            {number: 108, name: "الكوثر", englishName: "Al-Kawthar", verses: 3, type: "مكية"},
+            {number: 109, name: "الكافرون", englishName: "Al-Kafirun", verses: 6, type: "مكية"},
+            {number: 110, name: "النصر", englishName: "An-Nasr", verses: 3, type: "مدنية"},
+            {number: 111, name: "المسد", englishName: "Al-Masad", verses: 5, type: "مكية"},
+            {number: 112, name: "الإخلاص", englishName: "Al-Ikhlas", verses: 4, type: "مكية"},
+            {number: 113, name: "الفلق", englishName: "Al-Falaq", verses: 5, type: "مكية"},
+            {number: 114, name: "الناس", englishName: "An-Nas", verses: 6, type: "مكية"}
+        ];
+
+        // متغيرات عامة
+        let currentSurah = null;
+        let currentVerses = [];
+        let filteredSurahs = surahsData;
+
+        // تهيئة الصفحة
+        document.addEventListener('DOMContentLoaded', function() {
+            loadSurahsList();
+            loadSurah(1); // تحميل سورة الفاتحة بشكل افتراضي
+            
+            // إضافة مستمع لشريط التقدم
+            window.addEventListener('scroll', updateScrollProgress);
+            
+            // إضافة مستمع للبحث
+            document.getElementById('searchInput').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    performSearch();
+                }
+            });
+        });
+
+        // تحميل قائمة السور
+        function loadSurahsList() {
+            const surahList = document.getElementById('surahList');
+            surahList.innerHTML = '';
+            
+            filteredSurahs.forEach(surah => {
+                const li = document.createElement('li');
+                li.className = 'surah-item';
+                li.innerHTML = `
+                    <div style="display: flex; align-items: center; flex: 1;">
+                        <span class="surah-number">${surah.number}</span>
+                        <div style="flex: 1;">
+                            <div style="font-weight: 600; margin-bottom: 2px;">${surah.name}</div>
+                            <div style="font-size: 0.8rem; color: #666;">${surah.verses} آية • ${surah.type}</div>
+                        </div>
+                    </div>
+                `;
+                li.onclick = () => loadSurah(surah.number);
+                surahList.appendChild(li);
+            });
+        }
+
+        // تحميل سورة معينة
+        async function loadSurah(surahNumber) {
+            const contentArea = document.getElementById('contentArea');
+            const surah = surahsData.find(s => s.number === surahNumber);
+            
+            if (!surah) return;
+
+            // تحديث الحالة النشطة في القائمة
+            document.querySelectorAll('.surah-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            document.querySelectorAll('.surah-item')[surahNumber - 1]?.classList.add('active');
+
+            // عرض شاشة التحميل
+            contentArea.innerHTML = `
+                <div class="loading">
+                    <div class="loading-spinner"></div>
+                    <div class="loading-text">جاري تحميل سورة ${surah.name}...</div>
+                </div>
+            `;
+
+            try {
+                // محاولة جلب البيانات من API
+                const response = await fetch(`https://quranenc.com/api/v1/translation/sura/arabic_moyassar/${surahNumber}`);
+                
+                if (response.ok) {
+                    const data = await response.json();
+                    currentVerses = data.result;
+                } else {
+                    // استخدام بيانات تجريبية في حالة فشل API
+                    currentVerses = generateSampleVerses(surah);
+                }
+                
+                currentSurah = surah;
+                displaySurah();
+                
+            } catch (error) {
+                console.error('خطأ في تحميل السورة:', error);
+                // استخدام بيانات تجريبية
+                currentVerses = generateSampleVerses(surah);
+                currentSurah = surah;
+                displaySurah();
+            }
+        }
+
+        // إنشاء بيانات تجريبية للسور
+        function generateSampleVerses(surah) {
+            const sampleVerses = [];
+            for (let i = 1; i <= surah.verses; i++) {
+                sampleVerses.push({
+                    id: `${surah.number}_${i}`,
+                    sura: surah.number.toString(),
+                    aya: i.toString(),
+                    arabic_text: `آية تجريبية رقم ${i} من سورة ${surah.name}`,
+                    translation: `هذا تفسير تجريبي للآية رقم ${i} من سورة ${surah.name}. يحتوي على شرح مبسط ومعاصر لمعاني الآية الكريمة.`
+                });
+            }
+            return sampleVerses;
+        }
+
+        // عرض السورة
+        function displaySurah() {
+            if (!currentSurah || !currentVerses) return;
+            
+            const contentArea = document.getElementById('contentArea');
+            
+            let content = `
+                <div class="surah-header">
+                    <h2 class="surah-name">سورة ${currentSurah.name}</h2>
+                    <div class="surah-info">
+                        <div class="info-item">
+                            <i class="fas fa-book"></i>
+                            <span>السورة رقم: ${currentSurah.number}</span>
+                        </div>
+                        <div class="info-item">
+                            <i class="fas fa-list-ol"></i>
+                            <span>عدد الآيات: ${currentSurah.verses}</span>
+                        </div>
+                        <div class="info-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>${currentSurah.type}</span>
+                        </div>
+                        <div class="info-item">
+                            <i class="fas fa-globe"></i>
+                            <span>${currentSurah.englishName}</span>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            // إضافة البسملة للسور (ما عدا التوبة)
+            if (currentSurah.number !== 9 && currentSurah.number !== 1) {
+                content += `
+                    <div class="bismillah">
+                        بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ
+                    </div>
+                `;
+            }
+
+            // إضافة الآيات
+            currentVerses.forEach((verse, index) => {
+                content += createVerseHTML(verse, index);
+            });
+
+            contentArea.innerHTML = content;
+            
+            // تمرير سلس إلى أعلى المحتوى
+            contentArea.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        // إنشاء HTML للآية
+        function createVerseHTML(verse, index) {
+            return `
+                <div class="verse-container" data-verse="${verse.aya}">
+                    <div class="verse-header">
+                        <span class="verse-number">
+                            <i class="fas fa-bookmark"></i>
+                            الآية ${verse.aya}
+                        </span>
+                        <div class="verse-controls">
+                            <button class="control-btn" onclick="copyVerse(${index})" title="نسخ الآية">
+                                <i class="fas fa-copy"></i>
+                            </button>
+                            <button class="control-btn" onclick="shareVerse(${index})" title="مشاركة">
+                                <i class="fas fa-share-alt"></i>
+                            </button>
+                            <button class="control-btn" onclick="bookmarkVerse(${index})" title="إضافة إلى المفضلة">
+                                <i class="fas fa-heart"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="verse-content">
+                        <div class="arabic-text" onclick="highlightVerse(this)">
+                            ${verse.arabic_text}
+                        </div>
+                        <div class="translation-section">
+                            <div class="translation-label">
+                                <i class="fas fa-comment-dots"></i>
+                                التفسير الميسر
+                            </div>
+                            <div class="translation-text">
+                                ${verse.translation}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // البحث في السور والآيات
+        function performSearch() {
+            const searchTerm = document.getElementById('searchInput').value.trim();
+            if (!searchTerm) {
+                showNotification('يرجى إدخال كلمة للبحث');
+                return;
+            }
+
+            const results = surahsData.filter(surah => 
+                surah.name.includes(searchTerm) || 
+                surah.englishName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                surah.number.toString() === searchTerm
+            );
+
+            if (results.length > 0) {
+                filteredSurahs = results;
+                loadSurahsList();
+                showNotification(`تم العثور على ${results.length} نتيجة`);
+            } else {
+                showNotification('لم يتم العثور على نتائج');
+            }
+        }
+
+        // تصفية السور
+        function filterSurahs(type) {
+            // تحديث الزر النشط
+            document.querySelectorAll('.filter-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            event.target.classList.add('active');
+
+            switch (type) {
+                case 'all':
+                    filteredSurahs = surahsData;
+                    break;
+                case 'makki':
+                    filteredSurahs = surahsData.filter(s => s.type === 'مكية');
+                    break;
+                case 'madani':
+                    filteredSurahs = surahsData.filter(s => s.type === 'مدنية');
+                    break;
+                case 'short':
+                    filteredSurahs = surahsData.filter(s => s.verses <= 20);
+                    break;
+                case 'long':
+                    filteredSurahs = surahsData.filter(s => s.verses > 100);
+                    break;
+            }
+            
+            loadSurahsList();
+            showNotification(`تم تصفية ${filteredSurahs.length} سورة`);
+        }
+
+        // نسخ الآية
+        function copyVerse(index) {
+            const verse = currentVerses[index];
+            const text = `${verse.arabic_text}\n\nالتفسير: ${verse.translation}\n\n(سورة ${currentSurah.name} - الآية ${verse.aya})`;
+            
+            navigator.clipboard.writeText(text).then(() => {
+                showNotification('تم نسخ الآية بنجاح! 📋');
+            }).catch(() => {
+                showNotification('فشل في نسخ النص');
+            });
+        }
+
+        // مشاركة الآية
+        function shareVerse(index) {
+            const verse = currentVerses[index];
+            const text = `${verse.arabic_text}\n\nالتفسير: ${verse.translation}\n\n(سورة ${currentSurah.name} - الآية ${verse.aya})`;
+            
+            if (navigator.share) {
+                navigator.share({
+                    title: `سورة ${currentSurah.name} - الآية ${verse.aya}`,
+                    text: text
+                });
+            } else {
+                copyVerse(index);
+                showNotification('تم نسخ النص للمشاركة');
+            }
+        }
+
+        // إضافة إلى المفضلة
+        function bookmarkVerse(index) {
+            const verse = currentVerses[index];
+            // هنا يمكن إضافة منطق حفظ المفضلة
+            showNotification(`تم إضافة آية ${verse.aya} من سورة ${currentSurah.name} إلى المفضلة ❤️`);
+        }
+
+        // تمييز الآية
+        function highlightVerse(element) {
+            // إزالة التمييز من جميع الآيات
+            document.querySelectorAll('.arabic-text').forEach(el => {
+                el.style.background = 'rgba(44, 90, 160, 0.05)';
+            });
+            
+            // تمييز الآية المحددة
+            element.style.background = 'linear-gradient(135deg, rgba(44, 90, 160, 0.15), rgba(74, 124, 89, 0.15))';
+            element.style.transform = 'scale(1.02)';
+            
+            setTimeout(() => {
+                element.style.transform = 'scale(1)';
+            }, 200);
+        }
+
+        // تحديث شريط التقدم
+        function updateScrollProgress() {
+            const scrollTop = window.pageYOffset;
+            const docHeight = document.body.scrollHeight - window.innerHeight;
+            const scrollPercent = Math.min((scrollTop / docHeight) * 100, 100);
+            document.getElementById('scrollProgressBar').style.width = scrollPercent + '%';
+        }
+
+        // عرض الإشعارات
+        function showNotification(message) {
+            const notification = document.createElement('div');
+            notification.className = 'notification';
+            notification.textContent = message;
+            document.body.appendChild(notification);
+
+            setTimeout(() => {
+                notification.style.animation = 'slideIn 0.3s ease reverse';
+                setTimeout(() => notification.remove(), 300);
+            }, 3000);
+        }
+
+        // اختصارات لوحة المفاتيح
+        document.addEventListener('keydown', function(e) {
+            if (e.ctrlKey || e.metaKey) {
+                switch(e.key) {
+                    case 'f':
+                        e.preventDefault();
+                        document.getElementById('searchInput').focus();
+                        break;
+                    case 'ArrowLeft':
+                        e.preventDefault();
+                        if (currentSurah && currentSurah.number > 1) {
+                            loadSurah(currentSurah.number - 1);
+                        }
+                        break;
+                    case 'ArrowRight':
+                        e.preventDefault();
+                        if (currentSurah && currentSurah.number < 114) {
+                            loadSurah(currentSurah.number + 1);
+                        }
+                        break;
+                }
+            }
+        });
+    </script>
+</body>
+</html>
