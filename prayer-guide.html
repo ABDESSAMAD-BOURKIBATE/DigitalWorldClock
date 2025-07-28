@@ -1327,6 +1327,13 @@
           <h3 class="card-title">مواقيت الصلاة</h3>
           <p>أوقات الصلاة الدقيقة مع التنبيهات الذكية</p>
         </div>
+        <div class="card" onclick="showTab('tafsir')">
+          <div class="card-icon">
+            <i class="fas fa-lightbulb"></i>
+          </div>
+          <h3 class="card-title">تفسير القرآن الكريم</h3>
+          <p>  عرض تفسير آيات القرآن الكريم بأسلوب مبسط</p>
+        </div>
         <div class="card" onclick="window.location.href='mushaf.html'">
           <div class="card-icon">
             <i class="fas fa-quran"></i>
@@ -1341,9 +1348,26 @@
           <h3 class="card-title">شرح كتاب الصلاة</h3>
           <p>   كتاب الصلاة وأهم أحكامه بأسلوب مبسط مع د.عامر بهجت </p>
         </div>
+        <!-- بطاقة الاختبار الجديدة -->
+        <div class="card" onclick="showTab('quiz-section')">
+          <div class="card-icon">
+            <i class="fas fa-question-circle"></i>
+          </div>
+          <h3 class="card-title">اختبر معلوماتك عن الصلاة والوضوء</h3>
+          <p>اختبار تفاعلي متعدد الخيارات حول الصلاة والوضوء</p>
+        </div>
       </div>
     </div>
 
+    <!-- قسم الاختبار التفاعلي -->
+    <div id="quiz-section" class="tab-content">
+      <div class="hero-card">
+        <h2 style="text-align:center; color:var(--text-gold); margin-bottom:20px;"><i class="fas fa-question-circle"></i> اختبار معلوماتك عن الصلاة والوضوء</h2>
+        <div id="quiz-container" style="max-width:500px;margin:auto;"></div>
+        <button id="quiz-next-btn" style="display:none; margin-top:18px; background:var(--primary-gold); color:#222; border:none; border-radius:8px; padding:10px 22px; font-weight:bold; font-size:1em; cursor:pointer;">السؤال التالي</button>
+        <div id="quiz-result" style="margin-top:20px; font-size:1.2em; color:var(--text-gold);"></div>
+      </div>
+    </div>
     <!-- قسم شرح كتاب الصلاة -->
     <div id="book-explanation" class="tab-content">
       <div class="hero-card">
@@ -3581,5 +3605,81 @@ function updateQiblaDirection() {
       synth.speak(utter);
     }
   </script>
+    <script>
+    // كود الاختبار التفاعلي
+    const quizQuestions = [
+      {
+        question: "كم عدد ركعات صلاة الفجر؟",
+        options: ["ركعتان", "ثلاث ركعات", "أربع ركعات", "خمس ركعات"],
+        answer: 0
+      },
+      {
+        question: "ما هو أول ركن في الوضوء؟",
+        options: ["غسل اليدين", "النية", "المضمضة", "غسل الوجه"],
+        answer: 1
+      },
+      {
+        question: "كم عدد أركان الصلاة؟",
+        options: ["سبعة", "خمسة", "أربعة عشر", "عشرة"],
+        answer: 2
+      },
+      {
+        question: "هل يجوز الكلام أثناء الوضوء؟",
+        options: ["نعم", "لا"],
+        answer: 0
+      },
+      {
+        question: "ما هو الدعاء بين السجدتين؟",
+        options: ["رب اغفر لي وارحمني", "سبحان ربي الأعلى", "اللهم صل على محمد", "لا يوجد دعاء"],
+        answer: 0
+      }
+    ];
+
+    let quizIndex = 0;
+    let quizScore = 0;
+
+    function showQuizQuestion() {
+      const q = quizQuestions[quizIndex];
+      let html = `<div style='font-size:1.1em; margin-bottom:16px;'>${q.question}</div>`;
+      q.options.forEach((opt, i) => {
+        html += `<div style='margin-bottom:10px;'><label style='cursor:pointer;'><input type='radio' name='quizOpt' value='${i}' style='margin-left:8px;'>${opt}</label></div>`;
+      });
+      document.getElementById('quiz-container').innerHTML = html;
+      document.getElementById('quiz-next-btn').style.display = 'block';
+      document.getElementById('quiz-result').innerHTML = '';
+    }
+
+    function showQuizResult() {
+      document.getElementById('quiz-container').innerHTML = '';
+      document.getElementById('quiz-next-btn').style.display = 'none';
+      document.getElementById('quiz-result').innerHTML = `نتيجتك: ${quizScore} من ${quizQuestions.length} سؤال`;
+    }
+
+    document.getElementById('quiz-next-btn').onclick = function() {
+      const selected = document.querySelector('input[name="quizOpt"]:checked');
+      if (!selected) {
+        document.getElementById('quiz-result').innerHTML = '<span style="color:red">يرجى اختيار إجابة</span>';
+        return;
+      }
+      if (parseInt(selected.value) === quizQuestions[quizIndex].answer) quizScore++;
+      quizIndex++;
+      if (quizIndex < quizQuestions.length) {
+        showQuizQuestion();
+      } else {
+        showQuizResult();
+      }
+    };
+
+    // عند إظهار قسم الاختبار
+    function showTab(tabId) {
+      document.querySelectorAll('.tab-content').forEach(e => e.classList.remove('active'));
+      document.getElementById(tabId).classList.add('active');
+      if (tabId === 'quiz-section') {
+        quizIndex = 0;
+        quizScore = 0;
+        showQuizQuestion();
+      }
+    }
+    </script>
   </body>
 </html>
