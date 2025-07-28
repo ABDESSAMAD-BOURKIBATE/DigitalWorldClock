@@ -3949,6 +3949,15 @@ function updateQiblaDirection() {
     let quizIndex = 0;
     let quizScore = 0;
 
+// دالة لخلط الأسئلة عشوائياً
+function shuffleQuestions(questions) {
+  for (let i = questions.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [questions[i], questions[j]] = [questions[j], questions[i]];
+  }
+  return questions;
+}
+
     function showQuizQuestion() {
       const q = quizQuestions[quizIndex];
       let html = `<div style='font-size:1.1em; margin-bottom:16px;'>${q.question}</div>`;
@@ -4082,6 +4091,8 @@ function updateQiblaDirection() {
       if (tabId === 'quiz-section') {
         quizIndex = 0;
         quizScore = 0;
+        // خلط الأسئلة عشوائياً عند بدء الاختبار
+        shuffleQuestions(quizQuestions);
         showQuizQuestion();
       }
     }
