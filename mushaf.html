@@ -1539,6 +1539,116 @@
             opacity: 0.5;
             z-index: -1;
         }
+        /* زر إخفاء/إظهار المشغل */
+        .minimize-player-btn {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            width: 35px;
+            height: 35px;
+            background: rgba(212, 175, 55, 0.2);
+            border: 2px solid var(--primary-gold);
+            border-radius: 50%;
+            color: var(--primary-gold);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            z-index: 10;
+        }
+        .minimize-player-btn:hover {
+            background: var(--primary-gold);
+            color: var(--bg-dark);
+            transform: scale(1.1);
+        }
+        .floating-audio-player.minimized {
+            height: 80px;
+            overflow: hidden;
+        }
+        .floating-audio-player.minimized .audio-info,
+        .floating-audio-player.minimized .progress-container,
+        .floating-audio-player.minimized .audio-controls {
+            display: none;
+        }
+        .floating-audio-player.minimized .audio-player-header {
+            margin-bottom: 0;
+        }
+        .download-btn {
+            background: linear-gradient(135deg, #28a745, #20c997);
+            border: 2px solid #28a745;
+            opacity: 0.7;
+            pointer-events: none;
+            transition: all 0.4s ease;
+        }
+        .download-btn.enabled {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        .download-btn.enabled:hover {
+            background: linear-gradient(135deg, #20c997, #28a745);
+            border-color: #20c997;
+            transform: scale(1.1);
+            box-shadow: 0 8px 25px rgba(40, 167, 69, 0.4);
+        }
+        .floating-mini-player {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            background: var(--gradient-gold);
+            border: 2px solid var(--primary-gold);
+            border-radius: 50%;
+            color: var(--bg-dark);
+            cursor: pointer;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            box-shadow: var(--neon-glow), var(--modern-shadow);
+            animation: pulse 2s ease-in-out infinite;
+            z-index: 999;
+            transition: all 0.3s ease;
+        }
+        .floating-mini-player:hover {
+            transform: scale(1.1);
+        }
+        .floating-mini-player.show {
+            display: flex;
+        }
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        .audio-controls {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 12px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+        @media (max-width: 480px) {
+            .floating-audio-player {
+                width: 98%;
+                right: 1%;
+            }
+            .audio-controls {
+                gap: 8px;
+            }
+            .control-button {
+                width: 40px;
+                height: 40px;
+                font-size: 1rem;
+            }
+            .play-pause-btn {
+                width: 50px;
+                height: 50px;
+                font-size: 1.2rem;
+            }
+        }
     </style>
 </head>
 <body>
@@ -1553,6 +1663,9 @@
 
     <!-- مشغل الصوت المتطور -->
     <div class="floating-audio-player" id="floatingPlayer">
+        <button class="minimize-player-btn" id="minimizeBtn" onclick="togglePlayerSize()" title="تصغير/تكبير">
+            <i class="fas fa-minus"></i>
+        </button>
         <div class="audio-player-header">
             <div class="audio-player-title">
                 <i class="fas fa-headphones"></i>
@@ -1562,12 +1675,10 @@
                 <i class="fas fa-times"></i>
             </button>
         </div>
-        
         <div class="audio-info">
             <div class="audio-surah-name" id="floatingPlayerSurah">السورة</div>
             <div class="audio-reciter-name" id="floatingPlayerReciter">القارئ</div>
         </div>
-        
         <div class="progress-container">
             <div class="progress-bar" id="progressBar" onclick="seekAudio(event)">
                 <div class="progress-fill" id="progressFill"></div>
@@ -1577,7 +1688,6 @@
                 <span id="totalTime">0:00</span>
             </div>
         </div>
-        
         <div class="audio-controls">
             <button class="control-button" onclick="previousSurah()" title="السورة السابقة">
                 <i class="fas fa-step-backward"></i>
@@ -1594,9 +1704,15 @@
             <button class="control-button" onclick="nextSurah()" title="السورة التالية">
                 <i class="fas fa-step-forward"></i>
             </button>
+            <button class="control-button download-btn" id="downloadBtn" onclick="downloadCurrentSurah()" title="تنزيل السورة (متاح بعد التشغيل)">
+                <i class="fas fa-download"></i>
+            </button>
         </div>
-        
         <audio id="mainAudioPlayer" preload="metadata"></audio>
+    </div>
+    <!-- الزر العائم المصغر -->
+    <div class="floating-mini-player" id="floatingMiniPlayer" onclick="showFloatingPlayer()" title="إظهار المشغل">
+        <i class="fas fa-music"></i>
     </div>
 
     <div class="container">
@@ -2646,6 +2762,269 @@
 
         // بدء تأثيرات البريق
         setTimeout(createSparkles, 2000);
+    // متغيرات جديدة
+    let isPlayerMinimized = false;
+    let isPlayerHidden = false;
+    let currentAudioUrl = '';
+    let currentSurahName = '';
+    let currentReciterName = '';
+
+    // تبديل حجم المشغل (تصغير/تكبير)
+    function togglePlayerSize() {
+        const player = document.getElementById('floatingPlayer');
+        const minimizeBtn = document.getElementById('minimizeBtn');
+        const minimizeIcon = minimizeBtn.querySelector('i');
+        isPlayerMinimized = !isPlayerMinimized;
+        if (isPlayerMinimized) {
+            player.classList.add('minimized');
+            minimizeIcon.className = 'fas fa-plus';
+            minimizeBtn.title = 'تكبير';
+        } else {
+            player.classList.remove('minimized');
+            minimizeIcon.className = 'fas fa-minus';
+            minimizeBtn.title = 'تصغير';
+        }
+    }
+
+    // إخفاء المشغل العائم وإظهار الزر المصغر
+    function hideFloatingPlayer() {
+        const floatingPlayer = document.getElementById('floatingPlayer');
+        const miniPlayer = document.getElementById('floatingMiniPlayer');
+        floatingPlayer.classList.remove('active');
+        miniPlayer.classList.add('show');
+        isPlayerHidden = true;
+    }
+
+    // إظهار المشغل العائم وإخفاء الزر المصغر
+    function showFloatingPlayer() {
+        const floatingPlayer = document.getElementById('floatingPlayer');
+        const miniPlayer = document.getElementById('floatingMiniPlayer');
+        if (currentAudio && currentAudio.src) {
+            floatingPlayer.classList.add('active');
+            miniPlayer.classList.remove('show');
+            isPlayerHidden = false;
+            isFloatingPlayerActive = true;
+        }
+    }
+
+    // تنزيل السورة الحالية
+    function downloadCurrentSurah() {
+        if (!currentAudioUrl || !currentSurahName) {
+            showNotification('لا توجد سورة متاحة للتنزيل', 'warning');
+            return;
+        }
+        showNotification(`جاري تنزيل سورة ${currentSurahName}...`, 'info');
+        fetch(currentAudioUrl)
+            .then(response => {
+                if (!response.ok) throw new Error('فشل التحميل');
+                return response.blob();
+            })
+            .then(blob => {
+                const url = window.URL.createObjectURL(blob);
+                const link = document.createElement('a');
+                link.href = url;
+                link.download = `${currentSurahName} - ${currentReciterName}.mp3`;
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                window.URL.revokeObjectURL(url);
+                setTimeout(() => {
+                    showNotification(`تم بدء تنزيل سورة ${currentSurahName}`, 'success');
+                }, 1000);
+            })
+            .catch(() => {
+                showNotification('حدث خطأ أثناء تنزيل السورة', 'error');
+            });
+    }
+
+    // تمكين زر التنزيل
+    function enableDownloadButton() {
+        const downloadBtn = document.getElementById('downloadBtn');
+        downloadBtn.classList.add('enabled');
+        downloadBtn.title = 'تنزيل السورة';
+    }
+
+    // تعطيل زر التنزيل
+    function disableDownloadButton() {
+        const downloadBtn = document.getElementById('downloadBtn');
+        downloadBtn.classList.remove('enabled');
+        downloadBtn.title = 'تنزيل السورة (متاح بعد التشغيل)';
+    }
+
+    // تحديث دالة تشغيل الصوت للسورة
+    function playAudioForSurah(surah, reciter) {
+        const moshaf = reciter.moshaf[0];
+        const audioUrl = `${moshaf.server}${String(surah.id).padStart(3, '0')}.mp3`;
+        currentAudioUrl = audioUrl;
+        currentSurahName = surah.name;
+        currentReciterName = reciter.name;
+        currentSurahIndex = surah.id - 1;
+        currentReciterData = reciter;
+        document.getElementById('floatingPlayerSurah').textContent = surah.name;
+        document.getElementById('floatingPlayerReciter').textContent = `بصوت: ${reciter.name}`;
+        const floatingPlayer = document.getElementById('floatingPlayer');
+        const miniPlayer = document.getElementById('floatingMiniPlayer');
+        if (!isPlayerHidden) {
+            floatingPlayer.classList.add('active');
+            miniPlayer.classList.remove('show');
+        } else {
+            miniPlayer.classList.add('show');
+        }
+        isFloatingPlayerActive = true;
+        document.getElementById('selectedSurahName').querySelector('span').textContent = surah.name;
+        document.getElementById('selectedReciterName').textContent = `بصوت القارئ: ${reciter.name}`;
+        document.getElementById('selectedSurahInfo').style.display = 'block';
+        const audioPlayer = document.getElementById('mainAudioPlayer');
+        audioPlayer.src = audioUrl;
+        currentAudio = audioPlayer;
+        disableDownloadButton();
+        showNotification(`جاري تشغيل سورة ${surah.name}`, 'success');
+        audioPlayer.play().catch(e => {
+            console.log('التشغيل التلقائي محظور');
+            showNotification('اضغط على زر التشغيل لبدء الاستماع', 'info');
+        });
+    }
+
+    // تحديث دالة إغلاق المشغل العائم
+    function closeFloatingPlayer() {
+        const floatingPlayer = document.getElementById('floatingPlayer');
+        const miniPlayer = document.getElementById('floatingMiniPlayer');
+        floatingPlayer.classList.remove('active');
+        miniPlayer.classList.remove('show');
+        isFloatingPlayerActive = false;
+        isPlayerHidden = false;
+        isPlayerMinimized = false;
+        floatingPlayer.classList.remove('minimized');
+        document.getElementById('minimizeBtn').querySelector('i').className = 'fas fa-minus';
+        document.getElementById('minimizeBtn').title = 'تصغير';
+        if (currentAudio) {
+            currentAudio.pause();
+            currentAudio.src = '';
+        }
+        disableDownloadButton();
+        currentAudioUrl = '';
+        currentSurahName = '';
+        currentReciterName = '';
+        hideAudioInfo();
+    }
+
+    // تحديث معالج الأحداث للصوت
+    function setupAudioPlayer() {
+        const audio = document.getElementById('mainAudioPlayer');
+        audio.addEventListener('loadstart', () => {
+            showLoading(true);
+            disableDownloadButton();
+        });
+        audio.addEventListener('canplay', () => {
+            showLoading(false);
+            enableDownloadButton();
+        });
+        audio.addEventListener('timeupdate', updateProgress);
+        audio.addEventListener('ended', onAudioEnded);
+        audio.addEventListener('play', updatePlayPauseButtons);
+        audio.addEventListener('pause', updatePlayPauseButtons);
+        audio.addEventListener('error', onAudioError);
+    }
+
+    // تحديث معالجة اختصارات لوحة المفاتيح
+    function handleKeyboardShortcuts(e) {
+        if (e.key === 'Escape') {
+            closeSurahModal();
+        }
+        if (e.code === 'Space' && e.target.tagName !== 'INPUT' && e.target.tagName !== 'SELECT') {
+            e.preventDefault();
+            if (currentAudio && (isFloatingPlayerActive || isPlayerHidden)) {
+                toggleMainPlayPause();
+            }
+        }
+        if (e.key === 'h' && (isFloatingPlayerActive || isPlayerHidden)) {
+            e.preventDefault();
+            if (isPlayerHidden) {
+                showFloatingPlayer();
+            } else {
+                hideFloatingPlayer();
+            }
+        }
+        if (e.key === 'm' && isFloatingPlayerActive && !isPlayerHidden) {
+            e.preventDefault();
+            togglePlayerSize();
+        }
+        if (e.key === 'd' && isFloatingPlayerActive && currentAudioUrl) {
+            e.preventDefault();
+            downloadCurrentSurah();
+        }
+        if ((e.key === '+' || e.key === '=') && document.getElementById('surahModal').style.display === 'block') {
+            e.preventDefault();
+            changeFontSize(2);
+        }
+        if (e.key === '-' && document.getElementById('surahModal').style.display === 'block') {
+            e.preventDefault();
+            changeFontSize(-2);
+        }
+        if (e.key === 'ArrowLeft' && (isFloatingPlayerActive || isPlayerHidden)) {
+            e.preventDefault();
+            nextSurah();
+        }
+        if (e.key === 'ArrowRight' && (isFloatingPlayerActive || isPlayerHidden)) {
+            e.preventDefault();
+            previousSurah();
+        }
+        if ((e.key === 'ArrowDown' || e.key === 'ArrowUp') && document.getElementById('surahModal').style.display === 'block') {
+            const ayahs = document.querySelectorAll('.modal-ayah');
+            const highlighted = document.querySelector('.modal-ayah.highlighted');
+            if (ayahs.length > 0) {
+                e.preventDefault();
+                let index = 0;
+                if (highlighted) {
+                    index = Array.from(ayahs).indexOf(highlighted);
+                    if (e.key === 'ArrowDown' && index < ayahs.length - 1) {
+                        index++;
+                    } else if (e.key === 'ArrowUp' && index > 0) {
+                        index--;
+                    }
+                }
+                highlightAyah(ayahs[index]);
+                ayahs[index].scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+        }
+        if (e.key === 'f' && e.ctrlKey) {
+            e.preventDefault();
+            document.getElementById('searchInput').focus();
+        }
+    }
+
+    // تحديث دالة إظهار الإشعارات لتشمل المزيد من الخيارات
+    function showNotification(message, type = 'info', duration = 3000) {
+        const notification = document.getElementById('audioNotification');
+        const textSpan = document.getElementById('notificationText');
+        textSpan.textContent = message;
+        const icon = notification.querySelector('i');
+        switch(type) {
+            case 'success':
+                icon.className = 'fas fa-check-circle';
+                notification.style.background = 'linear-gradient(135deg, #28a745, #20c997)';
+                break;
+            case 'error':
+                icon.className = 'fas fa-exclamation-triangle';
+                notification.style.background = 'linear-gradient(135deg, #dc3545, #c82333)';
+                break;
+            case 'warning':
+                icon.className = 'fas fa-exclamation-circle';
+                notification.style.background = 'linear-gradient(135deg, #ffc107, #e0a800)';
+                break;
+            case 'info':
+                icon.className = 'fas fa-info-circle';
+                notification.style.background = 'linear-gradient(135deg, #17a2b8, #138496)';
+                break;
+            default:
+                icon.className = 'fas fa-music';
+                notification.style.background = 'linear-gradient(135deg, var(--primary-gold), var(--secondary-gold))';
+        }
+        notification.classList.add('show');
+        setTimeout(() => {
+            notification.classList.remove('show');
+        }, duration);
+    }
     </script>
 </body>
 </html>
